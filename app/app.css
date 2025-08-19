@@ -22,3 +22,23 @@
 .swiper-pagination-bullet-active {
   background: #ffffff !important; /* putih solid */
 }
+
+.gradient-border {
+  position: relative;
+  border-radius: 12px; /* bisa disesuaikan */
+  padding: 3px; /* ketebalan border */
+  background: linear-gradient(
+    90deg,
+    #8cbafb,
+    #6ea8fa 16%,
+    #5096f8,
+    #ffffff 20%
+  );
+}
+
+.gradient-border > .content {
+  border-radius: 10px;
+  background: #fff; /* isi kontainer */
+  height: 100%;
+  width: 100%;
+}

@@ -7,5 +7,5 @@ export default [
   route("partner", "routes/partner.tsx"),
   route("certification", "routes/certification.tsx"),
   route("contact", "routes/contact.tsx"),
-  
+  route("about", "routes/about.tsx"),
 ] satisfies RouteConfig;
