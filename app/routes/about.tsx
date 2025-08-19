@@ -107,7 +107,7 @@ export default function About() {
 
   return (
     <main>
-      <section className="bg-blue-950 relative text-white pt-12 py-18 lg:py-12 lg:min-h-[650px] overflow-hidden">
+      <section className="bg-blue-950 relative text-white pt-12 py-18 lg:py-12 lg:min-h-[450px] overflow-hidden">
         <div
           className="absolute z-10 top-[-250px] right-[-250px] w-[400px] h-[400px] rounded-full filter blur-xl"
           style={{
@@ -244,14 +244,14 @@ export default function About() {
             {values.map((item, i) => (
               <div
                 key={i}
-                className="border aspect-square p-4 border-gray-300 rounded-xl bg-white shadow-sm bg-top-right bg-cover bg-no-repeat bg-card flex flex-col justify-between"
+                className="border min-h-[200px] aspect-auto lg:aspect-square p-4 border-gray-300 rounded-xl bg-white shadow-sm bg-top-right bg-cover bg-no-repeat bg-card flex flex-col justify-between"
                 style={{ backgroundImage: `url(/bg-card.png)` }}
               >
-                <div className="relative border-3 text-blue-400 text-5xl font-bold w-32 h-32 flex items-center justify-center rounded-2xl overflow-hidden">
+                <div className="relative border-2 lg:border-3 text-blue-400 text-2xl lg:text-5xl font-bold w-12 h-12 lg:w-26 lg:h-26 flex items-center justify-center rounded-lg lg:rounded-xl overflow-hidden">
                   {item.letter}
                 </div>
-                <div className="text-lg text-gray-500 bg-gray-50 p-3 rounded-b-xl">
-                  <p className=" wrap-all">{item.text}</p>
+                <div className="text-lg text-gray-500 py-3 rounded-b-xl">
+                  <p className="wrap-all max-w-2xs">{item.text}</p>
                 </div>
               </div>
             ))}
@@ -267,7 +267,7 @@ export default function About() {
                 the life cycle of our customers’ technology.
               </p>
             </div>
-            <div className="items-start flex flex-col justify-end">
+            <div className="lg:items-start items-end flex flex-col justify-end lg:text-left text-right">
               <h3 className="uppercase text-xl mb-2">Mission</h3>
               <p className="text-lg leading-relaxed">
                 Provide exceptional service, demonstrate high commitment to
