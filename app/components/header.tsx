@@ -46,7 +46,7 @@ export default function Header() {
 
   return (
     <header className="border-b bg-white text-gray-600">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 md:py-4">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 lg:py-4">
         {/* Logo */}
         <div className="flex gap-16">
           <Link to="/" className="flex items-center gap-2">
@@ -54,7 +54,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Menu */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-6">
             {/* Solutions dropdown */}
             <div className="relative">
               <button
@@ -92,7 +92,7 @@ export default function Header() {
         </div>
 
         {/* Right buttons */}
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden lg:flex items-center gap-2">
           <button className="border rounded-lg px-3 py-1 flex items-center gap-1 text-sm">
             🇬🇧 EN
           </button>
@@ -111,7 +111,7 @@ export default function Header() {
         </div>
 
         {/* Mobile menu button */}
-        <button className="md:hidden" onClick={() => setMobileOpen(true)}>
+        <button className="lg:hidden" onClick={() => setMobileOpen(true)}>
           <Menu className="text-gray-400" size={24} />
         </button>
       </div>

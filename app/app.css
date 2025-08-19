@@ -2,6 +2,23 @@
 
 @theme {
   --font-sans:
-    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* Turunkan posisi pagination */
+.swiper-pagination {
+  bottom: -50px !important; /* sesuaikan jaraknya */
+}
+
+/* Style dot normal */
+.swiper-pagination-bullet {
+  position: relative;
+  background: rgba(255, 255, 255, 0.5) !important; /* putih transparan */
+  opacity: 1 !important; /* pastikan selalu terlihat */
+}
+
+/* Style dot aktif */
+.swiper-pagination-bullet-active {
+  background: #ffffff !important; /* putih solid */
 }
