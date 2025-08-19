@@ -13,6 +13,7 @@ import {
   Linkedin,
 } from "lucide-react";
 import type { Swiper as SwiperRef } from "swiper/types";
+import CTASection from "~/components/cta";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -72,17 +73,23 @@ export default function Home() {
     {
       title: "Transforming Peruri Businesses with SD–WAN Technology",
       company: "Peruri",
-      img: "https://placehold.co/400",
+      img: "https://awsimages.detik.net.id/community/media/visual/2024/11/19/kantor-peruri-resmi-jadi-cagar-budaya-1_169.jpeg?w=700&q=90",
+      companyLogo:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_2024_Perum_Peruri.svg/2560px-Logo_2024_Perum_Peruri.svg.png",
     },
     {
       title: "Transforming J&T Express Businesses with SD–WAN Technology",
       company: "J&T Express",
-      img: "https://placehold.co/400",
+      img: "https://foto.kontan.co.id/8TQWPa6yy4jEQX5iWDd_3ql1pv4=/640x360/smart/2021/12/15/1054233720p.jpg",
+      companyLogo:
+        "https://1000logos.net/wp-content/uploads/2022/08/JT-Express-Logo.png",
     },
     {
       title: "Transforming Peruri Businesses with SD–WAN Technology",
       company: "Peruri",
-      img: "https://placehold.co/400",
+      img: "https://awsimages.detik.net.id/community/media/visual/2024/11/19/kantor-peruri-resmi-jadi-cagar-budaya-1_169.jpeg?w=700&q=90",
+      companyLogo:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_2024_Perum_Peruri.svg/2560px-Logo_2024_Perum_Peruri.svg.png",
     },
   ];
 
@@ -189,7 +196,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-blue-950 relative text-white pt-12 py-18 lg:py-12  overflow-hidden lg:overflow-visible">
+      <section className="bg-blue-950 relative text-white pt-12 py-18 lg:py-12  overflow-hidden">
         <img
           src="/bg-solutions.png"
           alt="Background Solution"
@@ -288,13 +295,19 @@ export default function Home() {
                 <img
                   src={c.img}
                   alt={c.title}
-                  className="w-full object-cover"
+                  className="w-full object-cover h-full"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 flex flex-col justify-end">
-                  <p className="text-white text-xs font-semibold uppercase">
-                    {c.company}
-                  </p>
-                  <p className="text-white font-medium">{c.title}</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 gap-2 flex flex-col justify-end items-start">
+                  <img
+                    src={c.companyLogo}
+                    alt={c.title}
+                    className="h-8 object-contain brightness-0 grayscale invert"
+                  />
+                  <p className="text-white font-medium text-xl">{c.title}</p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-white font-medium">Learn more</p>
+                    <ArrowRight className="h-4 w-4 text-white" />
+                  </div>
                 </div>
               </div>
             ))}
@@ -302,10 +315,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section 3 - Our Clients Story */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4">
-          <p className="uppercase text-sm tracking-wide text-gray-900 mb-2">
+          <p className="uppercase tracking-wide text-gray-900 mb-2">
             Our <span className="font-semibold">Clients Story</span>
           </p>
           <h2 className="text-4xl font-semibold mb-8 max-w-lg">
@@ -339,20 +351,27 @@ export default function Home() {
       </section>
 
       <section className="py-16 max-w-7xl mx-auto px-4">
-        <p className="text-sm tracking-widest text-gray-900 uppercase">
+        <p className=" tracking-widest text-gray-900 uppercase">
           <span className="font-semibold">Technology</span> Partners
         </p>
-        <h2 className="mt-2 text-4xl font-semibold text-gray-900 leading-snug">
-          Leading Solutions with <br /> World-Class Partners
+        <h2 className="mt-2 text-3xl lg:text-4xl max-w-lg font-semibold text-gray-900 leading-snug">
+          Leading Solutions with World-Class Partners
         </h2>
-        <a href="#" className="my-8 inline-flex items-center font-medium">
-          Learn More about our Technology Partners →
+        <a
+          href="#"
+          className="my-8 hidden lg:inline-flex items-center font-medium"
+        >
+          Learn More about our Technology Partners{" "}
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </a>
+        <a href="#" className="my-8 flex items-center font-medium lg:hidden">
+          Learn More <ArrowRight className="ml-2 h-5 w-5" />
         </a>
 
         {/* Logo carousel (contoh pakai flex biasa, bisa ganti swiper/marquee) */}
         {Marquee && (
           <Marquee
-            className="mt-8"
+            className="mt-16"
             gradient={true}
             autoFill={true}
             gradientWidth={50}
@@ -370,120 +389,7 @@ export default function Home() {
         )}
       </section>
 
-      {/* SECTION 2: CTA BLUE */}
-      <section className="relative bg-blue-950 text-white py-20 overflow-hidden">
-        <img
-          src="/bg-solutions.png"
-          alt="Background Solution"
-          className="absolute top-0 right-0 opacity-70 max-w-4xl"
-        />
-
-        <div
-          className="absolute z-10 top-[-250px] right-[-250px] w-[500px] h-[500px] rounded-full filter blur-xl"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(135,206,250,0.15), rgba(0,128,128,0.1))",
-          }}
-        ></div>
-
-        <div
-          className="absolute z-10 bottom-[-250px] left-[-100px] w-[300px] h-[300px] rounded-full filter blur-xl"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(135,206,250,0.15), rgba(0,128,128,0.1))",
-          }}
-        ></div>
-        <div className="max-w-7xl relative mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
-          <h2 className="text-4xl font-semibold max-w-xl leading-snug">
-            We run all kinds of IT services <br /> that vow your success
-          </h2>
-          <a
-            href="#"
-            className="mt-6 md:mt-0 inline-flex items-center px-6 py-3 bg-white text-gray-900 font-medium rounded-full shadow"
-          >
-            Talk to our expert →
-          </a>
-        </div>
-      </section>
-
-      {/* SECTION 3: FOOTER */}
-      <footer className="bg-white border-t">
-        <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-10">
-          {/* Company Info */}
-          <div>
-            <img src="/logo.png" alt="NNP" className="h-10 mb-4" />
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Jalan Kamal Raya Outer Ring Road, <br />
-              Mutiara Taman Palem A17 / 29 - 30, <br />
-              Kelurahan Cengkareng Timur, Kecamatan <br />
-              Cengkareng, Jakarta Barat, 11730
-            </p>
-            <div className="flex gap-8 mt-6">
-              <img src="/sgs.png" alt="SGS" className="h-10" />
-              <img src="/kan.png" alt="KAN" className="h-10" />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-8">
-            {/* Solutions */}
-            <div>
-              <h4 className="font-semibold text-gray-500 mb-3">Solutions</h4>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li>Security Infrastructure</li>
-                <li>Managed Services</li>
-                <li>IoT Solution</li>
-                <li>Data Center Infrastructure</li>
-                <li>Network Infrastructure</li>
-              </ul>
-            </div>
-
-            {/* Company */}
-            <div>
-              <h4 className="font-semibold text-gray-500 mb-3">Company</h4>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li>About Us</li>
-                <li>Case Study</li>
-                <li>Blog</li>
-                <li>Careers</li>
-                <li>Partners</li>
-              </ul>
-            </div>
-
-            {/* Resources */}
-            <div>
-              <h4 className="font-semibold text-gray-500 mb-3">Resources</h4>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li>Privacy & Terms</li>
-                <li>Sitemap</li>
-                <li>Certifications</li>
-                <li>Contact Us</li>
-                <li>Support</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div className="border-t-2 py-6 text-center md:flex md:justify-between border-gray-200 md:items-center max-w-7xl mx-auto px-6">
-          <p className="text-sm text-gray-500">
-            © 2025 Nusa Network Prakarsa. All rights reserved.
-          </p>
-          <div className="flex justify-center gap-4 mt-4 md:mt-0">
-            {/* <a href="#">
-              <Tikt size={24} />
-            </a> */}
-            <a href="#">
-              <Linkedin size={24} />
-            </a>
-            <a href="#">
-              <Facebook size={24} />
-            </a>
-            <a href="#">
-              <Instagram size={24} />
-            </a>
-          </div>
-        </div>
-      </footer>
+      <CTASection />
     </main>
   );
 }

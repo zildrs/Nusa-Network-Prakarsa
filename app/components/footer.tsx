@@ -1,0 +1,94 @@
+import { Linkedin, Facebook, Instagram, ArrowRight } from "lucide-react";
+
+export default function Footer() {
+  return (
+    <>
+      <footer className="bg-white">
+        <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-10">
+          {/* Company Info */}
+          <div>
+            <img src="/logo.png" alt="NNP" className="h-10 mb-4" />
+            <p className=" text-gray-600 leading-relaxed">
+              Jalan Kamal Raya Outer Ring Road, <br />
+              Mutiara Taman Palem A17 / 29 - 30, <br />
+              Kelurahan Cengkareng Timur, Kecamatan <br />
+              Cengkareng, Jakarta Barat, 11730
+            </p>
+            <div className="flex gap-8 mt-6">
+              <img src="/sgs.png" alt="SGS" className="h-10" />
+              <img src="/kan.png" alt="KAN" className="h-10" />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Solutions */}
+            <div>
+              <h4 className="font-semibold text-gray-500 mb-3">Solutions</h4>
+              <ul className="space-y-2  text-gray-600">
+                <li>Security Infrastructure</li>
+                <li>Managed Services</li>
+                <li>IoT Solution</li>
+                <li>Data Center Infrastructure</li>
+                <li>Network Infrastructure</li>
+              </ul>
+            </div>
+
+            {/* Company */}
+            <div>
+              <h4 className="font-semibold text-gray-500 mb-3">Company</h4>
+              <ul className="space-y-2  text-gray-600">
+                <li>About Us</li>
+                <li>Case Study</li>
+                <li>Blog</li>
+                <li>Careers</li>
+                <li>Partners</li>
+              </ul>
+            </div>
+
+            {/* Resources */}
+            <div>
+              <h4 className="font-semibold text-gray-500 mb-3">Resources</h4>
+              <ul className="space-y-2  text-gray-600">
+                <li>Privacy & Terms</li>
+                <li>Sitemap</li>
+                <li>Certifications</li>
+                <li>Contact Us</li>
+                <li>Support</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t-2 py-6 text-center md:flex md:justify-between flex-row-reverse border-gray-200 md:items-center max-w-7xl mx-auto px-6">
+          <div className="flex mb-6 lg:mb-0 justify-center gap-4 mt-4 md:mt-0">
+            {/* <a href="#">
+              <Tikt size={24} />
+            </a> */}
+            <a href="#">
+              <Linkedin
+                size={24}
+                className="text-gray-400 hover:text-gray-600"
+              />
+            </a>
+            <a href="#">
+              <Facebook
+                size={24}
+                className="text-gray-400 hover:text-gray-600"
+              />
+            </a>
+            <a href="#">
+              <Instagram
+                size={24}
+                className="text-gray-400 hover:text-gray-600"
+              />
+            </a>
+          </div>
+          <p className="text-gray-500">
+            © 2025 Nusa Network Prakarsa. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </>
+  );
+}

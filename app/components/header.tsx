@@ -3,7 +3,6 @@ import {
   Menu,
   X,
   ChevronDown,
-  Building,
   Building2,
   Database,
   Network,
@@ -11,6 +10,48 @@ import {
   Cpu,
 } from "lucide-react";
 import { Link } from "react-router";
+
+const LangSwitcher = () => {
+  const [langOpen, setLangOpen] = useState(false);
+  const [lang, setLang] = useState("en");
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setLangOpen(true)}
+        className="border border-gray-300 rounded-lg px-3 py-2 flex items-center gap-1 text-sm text-gray-500"
+      >
+        <img
+          className="w-4 h-4 object-cover"
+          src={`/icons/${lang}.png`}
+          alt={lang.toUpperCase()}
+        />{" "}
+        {lang === "id" ? "ID" : "EN"} <ChevronDown size={16} />
+      </button>
+      {langOpen && (
+        <div className="absolute right-0 mt-2 w-16 rounded-lg border bg-white shadow-lg p-1 z-50">
+          <button
+            onClick={() => {
+              setLang("id");
+              setLangOpen(false);
+            }}
+            className="block w-full py-1 text-center text-sm text-gray-500 hover:bg-gray-100"
+          >
+            ID
+          </button>
+          <button
+            onClick={() => {
+              setLang("en");
+              setLangOpen(false);
+            }}
+            className="block w-full py-1 text-center text-sm text-gray-500 hover:bg-gray-100"
+          >
+            EN
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -45,7 +86,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="border-b bg-white text-gray-600">
+    <header className="border-b border-gray-200 bg-white text-gray-600">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 lg:py-4">
         {/* Logo */}
         <div className="flex gap-16">
@@ -93,12 +134,10 @@ export default function Header() {
 
         {/* Right buttons */}
         <div className="hidden lg:flex items-center gap-2">
-          <button className="border rounded-lg px-3 py-1 flex items-center gap-1 text-sm">
-            🇬🇧 EN
-          </button>
+          <LangSwitcher />
           <Link
             to="/support"
-            className="border rounded-lg px-4 py-2 text-sm text-gray-600"
+            className="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-500"
           >
             Support
           </Link>
@@ -111,9 +150,15 @@ export default function Header() {
         </div>
 
         {/* Mobile menu button */}
-        <button className="lg:hidden" onClick={() => setMobileOpen(true)}>
-          <Menu className="text-gray-400" size={24} />
-        </button>
+        <div className="flex gap-2 items-center">
+          <LangSwitcher />
+          <button
+            className="lg:hidden border border-gray-300 p-2 rounded-lg"
+            onClick={() => setMobileOpen(true)}
+          >
+            <Menu className="text-gray-400" size={24} />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Overlay */}
