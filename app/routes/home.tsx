@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import type { Swiper as SwiperRef } from "swiper/types";
 import CTASection from "~/components/cta";
+import CaseStudyCard from "~/components/case-study-card";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -282,34 +283,13 @@ export default function Home() {
           <p className="uppercase text-sm tracking-wide text-gray-900 mb-2">
             <span className="font-semibold">Case</span> Study
           </p>
-          <h2 className="text-4xl font-semibold mb-8 max-w-md">
+          <h2 className="text-3xl lg:text-4xl font-semibold mb-8 max-w-md">
             Customer Success with Nusa Network Prakarsa
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
             {caseStudies.map((c, idx) => (
-              <div
-                key={idx}
-                className="rounded-lg overflow-hidden shadow-lg relative aspect-square"
-              >
-                <img
-                  src={c.img}
-                  alt={c.title}
-                  className="w-full object-cover h-full"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 gap-2 flex flex-col justify-end items-start">
-                  <img
-                    src={c.companyLogo}
-                    alt={c.title}
-                    className="h-8 object-contain brightness-0 grayscale invert"
-                  />
-                  <p className="text-white font-medium text-xl">{c.title}</p>
-                  <div className="flex items-center gap-2">
-                    <p className="text-white font-medium">Learn more</p>
-                    <ArrowRight className="h-4 w-4 text-white" />
-                  </div>
-                </div>
-              </div>
+              <CaseStudyCard key={idx} data={c} />
             ))}
           </div>
         </div>

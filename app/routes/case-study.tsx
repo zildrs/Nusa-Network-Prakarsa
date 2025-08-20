@@ -1,8 +1,10 @@
 import { useState } from "react";
 import type { Route } from "./+types/case-study";
 import { Link } from "react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Building2, Lightbulb } from "lucide-react";
 import CTASection from "~/components/cta";
+import CaseStudyCard from "~/components/case-study-card";
+import { Dropdown } from "~/components/dropdown";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -15,6 +17,8 @@ const caseStudies = [
   {
     title: "Transforming Peruri Businesses with SD–WAN Technology",
     company: "Peruri",
+    category: "Finance",
+    solution: "SD-WAN",
     img: "https://awsimages.detik.net.id/community/media/visual/2024/11/19/kantor-peruri-resmi-jadi-cagar-budaya-1_169.jpeg?w=700&q=90",
     companyLogo:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_2024_Perum_Peruri.svg/2560px-Logo_2024_Perum_Peruri.svg.png",
@@ -22,6 +26,8 @@ const caseStudies = [
   {
     title: "Transforming J&T Express Businesses with SD–WAN Technology",
     company: "J&T Express",
+    category: "Logistics",
+    solution: "SD-WAN",
     img: "https://foto.kontan.co.id/8TQWPa6yy4jEQX5iWDd_3ql1pv4=/640x360/smart/2021/12/15/1054233720p.jpg",
     companyLogo:
       "https://1000logos.net/wp-content/uploads/2022/08/JT-Express-Logo.png",
@@ -29,9 +35,56 @@ const caseStudies = [
   {
     title: "Transforming Peruri Businesses with SD–WAN Technology",
     company: "Peruri",
+    category: "Finance",
+    solution: "SD-WAN",
     img: "https://awsimages.detik.net.id/community/media/visual/2024/11/19/kantor-peruri-resmi-jadi-cagar-budaya-1_169.jpeg?w=700&q=90",
     companyLogo:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_2024_Perum_Peruri.svg/2560px-Logo_2024_Perum_Peruri.svg.png",
+  },
+  {
+    title: "Transforming J&T Express Businesses with SD–WAN Technology",
+    company: "J&T Express",
+    category: "Logistics",
+    solution: "SD-WAN",
+    img: "https://foto.kontan.co.id/8TQWPa6yy4jEQX5iWDd_3ql1pv4=/640x360/smart/2021/12/15/1054233720p.jpg",
+    companyLogo:
+      "https://1000logos.net/wp-content/uploads/2022/08/JT-Express-Logo.png",
+  },
+  {
+    title: "Transforming Peruri Businesses with SD–WAN Technology",
+    company: "Peruri",
+    category: "Finance",
+    solution: "SD-WAN",
+    img: "https://awsimages.detik.net.id/community/media/visual/2024/11/19/kantor-peruri-resmi-jadi-cagar-budaya-1_169.jpeg?w=700&q=90",
+    companyLogo:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_2024_Perum_Peruri.svg/2560px-Logo_2024_Perum_Peruri.svg.png",
+  },
+  {
+    title: "Transforming J&T Express Businesses with SD–WAN Technology",
+    company: "J&T Express",
+    category: "Logistics",
+    solution: "SD-WAN",
+    img: "https://foto.kontan.co.id/8TQWPa6yy4jEQX5iWDd_3ql1pv4=/640x360/smart/2021/12/15/1054233720p.jpg",
+    companyLogo:
+      "https://1000logos.net/wp-content/uploads/2022/08/JT-Express-Logo.png",
+  },
+  {
+    title: "Transforming Peruri Businesses with SD–WAN Technology",
+    company: "Peruri",
+    category: "Finance",
+    solution: "SD-WAN",
+    img: "https://awsimages.detik.net.id/community/media/visual/2024/11/19/kantor-peruri-resmi-jadi-cagar-budaya-1_169.jpeg?w=700&q=90",
+    companyLogo:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_2024_Perum_Peruri.svg/2560px-Logo_2024_Perum_Peruri.svg.png",
+  },
+  {
+    title: "Transforming J&T Express Businesses with SD–WAN Technology",
+    company: "J&T Express",
+    category: "Logistics",
+    solution: "SD-WAN",
+    img: "https://foto.kontan.co.id/8TQWPa6yy4jEQX5iWDd_3ql1pv4=/640x360/smart/2021/12/15/1054233720p.jpg",
+    companyLogo:
+      "https://1000logos.net/wp-content/uploads/2022/08/JT-Express-Logo.png",
   },
 ];
 
@@ -39,13 +92,12 @@ export default function CaseStudy() {
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedSolution, setSelectedSolution] = useState<string>("");
 
-  // Filter data berdasarkan pilihan dropdown
-  // const filteredData = caseStudies.filter((item) => {
-  //   return (
-  //     (selectedIndustry === "" || item.category === selectedIndustry) &&
-  //     (selectedSolution === "" || item.solution === selectedSolution)
-  //   );
-  // });
+  const filteredData = caseStudies.filter((item) => {
+    return (
+      (selectedIndustry === "" || item.category === selectedIndustry) &&
+      (selectedSolution === "" || item.solution === selectedSolution)
+    );
+  });
 
   return (
     <main>
@@ -89,54 +141,37 @@ export default function CaseStudy() {
         {/* Filter */}
         <div className="flex gap-4 mb-6">
           {/* Industry Filter */}
-          <select
-            value={selectedIndustry}
-            onChange={(e) => setSelectedIndustry(e.target.value)}
-            className="border rounded-lg px-4 py-2"
-          >
-            <option value="">All Industries</option>
-            <option value="Industry">Industry</option>
-            <option value="Logistics">Logistics</option>
-            <option value="Retail">Retail</option>
-          </select>
+          <Dropdown
+            label="Industry"
+            onSelect={(value) => setSelectedIndustry(value)}
+            className="text-sm !px-3"
+            icon={<Building2 className="w-4 h-4 lg:w-5 lg:h-5 text-gray-500" />}
+            items={[
+              { value: "", label: "All Industries" },
+              { value: "Industry", label: "Industry" },
+              { value: "Logistics", label: "Logistics" },
+              { value: "Retail", label: "Retail" },
+            ]}
+          />
 
-          {/* Solution Filter */}
-          <select
-            value={selectedSolution}
-            onChange={(e) => setSelectedSolution(e.target.value)}
-            className="border rounded-lg px-4 py-2"
-          >
-            <option value="">All Solutions</option>
-            <option value="SD-WAN">SD-WAN</option>
-            <option value="Cloud">Cloud</option>
-          </select>
+          <Dropdown
+            label="Solution"
+            className="text-sm !px-3"
+
+            onSelect={(value) => setSelectedSolution(value)}
+            icon={<Lightbulb className="w-4 h-4 lg:w-5 lg:h-5 text-gray-500" />}
+            items={[
+              { value: "", label: "All Solutions" },
+              { value: "SD-WAN", label: "SD-WAN" },
+              { value: "Cloud", label: "Cloud" },
+            ]}
+          />
         </div>
 
         {/* Grid Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {caseStudies.map((c, idx) => (
-            <div
-              key={idx}
-              className="rounded-lg overflow-hidden shadow-lg relative aspect-square"
-            >
-              <img
-                src={c.img}
-                alt={c.title}
-                className="w-full object-cover h-full"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 gap-2 flex flex-col justify-end items-start">
-                <img
-                  src={c.companyLogo}
-                  alt={c.title}
-                  className="h-8 object-contain brightness-0 grayscale invert"
-                />
-                <p className="text-white font-medium text-xl">{c.title}</p>
-                <div className="flex items-center gap-2">
-                  <p className="text-white font-medium">Learn more</p>
-                  <ArrowRight className="h-4 w-4 text-white" />
-                </div>
-              </div>
-            </div>
+          {filteredData.map((c, idx) => (
+            <CaseStudyCard key={idx} data={c} />
           ))}
         </div>
       </section>
