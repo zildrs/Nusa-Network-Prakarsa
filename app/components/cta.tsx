@@ -30,7 +30,7 @@ const CTASection = () => {
         </h2>
         <a
           href="#"
-          className="mt-6 md:mt-0 inline-flex items-center px-6 py-3 bg-white text-gray-900 font-medium rounded-full shadow"
+          className="mt-6 md:mt-0 inline-flex items-center px-6 py-3 bg-white text-gray-900 font-medium rounded-lg shadow"
         >
           Talk to our expert <ArrowRight className="ml-2 h-5 w-5" />
         </a>
