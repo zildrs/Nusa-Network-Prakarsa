@@ -105,15 +105,19 @@ export default function Header() {
                 Solutions <ChevronDown size={16} />
               </button>
               {solutionsOpen && (
-                <div className="absolute left-0 mt-2 w-72 rounded-lg border bg-white shadow-lg p-4 z-50">
+                <div className="absolute left-0 mt-2 w-72 rounded-lg border bg-white shadow-lg p-4 pl-6 z-50">
                   {solutions.map((item) => (
                     <Link
                       key={item.title}
                       to={`/solutions/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
-                      className="block py-2"
+                      className="py-3 flex items-center gap-2"
+                      onClick={() => setMobileOpen(false)}
                     >
-                      <p className="font-semibold">{item.title}</p>
-                      <p className="text-sm text-gray-500">{item.desc}</p>
+                      <item.icon className="mr-2" size={20} />
+                      <div className="block">
+                        <p className="font-semibold">{item.title}</p>
+                        <p className="text-sm text-gray-500">{item.desc}</p>
+                      </div>
                     </Link>
                   ))}
                 </div>
