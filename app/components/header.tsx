@@ -8,6 +8,7 @@ import {
   Network,
   MonitorCheck,
   Cpu,
+  ArrowRight,
 } from "lucide-react";
 import { Link } from "react-router";
 
@@ -149,7 +150,7 @@ export default function Header() {
             to="/contact"
             className="bg-blue-900 text-white rounded-lg px-4 py-2 text-sm flex items-center gap-1"
           >
-            Contact us →
+            Contact us <ArrowRight className="w-4 h-4 ml-1" />
           </Link>
         </div>
 

@@ -62,12 +62,13 @@ export default function Home() {
     "/logos/telkom.png",
   ];
 
-  const solutions = [
-    { title: "Managed Services", img: "/hero.png" },
-    { title: "Network Infrastructure", img: "/network-infrastructure.jpg" },
-    { title: "Data Center", img: "/data-center.jpg" },
-    { title: "Security Infrastructure", img: "/security-infrastructure.png" },
-    { title: "Internet of Things (IoT)", img: "/iot.png" },
+  const services = [
+    { title: "Colocation Services", icon: "📦" },
+    { title: "Private Cloud & Virtualization", icon: "☁️" },
+    { title: "Disaster Recovery", icon: "⚡" },
+    { title: "Data Backup & Storage Solutions", icon: "💾" },
+    { title: "Network Redundancy & Load Balancing", icon: "🌐" },
+    { title: "Managed Server Hosting", icon: "🖥️" },
   ];
 
   const caseStudies = [
@@ -105,22 +106,21 @@ export default function Home() {
 
   return (
     <main>
-      {/* === HERO SECTION === */}
-      <section className="relative bg-[#0B2447] text-white">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <img
-            src="/data-center.jpg"
-            alt="Data Center"
-            className="w-full h-full object-cover opacity-70"
-          />
-        </div>
+      <section className="relative bg-blue-950 text-white">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+        linear-gradient(to right, rgba(0, 51, 102, 0.9), rgba(0, 51, 102, 0.6), rgba(0, 51, 102, 0)),
+        url('/data-center.jpg')
+      `,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        ></div>
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-[#0B2447]/70"></div>
-
-        {/* Content */}
-        <div className="relative container mx-auto px-6 lg:px-20 py-28 lg:py-40">
+        <div className="absolute inset-0 bg-blue-950/70"></div>
+        <div className="relative flex flex-col justify-end container mx-auto px-6 py-28 lg:py-40 max-w-7xl">
           <p className="uppercase text-sm font-semibold tracking-wide">
             Data Center Solutions
           </p>
@@ -133,74 +133,105 @@ export default function Home() {
             Empower your business with enterprise-grade data center solutions,
             24/7 uptime, and expert support — all tailored to your needs.
           </p>
-
-          {/* Button */}
           <div className="mt-8">
             <a
               href="#"
-              className="inline-block bg-white text-[#0B2447] px-6 py-3 rounded-lg font-medium shadow hover:bg-gray-100 transition"
+              className="w-fit bg-white flex items-center text-blue-950 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-100 transition"
             >
-              Schedule Free Consultation →
+              Schedule Free Consultation{" "}
+              <ArrowRight className="inline-block ml-2 w-4 h-4" />
             </a>
           </div>
         </div>
 
-        {/* Bottom Nav */}
-        <div className="absolute bottom-0 left-0 w-full bg-white shadow">
-          <div className="container mx-auto px-6 lg:px-20 py-4 flex justify-between items-center text-sm font-medium">
-            {/* Menu */}
+        <div className="absolute bottom-0 left-0 w-full bg-white">
+          <div className="container mx-auto px-6 max-w-7xl py-4 flex justify-between items-center text-sm font-medium">
             <div className="flex gap-8 text-gray-700">
-              <a href="#" className="hover:text-[#0B2447]">
+              <a href="#" className="hover:text-blue-950">
                 What we do
               </a>
-              <a href="#" className="hover:text-[#0B2447]">
+              <a href="#" className="hover:text-blue-950">
                 Our services
               </a>
-              <a href="#" className="hover:text-[#0B2447]">
+              <a href="#" className="hover:text-blue-950">
                 Case study
               </a>
-              <a href="#" className="hover:text-[#0B2447]">
+              <a href="#" className="hover:text-blue-950">
                 Our partners
               </a>
             </div>
 
-            {/* Button */}
             <a
               href="#"
-              className="bg-[#0B2447] text-white px-5 py-2 rounded-lg hover:bg-[#19376D] transition"
+              className="bg-blue-950 inline-flex items-center text-white px-4 py-2 rounded-lg hover:bg-[#19376D] transition"
             >
-              Consult free with us →
+              Consult free with us <ArrowRight className="w-4 h-4 ml-1" />
             </a>
           </div>
         </div>
       </section>
 
-      {/* === WHAT WE DO SECTION === */}
-      <section className="container mx-auto px-6 lg:px-20 py-28 grid lg:grid-cols-2 gap-12 items-center">
-        {/* Text */}
-        <div>
-          <p className="uppercase text-sm font-semibold tracking-wide text-gray-500">
-            What We Do
-          </p>
-          <h2 className="mt-3 text-3xl lg:text-4xl font-bold leading-snug">
-            Reliable. Scalable. <br /> Always On.
-          </h2>
-          <p className="mt-6 text-lg text-gray-600 max-w-lg">
-            From secure colocation and cloud-ready hosting to disaster recovery
-            and 24/7 monitoring, our solutions are tailored to ensure uptime,
-            compliance, and total peace of mind. Backed by certified experts and
-            advanced infrastructure, we help you stay online, connected, and
-            future-ready.
-          </p>
+      <section className="relative">
+        <div className="container max-w-7xl px-6 py-18 lg:py-12 mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="flex flex-col justify-center">
+              <p className="text-sm font-semibold">WHAT WE DO</p>
+              <h2 className="text-4xl font-bold text-gray-900 mt-2">
+                Reliable. Scalable. <br /> Always On.
+              </h2>
+              <p className="mt-4 text-lg text-gray-600">
+                From secure colocation and cloud-ready hosting to disaster
+                recovery and 24/7 monitoring, our solutions are tailored...
+              </p>
+            </div>
+            <div className="min-h-[450px] overflow-visible">
+              <img
+                src="/data-center.jpg"
+                alt="server"
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 w-[40vw] object-cover rounded-l-xl"
+              />
+            </div>
+          </div>
         </div>
+      </section>
 
-        {/* Image */}
-        <div className="relative">
-          <img
-            src="/data-center.jpg"
-            alt="Data Center Technician"
-            className="rounded-2xl shadow-lg"
-          />
+      {/* Section 1 - Services */}
+      <section className="bg-gradient-to-r  from-[#0A2A5E] to-[#063970] text-white py-16 px-6 lg:px-20">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-sm font-semibold">OUR DATA CENTER SERVICES</p>
+          <h2 className="text-3xl lg:text-4xl font-bold mt-2">
+            Solutions that fit <br /> your infrastructure needs
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+            {services.map((service, i) => (
+              <div
+                key={i}
+                style={{ backgroundImage: "url('/bg-card-2.png')" }}
+                className="bg-white flex flex-col justify-between aspect-[6/3] text-gray-800 p-6 rounded-xl"
+              >
+                <div className="text-3xl mb-4">{service.icon}</div>
+                <h3 className="font-semibold">{service.title}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/*  */}
+      <section className="bg-gray-50 py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <p className="uppercase text-sm tracking-wide text-gray-900 mb-2">
+            <span className="font-semibold">Case</span> Study
+          </p>
+          <h2 className="text-3xl lg:text-4xl font-semibold mb-8 max-w-md">
+            Customer Success with Nusa Network Prakarsa
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {caseStudies.map((c, idx) => (
+              <CaseStudyCard key={idx} data={c} />
+            ))}
+          </div>
         </div>
       </section>
 
