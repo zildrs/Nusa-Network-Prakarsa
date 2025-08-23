@@ -11,4 +11,6 @@ export default [
   route("certification", "routes/certification.tsx"),
   route("contact", "routes/contact.tsx"),
   route("about", "routes/about.tsx"),
+  route("privacy-policy", "routes/privacy-policy.tsx"),
+  route("*", "routes/404.tsx"),
 ] satisfies RouteConfig;

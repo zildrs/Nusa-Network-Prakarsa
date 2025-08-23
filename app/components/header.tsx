@@ -1,15 +1,15 @@
 import { useState } from "react";
 import {
-  Menu,
-  X,
-  ChevronDown,
-  Building2,
-  Database,
-  Network,
-  MonitorCheck,
-  Cpu,
+  DataCenter,
+  LoadBalancerNetwork,
+  IbmCloudHyperProtectDbaas,
+  CloudMonitoring,
+  IotPlatform,
   ArrowRight,
-} from "lucide-react";
+  ChevronDown,
+  Close,
+  Menu,
+} from "@carbon/icons-react";
 import { Link } from "react-router";
 
 const LangSwitcher = () => {
@@ -62,27 +62,27 @@ export default function Header() {
     {
       title: "Data Center",
       desc: "Safely secure your business data",
-      icon: Building2,
+      icon: DataCenter,
     },
     {
       title: "Managed Services",
       desc: "Preventive & Corrective Maintenance",
-      icon: Network,
+      icon: LoadBalancerNetwork,
     },
     {
       title: "Security Infrastructure",
       desc: "Securing systems with layered defense",
-      icon: Database,
+      icon: IbmCloudHyperProtectDbaas,
     },
     {
       title: "Network Infrastructure",
       desc: "Reliable connectivity for operations",
-      icon: MonitorCheck,
+      icon: CloudMonitoring,
     },
     {
       title: "Internet of Things (IoT)",
       desc: "Smart environment monitoring tools",
-      icon: Cpu,
+      icon: IotPlatform,
     },
   ];
 
@@ -172,7 +172,7 @@ export default function Header() {
           <div className="flex justify-between items-center mb-4">
             <img src="/logo.png" alt="NPP" className="h-8" />
             <button onClick={() => setMobileOpen(false)}>
-              <X className="text-gray-400" size={28} />
+              <Close className="text-gray-400" size={28} />
             </button>
           </div>
 
