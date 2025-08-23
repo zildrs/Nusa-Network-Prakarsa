@@ -1,16 +1,16 @@
 import { useEffect, useState, useRef } from "react";
 import type { Route } from "./+types/home";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import {
-  ArrowLeft,
   ArrowRight,
-  Facebook,
-  Instagram,
-  Linkedin,
+  Cloud,
+  Computer,
+  Globe,
+  HardDrive,
+  Server,
+  Zap,
 } from "lucide-react";
 import type { Swiper as SwiperRef } from "swiper/types";
 import CTASection from "~/components/cta";
@@ -63,12 +63,42 @@ export default function Home() {
   ];
 
   const services = [
-    { title: "Colocation Services", icon: "📦" },
-    { title: "Private Cloud & Virtualization", icon: "☁️" },
-    { title: "Disaster Recovery", icon: "⚡" },
-    { title: "Data Backup & Storage Solutions", icon: "💾" },
-    { title: "Network Redundancy & Load Balancing", icon: "🌐" },
-    { title: "Managed Server Hosting", icon: "🖥️" },
+    {
+      title: "Colocation Services",
+      icon: Server,
+      description:
+        "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
+    },
+    {
+      title: "Private Cloud & Virtualization",
+      icon: Cloud,
+      description:
+        "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
+    },
+    {
+      title: "Disaster Recovery",
+      icon: Zap,
+      description:
+        "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
+    },
+    {
+      title: "Data Backup & Storage Solutions",
+      icon: HardDrive,
+      description:
+        "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
+    },
+    {
+      title: "Network Redundancy & Load Balancing",
+      icon: Globe,
+      description:
+        "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
+    },
+    {
+      title: "Managed Server Hosting",
+      icon: Computer,
+      description:
+        "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
+    },
   ];
 
   const caseStudies = [
@@ -105,15 +135,15 @@ export default function Home() {
   });
 
   return (
-    <main>
+    <main className="relative">
       <section className="relative bg-blue-950 text-white">
         <div
           className="absolute inset-0"
           style={{
             backgroundImage: `
-        linear-gradient(to right, rgba(0, 51, 102, 0.9), rgba(0, 51, 102, 0.6), rgba(0, 51, 102, 0)),
-        url('/data-center.jpg')
-      `,
+              linear-gradient(to right, rgba(0, 51, 102, 0.9), rgba(0, 51, 102, 0.6), rgba(0, 51, 102, 0)),
+              url('/data-center.jpg')
+            `,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -143,7 +173,9 @@ export default function Home() {
             </a>
           </div>
         </div>
+      </section>
 
+      <section className="relative lg:block hidden">
         <div className="absolute bottom-0 left-0 w-full bg-white">
           <div className="container mx-auto px-6 max-w-7xl py-4 flex justify-between items-center text-sm font-medium">
             <div className="flex gap-8 text-gray-700">
@@ -181,14 +213,17 @@ export default function Home() {
               </h2>
               <p className="mt-4 text-lg text-gray-600">
                 From secure colocation and cloud-ready hosting to disaster
-                recovery and 24/7 monitoring, our solutions are tailored...
+                recovery and 24/7 monitoring, our solutions are tailored to
+                ensure uptime, compliance, and total peace of mind. Backed by
+                certified experts and advanced infrastructure, we help you stay
+                online, connected, and future-ready.
               </p>
             </div>
-            <div className="min-h-[450px] overflow-visible">
+            <div className="min-h-[450px] lg:overflow-visible overflow-hidden">
               <img
                 src="/data-center.jpg"
                 alt="server"
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 w-[40vw] object-cover rounded-l-xl"
+                className="absolute min-h-[350px] sm:max-h-[250px] right-0 top-1/2 transform lg:-translate-y-1/2 lg:w-[40vw] w-[95vw] object-cover rounded-l-xl"
               />
             </div>
           </div>
@@ -208,10 +243,15 @@ export default function Home() {
               <div
                 key={i}
                 style={{ backgroundImage: "url('/bg-card-2.png')" }}
-                className="bg-white flex flex-col justify-between aspect-[6/3] text-gray-800 p-6 rounded-xl"
+                className="bg-white max-h-[250px] h-full flex flex-col justify-between aspect-[6/3] text-gray-800 p-6 rounded-xl"
               >
-                <div className="text-3xl mb-4">{service.icon}</div>
-                <h3 className="font-semibold">{service.title}</h3>
+                <div className="text-3xl mb-4">
+                  {<service.icon size={32} />}
+                </div>
+                <h3 className="font-semibold lg:text-xl">{service.title}</h3>
+                <p className="text-gray-400 block lg:hidden">
+                  {service.description}
+                </p>
               </div>
             ))}
           </div>
@@ -233,6 +273,45 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="py-16 max-w-7xl mx-auto px-4">
+        <p className=" tracking-widest text-gray-900 uppercase">
+          <span className="font-semibold">Technology</span> Partners
+        </p>
+        <h2 className="mt-2 text-3xl lg:text-4xl max-w-lg font-semibold text-gray-900 leading-snug">
+          Leading Solutions with World-Class Partners
+        </h2>
+        <a
+          href="#"
+          className="my-8 hidden lg:inline-flex items-center font-medium"
+        >
+          Learn More about our Technology Partners{" "}
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </a>
+        <a href="#" className="my-8 flex items-center font-medium lg:hidden">
+          Learn More <ArrowRight className="ml-2 h-5 w-5" />
+        </a>
+
+        {/* Logo carousel (contoh pakai flex biasa, bisa ganti swiper/marquee) */}
+        {Marquee && (
+          <Marquee
+            className="mt-16"
+            gradient={true}
+            autoFill={true}
+            gradientWidth={50}
+            spacing={16}
+          >
+            {partners.map((src, index) => (
+              <img
+                key={index}
+                src={src}
+                alt="Partner"
+                className="h-12 w-auto px-8"
+              />
+            ))}
+          </Marquee>
+        )}
       </section>
 
       <CTASection />
