@@ -1,4 +1,5 @@
 import { Linkedin, Facebook, Instagram, ArrowRight } from "lucide-react";
+import { Link } from "react-router";
 
 export default function Footer() {
   return (
@@ -37,11 +38,21 @@ export default function Footer() {
             <div>
               <h4 className="font-semibold text-gray-500 mb-3">Company</h4>
               <ul className="space-y-2  text-gray-600">
-                <li>About Us</li>
-                <li>Case Study</li>
-                <li>Blog</li>
-                <li>Careers</li>
-                <li>Partners</li>
+                <li>
+                  <Link to="/about">About Us</Link>
+                </li>
+                <li>
+                  <Link to="/case-study">Case Study</Link>
+                </li>
+                <li>
+                  <Link to="/blog">Blog</Link>
+                </li>
+                <li>
+                  <Link to="/careers">Careers</Link>
+                </li>
+                <li>
+                  <Link to="/partners">Partners</Link>
+                </li>
               </ul>
             </div>
 
