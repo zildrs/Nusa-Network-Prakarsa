@@ -65,11 +65,21 @@ export default function Footer() {
             <div>
               <h4 className="font-semibold text-gray-500 mb-3">Resources</h4>
               <ul className="space-y-2  text-gray-600">
-                <li>Privacy & Terms</li>
-                <li>Sitemap</li>
-                <li>Certifications</li>
-                <li>Contact Us</li>
-                <li>Support</li>
+                <li>
+                  <Link to="/privacy-policy">Privacy & Terms</Link>
+                </li>
+                <li>
+                  <Link to="/sitemap">Sitemap</Link>
+                </li>
+                <li>
+                  <Link to="/certification">Certifications</Link>
+                </li>
+                <li>
+                  <Link to="/contact">Contact Us</Link>
+                </li>
+                <li>
+                  <Link to="/support">Support</Link>
+                </li>
               </ul>
             </div>
           </div>
