@@ -31,11 +31,27 @@ export default function Footer() {
             <div>
               <h4 className="font-semibold text-gray-500 mb-3">Solutions</h4>
               <ul className="space-y-2  text-gray-600">
-                <li>Security Infrastructure</li>
-                <li>Managed Services</li>
-                <li>IoT Solution</li>
-                <li>Data Center Infrastructure</li>
-                <li>Network Infrastructure</li>
+                <li>
+                  <Link to="/solutions/security-infrastructure">
+                    Security Infrastructure
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/solutions/managed-services">Managed Services</Link>
+                </li>
+                <li>
+                  <Link to="/solutions/iot-solution">IoT Solution</Link>
+                </li>
+                <li>
+                  <Link to="/solutions/data-center-infrastructure">
+                    Data Center Infrastructure
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/solutions/network-infrastructure">
+                    Network Infrastructure
+                  </Link>
+                </li>
               </ul>
             </div>
 
