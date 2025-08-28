@@ -5,7 +5,6 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { Swiper as SwiperRef } from "swiper/types";
 import CTASection from "~/components/cta";
 

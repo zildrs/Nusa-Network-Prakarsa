@@ -1,4 +1,9 @@
-import { Linkedin, Facebook, Instagram, ArrowRight } from "lucide-react";
+import {
+  LogoLinkedin,
+  LogoFacebook,
+  LogoInstagram,
+  ArrowRight,
+} from "@carbon/icons-react";
 import { Link } from "react-router";
 
 export default function Footer() {
@@ -77,19 +82,19 @@ export default function Footer() {
               <Tikt size={24} />
             </a> */}
             <a href="#">
-              <Linkedin
+              <LogoLinkedin
                 size={24}
                 className="text-gray-400 hover:text-gray-600"
               />
             </a>
             <a href="#">
-              <Facebook
+              <LogoFacebook
                 size={24}
                 className="text-gray-400 hover:text-gray-600"
               />
             </a>
             <a href="#">
-              <Instagram
+              <LogoInstagram
                 size={24}
                 className="text-gray-400 hover:text-gray-600"
               />

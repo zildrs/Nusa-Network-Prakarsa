@@ -5,13 +5,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Facebook,
-  Instagram,
-  Linkedin,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight } from "@carbon/icons-react";
 import type { Swiper as SwiperRef } from "swiper/types";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
@@ -184,7 +178,7 @@ export default function Home() {
             {stats.map((item) => (
               <div
                 key={item.label}
-                className="border border-gray-300 rounded-xl bg-white shadow-sm bg-center bg-cover bg-no-repeat bg-card flex flex-col justify-between"
+                className="border border-gray-300 rounded-xl shadow-sm bg-center bg-cover bg-no-repeat bg-card flex flex-col justify-between"
                 style={{ backgroundImage: `url(/bg-card.png)` }}
               >
                 <p className="text-4xl font-semibold p-6">{item.value}</p>

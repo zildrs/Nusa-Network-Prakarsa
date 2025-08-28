@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Route } from "./+types/case-study";
 import { Link, useParams } from "react-router";
-import { ArrowRight, Building2, Lightbulb } from "lucide-react";
+import { ArrowRight } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
 import { Dropdown } from "~/components/dropdown";

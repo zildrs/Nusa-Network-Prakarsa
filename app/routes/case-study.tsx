@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Route } from "./+types/case-study";
 import { Link } from "react-router";
-import { ArrowRight, Building2, Lightbulb } from "lucide-react";
+import { Light, Building } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
 import { Dropdown } from "~/components/dropdown";
@@ -145,7 +145,7 @@ export default function CaseStudy() {
             label="Industry"
             onSelect={(value) => setSelectedIndustry(value)}
             className="text-sm !px-3"
-            icon={<Building2 className="w-4 h-4 lg:w-5 lg:h-5 text-gray-500" />}
+            icon={<Building className="w-4 h-4 lg:w-5 lg:h-5 text-gray-500" />}
             items={[
               { value: "", label: "All Industries" },
               { value: "Industry", label: "Industry" },
@@ -157,9 +157,8 @@ export default function CaseStudy() {
           <Dropdown
             label="Solution"
             className="text-sm !px-3"
-
             onSelect={(value) => setSelectedSolution(value)}
-            icon={<Lightbulb className="w-4 h-4 lg:w-5 lg:h-5 text-gray-500" />}
+            icon={<Light className="w-4 h-4 lg:w-5 lg:h-5 text-gray-500" />}
             items={[
               { value: "", label: "All Solutions" },
               { value: "SD-WAN", label: "SD-WAN" },

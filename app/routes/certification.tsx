@@ -1,7 +1,6 @@
 import CTASection from "~/components/cta";
 import type { Route } from "./+types/certification";
 import { Dropdown } from "~/components/dropdown";
-import { Building2, Lightbulb } from "lucide-react";
 
 export function meta({}: Route.MetaArgs) {
   return [

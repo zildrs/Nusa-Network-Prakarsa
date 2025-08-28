@@ -5,13 +5,13 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import {
   ArrowRight,
-  Cloud,
-  Computer,
-  Globe,
-  HardDrive,
-  Server,
-  Zap,
-} from "lucide-react";
+  Datastore,
+  IbmCloudHpc,
+  Tsunami,
+  DataBackup,
+  ContentDeliveryNetwork,
+  CloudMonitoring,
+} from "@carbon/icons-react";
 import type { Swiper as SwiperRef } from "swiper/types";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
@@ -65,37 +65,37 @@ export default function Home() {
   const services = [
     {
       title: "Colocation Services",
-      icon: Server,
+      icon: Datastore,
       description:
         "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
     },
     {
       title: "Private Cloud & Virtualization",
-      icon: Cloud,
+      icon: IbmCloudHpc,
       description:
         "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
     },
     {
       title: "Disaster Recovery",
-      icon: Zap,
+      icon: Tsunami,
       description:
         "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
     },
     {
       title: "Data Backup & Storage Solutions",
-      icon: HardDrive,
+      icon: DataBackup,
       description:
         "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
     },
     {
       title: "Network Redundancy & Load Balancing",
-      icon: Globe,
+      icon: ContentDeliveryNetwork,
       description:
         "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
     },
     {
       title: "Managed Server Hosting",
-      icon: Computer,
+      icon: CloudMonitoring,
       description:
         "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
     },

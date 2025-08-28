@@ -9,7 +9,6 @@ import {
   // DialogTrigger,
   DialogClose,
 } from "~/components/ui/dialog";
-import { X } from "lucide-react";
 
 export function meta({}: Route.MetaArgs) {
   return [

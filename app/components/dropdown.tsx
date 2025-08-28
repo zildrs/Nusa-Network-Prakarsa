@@ -1,4 +1,4 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronDown } from "@carbon/icons-react";
 import { useState, useRef, useEffect } from "react";
 
 type DropdownItem = {

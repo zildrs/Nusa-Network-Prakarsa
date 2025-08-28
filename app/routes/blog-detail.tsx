@@ -1,13 +1,12 @@
 import { Link } from "react-router";
 import type { Route } from "./+types/blog";
 import {
-  ArrowRight,
-  Building2,
-  Cpu,
-  Database,
-  MonitorCheck,
-  Network,
-} from "lucide-react";
+  DataCenter,
+  LoadBalancerNetwork,
+  IbmCloudHyperProtectDbaas,
+  CloudMonitoring,
+  IotPlatform,
+} from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 
 export function meta({}: Route.MetaArgs) {
@@ -21,27 +20,27 @@ const solutions = [
   {
     title: "Data Center",
     desc: "Safely secure your business data",
-    icon: Building2,
+    icon: DataCenter,
   },
   {
     title: "Managed Services",
     desc: "Preventive & Corrective Maintenance",
-    icon: Network,
+    icon: LoadBalancerNetwork,
   },
   {
     title: "Security Infrastructure",
     desc: "Securing systems with layered defense",
-    icon: Database,
+    icon: IbmCloudHyperProtectDbaas,
   },
   {
     title: "Network Infrastructure",
     desc: "Reliable connectivity for operations",
-    icon: MonitorCheck,
+    icon: CloudMonitoring,
   },
   {
     title: "Internet of Things (IoT)",
     desc: "Smart environment monitoring tools",
-    icon: Cpu,
+    icon: IotPlatform,
   },
 ];
 

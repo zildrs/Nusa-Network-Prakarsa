@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import type { Route } from "./+types/blog";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 
 export function meta({}: Route.MetaArgs) {
