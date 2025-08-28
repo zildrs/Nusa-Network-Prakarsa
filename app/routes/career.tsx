@@ -164,7 +164,7 @@ export default function Contact() {
                       href={job.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center bg-blue-950 text-white px-5 py-2 rounded-lg hover:bg-blue-950 transition"
+                      className="inline-flex items-center bg-primary text-white px-5 py-2 rounded-lg hover:bg-primary transition"
                     >
                       Apply now
                       <ArrowRight className="ml-2 h-4 w-4" />

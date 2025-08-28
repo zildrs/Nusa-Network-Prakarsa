@@ -71,7 +71,7 @@ export default function BlogDetail() {
       </section>
       <div className="min-h-screen bg-white font-sans">
         {/* Hero Section */}
-        <section className="bg-blue-950 text-white py-12 px-4">
+        <section className="bg-primary text-white py-12 px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
             {/* Left Content */}
             <div className="flex flex-col justify-between h-full pb-4 lg:px-4">

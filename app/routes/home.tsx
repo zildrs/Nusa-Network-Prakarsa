@@ -191,7 +191,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-blue-950 relative text-white pt-12 py-18 lg:py-12  overflow-hidden">
+      <section className="bg-primary relative text-white pt-12 py-18 lg:py-12  overflow-hidden">
         <img
           src="/bg-solutions.png"
           alt="Background Solution"

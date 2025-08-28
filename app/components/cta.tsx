@@ -2,7 +2,7 @@ import { ArrowRight } from "@carbon/icons-react";
 
 const CTASection = () => {
   return (
-    <section className="relative bg-blue-950 text-white py-20 overflow-hidden">
+    <section className="relative bg-primary text-white py-20 overflow-hidden">
       <img
         src="/bg-solutions.png"
         alt="Background Solution"

@@ -51,7 +51,7 @@ const solutions = [
 export default function Contact() {
   return (
     <main className="w-full">
-      <section className="bg-blue-950 relative text-white pt-12 py-18 lg:py-12 lg:min-h-[350px] overflow-hidden">
+      <section className="bg-primary relative text-white pt-12 py-18 lg:py-12 lg:min-h-[350px] overflow-hidden">
         <div className="max-w-7xl grid grid-cols-1 lg:grid-cols-2 mx-auto my-auto lg:min-h-[270px] px-4 relative">
           <div className="flex flex-col justify-center">
             <h1 className="text-white text-4xl font-semibold mb-3">

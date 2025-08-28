@@ -136,7 +136,7 @@ export default function Home() {
 
   return (
     <main className="relative">
-      <section className="relative bg-blue-950 text-white">
+      <section className="relative bg-primary text-white">
         <div
           className="absolute inset-0"
           style={{
@@ -149,7 +149,7 @@ export default function Home() {
           }}
         ></div>
 
-        <div className="absolute inset-0 bg-blue-950/70"></div>
+        <div className="absolute inset-0 bg-primary/70"></div>
         <div className="relative flex flex-col justify-end container mx-auto px-6 py-28 lg:py-40 max-w-7xl">
           <p className="uppercase text-sm font-semibold tracking-wide">
             Data Center Solutions
@@ -195,7 +195,7 @@ export default function Home() {
 
             <a
               href="#"
-              className="bg-blue-950 inline-flex items-center text-white px-4 py-2 rounded-lg hover:bg-[#19376D] transition"
+              className="bg-primary inline-flex items-center text-white px-4 py-2 rounded-lg hover:bg-[#19376D] transition"
             >
               Consult free with us <ArrowRight className="w-4 h-4 ml-1" />
             </a>

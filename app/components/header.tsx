@@ -148,7 +148,7 @@ export default function Header() {
           </Link>
           <Link
             to="/contact"
-            className="bg-blue-900 text-white rounded-lg px-4 py-2 text-sm flex items-center gap-1"
+            className="bg-primary text-white rounded-lg px-4 py-2 text-sm flex items-center gap-1"
           >
             Contact us <ArrowRight className="w-4 h-4 ml-1" />
           </Link>
@@ -226,7 +226,7 @@ export default function Header() {
           <div className="mt-6 flex flex-col gap-2">
             <Link
               to="/contact"
-              className="bg-blue-900 text-white rounded-lg px-4 py-3 flex justify-center items-center gap-1"
+              className="bg-primary text-white rounded-lg px-4 py-3 flex justify-center items-center gap-1"
             >
               Contact us →
             </Link>

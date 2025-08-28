@@ -45,7 +45,7 @@ const items = [
 export default function Certification() {
   return (
     <main>
-      <section className="bg-blue-950 relative text-white pt-12 py-18 lg:py-12 lg:min-h-[350px] overflow-hidden">
+      <section className="bg-primary relative text-white pt-12 py-18 lg:py-12 lg:min-h-[350px] overflow-hidden">
         <div
           className="absolute z-10 top-[-250px] right-[-250px] w-[400px] h-[400px] rounded-full filter blur-xl"
           style={{

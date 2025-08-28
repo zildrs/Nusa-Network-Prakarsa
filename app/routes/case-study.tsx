@@ -101,7 +101,7 @@ export default function CaseStudy() {
 
   return (
     <main>
-      <section className="bg-blue-950 relative text-white pt-12 py-18 lg:py-12 lg:min-h-[350px] overflow-hidden">
+      <section className="bg-primary relative text-white pt-12 py-18 lg:py-12 lg:min-h-[350px] overflow-hidden">
         <img
           src="/bg-solutions.png"
           alt="Background Solution"

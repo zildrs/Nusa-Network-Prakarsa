@@ -145,7 +145,7 @@ export default function CaseStudyDetail() {
               <p className="text-base lg:text-xl font-semibold lg:font-medium mb-6">
                 Ready to solve your challenges?
               </p>
-              <button className="bg-blue-950 hover:bg-blue-900 text-white px-5 py-3 rounded-lg flex items-center gap-2 transition">
+              <button className="bg-primary hover:bg-primary text-white px-5 py-3 rounded-lg flex items-center gap-2 transition">
                 Contact our experts <ArrowRight className="w-4 h-4" />
               </button>
             </div>
