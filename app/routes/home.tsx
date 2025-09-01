@@ -9,6 +9,8 @@ import { ArrowLeft, ArrowRight } from "@carbon/icons-react";
 import type { Swiper as SwiperRef } from "swiper/types";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
+import { useLoaderData } from "react-router";
+import { useTranslation } from "react-i18next";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -17,9 +19,18 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
+export async function articleLoader({ params, context }: any) {
+  const lang = context.i18n.language; // dapat dari context router
+  return lang;
+}
+
 export default function Home() {
   const swiperRef = useRef<SwiperRef | null>(null);
   const [Marquee, setMarquee] = useState<any>(null);
+
+  const lang = useLoaderData() as any;
+
+  console.log(lang, "lang");
 
   useEffect(() => {
     import("react-fast-marquee").then((mod) => {
@@ -110,7 +121,7 @@ export default function Home() {
         >
           {/* Left Side */}
           <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 lg:gap-10 items-end w-full">
-            <h1 className="text-5xl md:text-5xl font-semibold leading-tight col-span-6">
+            <h1 className="text-5xl md:text-[64px] leading-[80px] tracking-[-0.02em] font-semibold col-span-6">
               Trusted System Integrator <br /> Company in Indonesia
             </h1>
             {/* Right Side - Hero Image */}
@@ -125,7 +136,7 @@ export default function Home() {
           alt="Server Room"
         />
         {/* Partner Logos */}
-        <div className="py-8">
+        <div className="p-[64px]">
           <div className="max-w-7xl mx-auto px-4">
             <p className="text-center text-lg tracking-[0.2em] text-gray-500 mb-6 w-[80%] mx-auto">
               TRUSTED BY COMPANIES ALL OVER THE WORLD
@@ -152,10 +163,10 @@ export default function Home() {
         </div>
 
         {/* About + Stats */}
-        <div className="max-w-7xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-12 items-center">
+        <div className="max-w-7xl justify-between mx-auto px-4 py-16 grid md:grid-cols-2 gap-12 items-center">
           {/* Text */}
           <div>
-            <h2 className="text-4xl lg:text-5xl font-semibold leading-snug">
+            <h2 className="text-4xl lg:text-[40px] font-semibold leading-snug">
               As your IT Consultant, <br />
               we help you grow your business{" "}
               <span className="italic">exponentially</span>
@@ -174,11 +185,11 @@ export default function Home() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 gap-4 h-full">
+          <div className="flex flex-wrap gap-4 h-full">
             {stats.map((item) => (
               <div
                 key={item.label}
-                className="border border-gray-300 rounded-xl shadow-sm bg-center bg-cover bg-no-repeat bg-card flex flex-col justify-between"
+                className="border w-[167px] lg:w-[247px] border-[#E2E8F0] rounded-xl shadow-sm bg-center bg-cover bg-no-repeat bg-card flex flex-col justify-between"
                 style={{ backgroundImage: `url(/bg-card.png)` }}
               >
                 <p className="text-4xl font-semibold p-6">{item.value}</p>

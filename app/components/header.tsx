@@ -11,45 +11,49 @@ import {
   Menu,
 } from "@carbon/icons-react";
 import { Link } from "react-router";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
 
 const LangSwitcher = () => {
-  const [langOpen, setLangOpen] = useState(false);
   const [lang, setLang] = useState("en");
+
   return (
     <div className="relative">
-      <button
-        onClick={() => setLangOpen(true)}
-        className="border border-gray-300 rounded-lg px-3 py-2 flex items-center gap-1 text-sm text-gray-500"
-      >
-        <img
-          className="w-4 h-4 object-cover"
-          src={`/icons/${lang}.png`}
-          alt={lang.toUpperCase()}
-        />{" "}
-        {lang === "id" ? "ID" : "EN"} <ChevronDown size={16} />
-      </button>
-      {langOpen && (
-        <div className="absolute right-0 mt-2 w-16 rounded-lg border bg-white shadow-lg p-1 z-50">
-          <button
-            onClick={() => {
-              setLang("id");
-              setLangOpen(false);
-            }}
-            className="block w-full py-1 text-center text-sm text-gray-500 hover:bg-gray-100"
-          >
-            ID
-          </button>
-          <button
-            onClick={() => {
-              setLang("en");
-              setLangOpen(false);
-            }}
-            className="block w-full py-1 text-center text-sm text-gray-500 hover:bg-gray-100"
-          >
+      <Select onValueChange={(lang) => setLang(lang)} value={lang}>
+        <SelectTrigger className="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+          <SelectValue>
+            <img
+              className="w-4 h-4 object-cover"
+              src={`/icons/${lang}.png`}
+              alt={lang.toUpperCase()}
+            />{" "}
+            {lang.toUpperCase()}
+          </SelectValue>
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="en">
+            <img
+              className="w-4 h-4 object-cover"
+              src={`/icons/en.png`}
+              alt="EN"
+            />{" "}
             EN
-          </button>
-        </div>
-      )}
+          </SelectItem>
+          <SelectItem value="id">
+            <img
+              className="w-4 h-4 object-cover"
+              src={`/icons/id.png`}
+              alt="ID"
+            />{" "}
+            ID
+          </SelectItem>
+        </SelectContent>
+      </Select>
     </div>
   );
 };
@@ -141,13 +145,13 @@ export default function Header() {
         <div className="hidden lg:flex items-center gap-2">
           <LangSwitcher />
           <Link
-            to="/support"
+            to="https://ticket.nusanetwork.com/helpdesk"
             className="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-500"
           >
             Support
           </Link>
           <Link
-            to="/contact"
+            to="https://www.nusanetwork.com/contact/"
             className="bg-primary text-white rounded-lg px-4 py-2 text-sm flex items-center gap-1"
           >
             Contact us <ArrowRight className="w-4 h-4 ml-1" />
@@ -225,13 +229,13 @@ export default function Header() {
 
           <div className="mt-6 flex flex-col gap-2">
             <Link
-              to="/contact"
+              to="https://www.nusanetwork.com/contact/"
               className="bg-primary text-white rounded-lg px-4 py-3 flex justify-center items-center gap-1"
             >
-              Contact us →
+              Contact us <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
             <Link
-              to="/support"
+              to="https://ticket.nusanetwork.com/helpdesk"
               className="border rounded-lg px-4 py-3 text-center border-gray-300"
             >
               Support
