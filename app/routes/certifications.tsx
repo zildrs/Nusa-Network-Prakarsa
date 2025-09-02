@@ -1,5 +1,5 @@
 import CTASection from "~/components/cta";
-import type { Route } from "./+types/certification";
+import type { Route } from "./+types/certifications";
 import { Dropdown } from "~/components/dropdown";
 
 export function meta({}: Route.MetaArgs) {

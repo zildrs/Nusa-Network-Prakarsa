@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Route } from "./+types/partner";
+import type { Route } from "./+types/partners";
 import {
   Dialog,
   DialogContent,
