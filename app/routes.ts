@@ -14,4 +14,8 @@ export default [
   route("privacy-policy", "routes/privacy-policy.tsx"),
   route("careers", "routes/careers.tsx"),
   route("*", "routes/404.tsx"),
+
+  // resource route
+  route("resources/set-locale", "routes/resources.set-locale.tsx"),
+
 ] satisfies RouteConfig;

@@ -9,8 +9,8 @@ import { ArrowLeft, ArrowRight } from "@carbon/icons-react";
 import type { Swiper as SwiperRef } from "swiper/types";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
-import { useLoaderData } from "react-router";
-import { useTranslation } from "react-i18next";
+import { useLoaderData, useOutletContext } from "react-router";
+import { detectLocale } from "~/lib/locale.server";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -19,14 +19,15 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function articleLoader({ params, context }: any) {
-  const lang = context.i18n.language; // dapat dari context router
-  return lang;
+export async function loader({ params, request  }: any) {
+  return { "test data": detectLocale(request) };
 }
 
 export default function Home() {
   const swiperRef = useRef<SwiperRef | null>(null);
   const [Marquee, setMarquee] = useState<any>(null);
+  const ctx = useOutletContext<{ t: any; locale: "id" | "en" }>();
+  console.log(ctx, "<<< ini header");
 
   const lang = useLoaderData() as any;
 

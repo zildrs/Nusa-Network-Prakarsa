@@ -10,7 +10,7 @@ import {
   Close,
   Menu,
 } from "@carbon/icons-react";
-import { Link } from "react-router";
+import { Link, useOutletContext } from "react-router";
 import {
   Select,
   SelectContent,
@@ -59,6 +59,7 @@ const LangSwitcher = () => {
 };
 
 export default function Header() {
+  
   const [mobileOpen, setMobileOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
 

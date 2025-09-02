@@ -1,27 +1,30 @@
-// entry.server.tsx
+// app/entry.server.tsx
+import { PassThrough } from "node:stream";
+import { ServerRouter } from "react-router";
+import type { EntryContext } from "react-router";
 import { renderToPipeableStream } from "react-dom/server";
-import {
-  createStaticHandler,
-  createStaticRouter,
-  StaticRouterProvider,
-} from "react-router";
-import routes from "./routes";
-import i18n from "./i18n"; // instance i18next kamu
+import { createReadableStreamFromReadable } from "@react-router/node";
 
-export default async function handleRequest(req: Request, res: any) {
-  const handler = createStaticHandler(routes);
-
-  const context = await handler.query(req, {
-    context: {
-      i18n, // ✅ inject ke semua loader
-    },
+export default function handleRequest(
+  request: Request,
+  status: number,
+  headers: Headers,
+  context: EntryContext
+) {
+  return new Promise<Response>((resolve, reject) => {
+    const { pipe, abort } = renderToPipeableStream(
+      <ServerRouter context={context} url={request.url} />,
+      {
+        onShellReady() {
+          headers.set("Content-Type", "text/html");
+          const body = new PassThrough();
+          pipe(body);
+          resolve(new Response(createReadableStreamFromReadable(body), { status, headers }));
+        },
+        onShellError(err) { reject(err); },
+      }
+    );
+    // opsional: abort timeout streaming
+    setTimeout(abort, 15_000);
   });
-
-  const router = createStaticRouter(handler.dataRoutes, context);
-
-  const stream = renderToPipeableStream(
-    <StaticRouterProvider router={router} context={context} />
-  );
-
-  return stream;
 }

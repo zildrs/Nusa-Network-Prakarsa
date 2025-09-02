@@ -6,6 +6,10 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { useLoaderData } from "react-router";
+import type { LoaderFunctionArgs } from "react-router";
+import { detectLocale } from "./lib/locale.server";
+import { createT } from "./i18n";
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -25,9 +29,17 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export async function loader({ request }: LoaderFunctionArgs) {
+  const locale = detectLocale(request);
+  return { locale }; // cukup primitif, data kecil
+}
+
+export function Layout() {
+  const { locale } = useLoaderData<typeof loader>();
+  const t = createT(locale);
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -36,7 +48,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <Header />
-        {children}
+        {/* Hanya pakai Outlet, jangan gabung dengan children */}
+        <Outlet context={{ t, locale }} />
         <Footer />
         <ScrollRestoration />
         <Scripts />
@@ -76,4 +89,10 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       )}
     </main>
   );
+}
+
+// tipe helper untuk anak-anak
+export type RootOutletContext = ReturnType<typeof createRootContext>;
+function createRootContext() {
+  return {} as { t: ReturnType<typeof createT>; locale: "id" | "en" };
 }
