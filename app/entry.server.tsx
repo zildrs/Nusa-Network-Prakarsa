@@ -15,6 +15,7 @@ export default function handleRequest(
     const { pipe, abort } = renderToPipeableStream(
       <ServerRouter context={context} url={request.url} />,
       {
+
         onShellReady() {
           headers.set("Content-Type", "text/html");
           const body = new PassThrough();

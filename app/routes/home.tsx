@@ -19,19 +19,16 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader({ params, request  }: any) {
+export async function loader({ params, request }: any) {
   return { "test data": detectLocale(request) };
 }
 
 export default function Home() {
   const swiperRef = useRef<SwiperRef | null>(null);
   const [Marquee, setMarquee] = useState<any>(null);
-  const ctx = useOutletContext<{ t: any; locale: "id" | "en" }>();
-  console.log(ctx, "<<< ini header");
+  const { t, locale } = useOutletContext<{ t: any; locale: "id" | "en" }>();
 
   const lang = useLoaderData() as any;
-
-  console.log(lang, "lang");
 
   useEffect(() => {
     import("react-fast-marquee").then((mod) => {
@@ -40,10 +37,10 @@ export default function Home() {
   }, []);
 
   const stats = [
-    { value: "150+", label: "Projects Accomplished" },
-    { value: "100+", label: "Clients Success" },
-    { value: "32+", label: "Technology Partners" },
-    { value: "15+", label: "Amazing Awards Accomplished" },
+    { value: "150+", label: t("home.stats.projectsAccomplished") },
+    { value: "100+", label: t("home.stats.clientsSuccess") },
+    { value: "32+", label: t("home.stats.technologyPartners") },
+    { value: "15+", label: t("home.stats.amazingAwards") },
   ];
 
   const partners = [
@@ -123,11 +120,11 @@ export default function Home() {
           {/* Left Side */}
           <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 lg:gap-10 items-end w-full">
             <h1 className="text-5xl md:text-[64px] leading-[80px] tracking-[-0.02em] font-semibold col-span-6">
-              Trusted System Integrator <br /> Company in Indonesia
+              {t("home.heroTitle")}
             </h1>
             {/* Right Side - Hero Image */}
             <p className="text-gray-500 mt-4 text-xl lg:text-xl col-span-2">
-              Highly Tailored IT Design, Management & Support Services.
+              {t("home.heroSubtitle")}
             </p>
           </div>
         </div>
@@ -140,7 +137,7 @@ export default function Home() {
         <div className="p-[64px]">
           <div className="max-w-7xl mx-auto px-4">
             <p className="text-center text-lg tracking-[0.2em] text-gray-500 mb-6 w-[80%] mx-auto">
-              TRUSTED BY COMPANIES ALL OVER THE WORLD
+              {t("home.partners")}
             </p>
             {Marquee && (
               <Marquee
@@ -168,20 +165,14 @@ export default function Home() {
           {/* Text */}
           <div>
             <h2 className="text-4xl lg:text-[40px] font-semibold leading-snug">
-              As your IT Consultant, <br />
-              we help you grow your business{" "}
-              <span className="italic">exponentially</span>
+              {t("home.consultant")}
             </h2>
             <p className="text-gray-500 mt-4 leading-7 text-lg">
-              With over a decade of experience as a trusted system integrator in
-              Indonesia, PT Nusa Network Prakarsa has consistently demonstrated
-              its commitment to delivering advanced technology solutions that
+              {t("home.consultantDescription")}
               accelerate business growth and digital transformation.
             </p>
             <p className="text-gray-500 mt-4 leading-7 text-lg">
-              We deliver relevant solutions to businesses around the globe.
-              Strong innovation to leverage your IT resource is built in our
-              vein.
+              {t("home.consultantDescription2")}
             </p>
           </div>
 
@@ -232,7 +223,7 @@ export default function Home() {
           </p>
           <div className="flex justify-between items-center">
             <h2 className="text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10">
-              End-to-End IT Solutions <br /> for your Business Growth
+              {t("home.ourSolutions")}
             </h2>
             <div className="z-10 hidden lg:flex gap-8">
               <button
