@@ -10,56 +10,16 @@ import {
   Close,
   Menu,
 } from "@carbon/icons-react";
-import { Link, useOutletContext } from "react-router";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "~/components/ui/select";
+import { Link } from "react-router";
+import { LanguageSwitcher } from "~/components/lang-switcher";
 
-const LangSwitcher = () => {
-  const [lang, setLang] = useState("en");
 
-  return (
-    <div className="relative">
-      <Select onValueChange={(lang) => setLang(lang)} value={lang}>
-        <SelectTrigger className="border border-gray-300 rounded-lg px-3 py-2 text-sm">
-          <SelectValue>
-            <img
-              className="w-4 h-4 object-cover"
-              src={`/icons/${lang}.png`}
-              alt={lang.toUpperCase()}
-            />{" "}
-            {lang.toUpperCase()}
-          </SelectValue>
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="en">
-            <img
-              className="w-4 h-4 object-cover"
-              src={`/icons/en.png`}
-              alt="EN"
-            />{" "}
-            EN
-          </SelectItem>
-          <SelectItem value="id">
-            <img
-              className="w-4 h-4 object-cover"
-              src={`/icons/id.png`}
-              alt="ID"
-            />{" "}
-            ID
-          </SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
-  );
-};
 
-export default function Header() {
-  
+interface HeaderProps {
+  locale: string;
+}
+
+export default function Header({ locale }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
 
@@ -144,7 +104,7 @@ export default function Header() {
 
         {/* Right buttons */}
         <div className="hidden lg:flex items-center gap-2">
-          <LangSwitcher />
+          <LanguageSwitcher current={locale as "id" | "en"} />
           <Link
             to="https://ticket.nusanetwork.com/helpdesk"
             className="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-500"
@@ -161,7 +121,7 @@ export default function Header() {
 
         {/* Mobile menu button */}
         <div className="flex gap-2 items-center lg:hidden">
-          <LangSwitcher />
+          <LanguageSwitcher current={locale as "id" | "en"} />
           <button
             className="lg:hidden border border-gray-300 p-2 rounded-lg"
             onClick={() => setMobileOpen(true)}
