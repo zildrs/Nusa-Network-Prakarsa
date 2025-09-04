@@ -45,15 +45,15 @@ export default function About() {
                 </a>
               </li>
               <li>
-                <a href="/solutions/iot-solution" className="hover:underline">
+                <a
+                  href="/solutions/internet-of-things"
+                  className="hover:underline"
+                >
                   IoT Solution
                 </a>
               </li>
               <li>
-                <a
-                  href="/solutions/data-center-infrastructure"
-                  className="hover:underline"
-                >
+                <a href="/solutions/data-center" className="hover:underline">
                   Data Center Infrastructure
                 </a>
               </li>

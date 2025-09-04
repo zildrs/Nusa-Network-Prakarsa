@@ -40,10 +40,10 @@ export default function Footer() {
                   <Link to="/solutions/managed-services">Managed Services</Link>
                 </li>
                 <li>
-                  <Link to="/solutions/iot-solution">IoT Solution</Link>
+                  <Link to="/solutions/internet-of-things">IoT Solution</Link>
                 </li>
                 <li>
-                  <Link to="/solutions/data-center-infrastructure">
+                  <Link to="/solutions/data-center">
                     Data Center Infrastructure
                   </Link>
                 </li>
