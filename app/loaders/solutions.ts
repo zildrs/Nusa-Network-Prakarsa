@@ -1,10 +1,16 @@
 import {
+  Camera,
   CloudMonitoring,
   ContentDeliveryNetwork,
   DataBackup,
   Datastore,
   IbmCloudHpc,
+  RainScattered,
+  TemperatureWater,
   Tsunami,
+  WaveDirection,
+  WaveHeight,
+  WavePeriod,
 } from "@carbon/icons-react";
 import type { Route } from "../routes/+types/solutions-detail";
 export type Solution =
@@ -151,170 +157,173 @@ export const solutions: Record<Solution, SolutionData> = {
     cta_link: "/contact",
   },
   ["security-infrastructure"]: {
-    title: "Security Infrastructure",
-    hero_title: "Protect Your Business with Our Advanced Security Solutions",
+    title: "Security",
+    hero_title: "Comprehensive Security Solution for Your Digital Infrastructure",
     hero_subtitle:
-      "From advanced threat detection and vulnerability assessments to security awareness training and managed security services, our team of security experts is dedicated to providing you with the most comprehensive and cost-effective security solutions.",
-    hero_cta: "Get Started Today",
-    hero_cta_link: "/",
-    what_we_do_title: "Protecting Your Business from Cyber Threats",
+      "From endpoints to cloud, Nusa Network delivers comprehensive, enterprise-grade security solutions to protect your business in real time.",
+    hero_img: "/security-infrastructure.png",
+    hero_cta: "Schedule a Free Consultation",
+    hero_cta_link: "/contact",
+    what_we_do_title: "Protecting Every Layer of Your IT Infrastructure with Expert Precision",
     what_we_do_subtitle:
-      "From advanced threat detection and vulnerability assessments to security awareness training and managed security services, our team of security experts is dedicated to providing you with the most comprehensive and cost-effective security solutions.",
-    what_we_do_img: "/security-infrastructure.jpg",
-    service_title: "Solutions that secure your business",
+      "Our solutions are designed to proactively defend your network, users, data, and infrastructure from evolving threats. From advanced firewalls and secure cloud access to real-time threat detection and compliance enforcement, we integrate security into every layer of your technology stack.",
+    what_we_do_img: "/security.jpg",
+    service_title: "Solutions that fit your infrastructure needs",
     services: [
       {
-        title: "Advanced Threat Detection",
+        title: "Network Security",
         icon: Datastore,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
       {
-        title: "Vulnerability Assessment",
+        title: "Endpoint Protection",
         icon: IbmCloudHpc,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
       {
-        title: "Security Awareness Training",
+        title: "Email & Web Security",
         icon: Tsunami,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
       {
-        title: "Managed Security Services",
+        title: "Cloud Security",
         icon: DataBackup,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
       {
-        title: "Network Security",
+        title: "Security Operations",
         icon: ContentDeliveryNetwork,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
       {
-        title: "Endpoint Security",
+        title: "Compliance & Audit",
         icon: CloudMonitoring,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
     ],
-    cta_title: "Protect Your Business from Cyber Threats",
-    cta_subtitle: "",
+    cta_title: "Ready to Secure Your Business?",
+    cta_subtitle: "Get a free security assessment or consultation from our certified engineers today.",
     cta_text: "Schedule Free Consultation",
-    cta_link: "/",
+    cta_link: "/contact",
   },
   ["network-infrastructure"]: {
     title: "Network Infrastructure",
-    hero_title: "Future-Proof Your Network with Our Expertise",
+    hero_title: "Build a Smarter, Faster and Secure Network Infrastructure.",
     hero_subtitle:
-      "From network assessments and design to implementation and management, our team of network experts is dedicated to providing you with a reliable, scalable, and secure network infrastructure that meets your business needs.",
-    hero_cta: "Discover How We Can Help You",
-    hero_cta_link: "/",
+      "Future-proof your operations with tailored network design, implementation, and management — delivered by experts you can trust.",
+      hero_img: "/network-infrastructure.jpg",
+    hero_cta: "Schedule Free Consultation",
+    hero_cta_link: "/contact",
     what_we_do_title:
-      "Designing and Building Network Solutions for Your Business",
+      "Build a Future-Ready Network Today",
     what_we_do_subtitle:
-      "From network assessments and design to implementation and management, our team of network experts is dedicated to providing you with a reliable, scalable, and secure network infrastructure that meets your business needs.",
-    what_we_do_img: "/network-infrastructure.jpg",
+      "Our expert team works with you to design, deploy, and manage end-to-end infrastructures tailored to your business needs — ensuring maximum uptime, optimal performance, and secure operations at every stage. ",
+    what_we_do_img: "/network.jpg",
     service_title: "Solutions that empower your network",
     services: [
       {
-        title: "Network Assessment",
+        title: "LAN/WAN Design and Deployment",
         icon: Datastore,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
       {
-        title: "Network Design",
+        title: "SD-WAN Solutions",
         icon: IbmCloudHpc,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
       {
-        title: "Network Implementation",
+        title: "Wireless Network Solutions",
         icon: Tsunami,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
       {
-        title: "Network Management",
+        title: "Network Security Integration",
         icon: DataBackup,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
       {
-        title: "Network Security",
+        title: "Data Center Networking",
         icon: ContentDeliveryNetwork,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
       {
-        title: "Cloud Connectivity",
+        title: "Cloud & Hybrid Connectivity",
         icon: CloudMonitoring,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
     ],
-    cta_title: "Future-Proof Your Network with Our Expertise",
-    cta_subtitle: "",
+    cta_title: "Ready to Upgrade Your Network?",
+    cta_subtitle: "Talk to our network engineers today and discover how we can architect your next-gen infrastructure.",
     cta_text: "Schedule Free Consultation",
-    cta_link: "/",
+    cta_link: "/contact",
   },
   ["internet-of-things"]: {
-    title: "Internet of Things (IoT)",
+    title: "IOT",
     hero_title: "Unlock the Power of IoT for Your Business",
     hero_subtitle:
       "From IoT device management and data analytics to security and network infrastructure, our team of experts is dedicated to helping you unlock the full potential of IoT for your business.",
-    hero_cta: "Get Started Today",
-    hero_cta_link: "/",
-    what_we_do_title: "Solutions that empower your IoT strategy",
+    hero_img: "/iot.png",
+    hero_cta: "Visit NADA Website",
+    hero_cta_link: "https://www.nada.org/",
+    what_we_do_title: "Smarter, Integrated Solutions for Real-Time Ecosystem Observation",
     what_we_do_subtitle:
-      "From IoT device management and data analytics to security and network infrastructure, our team of experts is dedicated to helping you unlock the full potential of IoT for your business.",
-    what_we_do_img: "/internet-of-things.jpg",
+      "NADA delivers intelligent system solutions designed to simplify and enhance the way we monitor and understand our environment. Whether for smart cities, industrial sites, or natural resource management, NADA empowers decision-makers with accurate, actionable data through a secure, user-friendly platform.",
+    what_we_do_img: "/iot-tools.png",
     service_title: "Services that help you unlock the power of IoT",
     services: [
       {
-        title: "IoT Device Management",
-        icon: Datastore,
+        title: "Wave Monitor",
+        icon: WavePeriod,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
       {
-        title: "IoT Data Analytics",
-        icon: IbmCloudHpc,
+        title: "Time-lapse Camera",
+        icon: Camera,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
       {
-        title: "IoT Security",
-        icon: Tsunami,
+        title: "Water Quality Monitor",
+        icon: TemperatureWater,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
       {
-        title: "IoT Network Infrastructure",
-        icon: DataBackup,
+        title: "Currents Monitor",
+        icon: WaveHeight,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
       {
-        title: "IoT Consulting Services",
-        icon: ContentDeliveryNetwork,
+        title: "Weather Monitor",
+        icon: RainScattered,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
       {
-        title: "IoT Integration Services",
-        icon: CloudMonitoring,
+        title: "Water Level Monitor",
+        icon: WaveDirection,
         description:
           "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
       },
     ],
-    cta_title: "Unlock the Power of IoT for Your Business",
-    cta_subtitle: "",
+    cta_title: "Make Better Environmental Decisions",
+    cta_subtitle: "NADA empowers you to make informed decisions through smarter, connected monitoring systems. Start transforming your ecosystem today.",
     cta_text: "Schedule Free Consultation",
-    cta_link: "/",
+    cta_link: "/contact",
   },
 };
 

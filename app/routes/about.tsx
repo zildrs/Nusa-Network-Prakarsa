@@ -246,9 +246,7 @@ export default function About() {
                 className="border min-h-[200px] aspect-auto lg:aspect-square p-4 border-gray-300 rounded-xl bg-white shadow-sm bg-top-right bg-cover bg-no-repeat bg-card flex flex-col justify-between"
                 style={{ backgroundImage: `url(/bg-card.png)` }}
               >
-                <div className="relative border-2 lg:border-3 text-blue-400 text-2xl lg:text-5xl font-bold w-12 h-12 lg:w-26 lg:h-26 flex items-center justify-center rounded-lg lg:rounded-xl overflow-hidden">
-                  {item.letter}
-                </div>
+                <img className="w-24" src={`/about/${item.letter}.png`} alt={item.letter} />
                 <div className="text-lg text-gray-500 py-3 rounded-b-xl">
                   <p className="wrap-all max-w-2xs">{item.text}</p>
                 </div>

@@ -6,12 +6,7 @@ import {
   IbmCloudHyperProtectDbaas,
   CloudMonitoring,
   IotPlatform,
-  ArrowRight,
-  ChevronDown,
-  Close,
-  Menu,
 } from "@carbon/icons-react";
-import CTASection from "~/components/cta";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -74,7 +69,7 @@ export default function Contact() {
         </h1>
       </section>
 
-      <section className="py-16 px-6 md:px-12 lg:px-20">
+      <section className="py-16 px-6 max-w-7xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-medium text-slate-800 mb-10">
           Explore our solutions
         </h2>

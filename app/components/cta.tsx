@@ -33,11 +33,11 @@ const CTASection = (props: CTAPropsType) => {
       ></div>
       <div className="max-w-7xl relative mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
         <div>
-          <h2 className="text-4xl px-3 lg:text-[48px] text-center lg:text-left font-semibold max-w-lg leading-snug">
+          <h2 className="text-4xl  lg:text-[48px] text-center lg:text-left font-semibold max-w-lg leading-snug">
             {props.title ||
               "We run all kinds of IT services that vow your success"}
           </h2>
-          <p className="px-3 mt-4 max-w-md">{props.description || ""}</p>
+          <p className=" mt-4 max-w-md">{props.description || ""}</p>
         </div>
         <a
           href={props.link || "/contact"}

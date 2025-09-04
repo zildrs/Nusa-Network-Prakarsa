@@ -77,25 +77,32 @@ export default function Home() {
 
   return (
     <main className="relative">
-      <section className="relative bg-primary text-white min-h-screen">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `
-              linear-gradient(274deg,rgba(4, 42, 77, 0) 36.52%,#042A4D 68.52%),
-              url('${data.hero_img}')
-            `,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        ></div>
+      <section className="relative bg-primary text-white min-h-screen lg:min-h-[90vh]">
+        <div className="absolute inset-0">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url('${data.hero_img}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              transform: "scaleX(-1)", // hanya gambar yang mirror
+            }}
+          />
 
-        <div className="absolute inset-0 bg-primary/70"></div>
+          {/* layer gradient (tetap normal) */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(274deg, rgba(4, 42, 77, 0) 36.52%, #042A4D 68.52%)",
+            }}
+          />
+        </div>
+
         <div className="relative flex flex-col justify-end container mx-auto px-6 py-28 lg:py-40 max-w-7xl">
           <p className="uppercase text-sm tracking-wide">
             <span className="font-semibold">{data.title}</span> Solutions
           </p>
-          <h1 className="mt-4 text-4xl lg:text-5xl font-bold leading-tight max-w-md">
+          <h1 className="mt-4 text-4xl lg:text-5xl font-semibold leading-tight max-w-md">
             {data.hero_title}
           </h1>
           <p className="mt-6 text-xl max-w-lg text-gray-200">
@@ -148,7 +155,7 @@ export default function Home() {
               <p className="text-sm ">
                 <span className="font-semibold">WHAT</span> WE DO
               </p>
-              <h2 className="text-4xl font-bold text-gray-900 mt-2">
+              <h2 className="text-4xl font-semibold text-gray-900 mt-2">
                 {data.what_we_do_title}
               </h2>
               <p className="mt-4 text-lg text-gray-600">
@@ -173,7 +180,7 @@ export default function Home() {
             <span className="font-semibold">OUR</span>{" "}
             {data.title.toUpperCase()} SERVICES
           </p>
-          <h2 className="text-3xl lg:text-5xl font-medium tracking-wide mt-2">
+          <h2 className="text-3xl lg:text-5xl font-medium tracking-normal mt-2">
             Solutions that fit <br /> your infrastructure needs
           </h2>
 
