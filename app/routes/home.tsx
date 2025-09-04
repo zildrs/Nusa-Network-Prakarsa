@@ -119,7 +119,7 @@ export default function Home() {
         >
           {/* Left Side */}
           <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 lg:gap-10 items-end w-full">
-            <h1 className="text-5xl md:text-[64px] leading-[80px] tracking-[-0.02em] font-semibold col-span-6">
+            <h1 className="text-5xl text-[40px] lg:text-[64px] leading-[50px] lg:leading-[80px] tracking-[-0.02em] font-semibold col-span-6">
               {t("home.heroTitle")}
             </h1>
             {/* Right Side - Hero Image */}
@@ -134,10 +134,10 @@ export default function Home() {
           alt="Server Room"
         />
         {/* Partner Logos */}
-        <div className="p-[64px]">
+        <div className="lg:p-[64px] py-[64px] ">
           <div className="max-w-7xl mx-auto px-4">
-            <p className="text-center text-lg tracking-[0.2em] text-gray-500 mb-6 w-[80%] mx-auto">
-              {t("home.partners")}
+            <p className="text-center text-xs lg:text-lg tracking-[4px] leading-[18px] lg:tracking-[0.2em] text-gray-500 mb-6 lg:w-[80%] mx-auto">
+              {t("home.trustedBy")}
             </p>
             {Marquee && (
               <Marquee
@@ -164,29 +164,32 @@ export default function Home() {
         <div className="max-w-7xl justify-between mx-auto px-4 py-16 grid md:grid-cols-2 gap-12 items-center">
           {/* Text */}
           <div>
-            <h2 className="text-4xl lg:text-[40px] font-semibold leading-snug">
+            <h2 className="text-[32px] lg:text-[40px] font-semibold leading-snug">
               {t("home.consultant")}
             </h2>
-            <p className="text-gray-500 mt-4 leading-7 text-lg">
+            <p className="text-gray-500 mt-4 leading-7 text-base lg:text-lg">
               {t("home.consultantDescription")}
               accelerate business growth and digital transformation.
             </p>
-            <p className="text-gray-500 mt-4 leading-7 text-lg">
+            <p className="text-gray-500 mt-4 leading-7 text-base lg:text-lg">
               {t("home.consultantDescription2")}
             </p>
           </div>
 
-          {/* Stats */}
-          <div className="flex flex-wrap gap-4 h-full">
+          <div className="grid grid-cols-2 gap-4 h-full">
             {stats.map((item) => (
               <div
                 key={item.label}
-                className="border w-[167px] lg:w-[247px] border-[#E2E8F0] rounded-xl shadow-sm bg-center bg-cover bg-no-repeat bg-card flex flex-col justify-between"
+                className="border border-gray-300 rounded-xl aspect-square lg:aspect-auto shadow-sm bg-center bg-cover bg-no-repeat bg-card flex flex-col justify-between"
                 style={{ backgroundImage: `url(/bg-card.png)` }}
               >
-                <p className="text-4xl font-semibold p-6">{item.value}</p>
+                <p className="lg:text-4xl text-[32px] font-semibold p-4 lg:p-6">
+                  {item.value}
+                </p>
                 <div className="text-lg text-gray-500 bg-gray-50 p-3 rounded-b-xl">
-                  <p className="lg:w-42 wrap-all">{item.label}</p>
+                  <p className="lg:w-42 wrap-all text-sm lg:text-base">
+                    {item.label}
+                  </p>
                 </div>
               </div>
             ))}
@@ -222,8 +225,8 @@ export default function Home() {
             <span className="font-semibold">Our</span> Solutions
           </p>
           <div className="flex justify-between items-center">
-            <h2 className="text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10">
-              {t("home.ourSolutions")}
+            <h2 className="text-[32px] lg:text-5xl font-semibold lg:font-semibold leading-snug mb-10">
+              {t("home.endToEnd")} <br />
             </h2>
             <div className="z-10 hidden lg:flex gap-8">
               <button
@@ -280,7 +283,7 @@ export default function Home() {
           <p className="uppercase text-sm tracking-wide text-gray-900 mb-2">
             <span className="font-semibold">Case</span> Study
           </p>
-          <h2 className="text-3xl lg:text-4xl font-semibold mb-8 max-w-md">
+          <h2 className="text-[32px] lg:text-4xl font-semibold mb-8 max-w-md">
             Customer Success with Nusa Network Prakarsa
           </h2>
 
@@ -293,7 +296,7 @@ export default function Home() {
       </section>
 
       <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-6">
           <p className="uppercase tracking-wide text-gray-900 mb-2">
             Our <span className="font-semibold">Clients Story</span>
           </p>
@@ -327,7 +330,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 max-w-7xl mx-auto px-4">
+      <section className="py-16 max-w-7xl mx-auto px-6">
         <p className=" tracking-widest text-gray-900 uppercase">
           <span className="font-semibold">Technology</span> Partners
         </p>
