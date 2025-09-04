@@ -1,20 +1,13 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import type { Route } from "./+types/home";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import {
-  ArrowRight,
-  Datastore,
-  IbmCloudHpc,
-  Tsunami,
-  DataBackup,
-  ContentDeliveryNetwork,
-  CloudMonitoring,
-} from "@carbon/icons-react";
-import type { Swiper as SwiperRef } from "swiper/types";
+import { ArrowRight } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
+import { useLoaderData } from "react-router";
+import { solutions, loader as solutionsLoader } from "~/loaders/solutions";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -23,22 +16,18 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
+export const loader = solutionsLoader;
+
 export default function Home() {
-  const swiperRef = useRef<SwiperRef | null>(null);
   const [Marquee, setMarquee] = useState<any>(null);
+
+  const data = useLoaderData<typeof solutionsLoader>();
 
   useEffect(() => {
     import("react-fast-marquee").then((mod) => {
       setMarquee(() => mod.default);
     });
   }, []);
-
-  const stats = [
-    { value: "150+", label: "Projects Accomplished" },
-    { value: "100+", label: "Clients Success" },
-    { value: "32+", label: "Technology Partners" },
-    { value: "15+", label: "Amazing Awards Accomplished" },
-  ];
 
   const partners = [
     "/logos/allianz.png",
@@ -60,45 +49,6 @@ export default function Home() {
     "/logos/sinarmas.png",
     "/logos/taman-safari.png",
     "/logos/telkom.png",
-  ];
-
-  const services = [
-    {
-      title: "Colocation Services",
-      icon: Datastore,
-      description:
-        "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
-    },
-    {
-      title: "Private Cloud & Virtualization",
-      icon: IbmCloudHpc,
-      description:
-        "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
-    },
-    {
-      title: "Disaster Recovery",
-      icon: Tsunami,
-      description:
-        "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
-    },
-    {
-      title: "Data Backup & Storage Solutions",
-      icon: DataBackup,
-      description:
-        "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
-    },
-    {
-      title: "Network Redundancy & Load Balancing",
-      icon: ContentDeliveryNetwork,
-      description:
-        "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
-    },
-    {
-      title: "Managed Server Hosting",
-      icon: CloudMonitoring,
-      description:
-        "Lorem ipsum dolor sit amet dolor sit lorem ipsum secure colocation and cloud-ready",
-    },
   ];
 
   const caseStudies = [
@@ -125,24 +75,15 @@ export default function Home() {
     },
   ];
 
-  const testimonials = Array(6).fill({
-    quote:
-      "Overall, everything has been good from the salesperson and other teams, including other services such as SOC, Managed Services, and Application Platform.",
-    name: "Widiya Kumoro",
-    role: "IT Manager",
-    companyLogo:
-      "https://rec-data.kalibrr.com/www.kalibrr.com/logos/7QSUT6KX6LRD4USDXZXTUD4PCDAMZN5F7EKZV3ZF-60e032e2.png",
-  });
-
   return (
     <main className="relative">
-      <section className="relative bg-primary text-white">
+      <section className="relative bg-primary text-white min-h-screen">
         <div
           className="absolute inset-0"
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(0, 51, 102, 0.9), rgba(0, 51, 102, 0.6), rgba(0, 51, 102, 0)),
-              url('/data-center.jpg')
+              linear-gradient(274deg,rgba(4, 42, 77, 0) 36.52%,#042A4D 68.52%),
+              url('${data.hero_img}')
             `,
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -151,24 +92,21 @@ export default function Home() {
 
         <div className="absolute inset-0 bg-primary/70"></div>
         <div className="relative flex flex-col justify-end container mx-auto px-6 py-28 lg:py-40 max-w-7xl">
-          <p className="uppercase text-sm font-semibold tracking-wide">
-            Data Center Solutions
+          <p className="uppercase text-sm tracking-wide">
+            <span className="font-semibold">{data.title}</span> Solutions
           </p>
-          <h1 className="mt-4 text-4xl lg:text-5xl font-bold leading-tight max-w-3xl">
-            Modern, Secure, <br />
-            and Scalable Data <br />
-            Center Solutions
+          <h1 className="mt-4 text-4xl lg:text-5xl font-bold leading-tight max-w-md">
+            {data.hero_title}
           </h1>
-          <p className="mt-6 text-lg max-w-xl text-gray-200">
-            Empower your business with enterprise-grade data center solutions,
-            24/7 uptime, and expert support — all tailored to your needs.
+          <p className="mt-6 text-xl max-w-lg text-gray-200">
+            {data.hero_subtitle}
           </p>
           <div className="mt-8">
             <a
-              href="#"
+              href={data.hero_cta_link}
               className="w-fit bg-white flex items-center text-blue-950 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-100 transition"
             >
-              Schedule Free Consultation{" "}
+              {data.hero_cta}{" "}
               <ArrowRight className="inline-block ml-2 w-4 h-4" />
             </a>
           </div>
@@ -178,7 +116,7 @@ export default function Home() {
       <section className="relative lg:block hidden">
         <div className="absolute bottom-0 left-0 w-full bg-white">
           <div className="container mx-auto px-6 max-w-7xl py-4 flex justify-between items-center text-sm font-medium">
-            <div className="flex gap-8 text-gray-700">
+            <div className="flex gap-8 text-gray-700 text-base">
               <a href="#" className="hover:text-blue-950">
                 What we do
               </a>
@@ -207,21 +145,19 @@ export default function Home() {
         <div className="container max-w-7xl px-6 py-18 lg:py-12 mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="flex flex-col justify-center">
-              <p className="text-sm font-semibold">WHAT WE DO</p>
+              <p className="text-sm ">
+                <span className="font-semibold">WHAT</span> WE DO
+              </p>
               <h2 className="text-4xl font-bold text-gray-900 mt-2">
-                Reliable. Scalable. <br /> Always On.
+                {data.what_we_do_title}
               </h2>
               <p className="mt-4 text-lg text-gray-600">
-                From secure colocation and cloud-ready hosting to disaster
-                recovery and 24/7 monitoring, our solutions are tailored to
-                ensure uptime, compliance, and total peace of mind. Backed by
-                certified experts and advanced infrastructure, we help you stay
-                online, connected, and future-ready.
+                {data.what_we_do_subtitle}
               </p>
             </div>
             <div className="min-h-[450px] lg:overflow-visible overflow-hidden">
               <img
-                src="/data-center.jpg"
+                src={data.what_we_do_img}
                 alt="server"
                 className="absolute min-h-[350px] sm:max-h-[250px] right-0 top-1/2 transform lg:-translate-y-1/2 lg:w-[40vw] w-[95vw] object-cover rounded-l-xl"
               />
@@ -231,29 +167,35 @@ export default function Home() {
       </section>
 
       {/* Section 1 - Services */}
-      <section className="bg-gradient-to-r  from-[#0A2A5E] to-[#063970] text-white py-16 px-6 lg:px-20">
+      <section className="bg-gradient-to-r from-[#0A2A5E] to-[#063970] text-white py-16 px-6 lg:px-20">
         <div className="mx-auto max-w-7xl">
-          <p className="text-sm font-semibold">OUR DATA CENTER SERVICES</p>
-          <h2 className="text-3xl lg:text-4xl font-bold mt-2">
+          <p className="text-sm ">
+            <span className="font-semibold">OUR</span>{" "}
+            {data.title.toUpperCase()} SERVICES
+          </p>
+          <h2 className="text-3xl lg:text-5xl font-medium tracking-wide mt-2">
             Solutions that fit <br /> your infrastructure needs
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-            {services.map((service, i) => (
-              <div
-                key={i}
-                style={{ backgroundImage: "url('/bg-card-2.png')" }}
-                className="bg-white max-h-[250px] h-full flex flex-col justify-between aspect-[6/3] text-gray-800 p-6 rounded-xl"
-              >
-                <div className="text-3xl mb-4">
-                  {<service.icon size={32} />}
+            {data.services.map((service, i) => {
+              const Icon = solutions[data.slug].services[i].icon;
+              return (
+                <div
+                  key={i}
+                  style={{ backgroundImage: "url('/bg-card-2.png')" }}
+                  className="bg-white max-h-[250px] h-full flex flex-col justify-between aspect-[6/3] text-gray-800 p-6 rounded-xl"
+                >
+                  <div className="text-3xl mb-4">
+                    <Icon size={32} />
+                  </div>
+                  <h3 className="font-semibold lg:text-xl">{service.title}</h3>
+                  <p className="text-gray-400 block lg:hidden">
+                    {service.description}
+                  </p>
                 </div>
-                <h3 className="font-semibold lg:text-xl">{service.title}</h3>
-                <p className="text-gray-400 block lg:hidden">
-                  {service.description}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -279,15 +221,14 @@ export default function Home() {
         <p className=" tracking-widest text-gray-900 uppercase">
           <span className="font-semibold">Technology</span> Partners
         </p>
-        <h2 className="mt-2 text-3xl lg:text-4xl max-w-lg font-semibold text-gray-900 leading-snug">
-          Leading Solutions with World-Class Partners
+        <h2 className="mt-2 text-3xl lg:text-4xl max-w-2xl font-semibold text-gray-900 leading-snug">
+          Simplifying Complex Hybrid IT with World-Class Technology Partners
         </h2>
         <a
           href="#"
           className="my-8 hidden lg:inline-flex items-center font-medium"
         >
-          Learn More about our Technology Partners{" "}
-          <ArrowRight className="ml-2 h-5 w-5" />
+          Learn More <ArrowRight className="ml-2 h-5 w-5" />
         </a>
         <a href="#" className="my-8 flex items-center font-medium lg:hidden">
           Learn More <ArrowRight className="ml-2 h-5 w-5" />
@@ -314,7 +255,12 @@ export default function Home() {
         )}
       </section>
 
-      <CTASection />
+      <CTASection
+        title={data.cta_title}
+        link={data.cta_link}
+        linkText={data.cta_text}
+        description={data.cta_subtitle}
+      />
     </main>
   );
 }

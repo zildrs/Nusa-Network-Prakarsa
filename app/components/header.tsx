@@ -26,26 +26,31 @@ export default function Header({ locale }: HeaderProps) {
   const solutions = [
     {
       title: "Data Center",
+      slug: "data-center",
       desc: "Safely secure your business data",
       icon: DataCenter,
     },
     {
       title: "Managed Services",
+      slug: "managed-services",
       desc: "Preventive & Corrective Maintenance",
       icon: LoadBalancerNetwork,
     },
     {
       title: "Security Infrastructure",
+      slug: "security-infrastructure",
       desc: "Securing systems with layered defense",
       icon: IbmCloudHyperProtectDbaas,
     },
     {
       title: "Network Infrastructure",
+      slug: "network-infrastructure",
       desc: "Reliable connectivity for operations",
       icon: CloudMonitoring,
     },
     {
       title: "Internet of Things (IoT)",
+      slug: "internet-of-things",
       desc: "Smart environment monitoring tools",
       icon: IotPlatform,
     },
@@ -75,7 +80,7 @@ export default function Header({ locale }: HeaderProps) {
                   {solutions.map((item) => (
                     <Link
                       key={item.title}
-                      to={`/solutions/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
+                      to={`/solutions/${item.slug}`}
                       className="py-3 flex items-center gap-2"
                       onClick={() => setMobileOpen(false)}
                     >

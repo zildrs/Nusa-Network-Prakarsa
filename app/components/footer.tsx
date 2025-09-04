@@ -10,9 +10,9 @@ export default function Footer() {
   return (
     <>
       <footer className="bg-white">
-        <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-5 gap-10">
           {/* Company Info */}
-          <div>
+          <div className="col-span-2">
             <img src="/logo.png" alt="NNP" className="h-10 mb-4" />
             <p className=" text-gray-600 leading-relaxed">
               Jalan Kamal Raya Outer Ring Road, <br />
@@ -26,7 +26,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 col-span-3">
             {/* Solutions */}
             <div>
               <h4 className="font-semibold text-gray-500 mb-3">Solutions</h4>
@@ -88,13 +88,15 @@ export default function Footer() {
                   <Link to="/sitemap">Sitemap</Link>
                 </li>
                 <li>
-                  <Link to="/certification">Certifications</Link>
+                  <Link to="/certifications">Certifications</Link>
                 </li>
                 <li>
                   <Link to="/contact">Contact Us</Link>
                 </li>
                 <li>
-                  <Link to="/support">Support</Link>
+                  <Link to="https://ticket.nusanetwork.com/helpdesk">
+                    Support
+                  </Link>
                 </li>
               </ul>
             </div>
