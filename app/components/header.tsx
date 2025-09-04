@@ -11,9 +11,16 @@ import {
   Menu,
 } from "@carbon/icons-react";
 import { Link } from "react-router";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "~/components/ui/navigation-menu";
 import { LanguageSwitcher } from "~/components/lang-switcher";
-
-
 
 interface HeaderProps {
   locale: string;
@@ -67,7 +74,55 @@ export default function Header({ locale }: HeaderProps) {
 
           {/* Desktop Menu */}
           <nav className="hidden lg:flex items-center gap-6">
-            {/* Solutions dropdown */}
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
+                  <NavigationMenuContent className="min-w-[350px] pl-6">
+                    {solutions.map((item) => (
+                      <Link
+                        key={item.title}
+                        to={`/solutions/${item.slug}`}
+                        className="py-3 flex items-center gap-2"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        <item.icon className="mr-2" size={20} />
+                        <div className="block">
+                          <p className="font-semibold">{item.title}</p>
+                          <p className="text-sm text-gray-500">{item.desc}</p>
+                        </div>
+                      </Link>
+                    ))}
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={navigationMenuTriggerStyle()}
+                  >
+                    <Link to="/about">About</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={navigationMenuTriggerStyle()}
+                  >
+                    <Link to="/case-study">Case Study</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={navigationMenuTriggerStyle()}
+                  >
+                    <Link to="/blog">Blog</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+
+            {/* Solutions dropdown
             <div className="relative">
               <button
                 onClick={() => setSolutionsOpen(!solutionsOpen)}
@@ -103,7 +158,7 @@ export default function Header({ locale }: HeaderProps) {
             </Link>
             <Link to="/blog" className="font-medium text-gray-700">
               Blog
-            </Link>
+            </Link> */}
           </nav>
         </div>
 
@@ -157,7 +212,7 @@ export default function Header({ locale }: HeaderProps) {
               {solutions.map((item) => (
                 <Link
                   key={item.title}
-                  to={`/solutions/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
+                  to={`/solutions/${item.slug}`}
                   className="py-3 flex items-center gap-2"
                   onClick={() => setMobileOpen(false)}
                 >
