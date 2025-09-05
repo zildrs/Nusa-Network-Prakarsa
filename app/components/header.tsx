@@ -26,42 +26,42 @@ interface HeaderProps {
   locale: string;
 }
 
+export const solutionsMenu = [
+  {
+    title: "Data Center",
+    slug: "data-center",
+    desc: "Safely secure your business data",
+    icon: DataCenter,
+  },
+  {
+    title: "Managed Services",
+    slug: "managed-services",
+    desc: "Preventive & Corrective Maintenance",
+    icon: LoadBalancerNetwork,
+  },
+  {
+    title: "Security Infrastructure",
+    slug: "security-infrastructure",
+    desc: "Securing systems with layered defense",
+    icon: IbmCloudHyperProtectDbaas,
+  },
+  {
+    title: "Network Infrastructure",
+    slug: "network-infrastructure",
+    desc: "Reliable connectivity for operations",
+    icon: CloudMonitoring,
+  },
+  {
+    title: "Internet of Things (IoT)",
+    slug: "internet-of-things",
+    desc: "Smart environment monitoring tools",
+    icon: IotPlatform,
+  },
+];
+
 export default function Header({ locale }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
-
-  const solutions = [
-    {
-      title: "Data Center",
-      slug: "data-center",
-      desc: "Safely secure your business data",
-      icon: DataCenter,
-    },
-    {
-      title: "Managed Services",
-      slug: "managed-services",
-      desc: "Preventive & Corrective Maintenance",
-      icon: LoadBalancerNetwork,
-    },
-    {
-      title: "Security Infrastructure",
-      slug: "security-infrastructure",
-      desc: "Securing systems with layered defense",
-      icon: IbmCloudHyperProtectDbaas,
-    },
-    {
-      title: "Network Infrastructure",
-      slug: "network-infrastructure",
-      desc: "Reliable connectivity for operations",
-      icon: CloudMonitoring,
-    },
-    {
-      title: "Internet of Things (IoT)",
-      slug: "internet-of-things",
-      desc: "Smart environment monitoring tools",
-      icon: IotPlatform,
-    },
-  ];
 
   return (
     <header className="border-b border-gray-200 bg-white text-gray-600">
@@ -79,7 +79,7 @@ export default function Header({ locale }: HeaderProps) {
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
                   <NavigationMenuContent className="min-w-[350px] pl-6">
-                    {solutions.map((item) => (
+                    {solutionsMenu.map((item) => (
                       <Link
                         key={item.title}
                         to={`/solutions/${item.slug}`}
@@ -209,7 +209,7 @@ export default function Header({ locale }: HeaderProps) {
           </button>
           {solutionsOpen && (
             <div className="pl-4">
-              {solutions.map((item) => (
+              {solutionsMenu.map((item) => (
                 <Link
                   key={item.title}
                   to={`/solutions/${item.slug}`}

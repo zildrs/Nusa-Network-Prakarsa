@@ -1,13 +1,12 @@
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import type { Route } from "./+types/blog";
-import {
-  DataCenter,
-  LoadBalancerNetwork,
-  IbmCloudHyperProtectDbaas,
-  CloudMonitoring,
-  IotPlatform,
-} from "@carbon/icons-react";
 import CTASection from "~/components/cta";
+import { solutionsMenu } from "~/components/header";
+import { BlogNavigation } from "~/components/blog";
+import { fetchBlogBySlug, fetchCategoriesData } from "~/lib/api.server";
+import { formatBlogDate } from "~/utils/blog";
+import BlogContent from "~/components/blog/blog-content";
+import { APP_BASE_URL } from "~/lib/utils";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -15,60 +14,25 @@ export function meta({}: Route.MetaArgs) {
     { name: "description", content: "Welcome to React Router!" },
   ];
 }
+export async function loader({
+  request,
+  params,
+}: Route.LoaderArgs & { params: { slug: string } }) {
+  const slug = params.slug;
+  const [blog, { categories, locale }] = await Promise.all([
+    fetchBlogBySlug(request, slug),
+    fetchCategoriesData(request),
+  ]);
 
-const solutions = [
-  {
-    title: "Data Center",
-    desc: "Safely secure your business data",
-    icon: DataCenter,
-  },
-  {
-    title: "Managed Services",
-    desc: "Preventive & Corrective Maintenance",
-    icon: LoadBalancerNetwork,
-  },
-  {
-    title: "Security Infrastructure",
-    desc: "Securing systems with layered defense",
-    icon: IbmCloudHyperProtectDbaas,
-  },
-  {
-    title: "Network Infrastructure",
-    desc: "Reliable connectivity for operations",
-    icon: CloudMonitoring,
-  },
-  {
-    title: "Internet of Things (IoT)",
-    desc: "Smart environment monitoring tools",
-    icon: IotPlatform,
-  },
-];
+  return { blog, categories, locale };
+}
 
 export default function BlogDetail() {
+  const { categories, blog } = useLoaderData<typeof loader>();
   return (
     <main>
-      <section className="border-b border-gray-200 bg-white text-gray-600">
-        <div className="max-w-7xl  mx-auto">
-          <nav className="text-sm py-4 flex items-center gap-6 w-full overflow-scroll lg:overflow-hidden px-4 lg:px-6">
-            {[
-              "Home",
-              "Technology",
-              "Devices",
-              "ICT Solutions",
-              "Nusa Insight",
-              "Press Release",
-            ].map((item) => (
-              <Link
-                key={item}
-                to={`/${item.toLowerCase()}`}
-                className="font-medium text-gray-800 whitespace-nowrap"
-              >
-                {item}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </section>
+      <BlogNavigation categories={categories} />
+
       <div className="min-h-screen bg-white font-sans">
         {/* Hero Section */}
         <section className="bg-primary text-white py-12 px-4">
@@ -76,23 +40,24 @@ export default function BlogDetail() {
             {/* Left Content */}
             <div className="flex flex-col justify-between h-full pb-4 lg:px-4">
               <div>
-                <p className="text-sm mb-2 opacity-80">Technology</p>
+                <p className="text-base mb-2 opacity-80">
+                  {blog?.category?.name}
+                </p>
                 <h1 className="text-3xl mb-16 md:text-4xl font-bold leading-snug max-w-xl line-clamp-3">
-                  Transforming Peruri Businesses with SD-WAN Technologymax 3
-                  lines
+                  {blog?.title}
                 </h1>
               </div>
               <div className="flex justify-between items-center gap-6 text-sm opacity-90">
-                <span>Angela Paramitha</span>
-                <span>1 January 2025</span>
+                <span>{blog?.author?.name}</span>
+                <span>{formatBlogDate(blog?.publishedAt)}</span>
               </div>
             </div>
 
             {/* Right Image */}
             <div className="flex justify-end">
               <img
-                src="https://awsimages.detik.net.id/community/media/visual/2024/11/19/kantor-peruri-resmi-jadi-cagar-budaya-1_169.jpeg?w=700&q=90"
-                alt="Peruri"
+                src={`${APP_BASE_URL}/${blog?.banner[0].url}`}
+                alt={blog?.title}
                 className="rounded-xl w-full aspect-[5/3] lg:aspect-[6/3] object-cover shadow-lg"
               />
             </div>
@@ -103,53 +68,7 @@ export default function BlogDetail() {
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-10 py-12 max-w-7xl mx-auto px-4 lg:px-6">
           {/* Left Content */}
           <div className="lg:col-span-2 space-y-10">
-            <div>
-              <h2 className="text-2xl lg:text-3xl font-semibold mb-4">
-                Title 1
-              </h2>
-              <p className="text-gray-600 leading-relaxed">
-                Lorem ipsum dolor sit amet consectetur. Eu aliquam urna purus et
-                non. Nunc sagittis aliquam quam id enim. Metus dictum nulla
-                ultrices nisi id duis. Leo integer risus id a posuere
-                suspendisse augue amet. Sapien sit vulputate et nec sagittis
-                rhoncus proin penatibus. Ut velit condimentum mattis dolor.
-                Blandit morbi et augue ac sit. Sit tincidunt lorem mauris quam
-                commodo tempor placerat montes. Aliquet integer urna mus dui
-                morbi nunc metus lectus ultrices.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-2xl lg:text-3xl font-semibold mb-4">
-                Title 2
-              </h2>
-              <p className="text-gray-600 leading-relaxed">
-                Lorem ipsum dolor sit amet consectetur. Eu aliquam urna purus et
-                non. Nunc sagittis aliquam quam id enim. Metus dictum nulla
-                ultrices nisi id duis. Leo integer risus id a posuere
-                suspendisse augue amet. Sapien sit vulputate et nec sagittis
-                rhoncus proin penatibus. Ut velit condimentum mattis dolor.
-                Blandit morbi et augue ac sit. Sit tincidunt lorem mauris quam
-                commodo tempor placerat montes. Aliquet integer urna mus dui
-                morbi nunc metus lectus ultrices.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-2xl lg:text-3xl font-semibold mb-4">
-                Title 3
-              </h2>
-              <p className="text-gray-600 leading-relaxed">
-                Lorem ipsum dolor sit amet consectetur. Eu aliquam urna purus et
-                non. Nunc sagittis aliquam quam id enim. Metus dictum nulla
-                ultrices nisi id duis. Leo integer risus id a posuere
-                suspendisse augue amet. Sapien sit vulputate et nec sagittis
-                rhoncus proin penatibus. Ut velit condimentum mattis dolor.
-                Blandit morbi et augue ac sit. Sit tincidunt lorem mauris quam
-                commodo tempor placerat montes. Aliquet integer urna mus dui
-                morbi nunc metus lectus ultrices.
-              </p>
-            </div>
+            <BlogContent content={blog?.content} />
           </div>
 
           {/* Right Sidebar */}
@@ -191,7 +110,7 @@ export default function BlogDetail() {
                 Our <span className="font-semibold">Solutions</span>
               </p>
               <div className="pl-6 border border-gray-200 rounded-lg p-4">
-                {solutions.map((item) => (
+                {solutionsMenu.map((item) => (
                   <Link
                     key={item.title}
                     to={`/solutions/${item.title.toLowerCase().replace(/\s+/g, "-")}`}

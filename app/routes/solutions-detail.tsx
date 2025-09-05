@@ -77,7 +77,7 @@ export default function Home() {
 
   return (
     <main className="relative">
-      <section className="relative bg-primary text-white min-h-screen lg:min-h-[90vh]">
+      <section className="relative bg-primary text-white min-h-screen lg:min-h-screen">
         <div className="absolute inset-0">
           <div
             className="absolute inset-0"
@@ -93,7 +93,8 @@ export default function Home() {
           <div
             className="absolute inset-0"
             style={{
-              background: "linear-gradient(274deg, rgba(4, 42, 77, 0) 36.52%, #042A4D 68.52%)",
+              background:
+                "linear-gradient(274deg, rgba(4, 42, 77, 0) 36.52%, #042A4D 68.52%)",
             }}
           />
         </div>
@@ -102,7 +103,7 @@ export default function Home() {
           <p className="uppercase text-sm tracking-wide">
             <span className="font-semibold">{data.title}</span> Solutions
           </p>
-          <h1 className="mt-4 text-4xl lg:text-5xl font-semibold leading-tight max-w-md">
+          <h1 className="mt-4 text-4xl lg:text-5xl font-semibold leading-tight lg:w-[589px]">
             {data.hero_title}
           </h1>
           <p className="mt-6 text-xl max-w-lg text-gray-200">

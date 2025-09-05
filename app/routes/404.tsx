@@ -1,3 +1,4 @@
+import { solutionsMenu } from "~/components/header";
 import type { Route } from "./+types/contact";
 
 import {
@@ -14,34 +15,6 @@ export function meta({}: Route.MetaArgs) {
     { name: "description", content: "Get in touch with us" },
   ];
 }
-
-const solutions = [
-  {
-    title: "Data Center",
-    desc: "Safely secure your business data",
-    icon: DataCenter,
-  },
-  {
-    title: "Managed Services",
-    desc: "Preventive & Corrective Maintenance",
-    icon: LoadBalancerNetwork,
-  },
-  {
-    title: "Security Infrastructure",
-    desc: "Securing systems with layered defense",
-    icon: IbmCloudHyperProtectDbaas,
-  },
-  {
-    title: "Network Infrastructure",
-    desc: "Reliable connectivity for operations",
-    icon: CloudMonitoring,
-  },
-  {
-    title: "Internet of Things (IoT)",
-    desc: "Smart environment monitoring tools",
-    icon: IotPlatform,
-  },
-];
 
 export default function Contact() {
   return (
@@ -74,7 +47,7 @@ export default function Contact() {
           Explore our solutions
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          {solutions.map((item, idx) => (
+          {solutionsMenu.map((item, idx) => (
             <div
               key={idx}
               className="rounded-2xl lg:aspect-square flex flex-col justify-between border border-slate-200 bg-white p-6 transition"

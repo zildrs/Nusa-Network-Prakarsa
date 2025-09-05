@@ -11,12 +11,12 @@ interface BlogSectionProps {
   className?: string;
 }
 
-export function BlogSection({ 
-  title, 
-  blogs, 
-  showSeeAll = true, 
+export function BlogSection({
+  title,
+  blogs,
+  showSeeAll = true,
   seeAllLink = "/blog",
-  className = '' 
+  className = "",
 }: BlogSectionProps) {
   if (!blogs || blogs.length === 0) return null;
 
@@ -35,7 +35,7 @@ export function BlogSection({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {blogs.slice(0, 3).map((blog) => (
+        {blogs.map((blog) => (
           <BlogCard key={blog.id} blog={blog} />
         ))}
       </div>

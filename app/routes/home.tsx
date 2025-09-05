@@ -9,8 +9,12 @@ import { ArrowLeft, ArrowRight } from "@carbon/icons-react";
 import type { Swiper as SwiperRef } from "swiper/types";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
-import { useLoaderData, useOutletContext } from "react-router";
-import { detectLocale } from "~/lib/locale.server";
+import {
+  useLoaderData,
+  useOutletContext,
+  type LoaderFunctionArgs,
+} from "react-router";
+import { fetchBlogData, fetchSolutionsData } from "~/lib/api.server";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -19,16 +23,20 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader({ params, request }: any) {
-  return { "test data": detectLocale(request) };
+export async function loader({ request }: LoaderFunctionArgs) {
+  // jalankan paralel biar lebih cepat
+  const [blog, solutions] = await Promise.all([
+    fetchBlogData(request),
+    fetchSolutionsData(request),
+  ]);
+
+  return { blog, solutions };
 }
 
 export default function Home() {
   const swiperRef = useRef<SwiperRef | null>(null);
   const [Marquee, setMarquee] = useState<any>(null);
-  const { t, locale } = useOutletContext<{ t: any; locale: "id" | "en" }>();
-
-  const lang = useLoaderData() as any;
+  const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
 
   useEffect(() => {
     import("react-fast-marquee").then((mod) => {
