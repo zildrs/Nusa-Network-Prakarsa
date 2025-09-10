@@ -105,7 +105,7 @@ export default function About() {
   ];
 
   return (
-    <main>
+    <main className="overflow-hidden">
       <section className="bg-primary relative text-white pt-12 py-18 lg:py-12 lg:min-h-[450px] overflow-hidden">
         <div
           className="absolute z-10 top-[-250px] right-[-250px] w-[400px] h-[400px] rounded-full filter blur-xl"
@@ -158,7 +158,7 @@ export default function About() {
           >
             {solutions.map((s, idx) => (
               <SwiperSlide key={idx}>
-                <div className="rounded-xl overflow-hidden shadow-lg">
+                <div className="rounded-xl overflow-hidden">
                   <img
                     src={s.img}
                     alt={s.title}

@@ -72,7 +72,7 @@ export function Dropdown({
         <div
           className="
             z-50
-            absolute mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200
+            absolute mt-2 w-48 bg-white rounded-xl border border-gray-200
             overflow-hidden animate-fadeIn
           "
         >

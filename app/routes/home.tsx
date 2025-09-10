@@ -74,11 +74,19 @@ export default function Home() {
   ];
 
   const solutions = [
-    { title: "Managed Services", img: "/hero.png" },
-    { title: "Network Infrastructure", img: "/network-infrastructure.jpg" },
-    { title: "Data Center", img: "/data-center.jpg" },
-    { title: "Security Infrastructure", img: "/security-infrastructure.png" },
-    { title: "Internet of Things (IoT)", img: "/iot.png" },
+    { title: "Managed Services", img: "/hero.png", slug: "managed-services" },
+    {
+      title: "Network Infrastructure",
+      img: "/network-infrastructure.jpg",
+      slug: "network-infrastructure",
+    },
+    { title: "Data Center", img: "/data-center.jpg", slug: "data-center" },
+    {
+      title: "Security Infrastructure",
+      img: "/security-infrastructure.png",
+      slug: "security-infrastructure",
+    },
+    { title: "Internet of Things (IoT)", img: "/iot.png", slug: "iot" },
   ];
 
   const caseStudies = [
@@ -144,7 +152,7 @@ export default function Home() {
         {/* Partner Logos */}
         <div className="lg:p-[64px] py-[64px] ">
           <div className="max-w-7xl mx-auto px-4">
-            <p className="text-center text-xs lg:text-lg tracking-[4px] leading-[18px] lg:tracking-[0.2em] text-gray-500 mb-6 lg:w-[80%] mx-auto">
+            <p className="text-center text-xs lg:text-lg tracking-[4px] leading-[18px] lg:tracking-[0.2em] text-gray-500 mb-12 lg:w-[80%] mx-auto">
               {t("home.trustedBy")}
             </p>
             {Marquee && (
@@ -188,7 +196,7 @@ export default function Home() {
             {stats.map((item) => (
               <div
                 key={item.label}
-                className="border border-gray-300 rounded-xl aspect-square lg:aspect-auto shadow-sm bg-center bg-cover bg-no-repeat bg-card flex flex-col justify-between"
+                className="border border-gray-200 rounded-xl aspect-square lg:aspect-auto bg-center bg-cover bg-no-repeat bg-card flex flex-col justify-between"
                 style={{ backgroundImage: `url(/bg-card.png)` }}
               >
                 <p className="lg:text-4xl text-[32px] font-semibold p-4 lg:p-6">
@@ -221,7 +229,7 @@ export default function Home() {
         ></div>
 
         <div
-          className="absolute z-10 bottom-[-250px] left-[-100px] w-[600px] h-[600px] rounded-full filter blur-xl"
+          className="absolute z-0 bottom-[-250px] left-[-100px] w-[600px] h-[600px] rounded-full filter blur-xl"
           style={{
             background:
               "radial-gradient(circle, rgba(135,206,250,0.15), rgba(0,128,128,0.1))",
@@ -269,15 +277,26 @@ export default function Home() {
           >
             {solutions.map((s, idx) => (
               <SwiperSlide key={idx}>
-                <div className="rounded-xl overflow-hidden shadow-lg">
+                <div className="rounded-xl overflow-hidden relative group z-50 bg-gradient-to-t from-black/50 to-transparent">
                   <img
                     src={s.img}
                     alt={s.title}
-                    className="w-full aspect-[3/5] lg:aspect-[3/4] object-cover"
+                    className="w-full aspect-[3/5]  lg:aspect-[3/4] object-cover group-hover:blur-xs transition-all duration-500"
                   />
-                  <div className="p-4 bg-gradient-to-t from-black/50 to-transparent absolute bottom-0 w-full">
-                    <p className="text-white font-medium text-xl">{s.title}</p>
-                  </div>
+                  <a
+                    href={`/solutions/${s.slug}`}
+                    className="absolute cursor-pointer bottom-8 left-0 right-0 translate-y-8 transition-all duration-500 ease-out group-hover:translate-y-0"
+                  >
+                    <div className="p-4 mb-8 absolute bottom-0 w-full">
+                      <p className="text-white font-medium text-xl">
+                        {s.title}
+                      </p>
+                    </div>
+                    <div className="flex mt-4 pl-4 items-center  gap-2 opacity-0 group-hover:opacity-100 duration-500 transition-all">
+                      <p className="text-white font-medium">Learn more</p>
+                      <ArrowRight className="h-4 w-4 text-white" />
+                    </div>
+                  </a>
                 </div>
               </SwiperSlide>
             ))}
@@ -345,14 +364,8 @@ export default function Home() {
         <h2 className="mt-2 text-3xl lg:text-4xl max-w-lg font-semibold text-gray-900 leading-snug">
           Leading Solutions with World-Class Partners
         </h2>
-        <a
-          href="#"
-          className="my-8 hidden lg:inline-flex items-center font-medium"
-        >
-          Learn More about our Technology Partners{" "}
-          <ArrowRight className="ml-2 h-5 w-5" />
-        </a>
-        <a href="#" className="my-8 flex items-center font-medium lg:hidden">
+
+        <a href="/partners" className="my-8 flex items-center font-medium">
           Learn More <ArrowRight className="ml-2 h-5 w-5" />
         </a>
 

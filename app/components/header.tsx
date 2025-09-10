@@ -78,15 +78,15 @@ export default function Header({ locale }: HeaderProps) {
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
-                  <NavigationMenuContent className="min-w-[350px] pl-6">
+                  <NavigationMenuContent className="min-w-[350px]">
                     {solutionsMenu.map((item) => (
                       <Link
                         key={item.title}
                         to={`/solutions/${item.slug}`}
-                        className="py-3 flex items-center gap-2"
+                        className="py-3 flex items-center gap-2 group hover:bg-gray-50 px-4"
                         onClick={() => setMobileOpen(false)}
                       >
-                        <item.icon className="mr-2" size={20} />
+                        <item.icon className="mr-2 group-hover:text-white group-hover:bg-primary bg-gray-50 p-1 rounded" size={30} />
                         <div className="block">
                           <p className="font-semibold">{item.title}</p>
                           <p className="text-sm text-gray-500">{item.desc}</p>

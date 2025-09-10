@@ -10,7 +10,7 @@ type CaseStudy = {
 
 const CaseStudyCard = ({ data }: { data: CaseStudy }) => {
   return (
-    <div className="rounded-lg overflow-hidden shadow-lg relative aspect-square group">
+    <div className="rounded-lg overflow-hidden relative aspect-square group">
       <img
         src={data.img}
         alt={data.title}

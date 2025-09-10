@@ -58,7 +58,7 @@ export default function BlogDetail() {
               <img
                 src={`${APP_BASE_URL}/${blog?.banner[0].url}`}
                 alt={blog?.title}
-                className="rounded-xl w-full aspect-[5/3] lg:aspect-[6/3] object-cover shadow-lg"
+                className="rounded-xl w-full aspect-[5/3] lg:aspect-[6/3] object-cover "
               />
             </div>
           </div>
