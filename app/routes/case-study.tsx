@@ -5,12 +5,22 @@ import { Light, Building } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
 import { Dropdown } from "~/components/dropdown";
+import { fetchProjectsData, fetchSolutionsData } from "~/lib/api.server";
 
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "New React Router App" },
     { name: "description", content: "Welcome to React Router!" },
   ];
+}
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const [{ projects }, { solutions }] = await Promise.all([
+    fetchProjectsData(request),
+    fetchSolutionsData(request),
+  ]);
+
+  return { projects, solutions };
 }
 
 const caseStudies = [
@@ -88,14 +98,22 @@ const caseStudies = [
   },
 ];
 
-export default function CaseStudy() {
+export default function CaseStudy({ loaderData }: Route.ComponentProps) {
+  const { projects, solutions } = loaderData;
+  console.log(projects, "projects", solutions, "solutions");
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedSolution, setSelectedSolution] = useState<string>("");
 
-  const filteredData = caseStudies.filter((item) => {
+  const filteredData = projects.filter((item) => {
     return (
-      (selectedIndustry === "" || item.category === selectedIndustry) &&
-      (selectedSolution === "" || item.solution === selectedSolution)
+      (selectedIndustry === "" ||
+        item.solutions.some(
+          (solution) => solution.id.toString() === selectedIndustry
+        )) &&
+      (selectedSolution === "" ||
+        item.solutions.some(
+          (solution) => solution.id.toString() === selectedSolution
+        ))
     );
   });
 
@@ -159,11 +177,10 @@ export default function CaseStudy() {
             className="text-sm !px-3"
             onSelect={(value) => setSelectedSolution(value)}
             icon={<Light className="w-4 h-4 lg:w-5 lg:h-5 text-gray-500" />}
-            items={[
-              { value: "", label: "All Solutions" },
-              { value: "SD-WAN", label: "SD-WAN" },
-              { value: "Cloud", label: "Cloud" },
-            ]}
+            items={solutions.map((s) => ({
+              value: s.id.toString(),
+              label: s.name,
+            }))}
           />
         </div>
 

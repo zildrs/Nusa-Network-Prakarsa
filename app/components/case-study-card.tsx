@@ -1,18 +1,13 @@
 import { ArrowRight } from "@carbon/icons-react";
+import { APP_BASE_URL } from "~/lib/utils";
+import type { ProjectType } from "~/types/project";
 
-type CaseStudy = {
-  title: string;
-  company: string;
-  img: string;
-  companyLogo: string;
-  category?: string;
-};
-
-const CaseStudyCard = ({ data }: { data: CaseStudy }) => {
+const CaseStudyCard = ({ data }: { data: ProjectType }) => {
+  console.log("KAJEB", data.banner);
   return (
     <div className="rounded-lg overflow-hidden relative aspect-square group">
       <img
-        src={data.img}
+        src={`${APP_BASE_URL}/${data.banner?.url || ""}`}
         alt={data.title}
         className="w-full object-cover h-full"
       />
@@ -22,7 +17,7 @@ const CaseStudyCard = ({ data }: { data: CaseStudy }) => {
           className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0"
         >
           <img
-            src={data.companyLogo}
+            src={`${APP_BASE_URL}/${data.banner.url || ""}`}
             alt={data.title}
             className="h-8 object-contain brightness-0 grayscale invert"
           />

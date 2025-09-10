@@ -2,7 +2,6 @@ export type BaseDataType = {
   createdAt: string;
   documentId: string;
   id: number;
-  name: string;
   publishedAt: string;
   updatedAt: string;
 };

@@ -315,9 +315,9 @@ export default function Home() {
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {caseStudies.map((c, idx) => (
+            {/* {caseStudies.map((c, idx) => (
               <CaseStudyCard key={idx} data={c} />
-            ))}
+            ))} */}
           </div>
         </div>
       </section>

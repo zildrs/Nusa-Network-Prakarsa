@@ -3,6 +3,8 @@ import { createApiRequest } from "~/lib/request.server";
 import type { DataResponseType } from "~/types";
 import type { BackendBlogResponse, BlogData, BlogPost } from "~/types/blog";
 import type { CategoriesReponseType, CategoryType } from "~/types/category";
+import type { ProjectsReponseType, ProjectType } from "~/types/project";
+import type { SolutionsReponseType, SolutionType } from "~/types/solution";
 // import type {
 //   BackendSolutionsResponse,
 //   SolutionsData,
@@ -61,15 +63,21 @@ export async function fetchBlogData(
 /**
  * Fetch Solutions data
  */
-export async function fetchSolutionsData(request: Request): Promise<any> {
+export async function fetchSolutionsData(
+  request: Request
+): Promise<SolutionsReponseType> {
   const locale = getRequestLocale(request);
 
-  const json = await createApiRequest<any>(API_BASE, "solutions", {
-    query: { locale },
-    serviceName: "solutions",
-  });
+  const json = await createApiRequest<DataResponseType<SolutionType[]>>(
+    API_BASE,
+    "solutions",
+    {
+      query: { locale, populate: "*" },
+      serviceName: "solutions",
+    }
+  );
 
-  const solutions: any[] = Array.isArray(json?.data) ? json!.data : [];
+  const solutions: SolutionType[] = Array.isArray(json?.data) ? json!.data : [];
   return { solutions, locale, meta: json?.meta };
 }
 
@@ -99,15 +107,21 @@ export async function fetchCategoriesData(
 /**
  * Fetch projects data
  */
-export async function fetchProjectsData(request: Request): Promise<any> {
+export async function fetchProjectsData(
+  request: Request
+): Promise<ProjectsReponseType> {
   const locale = getRequestLocale(request);
 
-  const json = await createApiRequest<any>(API_BASE, "projects", {
-    query: { locale },
-    serviceName: "projects",
-  });
+  const json = await createApiRequest<DataResponseType<ProjectType[]>>(
+    API_BASE,
+    "projects",
+    {
+      query: { locale, populate: "*" },
+      serviceName: "projects",
+    }
+  );
 
-  const projects: any[] = Array.isArray(json?.data) ? json!.data : [];
+  const projects: ProjectType[] = Array.isArray(json?.data) ? json!.data : [];
   return { projects, locale, meta: json?.meta };
 }
 
