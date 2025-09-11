@@ -12,8 +12,6 @@ import {
   WaveHeight,
   WavePeriod,
 } from "@carbon/icons-react";
-import type { Route } from "../routes/+types/solutions-detail";
-import { fetchProjectsData } from "~/lib/api.server";
 export type Solution =
   | "data-center"
   | "managed-services"
@@ -332,10 +330,3 @@ export const solutions: Record<Solution, SolutionData> = {
     cta_link: "/contact",
   },
 };
-
-export async function loader({ request }: Route.LoaderArgs) {
-  const url = new URL(request.url);
-  const slug = url.pathname.split("/").pop() as keyof typeof solutions;
-  const { projects } = await fetchProjectsData(request);
-  return { ...solutions[slug], slug, projects };
-}

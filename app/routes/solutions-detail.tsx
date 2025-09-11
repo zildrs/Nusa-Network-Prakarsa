@@ -7,7 +7,8 @@ import { ArrowRight } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
 import { useLoaderData } from "react-router";
-import { solutions, loader as solutionsLoader } from "~/loaders/solutions";
+import { solutions } from "~/loaders/solutions";
+import { fetchProjectsData } from "~/lib/api.server";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -16,12 +17,17 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export const loader = solutionsLoader;
+export async function loader({ request }: Route.LoaderArgs) {
+  const url = new URL(request.url);
+  const slug = url.pathname.split("/").pop() as keyof typeof solutions;
+  const { projects } = await fetchProjectsData(request);
+  return { ...solutions[slug], slug, projects };
+}
 
 export default function Home() {
   const [Marquee, setMarquee] = useState<any>(null);
 
-  const data = useLoaderData<typeof solutionsLoader>();
+  const data = useLoaderData<typeof loader>();
 
   useEffect(() => {
     import("react-fast-marquee").then((mod) => {
