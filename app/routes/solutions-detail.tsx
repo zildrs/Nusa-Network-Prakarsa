@@ -218,7 +218,7 @@ export default function Home() {
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {caseStudies.map((c, idx) => (
+            {data.projects.slice(0, 3).map((c, idx) => (
               <CaseStudyCard key={idx} data={c} />
             ))}
           </div>

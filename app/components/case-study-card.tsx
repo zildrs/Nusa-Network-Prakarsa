@@ -13,7 +13,7 @@ const CaseStudyCard = ({ data }: { data: ProjectType }) => {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 gap-2 flex flex-col justify-end items-start">
         <a
-          href={`/case-study/${data.title}`}
+          href={`/case-study/${data.slug}`}
           className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0"
         >
           <img

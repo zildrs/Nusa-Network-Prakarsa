@@ -1,16 +1,36 @@
 import { useState } from "react";
 import type { Route } from "./+types/case-study";
-import { Link, useParams } from "react-router";
+import { useLoaderData } from "react-router";
 import { ArrowRight } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
-import { Dropdown } from "~/components/dropdown";
+import {
+  fetchProjectBySlug,
+  fetchProjectsData,
+  fetchSolutionsData,
+} from "~/lib/api.server";
+import { APP_BASE_URL } from "~/lib/utils";
+import BlogContent from "~/components/blog/blog-content";
 
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "New React Router App" },
     { name: "description", content: "Welcome to React Router!" },
   ];
+}
+
+export async function loader({
+  request,
+  params,
+}: Route.LoaderArgs & { params: { slug: string } }) {
+  const slug = params.slug;
+  const [project, { solutions, locale }, { projects }] = await Promise.all([
+    fetchProjectBySlug(request, slug),
+    fetchSolutionsData(request),
+    fetchProjectsData(request),
+  ]);
+
+  return { project, solutions, locale, projects };
 }
 
 const caseStudies = [
@@ -44,8 +64,9 @@ const caseStudies = [
 ];
 
 export default function CaseStudyDetail() {
-  const { slug } = useParams();
-
+  const { project, solutions, locale, projects } =
+    useLoaderData<typeof loader>();
+  console.log(project);
   return (
     <main>
       <section className="max-w-6xl mx-auto px-6 py-16">
@@ -57,15 +78,15 @@ export default function CaseStudyDetail() {
             className="h-8 lg:h-10 mb-4"
           />
           <h1 className="text-2xl lg:text-3xl max-w-3xl md:text-4xl font-bold leading-relaxed">
-            Transforming Peruri Businesses with SD–WAN Technology
+            {project?.title}
           </h1>
         </div>
 
         {/* Image */}
         <div className="rounded-lg lg:rounded-xl overflow-hidden mb-12">
           <img
-            src="https://awsimages.detik.net.id/community/media/visual/2024/11/19/kantor-peruri-resmi-jadi-cagar-budaya-1_169.jpeg?w=700&q=90"
-            alt="Peruri Building"
+            src={APP_BASE_URL + project?.banner?.url}
+            alt="Project Banner"
             className="w-full object-cover"
           />
         </div>
@@ -74,45 +95,7 @@ export default function CaseStudyDetail() {
         <div className="grid md:grid-cols-3 gap-10">
           {/* Left Content */}
           <div className="md:col-span-2 space-y-8 leading-relaxed lg:order-1 order-2">
-            {/* Challenge */}
-            <div>
-              <h2 className="text-xl lg:text-2xl font-semibold mb-2">
-                Challenge
-              </h2>
-              <p className="text-gray-600 text-base lg:text-lg">
-                Peruri faced performance bottlenecks across its distributed
-                branches, struggling with inconsistent network reliability, high
-                latency, and limited visibility into traffic management.
-              </p>
-            </div>
-
-            {/* Solution */}
-            <div>
-              <h2 className="text-xl lg:text-2xl font-semibold mb-2">
-                Solution
-              </h2>
-              <p className="text-gray-600 text-base lg:text-lg">
-                Nusa Network Prakarsa imp lemented a robust SD–WAN solution,
-                enabling intelligent routing, centralized control, and seamless
-                connectivity between branches and the data center—while
-                prioritizing critical business applications.
-              </p>
-            </div>
-
-            {/* Results */}
-            <div>
-              <h2 className="text-xl lg:text-2xl font-semibold mb-2">
-                Results
-              </h2>
-              <p className="text-gray-600 text-base lg:text-lg">
-                The implementation of SD– WAN brought immediate improvements.
-                Network latency dropped by 50%, significantly enhancing
-                communication between branches. Application performance improved
-                by 30%, enabling smoother workflows and faster response times.
-                With centralized visibility and control, the IT team can now
-                proactively manage the network and ensure business continuity.
-              </p>
-            </div>
+            <BlogContent content={project?.content} />
           </div>
 
           {/* Right Highlight Card */}
@@ -145,9 +128,12 @@ export default function CaseStudyDetail() {
               <p className="text-base lg:text-xl font-semibold lg:font-medium mb-6">
                 Ready to solve your challenges?
               </p>
-              <button className="bg-primary hover:bg-primary text-white px-5 py-3 rounded-lg flex items-center gap-2 transition">
+              <a
+                href="/contact"
+                className="bg-primary w-fit hover:bg-primary text-white px-5 py-3 rounded-lg flex items-center gap-2 transition"
+              >
                 Contact our experts <ArrowRight className="w-4 h-4" />
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -163,7 +149,7 @@ export default function CaseStudyDetail() {
             </h2>
 
             <div className="grid md:grid-cols-3 gap-6">
-              {caseStudies.map((c, idx) => (
+              {projects.map((c, idx) => (
                 <CaseStudyCard key={idx} data={c} />
               ))}
             </div>

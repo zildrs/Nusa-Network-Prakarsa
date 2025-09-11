@@ -14,7 +14,11 @@ import {
   useOutletContext,
   type LoaderFunctionArgs,
 } from "react-router";
-import { fetchBlogData, fetchSolutionsData } from "~/lib/api.server";
+import {
+  fetchBlogData,
+  fetchProjectsData,
+  fetchSolutionsData,
+} from "~/lib/api.server";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -25,18 +29,20 @@ export function meta({}: Route.MetaArgs) {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   // jalankan paralel biar lebih cepat
-  const [blog, solutions] = await Promise.all([
+  const [{ blogs }, { solutions }, { projects }] = await Promise.all([
     fetchBlogData(request),
     fetchSolutionsData(request),
+    fetchProjectsData(request),
   ]);
 
-  return { blog, solutions };
+  return { blogs, solutions, projects };
 }
 
 export default function Home() {
   const swiperRef = useRef<SwiperRef | null>(null);
   const [Marquee, setMarquee] = useState<any>(null);
   const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
+  const { blogs, projects } = useLoaderData<typeof loader>();
 
   useEffect(() => {
     import("react-fast-marquee").then((mod) => {
@@ -315,9 +321,9 @@ export default function Home() {
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {/* {caseStudies.map((c, idx) => (
+            {projects.slice(0, 3).map((c, idx) => (
               <CaseStudyCard key={idx} data={c} />
-            ))} */}
+            ))}
           </div>
         </div>
       </section>

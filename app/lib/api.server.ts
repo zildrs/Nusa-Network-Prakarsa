@@ -143,3 +143,26 @@ export async function fetchBlogBySlug(
   const blog: BlogPost | null = json?.data?.length ? json.data[0] : null;
   return blog;
 }
+
+export async function fetchProjectBySlug(
+  request: Request,
+  slug: string
+): Promise<ProjectType | null> {
+  const locale = getRequestLocale(request);
+
+  const json = await createApiRequest<DataResponseType<ProjectType[]>>(
+    API_BASE,
+    "projects",
+    {
+      query: {
+        locale,
+        "filters[slug][$eq]": slug, // ✅ sesuai format Strapi
+        populate: "*", // opsional, kalau mau ambil relasi
+      },
+      serviceName: "projects",
+    }
+  );
+
+  const project: ProjectType | null = json?.data?.length ? json.data[0] : null;
+  return project;
+}

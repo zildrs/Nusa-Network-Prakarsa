@@ -13,6 +13,7 @@ import {
   WavePeriod,
 } from "@carbon/icons-react";
 import type { Route } from "../routes/+types/solutions-detail";
+import { fetchProjectsData } from "~/lib/api.server";
 export type Solution =
   | "data-center"
   | "managed-services"
@@ -158,13 +159,15 @@ export const solutions: Record<Solution, SolutionData> = {
   },
   ["security-infrastructure"]: {
     title: "Security",
-    hero_title: "Comprehensive Security Solution for Your Digital Infrastructure",
+    hero_title:
+      "Comprehensive Security Solution for Your Digital Infrastructure",
     hero_subtitle:
       "From endpoints to cloud, Nusa Network delivers comprehensive, enterprise-grade security solutions to protect your business in real time.",
     hero_img: "/security-infrastructure.png",
     hero_cta: "Schedule a Free Consultation",
     hero_cta_link: "/contact",
-    what_we_do_title: "Protecting Every Layer of Your IT Infrastructure with Expert Precision",
+    what_we_do_title:
+      "Protecting Every Layer of Your IT Infrastructure with Expert Precision",
     what_we_do_subtitle:
       "Our solutions are designed to proactively defend your network, users, data, and infrastructure from evolving threats. From advanced firewalls and secure cloud access to real-time threat detection and compliance enforcement, we integrate security into every layer of your technology stack.",
     what_we_do_img: "/security.jpg",
@@ -208,7 +211,8 @@ export const solutions: Record<Solution, SolutionData> = {
       },
     ],
     cta_title: "Ready to Secure Your Business?",
-    cta_subtitle: "Get a free security assessment or consultation from our certified engineers today.",
+    cta_subtitle:
+      "Get a free security assessment or consultation from our certified engineers today.",
     cta_text: "Schedule Free Consultation",
     cta_link: "/contact",
   },
@@ -217,11 +221,10 @@ export const solutions: Record<Solution, SolutionData> = {
     hero_title: "Build a Smarter, Faster and Secure Network Infrastructure.",
     hero_subtitle:
       "Future-proof your operations with tailored network design, implementation, and management — delivered by experts you can trust.",
-      hero_img: "/network-infrastructure.jpg",
+    hero_img: "/network-infrastructure.jpg",
     hero_cta: "Schedule Free Consultation",
     hero_cta_link: "/contact",
-    what_we_do_title:
-      "Build a Future-Ready Network Today",
+    what_we_do_title: "Build a Future-Ready Network Today",
     what_we_do_subtitle:
       "Our expert team works with you to design, deploy, and manage end-to-end infrastructures tailored to your business needs — ensuring maximum uptime, optimal performance, and secure operations at every stage. ",
     what_we_do_img: "/network.jpg",
@@ -265,7 +268,8 @@ export const solutions: Record<Solution, SolutionData> = {
       },
     ],
     cta_title: "Ready to Upgrade Your Network?",
-    cta_subtitle: "Talk to our network engineers today and discover how we can architect your next-gen infrastructure.",
+    cta_subtitle:
+      "Talk to our network engineers today and discover how we can architect your next-gen infrastructure.",
     cta_text: "Schedule Free Consultation",
     cta_link: "/contact",
   },
@@ -277,7 +281,8 @@ export const solutions: Record<Solution, SolutionData> = {
     hero_img: "/iot.png",
     hero_cta: "Visit NADA Website",
     hero_cta_link: "https://www.nada.org/",
-    what_we_do_title: "Smarter, Integrated Solutions for Real-Time Ecosystem Observation",
+    what_we_do_title:
+      "Smarter, Integrated Solutions for Real-Time Ecosystem Observation",
     what_we_do_subtitle:
       "NADA delivers intelligent system solutions designed to simplify and enhance the way we monitor and understand our environment. Whether for smart cities, industrial sites, or natural resource management, NADA empowers decision-makers with accurate, actionable data through a secure, user-friendly platform.",
     what_we_do_img: "/iot-tools.png",
@@ -321,7 +326,8 @@ export const solutions: Record<Solution, SolutionData> = {
       },
     ],
     cta_title: "Make Better Environmental Decisions",
-    cta_subtitle: "NADA empowers you to make informed decisions through smarter, connected monitoring systems. Start transforming your ecosystem today.",
+    cta_subtitle:
+      "NADA empowers you to make informed decisions through smarter, connected monitoring systems. Start transforming your ecosystem today.",
     cta_text: "Schedule Free Consultation",
     cta_link: "/contact",
   },
@@ -330,5 +336,6 @@ export const solutions: Record<Solution, SolutionData> = {
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const slug = url.pathname.split("/").pop() as keyof typeof solutions;
-  return { ...solutions[slug], slug };
+  const { projects } = await fetchProjectsData(request);
+  return { ...solutions[slug], slug, projects };
 }
