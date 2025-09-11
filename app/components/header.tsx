@@ -24,6 +24,7 @@ import { LanguageSwitcher } from "~/components/lang-switcher";
 
 interface HeaderProps {
   locale: string;
+  t: (key: string) => string
 }
 
 export const solutionsMenu = [
@@ -59,9 +60,14 @@ export const solutionsMenu = [
   },
 ];
 
-export default function Header({ locale }: HeaderProps) {
+
+
+export default function Header({ locale , t}: HeaderProps) {
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
+
+  
 
   return (
     <header className="border-b border-gray-200 bg-white text-gray-600">
@@ -77,7 +83,7 @@ export default function Header({ locale }: HeaderProps) {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>{t('nav.solution')}</NavigationMenuTrigger>
                   <NavigationMenuContent className="min-w-[350px]">
                     {solutionsMenu.map((item) => (
                       <Link
@@ -100,7 +106,7 @@ export default function Header({ locale }: HeaderProps) {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <Link to="/about">About</Link>
+                    <Link to="/about">{t('nav.about')}</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -108,7 +114,7 @@ export default function Header({ locale }: HeaderProps) {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <Link to="/case-study">Case Study</Link>
+                    <Link to="/case-study">{t('nav.caseStudy')}</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -116,7 +122,7 @@ export default function Header({ locale }: HeaderProps) {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <Link to="/blog">Blog</Link>
+                    <Link to="/blog">{t('nav.article')}</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
@@ -175,7 +181,7 @@ export default function Header({ locale }: HeaderProps) {
             to="https://www.nusanetwork.com/contact/"
             className="bg-primary text-white rounded-lg px-4 py-2 text-sm flex items-center gap-1"
           >
-            Contact us <ArrowRight className="w-4 h-4 ml-1" />
+            {t('nav.contact')} <ArrowRight className="w-4 h-4 ml-1" />
           </Link>
         </div>
 
@@ -205,7 +211,7 @@ export default function Header({ locale }: HeaderProps) {
             className="flex justify-between w-full py-3 border-b font-medium border-gray-300"
             onClick={() => setSolutionsOpen(!solutionsOpen)}
           >
-            Solutions <ChevronDown size={16} />
+            {t('nav.solutions')} <ChevronDown size={16} />
           </button>
           {solutionsOpen && (
             <div className="pl-4">
@@ -231,21 +237,21 @@ export default function Header({ locale }: HeaderProps) {
             className="block py-3 border-b font-medium border-gray-300"
             onClick={() => setMobileOpen(false)}
           >
-            About Us
+            {t('nav.about')}
           </Link>
           <Link
             to="/case-study"
             className="block py-3 border-b font-medium border-gray-300"
             onClick={() => setMobileOpen(false)}
           >
-            Case Study
+            {t('nav.caseStudy')}
           </Link>
           <Link
             to="/blog"
             className="block py-3 border-b font-medium border-gray-300"
             onClick={() => setMobileOpen(false)}
           >
-            Article
+            {t('nav.blog')}
           </Link>
 
           <div className="mt-6 flex flex-col gap-2">
@@ -253,7 +259,7 @@ export default function Header({ locale }: HeaderProps) {
               to="https://www.nusanetwork.com/contact/"
               className="bg-primary text-white rounded-lg px-4 py-3 flex justify-center items-center gap-1"
             >
-              Contact us <ArrowRight className="w-4 h-4 ml-1" />
+              {t('nav.contact')} <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
             <Link
               to="https://ticket.nusanetwork.com/helpdesk"

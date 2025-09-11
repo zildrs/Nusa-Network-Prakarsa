@@ -14,22 +14,51 @@
     "sitemap": "Sitemap"
   },
   "home": {
-    "heroTitle": "Trusted System Integrator Company in Indonesia",
-    "heroSubtitle": "Highly Tailored IT Design, Management & Support Services.",
-    "trustedBy": "TRUSTED BY COMPANIES ALL OVER THE WORLD",
-    "consultant": "As Your IT Consultant, We Help You Grow Your Business Exponentially",
-    "consultantDescription": "With over a decade of experience as a trusted system integrator in Indonesia, PT Nusa Network Prakarsa has consistently demonstrated its commitment to delivering advanced technology solutions that accelerate business growth and digital transformation.",
-    "consultantDescription2": "We deliver relevant solutions to businesses around the globe. Strong innovation to leverage your IT resource is built in our vein.",
+    "hero": {
+      "title": "Trusted System Integrator Company in Indonesia",
+      "subtitle": "Highly Tailored IT Design, Management & Support Services.",
+      "trustedBy": "TRUSTED BY COMPANIES ALL OVER THE WORLD"
+    },
+    "consultant": {
+      "heading": "As Your IT Consultant, We Help You Grow Your Business Exponentially",
+      "description1": "With more than a decade of experience as a trusted system integrator in Indonesia, PT Nusa Network Prakarsa has consistently demonstrated its commitment to delivering advanced technology solutions that accelerate business growth and digital transformation.",
+      "description2": "We deliver relevant solutions for businesses worldwide. A strong drive for innovation to optimize your IT resources has become part of our DNA."
+    },
     "stats": {
       "projectsAccomplished": "Projects Accomplished",
-      "clientsSuccess": "Clients' Success",
+      "clientsSuccess": "Clients Success",
       "technologyPartners": "Technology Partners",
       "amazingAwards": "Amazing Awards"
     },
-    "ourSolutions": "OUR SOLUTIONS",
-    "endToEnd": "End-to-End IT Solutions for your Business Growth",
-    "caseStudy": "Customer Success with Nusa Network Prakarsa",
-    "testimonials": "What our clients say about their journey with us."
+    "solutions": {
+      "our": "Our",
+      "solutions": "Solutions",
+      "title": "Our Solutions",
+      "subtitle": "End-to-End IT Solutions for your Business Growth",
+      "button": "View All Solutions"
+    },
+    "caseStudy": {
+      "case": "Case",
+      "study": "Study",
+      "title": "Customer Success with Nusa Network Prakarsa",
+      "cta": "Read Case Studies"
+    },
+    "testimonials": {
+      "our" :"Our",
+      "clients": "Clients Story",
+      "title": "What our clients say about their journey with us",
+      "subtitle": "Hear from our clients about their experience with Nusa Network Prakarsa"
+    },
+    "technologyPartners": {
+      "technology": "TECHNOLOGY",
+      "partners": "PARTNERS",
+      "heading": "Leading Solutions with World-Class Partners",
+      "cta": "Learn More"
+    },
+    "cta": {
+      "title": "We run all kinds of IT services that vow your success",
+      "button": "Contact our Expert"
+    }
   },
   "footer": {
     "address": "Jalan Kamal Raya Outer Ring Road, Mutiara Taman Palem A17 / 29 - 30, Cengkareng, Jakarta Barat, 11730"

@@ -47,7 +47,7 @@ export function Layout() {
         <Links />
       </head>
       <body>
-        <Header locale={locale} />
+        <Header locale={locale} t={t} />
         {/* Hanya pakai Outlet, jangan gabung dengan children */}
         <Outlet context={{ t, locale }} />
         <Footer />

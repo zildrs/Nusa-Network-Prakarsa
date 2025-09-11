@@ -1,13 +1,6 @@
 import { solutionsMenu } from "~/components/header";
 import type { Route } from "./+types/contact";
 
-import {
-  DataCenter,
-  LoadBalancerNetwork,
-  IbmCloudHyperProtectDbaas,
-  CloudMonitoring,
-  IotPlatform,
-} from "@carbon/icons-react";
 
 export function meta({}: Route.MetaArgs) {
   return [

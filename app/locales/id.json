@@ -14,22 +14,51 @@
     "sitemap": "Sitemap"
   },
   "home": {
-    "heroTitle": "Perusahaan System Integrator Tepercaya",
-    "heroSubtitle": "Solusi IT Terlengkap, yang dirancang sesuai kebutuhan Anda",
-    "trustedBy": "PILIHAN TERPERCAYA PERUSAHAAN DI SELURUH DUNIA",
-    "consultant": "Sebagai Konsultan IT Tepercaya, Kami Akan Bantu Tingkatkan Bisnis Anda",
-    "consultantDescription": "Dengan pengalaman lebih dari satu dekade sebagai sistem integrator tepercaya di Indonesia, PT Nusa Network Prakarsa telah secara konsisten menunjukkan komitmennya untuk memberikan solusi teknologi canggih yang mempercepat pertumbuhan bisnis dan transformasi digital.",
-    "consultantDescription2": "Kami memberikan solusi yang relevan bagi bisnis di seluruh dunia. Inovasi yang kuat untuk memanfaatkan sumber daya TI Anda telah menjadi bagian dari DNA kami.",
+    "hero": {
+      "title": "Perusahaan System Integrator Tepercaya",
+      "subtitle": "Solusi IT Terlengkap, yang dirancang sesuai kebutuhan Anda",
+      "trustedBy": "DIPERCAYA OLEH PERUSAHAAN DI SELURUH DUNIA"
+    },
+    "consultant": {
+      "heading": "Sebagai Konsultan IT Tepercaya, Kami Akan Bantu Tingkatkan Bisnis Anda",
+      "description1": "Dengan pengalaman lebih dari satu dekade sebagai sistem integrator tepercaya di Indonesia, PT Nusa Network Prakarsa telah secara konsisten menunjukkan komitmennya untuk memberikan solusi teknologi canggih yang mempercepat pertumbuhan bisnis dan transformasi digital.",
+      "description2": "Kami memberikan solusi yang relevan bagi bisnis di seluruh dunia. Inovasi yang kuat untuk memanfaatkan sumber daya TI Anda telah menjadi bagian dari DNA kami."
+    },
     "stats": {
       "projectsAccomplished": "Proyek Diselesaikan",
       "clientsSuccess": "Keberhasilan Klien",
       "technologyPartners": "Mitra Teknologi",
       "amazingAwards": "Penghargaan Menakjubkan"
     },
-    "ourSolutions": "Solusi Kami",
-    "endToEnd": "Solusi IT Terpadu untuk meningkatkan Bisnis Anda",
-    "caseStudy": "Kisah Sukses Pelanggan Nusa Network Prakarsa",
-    "testimonials": "Testimoni Klien Tentang Pengalaman Mereka Bersama Kami"
+    "solutions": {
+      "our": "Solusi",
+      "solutions": "Kami",
+      "title": "Solusi Kami",
+      "subtitle": "Solusi IT Terpadu untuk meningkatkan Bisnis Anda",
+      "button": "Lihat Semua Solusi"
+    },
+    "caseStudy": {
+      "case": "Contoh",
+      "study": "Kasus",
+      "title": "Kisah Sukses Pelanggan Nusa Network Prakarsa",
+      "cta": "Baca Studi Kasus"
+    },
+    "testimonials": {
+      "our" :"Cerita",
+      "clients": "Klien Kami",
+      "title": "Testimoni Klien Tentang Pengalaman Mereka Bersama Kami",
+      "subtitle": "Apa kata mereka tentang perjalanan bersama Nusa Network Prakarsa"
+    },
+    "technologyPartners": {
+      "technology": "MITRA",
+      "partners": "TEKNOLOGI",
+      "heading": "Solusi Unggulan dengan Mitra Kelas Dunia",
+      "cta": "Pelajari Lebih Lanjut"
+  },
+    "cta": {
+      "title": "Kami menyediakan berbagai layanan IT untuk menunjang kesuksesan Anda",
+      "button": "Hubungi Tim Ahli Kami "
+    }
   },
   "footer": {
     "address": "Jalan Kamal Raya Outer Ring Road, Mutiara Taman Palem A17 / 29 - 30, Kelurahan Cengkareng Timur, Kecamatan Cengkareng, Jakarta Barat, 11730"
