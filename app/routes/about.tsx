@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import type { Swiper as SwiperRef } from "swiper/types";
 import CTASection from "~/components/cta";
+import { useOutletContext } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -17,19 +18,13 @@ export function meta({}: Route.MetaArgs) {
 
 export default function About() {
   const swiperRef = useRef<SwiperRef | null>(null);
-  const [Marquee, setMarquee] = useState<any>(null);
-
-  useEffect(() => {
-    import("react-fast-marquee").then((mod) => {
-      setMarquee(() => mod.default);
-    });
-  }, []);
+  const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
 
   const stats = [
-    { value: "150+", label: "Projects Accomplished" },
-    { value: "100+", label: "Clients Success" },
-    { value: "32+", label: "Technology Partners" },
-    { value: "15+", label: "Amazing Awards Accomplished" },
+    { value: "150+", label: t("home.stats.projectsAccomplished") },
+    { value: "100+", label: t("home.stats.clientsSuccess") },
+    { value: "32+", label: t("home.stats.technologyPartners") },
+    { value: "15+", label: t("home.stats.amazingAwards") },
   ];
 
   const solutions = [
@@ -43,19 +38,19 @@ export default function About() {
   const values = [
     {
       letter: "N",
-      text: "Nusa is Customer Oriented Company - Customer Satisfaction is Utmost Goal",
+      text: t("about.mission.principles.n"),
     },
     {
       letter: "U",
-      text: "Unity, Integrity & Professional Team",
+      text: t("about.mission.principles.u"),
     },
     {
       letter: "S",
-      text: "Strive for Excellence",
+      text: t("about.mission.principles.s"),
     },
     {
       letter: "A",
-      text: "A Law Abiding Company and Community Contributor",
+      text: t("about.mission.principles.a"),
     },
   ];
 
@@ -125,13 +120,12 @@ export default function About() {
 
         <div className="max-w-7xl mx-auto my-auto h-full px-4 relative flex-col flex justify-center">
           <p className="uppercase tracking-wide mb-6 z-20">
-            <span className="font-semibold">About</span> Us
+            <span className="font-semibold">{t("about.label.about")}</span>{" "}
+            {t("about.label.us")}
           </p>
           <div className="flex justify-between items-center">
-            <h2 className="text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10">
-              Where Vision
-              <br />
-              meets Execution
+            <h2 className="text-4xl max-w-md lg:text-5xl lg:font-semibold leading-snug mb-10">
+              {t("about.hero.subtitle")}
             </h2>
           </div>
         </div>
@@ -173,38 +167,34 @@ export default function About() {
           </Swiper>
         </div>
 
-        <div className="max-w-7xl mx-auto relative px-4 py-16 grid md:grid-cols-2 gap-12 items-center">
+        <div className="max-w-7xl justify-between mx-auto px-4 py-16 grid md:grid-cols-2 gap-12 items-center">
           {/* Text */}
           <div>
-            <h2 className="text-4xl lg:text-5xl font-semibold leading-snug">
-              As your IT Consultant, <br />
-              we help you grow your business{" "}
-              <span className="italic">exponentially</span>
+            <h2 className="text-[32px] lg:text-[40px] font-semibold leading-snug">
+              {t("home.consultant.heading")}
             </h2>
-            <p className="text-gray-500 mt-4 leading-7 text-lg">
-              With over a decade of experience as a trusted system integrator in
-              Indonesia, PT Nusa Network Prakarsa has consistently demonstrated
-              its commitment to delivering advanced technology solutions that
-              accelerate business growth and digital transformation.
+            <p className="text-gray-500 mt-4 leading-7 text-base lg:text-lg">
+              {t("home.consultant.description1")}
             </p>
-            <p className="text-gray-500 mt-4 leading-7 text-lg">
-              We deliver relevant solutions to businesses around the globe.
-              Strong innovation to leverage your IT resource is built in our
-              vein.
+            <p className="text-gray-500 mt-4 leading-7 text-base lg:text-lg">
+              {t("home.consultant.description2")}
             </p>
           </div>
 
-          {/* Stats */}
           <div className="grid grid-cols-2 gap-4 h-full">
             {stats.map((item) => (
               <div
                 key={item.label}
-                className="border aspect-square lg:aspect-auto border-gray-300 rounded-xl bg-white shadow-sm bg-center bg-cover bg-no-repeat bg-card flex flex-col justify-between"
+                className="border border-gray-200 rounded-xl aspect-square lg:aspect-auto bg-center bg-cover bg-no-repeat bg-card flex flex-col justify-between"
                 style={{ backgroundImage: `url(/bg-card.png)` }}
               >
-                <p className="text-4xl font-semibold p-6">{item.value}</p>
+                <p className="lg:text-4xl text-[32px] font-semibold p-4 lg:p-6">
+                  {item.value}
+                </p>
                 <div className="text-lg text-gray-500 bg-gray-50 p-3 rounded-b-xl">
-                  <p className="lg:w-42 wrap-all">{item.label}</p>
+                  <p className="lg:w-42 wrap-all text-sm lg:text-base">
+                    {item.label}
+                  </p>
                 </div>
               </div>
             ))}
@@ -231,11 +221,12 @@ export default function About() {
 
         <div className="max-w-7xl mx-auto px-4 relative">
           <p className="uppercase tracking-wide mb-6 z-20">
-            <span className="font-semibold">Our</span> Values
+            <span className="font-semibold">{t("about.values.our")}</span>{" "}
+            {t("about.values.values")}
           </p>
           <div className="flex justify-between items-center">
             <h2 className="text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10">
-              What We Believes
+              {t("about.values.subtitle")}
             </h2>
           </div>
 
@@ -246,7 +237,11 @@ export default function About() {
                 className="border min-h-[200px] aspect-auto lg:aspect-square p-4 border-gray-300 rounded-xl bg-white shadow-sm bg-top-right bg-cover bg-no-repeat bg-card flex flex-col justify-between"
                 style={{ backgroundImage: `url(/bg-card.png)` }}
               >
-                <img className="w-24" src={`/about/${item.letter}.png`} alt={item.letter} />
+                <img
+                  className="w-24"
+                  src={`/about/${item.letter}.png`}
+                  alt={item.letter}
+                />
                 <div className="text-lg text-gray-500 py-3 rounded-b-xl">
                   <p className="wrap-all max-w-2xs">{item.text}</p>
                 </div>
@@ -257,20 +252,19 @@ export default function About() {
           {/* Vision & Mission */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 min-h-[400px] ">
             <div>
-              <h3 className="uppercase text-xl mb-2">Vision</h3>
+              <h3 className="uppercase text-xl mb-2">
+                {t("about.vision.title")}
+              </h3>
               <p className="text-lg leading-relaxed">
-                Nusa Network Prakarsa is a trusted Digital Transformation
-                Solutions Partner who is responsible for managing and developing
-                the life cycle of our customers’ technology.
+                {t("about.vision.description")}
               </p>
             </div>
             <div className="lg:items-start items-end flex flex-col justify-end lg:text-left text-right">
-              <h3 className="uppercase text-xl mb-2">Mission</h3>
+              <h3 className="uppercase text-xl mb-2">
+                {t("about.mission.title")}
+              </h3>
               <p className="text-lg leading-relaxed">
-                Provide exceptional service, demonstrate high commitment to
-                quality and integrity, develop mutually beneficial relationships
-                with our stakeholders, encourage feedback, and foster a
-                customer-oriented culture.
+                {t("about.mission.description")}
               </p>
             </div>
           </div>
@@ -282,10 +276,14 @@ export default function About() {
           {/* Heading */}
           <div className="mb-12">
             <p className="uppercase tracking-wide mb-6 z-20">
-              Our<span className="font-semibold"> Awards</span>
+              {t("about.achievement.our")}{" "}
+              <span className="font-semibold">
+                {" "}
+                {t("about.achievement.achievement")}
+              </span>
             </p>
             <h2 className="text-3xl md:text-4xl max-w-md leading-14 font-semibold text-gray-900 mt-2">
-              Leading Solutions with World-Class Awards
+              {t("about.achievement.subtitle")}
             </h2>
           </div>
 
@@ -315,7 +313,10 @@ export default function About() {
         </div>
       </section>
 
-      <CTASection />
+      <CTASection
+        title={t("about.services.title")}
+        linkText={t("about.services.cta")}
+      />
     </main>
   );
 }

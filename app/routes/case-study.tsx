@@ -100,7 +100,6 @@ const caseStudies = [
 
 export default function CaseStudy({ loaderData }: Route.ComponentProps) {
   const { projects, solutions } = loaderData;
-  console.log(projects, "projects", solutions, "solutions");
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedSolution, setSelectedSolution] = useState<string>("");
 

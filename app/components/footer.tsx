@@ -6,7 +6,11 @@ import {
 } from "@carbon/icons-react";
 import { Link } from "react-router";
 
-export default function Footer() {
+interface HeaderProps {
+  locale: string;
+  t: (key: string) => string;
+}
+export default function Footer({ locale, t }: HeaderProps) {
   return (
     <>
       <footer className="bg-white">
@@ -29,27 +33,33 @@ export default function Footer() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 col-span-3">
             {/* Solutions */}
             <div>
-              <h4 className="font-semibold text-gray-500 mb-3">Solutions</h4>
+              <h4 className="font-semibold text-gray-500 mb-3">
+                {t("footer.solutions.title")}
+              </h4>
               <ul className="space-y-2  text-gray-600">
                 <li>
                   <Link to="/solutions/security-infrastructure">
-                    Security Infrastructure
+                    {t("footer.solutions.items.securityInfrastructure")}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/solutions/managed-services">Managed Services</Link>
+                  <Link to="/solutions/managed-services">
+                    {t("footer.solutions.items.managedServices")}
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/solutions/internet-of-things">IoT Solution</Link>
+                  <Link to="/solutions/internet-of-things">
+                    {t("footer.solutions.items.iotSolution")}
+                  </Link>
                 </li>
                 <li>
                   <Link to="/solutions/data-center">
-                    Data Center Infrastructure
+                    {t("footer.solutions.items.dataCenter")}
                   </Link>
                 </li>
                 <li>
                   <Link to="/solutions/network-infrastructure">
-                    Network Infrastructure
+                    {t("footer.solutions.items.networkInfrastructure")}
                   </Link>
                 </li>
               </ul>
@@ -57,45 +67,61 @@ export default function Footer() {
 
             {/* Company */}
             <div>
-              <h4 className="font-semibold text-gray-500 mb-3">Company</h4>
+              <h4 className="font-semibold text-gray-500 mb-3">
+                {t("footer.company.title")}
+              </h4>
               <ul className="space-y-2  text-gray-600">
                 <li>
-                  <Link to="/about">About Us</Link>
+                  <Link to="/about">{t("footer.company.items.about")}</Link>
                 </li>
                 <li>
-                  <Link to="/case-study">Case Study</Link>
+                  <Link to="/case-study">
+                    {t("footer.company.items.caseStudy")}
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/blog">Blog</Link>
+                  <Link to="/blog">{t("footer.company.items.blog")}</Link>
                 </li>
                 <li>
-                  <Link to="/careers">Careers</Link>
+                  <Link to="/careers">{t("footer.company.items.careers")}</Link>
                 </li>
                 <li>
-                  <Link to="/partners">Partners</Link>
+                  <Link to="/partners">
+                    {t("footer.company.items.partners")}
+                  </Link>
                 </li>
               </ul>
             </div>
 
             {/* Resources */}
             <div>
-              <h4 className="font-semibold text-gray-500 mb-3">Resources</h4>
+              <h4 className="font-semibold text-gray-500 mb-3">
+                {t("footer.resources.title")}
+              </h4>
               <ul className="space-y-2  text-gray-600">
                 <li>
-                  <Link to="/privacy-policy">Privacy & Terms</Link>
+                  <Link to="/privacy-policy">
+                    {t("footer.resources.items.privacy")}
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/sitemap">Sitemap</Link>
+                  <Link to="/sitemap">
+                    {t("footer.resources.items.sitemap")}
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/certifications">Certifications</Link>
+                  <Link to="/certifications">
+                    {t("footer.resources.items.certifications")}
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/contact">Contact Us</Link>
+                  <Link to="/contact">
+                    {t("footer.resources.items.contact")}
+                  </Link>
                 </li>
                 <li>
                   <Link to="https://ticket.nusanetwork.com/helpdesk">
-                    Support
+                    {t("footer.resources.items.support")}
                   </Link>
                 </li>
               </ul>

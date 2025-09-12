@@ -44,7 +44,7 @@
       "cta": "Read Case Studies"
     },
     "testimonials": {
-      "our" :"Our",
+      "our": "Our",
       "clients": "Clients Story",
       "title": "What our clients say about their journey with us",
       "subtitle": "Hear from our clients about their experience with Nusa Network Prakarsa"
@@ -60,7 +60,85 @@
       "button": "Contact our Expert"
     }
   },
+  "about": {
+    "label": {
+      "about": "About",
+      "us": "Us"
+    },
+    "hero": {
+      "title": "About Nusa Network Prakarsa",
+      "subtitle": "Where Vision meets Execution",
+      "tagline": "We help you to grow your business exponentially",
+      "description": "With over a decade of experience as a trusted system integrator in Indonesia, PT Nusa Network Prakarsa is dedicated to delivering advanced technology solutions that drive business growth and transformation.\n\nWe deliver relevant solutions to businesses around the globe. Strong innovation to leverage your IT resource is built in our vein.​"
+    },
+    "stats": {
+      "projectsAccomplished": "Projects Accomplished",
+      "clientsSuccess": "Clients Success",
+      "technologyPartners": "Technology Partners",
+      "amazingAwards": "Amazing Awards Accomplished"
+    },
+    "values": {
+      "our": "OUR",
+      "values": "VALUES",
+      "title": "OUR VALUES",
+      "subtitle": "What We Believes"
+    },
+    "vision": {
+      "title": "VISION",
+      "description": "Nusa Network Prakarsa is a trusted Digital Transformation Solutions Partner who is responsible for managing and developing the life cycle of our customers' technology."
+    },
+    "mission": {
+      "title": "MISSION",
+      "description": "Provide exceptional service, demonstrate high commitment to quality and integrity, develop mutually beneficial relationships with our stakeholders, encourage feedback, and foster a customer-oriented culture",
+      "principles": {
+        "n": "Nusa is Customer Oriented Company - Customer Satisfaction is Utmost Goal",
+        "u": "Unity, Integrity & Professional Team",
+        "s": "Strive for Excellence",
+        "a": "A Law Abiding Company and Community Contributor"
+      }
+    },
+    "achievement": {
+      "our": "OUR",
+      "achievement": "ACHIEVEMENT",
+      "title": "OUR Achievement",
+      "subtitle": "Leading Solutions with World-Class Achievement"
+    },
+    "services": {
+      "title": "We run all kinds of IT services that vow your success",
+      "cta": "Contact our Expert"
+    }
+  },
   "footer": {
-    "address": "Jalan Kamal Raya Outer Ring Road, Mutiara Taman Palem A17 / 29 - 30, Cengkareng, Jakarta Barat, 11730"
+    "address": "Jalan Kamal Raya Outer Ring Road, Mutiara Taman Palem A17 / 29 - 30, Kelurahan Cengkareng Timur, Kecamatan Cengkareng, Jakarta Barat, 11730",
+    "solutions": {
+      "title": "Solutions",
+      "items": {
+        "securityInfrastructure": "Security Infrastructure",
+        "managedServices": "Managed Services",
+        "iotSolution": "IoT Solution",
+        "dataCenter": "Data Center Infrastructure",
+        "networkInfrastructure": "Network Infrastructure"
+      }
+    },
+    "company": {
+      "title": "Company",
+      "items": {
+        "about": "About Us",
+        "caseStudy": "Case Study",
+        "blog": "Blog",
+        "careers": "Careers",
+        "partners": "Partners"
+      }
+    },
+    "resources": {
+      "title": "Resources",
+      "items": {
+        "privacy": "Privacy & Terms",
+        "sitemap": "Sitemap",
+        "certifications": "Certifications",
+        "contact": "Contact Us",
+        "support": "Support"
+      }
+    }
   }
 }

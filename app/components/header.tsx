@@ -24,7 +24,7 @@ import { LanguageSwitcher } from "~/components/lang-switcher";
 
 interface HeaderProps {
   locale: string;
-  t: (key: string) => string
+  t: (key: string) => string;
 }
 
 export const solutionsMenu = [
@@ -60,14 +60,9 @@ export const solutionsMenu = [
   },
 ];
 
-
-
-export default function Header({ locale , t}: HeaderProps) {
-
+export default function Header({ locale, t }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
-
-  
 
   return (
     <header className="border-b border-gray-200 bg-white text-gray-600">
@@ -83,7 +78,9 @@ export default function Header({ locale , t}: HeaderProps) {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>{t('nav.solution')}</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>
+                    {t("nav.solution")}
+                  </NavigationMenuTrigger>
                   <NavigationMenuContent className="min-w-[350px]">
                     {solutionsMenu.map((item) => (
                       <Link
@@ -92,7 +89,10 @@ export default function Header({ locale , t}: HeaderProps) {
                         className="py-3 flex items-center gap-2 group hover:bg-gray-50 px-4"
                         onClick={() => setMobileOpen(false)}
                       >
-                        <item.icon className="mr-2 group-hover:text-white group-hover:bg-primary bg-gray-50 p-1 rounded" size={30} />
+                        <item.icon
+                          className="mr-2 group-hover:text-white group-hover:bg-primary bg-gray-50 p-1 rounded"
+                          size={30}
+                        />
                         <div className="block">
                           <p className="font-semibold">{item.title}</p>
                           <p className="text-sm text-gray-500">{item.desc}</p>
@@ -106,7 +106,7 @@ export default function Header({ locale , t}: HeaderProps) {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <Link to="/about">{t('nav.about')}</Link>
+                    <Link to="/about">{t("nav.about")}</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -114,7 +114,7 @@ export default function Header({ locale , t}: HeaderProps) {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <Link to="/case-study">{t('nav.caseStudy')}</Link>
+                    <Link to="/case-study">{t("nav.caseStudy")}</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -122,7 +122,7 @@ export default function Header({ locale , t}: HeaderProps) {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <Link to="/blog">{t('nav.article')}</Link>
+                    <Link to="/blog">{t("nav.article")}</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
@@ -175,13 +175,13 @@ export default function Header({ locale , t}: HeaderProps) {
             to="https://ticket.nusanetwork.com/helpdesk"
             className="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-500"
           >
-            Support
+            {t("nav.support")}
           </Link>
           <Link
             to="https://www.nusanetwork.com/contact/"
             className="bg-primary text-white rounded-lg px-4 py-2 text-sm flex items-center gap-1"
           >
-            {t('nav.contact')} <ArrowRight className="w-4 h-4 ml-1" />
+            {t("nav.contact")} <ArrowRight className="w-4 h-4 ml-1" />
           </Link>
         </div>
 
@@ -211,7 +211,7 @@ export default function Header({ locale , t}: HeaderProps) {
             className="flex justify-between w-full py-3 border-b font-medium border-gray-300"
             onClick={() => setSolutionsOpen(!solutionsOpen)}
           >
-            {t('nav.solutions')} <ChevronDown size={16} />
+            {t("nav.solutions")} <ChevronDown size={16} />
           </button>
           {solutionsOpen && (
             <div className="pl-4">
@@ -237,21 +237,21 @@ export default function Header({ locale , t}: HeaderProps) {
             className="block py-3 border-b font-medium border-gray-300"
             onClick={() => setMobileOpen(false)}
           >
-            {t('nav.about')}
+            {t("nav.about")}
           </Link>
           <Link
             to="/case-study"
             className="block py-3 border-b font-medium border-gray-300"
             onClick={() => setMobileOpen(false)}
           >
-            {t('nav.caseStudy')}
+            {t("nav.caseStudy")}
           </Link>
           <Link
             to="/blog"
             className="block py-3 border-b font-medium border-gray-300"
             onClick={() => setMobileOpen(false)}
           >
-            {t('nav.blog')}
+            {t("nav.blog")}
           </Link>
 
           <div className="mt-6 flex flex-col gap-2">
@@ -259,13 +259,13 @@ export default function Header({ locale , t}: HeaderProps) {
               to="https://www.nusanetwork.com/contact/"
               className="bg-primary text-white rounded-lg px-4 py-3 flex justify-center items-center gap-1"
             >
-              {t('nav.contact')} <ArrowRight className="w-4 h-4 ml-1" />
+              {t("nav.contact")} <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
             <Link
               to="https://ticket.nusanetwork.com/helpdesk"
               className="border rounded-lg px-4 py-3 text-center border-gray-300"
             >
-              Support
+              {t("nav.support")}
             </Link>
           </div>
         </div>

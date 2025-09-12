@@ -50,7 +50,7 @@ export function Layout() {
         <Header locale={locale} t={t} />
         {/* Hanya pakai Outlet, jangan gabung dengan children */}
         <Outlet context={{ t, locale }} />
-        <Footer />
+        <Footer locale={locale} t={t} />
         <ScrollRestoration />
         <Scripts />
       </body>

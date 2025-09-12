@@ -29,15 +29,14 @@ export async function loader({
 
 export default function BlogDetail() {
   const { categories, blog } = useLoaderData<typeof loader>();
+  console.log(blog);
   return (
     <main>
       <BlogNavigation categories={categories} />
 
       <div className="min-h-screen bg-white font-sans">
-        {/* Hero Section */}
         <section className="bg-primary text-white py-12 px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
-            {/* Left Content */}
             <div className="flex flex-col justify-between h-full pb-4 lg:px-4">
               <div>
                 <p className="text-base mb-2 opacity-80">
@@ -53,7 +52,6 @@ export default function BlogDetail() {
               </div>
             </div>
 
-            {/* Right Image */}
             <div className="flex justify-end">
               <img
                 src={`${APP_BASE_URL}/${blog?.banner[0].url}`}
@@ -64,16 +62,12 @@ export default function BlogDetail() {
           </div>
         </section>
 
-        {/* Content + Sidebar */}
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-10 py-12 max-w-7xl mx-auto px-4 lg:px-6">
-          {/* Left Content */}
           <div className="lg:col-span-2 space-y-10">
             <BlogContent content={blog?.content} />
           </div>
 
-          {/* Right Sidebar */}
           <aside className="space-y-10">
-            {/* More Like This */}
             <div>
               <p className="uppercase tracking-wide mb-4 z-20">
                 More <span className="font-semibold">Like This</span>
@@ -104,7 +98,6 @@ export default function BlogDetail() {
               </div>
             </div>
 
-            {/* Our Solutions */}
             <div className="">
               <p className="uppercase tracking-wide mb-4 z-20">
                 Our <span className="font-semibold">Solutions</span>

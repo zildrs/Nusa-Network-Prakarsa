@@ -66,7 +66,6 @@ const caseStudies = [
 export default function CaseStudyDetail() {
   const { project, solutions, locale, projects } =
     useLoaderData<typeof loader>();
-  console.log(project);
   return (
     <main>
       <section className="max-w-6xl mx-auto px-6 py-16">

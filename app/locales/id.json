@@ -44,7 +44,7 @@
       "cta": "Baca Studi Kasus"
     },
     "testimonials": {
-      "our" :"Cerita",
+      "our": "Cerita",
       "clients": "Klien Kami",
       "title": "Testimoni Klien Tentang Pengalaman Mereka Bersama Kami",
       "subtitle": "Apa kata mereka tentang perjalanan bersama Nusa Network Prakarsa"
@@ -54,13 +54,91 @@
       "partners": "TEKNOLOGI",
       "heading": "Solusi Unggulan dengan Mitra Kelas Dunia",
       "cta": "Pelajari Lebih Lanjut"
-  },
+    },
     "cta": {
       "title": "Kami menyediakan berbagai layanan IT untuk menunjang kesuksesan Anda",
       "button": "Hubungi Tim Ahli Kami "
     }
   },
+  "about": {
+    "label": {
+      "about": "Tentang",
+      "us": "Kami"
+    },
+    "hero": {
+      "title": "Tentang Nusa Network Prakarsa",
+      "subtitle": "Mewujudkan Visi Melalui Eksekusi",
+      "tagline": "Kami bantu meningkatkan Bisnis Anda dengan Signifikan",
+      "description": "Dengan pengalaman lebih dari satu dekade sebagai integrator sistem terpercaya di Indonesia, PT Nusa Network Prakarsa berkomitmen untuk menghadirkan solusi teknologi canggih yang mendorong pertumbuhan dan transformasi bisnis.\n\nKami menyediakan solusi yang sesuai dengan kebutuhan berbagai bisnis di seluruh dunia. Inovasi adalah bagian dari budaya kami untuk membantu Anda memaksimalkan potensi sumber daya TI yang dimiliki."
+    },
+    "stats": {
+      "projectsAccomplished": "Proyek yang Telah Diselesaikan",
+      "clientsSuccess": "Keberhasilan Klien",
+      "technologyPartners": "Mitra Teknologi",
+      "amazingAwards": "Penghargaan yang Telah Diraih"
+    },
+    "values": {
+      "our": "NILAI-NILAI",
+      "values": "KAMI",
+      "title": "NILAI-NILAI KAMI",
+      "subtitle": "Apa yang Kami Percayai"
+    },
+    "vision": {
+      "title": "Visi",
+      "description": "Nusa Network Prakarsa adalah mitra terpercaya dalam solusi transformasi digital, yang mengelola dan mengembangkan teknologi pelanggan kami dari awal penerapan hingga pembaruan di masa depan."
+    },
+    "mission": {
+      "title": "Misi",
+      "description": "Memberikan layanan terbaik, menunjukkan komitmen tinggi terhadap kualitas dan integritas, membangun hubungan saling menguntungkan dengan para pemangku kepentingan, mendorong adanya masukan, serta menumbuhkan budaya yang berorientasi pada pelanggan.",
+      "principles": {
+        "n": "Nusa adalah Perusahaan yang Berorientasi pada Pelanggan - Kepuasan Pelanggan adalah Tujuan Utama",
+        "u": "Kesatuan, Integritas & Tim Profesional",
+        "s": "Berkarya untuk Keunggulan",
+        "a": "Perusahaan yang Taat Hukum dan Kontributor Komunitas"
+      }
+    },
+    "achievement": {
+      "our": "PENCAPAIAN",
+      "achievement": "KAMI",
+      "title": "Pencapaian Kami",
+      "subtitle": "Solusi Terdepan dengan Pencapaian Kelas Dunia"
+    },
+    "services": {
+      "title": "Kami menyediakan berbagai layanan IT untuk menunjang kesuksesan Anda",
+      "cta": "Hubungi Tim Ahli Kami"
+    }
+  },
   "footer": {
-    "address": "Jalan Kamal Raya Outer Ring Road, Mutiara Taman Palem A17 / 29 - 30, Kelurahan Cengkareng Timur, Kecamatan Cengkareng, Jakarta Barat, 11730"
+    "address": "Jalan Kamal Raya Outer Ring Road, Mutiara Taman Palem A17 / 29 - 30, Kelurahan Cengkareng Timur, Kecamatan Cengkareng, Jakarta Barat, 11730",
+    "solutions": {
+      "title": "Solusi",
+      "items": {
+        "securityInfrastructure": "Security Infrastructure",
+        "managedServices": "Managed Services",
+        "iotSolution": "IoT Solution",
+        "dataCenter": "Data Center Infrastructure",
+        "networkInfrastructure": "Network Infrastructure"
+      }
+    },
+    "company": {
+      "title": "Perusahaan",
+      "items": {
+        "about": "Tentang Kami",
+        "caseStudy": "Studi Kasus",
+        "blog": "Blog",
+        "careers": "Karir",
+        "partners": "Patner"
+      }
+    },
+    "resources": {
+      "title": "Resources",
+      "items": {
+        "privacy": "Kebijakan Privasi",
+        "sitemap": "Sitemap",
+        "certifications": "Sertifikat",
+        "contact": "Hubungi Kami",
+        "support": "Bantuan"
+      }
+    }
   }
 }

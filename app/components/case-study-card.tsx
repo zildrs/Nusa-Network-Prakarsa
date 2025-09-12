@@ -3,7 +3,6 @@ import { APP_BASE_URL } from "~/lib/utils";
 import type { ProjectType } from "~/types/project";
 
 const CaseStudyCard = ({ data }: { data: ProjectType }) => {
-  console.log("KAJEB", data.banner);
   return (
     <div className="rounded-lg overflow-hidden relative aspect-square group">
       <img
