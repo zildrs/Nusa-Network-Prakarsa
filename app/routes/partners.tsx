@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Route } from "./+types/partners";
+import { useOutletContext } from "react-router";
 import {
   Dialog,
   DialogContent,
@@ -31,6 +32,7 @@ const partners: Array<{ name: string; logo: string }> = [
 ];
 
 export default function Partner() {
+  const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
   const [selected, setSelected] = useState<{
     name: string;
     logo: string;
@@ -46,11 +48,10 @@ export default function Partner() {
       />
       <div className="max-w-7xl mx-auto px-6 py-16">
         <h2 className="text-5xl font-medium lg:font-semibold text-gray-900">
-          Technology Partners
+          {t("partners.hero.title")}
         </h2>
         <p className="mt-4 text-lg text-gray-600 max-w-2xl">
-          We partner with top global tech brands to deliver secure, scalable
-          solutions and services tailored to your business needs.
+          {t("partners.hero.description")}
         </p>
       </div>
 
@@ -95,15 +96,23 @@ export default function Partner() {
 
               {/* Right side */}
               <div className=" rounded-r-2xl text-lg bg-gray-50 py-12 px-8">
-                <h4 className="font-semibold text-2xl mb-2">Solutions</h4>
+                <h4 className="font-semibold text-2xl mb-2">
+                  {t("partners.modal.solutions")}
+                </h4>
                 <ul className="list-disc list-inside text-gray-500 space-y-1">
-                  <li>Network Infrastructure</li>
-                  <li>Data Infrastructure</li>
-                  <li>Security Solutions</li>
-                  <li>Managed Services</li>
+                  <li>
+                    {t("partners.modal.solutionsList.networkInfrastructure")}
+                  </li>
+                  <li>
+                    {t("partners.modal.solutionsList.dataInfrastructure")}
+                  </li>
+                  <li>{t("partners.modal.solutionsList.securitySolutions")}</li>
+                  <li>{t("partners.modal.solutionsList.managedServices")}</li>
                 </ul>
 
-                <h4 className="font-semibold mt-4 mb-2">Related</h4>
+                <h4 className="font-semibold mt-4 mb-2">
+                  {t("partners.modal.related")}
+                </h4>
                 <div className="flex">
                   <ul className="list-disc list-inside text-gray-500 space-y-1">
                     <li></li>

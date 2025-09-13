@@ -57,30 +57,6 @@ export default function Home() {
     "/logos/telkom.png",
   ];
 
-  const caseStudies = [
-    {
-      title: "Transforming Peruri Businesses with SD–WAN Technology",
-      company: "Peruri",
-      img: "https://awsimages.detik.net.id/community/media/visual/2024/11/19/kantor-peruri-resmi-jadi-cagar-budaya-1_169.jpeg?w=700&q=90",
-      companyLogo:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_2024_Perum_Peruri.svg/2560px-Logo_2024_Perum_Peruri.svg.png",
-    },
-    {
-      title: "Transforming J&T Express Businesses with SD–WAN Technology",
-      company: "J&T Express",
-      img: "https://foto.kontan.co.id/8TQWPa6yy4jEQX5iWDd_3ql1pv4=/640x360/smart/2021/12/15/1054233720p.jpg",
-      companyLogo:
-        "https://1000logos.net/wp-content/uploads/2022/08/JT-Express-Logo.png",
-    },
-    {
-      title: "Transforming Peruri Businesses with SD–WAN Technology",
-      company: "Peruri",
-      img: "https://awsimages.detik.net.id/community/media/visual/2024/11/19/kantor-peruri-resmi-jadi-cagar-budaya-1_169.jpeg?w=700&q=90",
-      companyLogo:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_2024_Perum_Peruri.svg/2560px-Logo_2024_Perum_Peruri.svg.png",
-    },
-  ];
-
   return (
     <main className="relative">
       <section className="relative bg-primary text-white min-h-screen lg:min-h-screen">

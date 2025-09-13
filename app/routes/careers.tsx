@@ -1,21 +1,11 @@
 import type { Route } from "./+types/contact";
 
-import {
-  DataCenter,
-  LoadBalancerNetwork,
-  IbmCloudHyperProtectDbaas,
-  CloudMonitoring,
-  IotPlatform,
-  ArrowRight,
-  ChevronDown,
-  Close,
-  Menu,
-} from "@carbon/icons-react";
-import CTASection from "~/components/cta";
+import { ArrowRight } from "@carbon/icons-react";
+import { useOutletContext } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Contact" },
+    { title: "Careers" },
     { name: "description", content: "Get in touch with us" },
   ];
 }
@@ -102,7 +92,8 @@ const openRoles = {
   ],
 };
 
-export default function Contact() {
+export default function Careers() {
+  const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
   return (
     <main className="w-full">
       <div className="bg-white text-gray-900">
@@ -112,10 +103,11 @@ export default function Contact() {
             {/* Text Section */}
             <div className="max-w-lg order-2 lg:order-1">
               <p className="tracking-widest text-gray-800 uppercase">
-                Open <span className="font-semibold">Roles</span>
+                {t("career.open")}{" "}
+                <span className="font-semibold">{t("career.roles")}</span>
               </p>
               <h2 className="mt-4 text-4xl lg:text-5xl font-medium lg:font-semibold leading-tight text-gray-900">
-                Join a team that blends innovation with solid solutions.
+                {t("career.subtitle")}
               </h2>
             </div>
 
@@ -166,7 +158,7 @@ export default function Contact() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center bg-primary text-white px-5 py-2 rounded-lg hover:bg-primary transition"
                     >
-                      Apply now
+                      {t("career.apply")}
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </a>
                   </div>

@@ -108,6 +108,105 @@
       "cta": "Hubungi Tim Ahli Kami"
     }
   },
+  "caseStudy": {
+    "hero": {
+      "label": {
+        "case": "Studi",
+        "study": "Kasus"
+      },
+      "title": "Cerita Sukses Konsumen Bersama Nusa Network Prakarsa "
+    },
+    "filters": {
+      "industry": "Industri",
+      "solution": "Solusi",
+      "allIndustries": "Semua Industri"
+    },
+    "cta": {
+      "title": "Kami menyediakan berbagai layanan IT untuk menunjang kesuksesan Anda",
+      "button": "Bicara dengan ahli kami"
+    }
+  },
+  "partners": {
+    "hero": {
+      "title": "Patner Teknologi",
+      "description": "Kami bekerja sama dengan berbagai merek teknologi global terkemuka untuk menghadirkan solusi layanan yang aman, dan dapat disesuaikan dengan kebutuhan bisnis Anda"
+    },
+    "modal": {
+      "solutions": "Solusi",
+      "related": "Terkait",
+      "solutionsList": {
+        "networkInfrastructure": "Infrastruktur Jaringan",
+        "dataInfrastructure": "Infrastruktur Data",
+        "securitySolutions": "Solusi Keamanan",
+        "managedServices": "Layanan Terkelola"
+      }
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Hubungi Kami",
+      "description": "Mari diskusikan bagaimana Nusa Network Prakarsa bisa membantu menghadirkan solusi IT yang sesuai dengan kebutuhan Anda"
+    },
+    "form": {
+      "name": "Nama",
+      "email": "Email Bisnis Anda",
+      "message": "Pesan",
+      "namePlaceholder": "Nama Anda",
+      "emailPlaceholder": "contoh@usanetwork.com",
+      "messagePlaceholder": "Kami siap membantu, beri tahu kami apa yang Anda butuhkan.",
+      "submitButton": "Kirim Pesan"
+    },
+    "channels": {
+      "title": "Hubungi kami melalui saluran yang tersedia",
+      "sales": {
+        "title": "Email Sales",
+        "description": "Sampaikan kebutuhan Anda ke tim sales kami",
+        "button": "Hubungi Sales"
+      },
+      "support": {
+        "title": "Email Support",
+        "description": "Biarkan Nusa Membantu",
+        "button": "Hubungi Support"
+      },
+      "location": {
+        "title": "Lokasi Kami",
+        "description": "Kunjungi Kantor Pusat",
+        "button": "Kunjungi Lokasi"
+      },
+      "phone": {
+        "title": "Hubungi Kami",
+        "description": "Tersedia 24/7",
+        "number": "+62 21 5435 3007"
+      }
+    }
+  },
+  "privacyPolicy": {
+    "navigation": {
+      "privacyPolicy": "Kebijakan Privasi",
+      "generalTerms": "Syarat Umum"
+    },
+    "privacyPolicy": {
+      "title": "Kebijakan Privasi",
+      "lastUpdated": "Terakhir diperbarui: 22 September 2023",
+      "content": "Kebijakan Privasi ini menjelaskan kebijakan dan prosedur kami terkait pengumpulan, penggunaan, dan pengungkapan informasi Anda ketika Anda menggunakan Layanan, serta memberitahu Anda tentang hak privasi Anda dan bagaimana hukum melindungi Anda. Kami menggunakan data pribadi Anda untuk menyediakan dan meningkatkan Layanan. Dengan menggunakan Layanan, Anda menyetujui pengumpulan dan penggunaan informasi sesuai dengan Kebijakan Privasi ini. Kebijakan Privasi ini dibuat dengan bantuan Privacy Policy Generator."
+    },
+    "generalTerms": {
+      "title": "Syarat Umum",
+      "lastUpdated": "Terakhir diperbarui: 22 September 2023",
+      "content": "Kebijakan Privasi ini menjelaskan kebijakan dan prosedur kami terkait pengumpulan, penggunaan, dan pengungkapan informasi Anda ketika Anda menggunakan Layanan, serta memberitahu Anda tentang hak privasi Anda dan bagaimana hukum melindungi Anda. Kami menggunakan data pribadi Anda untuk menyediakan dan meningkatkan Layanan. Dengan menggunakan Layanan, Anda menyetujui pengumpulan dan penggunaan informasi sesuai dengan Kebijakan Privasi ini. Kebijakan Privasi ini dibuat dengan bantuan Privacy Policy Generator."
+    }
+  },
+  "achievement": {
+    "title": "Pencapaian",
+    "subtitle": "Pencapaian Nusa"
+  },
+  "career": {
+    "open": "Buka",
+    "roles": "Lowongan",
+    "title": "Buka Lowongan",
+    "subtitle": "Bergabunglah dengan tim inovatif yang menghadirkan solusi terbaik",
+    "apply": "Lamar Sekarang"
+  },
   "footer": {
     "address": "Jalan Kamal Raya Outer Ring Road, Mutiara Taman Palem A17 / 29 - 30, Kelurahan Cengkareng Timur, Kecamatan Cengkareng, Jakarta Barat, 11730",
     "solutions": {

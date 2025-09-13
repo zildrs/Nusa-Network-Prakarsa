@@ -1,4 +1,5 @@
 import { ArrowRight } from "@carbon/icons-react";
+import { useOutletContext } from "react-router";
 
 type CTAPropsType = {
   title?: string;
@@ -8,6 +9,7 @@ type CTAPropsType = {
 };
 
 const CTASection = (props: CTAPropsType) => {
+  const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
   return (
     <section className="relative bg-primary text-white py-20 overflow-hidden">
       <img
@@ -33,9 +35,8 @@ const CTASection = (props: CTAPropsType) => {
       ></div>
       <div className="max-w-7xl relative mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
         <div>
-          <h2 className="text-4xl  lg:text-[48px] text-center lg:text-left font-semibold max-w-lg leading-snug">
-            {props.title ||
-              "We run all kinds of IT services that vow your success"}
+          <h2 className="text-[32px] lg:text-[36px] text-center lg:text-left font-semibold max-w-lg leading-snug">
+            {props.title || t("home.cta.title")}
           </h2>
           <p className=" mt-4 max-w-md">{props.description || ""}</p>
         </div>
@@ -43,7 +44,7 @@ const CTASection = (props: CTAPropsType) => {
           href={props.link || "/contact"}
           className="mt-6 md:mt-0 inline-flex items-center px-6 py-3 bg-white text-gray-900 font-medium rounded-lg shadow"
         >
-          {props.linkText || "Contact Us"}{" "}
+          {props.linkText || t("home.cta.button")}{" "}
           <ArrowRight className="ml-2 h-5 w-5" />
         </a>
       </div>

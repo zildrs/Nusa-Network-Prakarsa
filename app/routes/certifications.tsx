@@ -1,6 +1,6 @@
 import CTASection from "~/components/cta";
 import type { Route } from "./+types/certifications";
-import { Dropdown } from "~/components/dropdown";
+import { useOutletContext } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -43,6 +43,7 @@ const items = [
 ];
 
 export default function Certification() {
+  const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
   return (
     <main>
       <section className="bg-primary relative text-white pt-12 py-18 lg:py-12 lg:min-h-[350px] overflow-hidden">
@@ -64,11 +65,11 @@ export default function Certification() {
 
         <div className="max-w-7xl mx-auto my-auto lg:min-h-[250px] px-4 relative flex-col flex justify-center">
           <p className="uppercase tracking-wide mb-6 z-20">
-            <span className="font-semibold">ACHIEVMENT</span>
+            <span className="font-semibold">{t("achievement.title")}</span>
           </p>
           <div className="flex justify-between items-center">
             <h2 className="text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10">
-              Nusa Achievement
+              {t("achievement.subtitle")}
             </h2>
           </div>
         </div>

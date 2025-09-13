@@ -108,6 +108,105 @@
       "cta": "Contact our Expert"
     }
   },
+  "caseStudy": {
+    "hero": {
+      "label": {
+        "case": "Case",
+        "study": "Study"
+      },
+      "title": "Customer Success with Nusa Network Prakarsa"
+    },
+    "filters": {
+      "industry": "Industry",
+      "solution": "Solution",
+      "allIndustries": "All Industries"
+    },
+    "cta": {
+      "title": "We run all kinds of IT services that vow your success",
+      "button": "Talk to our expert"
+    }
+  },
+  "partners": {
+    "hero": {
+      "title": "Technology Partners",
+      "description": "We partner with top global tech brands to deliver secure, scalable solutions and services tailored to your business needs."
+    },
+    "modal": {
+      "solutions": "Solutions",
+      "related": "Related",
+      "solutionsList": {
+        "networkInfrastructure": "Network Infrastructure",
+        "dataInfrastructure": "Data Infrastructure",
+        "securitySolutions": "Security Solutions",
+        "managedServices": "Managed Services"
+      }
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Contact Us",
+      "description": "Let's talk about how Nusa Network Prakarsa can deliver the right solutions for your unique IT needs."
+    },
+    "form": {
+      "name": "Name",
+      "email": "Your Business Mail",
+      "message": "Message",
+      "namePlaceholder": "Your Name",
+      "emailPlaceholder": "example@usanetwork.com",
+      "messagePlaceholder": "We're ready to help, just let us know what you need.",
+      "submitButton": "Submit Message"
+    },
+    "channels": {
+      "title": "Contact us via any our available channels",
+      "sales": {
+        "title": "Email to our Sales",
+        "description": "Tell your needs with our sales",
+        "button": "Contact our Sales"
+      },
+      "support": {
+        "title": "Email to Nusa Support",
+        "description": "Let Nusa solve your issues.",
+        "button": "Contact Support"
+      },
+      "location": {
+        "title": "Our Location",
+        "description": "Visit our main Office",
+        "button": "Visit our Location"
+      },
+      "phone": {
+        "title": "Call Us",
+        "description": "We're available 24/7",
+        "number": "+62 21 5435 3007"
+      }
+    }
+  },
+  "privacyPolicy": {
+    "navigation": {
+      "privacyPolicy": "Privacy Policy",
+      "generalTerms": "General Terms"
+    },
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated: September 22, 2023",
+      "content": "This Privacy Policy describes Our policies and procedures on the collection, use, and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You. We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the Privacy Policy Generator."
+    },
+    "generalTerms": {
+      "title": "General Terms",
+      "lastUpdated": "Last updated: September 22, 2023",
+      "content": "This Privacy Policy describes Our policies and procedures on the collection, use, and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You. We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the Privacy Policy Generator."
+    }
+  },
+  "achievement": {
+    "title": "Achievement",
+    "subtitle": "Nusa Achievement"
+  },
+  "career": {
+    "open": "Open",
+    "roles": "Roles",
+    "title": "Open Roles",
+    "subtitle": "Join a team that blends innovation with solid solutions.",
+    "apply": "Apply Now"
+  },
   "footer": {
     "address": "Jalan Kamal Raya Outer Ring Road, Mutiara Taman Palem A17 / 29 - 30, Kelurahan Cengkareng Timur, Kecamatan Cengkareng, Jakarta Barat, 11730",
     "solutions": {

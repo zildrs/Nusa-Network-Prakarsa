@@ -1,7 +1,7 @@
 import { cn } from "~/lib/utils";
 import type { Route } from "./+types/contact";
-import { useEffect, useState } from "react";
-import { Card, CardContent } from "~/components/ui/card";
+import { useState } from "react";
+import { useOutletContext } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -11,6 +11,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Contact() {
+  const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
   const [activeTab, setActiveTab] = useState("privacy");
 
   return (
@@ -28,7 +29,7 @@ export default function Contact() {
                 )}
                 onClick={() => setActiveTab("privacy")}
               >
-                Privacy Policy
+                {t("privacyPolicy.navigation.privacyPolicy")}
               </a>
               <a
                 href="#general-terms"
@@ -40,7 +41,7 @@ export default function Contact() {
                 )}
                 onClick={() => setActiveTab("general-terms")}
               >
-                General Terms
+                {t("privacyPolicy.navigation.generalTerms")}
               </a>
             </nav>
           </div>
@@ -51,90 +52,36 @@ export default function Contact() {
           {/* Privacy Policy Section */}
           <section id="privacy" className="mb-16">
             <h1 className="text-3xl font-medium text-gray-900 mb-2">
-              Privacy Policy
+              {t("privacyPolicy.privacyPolicy.title")}
             </h1>
             <p className="text-gray-700 mb-6">
-              Last updated: September 22, 2023
+              {t("privacyPolicy.privacyPolicy.lastUpdated")}
             </p>
 
             <div className="space-y-6 text-gray-500 leading-relaxed">
-              <p>
-                This Privacy Policy describes Our policies and procedures on the
-                collection, use, and disclosure of Your information when You use
-                the Service and tells You about Your privacy rights and how the
-                law protects You. We use Your Personal data to provide and
-                improve the Service. By using the Service, You agree to the
-                collection and use of information in accordance with this
-                Privacy Policy. This Privacy Policy has been created with the
-                help of the Privacy Policy Generator.
-              </p>
+              <p>{t("privacyPolicy.privacyPolicy.content")}</p>
 
-              <p>
-                This Privacy Policy describes Our policies and procedures on the
-                collection, use, and disclosure of Your information when You use
-                the Service and tells You about Your privacy rights and how the
-                law protects You. We use Your Personal data to provide and
-                improve the Service. By using the Service, You agree to the
-                collection and use of information in accordance with this
-                Privacy Policy. This Privacy Policy has been created with the
-                help of the Privacy Policy Generator.
-              </p>
+              <p>{t("privacyPolicy.privacyPolicy.content")}</p>
 
-              <p>
-                This Privacy Policy describes Our policies and procedures on the
-                collection, use, and disclosure of Your information when You use
-                the Service and tells You about Your privacy rights and how the
-                law protects You. We use Your Personal data to provide and
-                improve the Service. By using the Service, You agree to the
-                collection and use of information in accordance with this
-                Privacy Policy. This Privacy Policy has been created with the
-                help of the Privacy Policy Generator.
-              </p>
+              <p>{t("privacyPolicy.privacyPolicy.content")}</p>
             </div>
           </section>
 
           {/* General Terms Section */}
           <section id="general-terms">
             <h1 className="text-3xl font-medium text-gray-900 mb-2">
-              General Terms
+              {t("privacyPolicy.generalTerms.title")}
             </h1>
             <p className=" text-gray-700 mb-6">
-              Last updated: September 22, 2023
+              {t("privacyPolicy.generalTerms.lastUpdated")}
             </p>
 
             <div className="space-y-6 text-gray-500 leading-relaxed">
-              <p>
-                This Privacy Policy describes Our policies and procedures on the
-                collection, use, and disclosure of Your information when You use
-                the Service and tells You about Your privacy rights and how the
-                law protects You. We use Your Personal data to provide and
-                improve the Service. By using the Service, You agree to the
-                collection and use of information in accordance with this
-                Privacy Policy. This Privacy Policy has been created with the
-                help of the Privacy Policy Generator.
-              </p>
+              <p>{t("privacyPolicy.generalTerms.content")}</p>
 
-              <p>
-                This Privacy Policy describes Our policies and procedures on the
-                collection, use, and disclosure of Your information when You use
-                the Service and tells You about Your privacy rights and how the
-                law protects You. We use Your Personal data to provide and
-                improve the Service. By using the Service, You agree to the
-                collection and use of information in accordance with this
-                Privacy Policy. This Privacy Policy has been created with the
-                help of the Privacy Policy Generator.
-              </p>
+              <p>{t("privacyPolicy.generalTerms.content")}</p>
 
-              <p>
-                This Privacy Policy describes Our policies and procedures on the
-                collection, use, and disclosure of Your information when You use
-                the Service and tells You about Your privacy rights and how the
-                law protects You. We use Your Personal data to provide and
-                improve the Service. By using the Service, You agree to the
-                collection and use of information in accordance with this
-                Privacy Policy. This Privacy Policy has been created with the
-                help of the Privacy Policy Generator.
-              </p>
+              <p>{t("privacyPolicy.generalTerms.content")}</p>
             </div>
           </section>
         </main>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Route } from "./+types/case-study";
-import { Link } from "react-router";
+import { Link, useOutletContext } from "react-router";
 import { Light, Building } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
@@ -100,6 +100,7 @@ const caseStudies = [
 
 export default function CaseStudy({ loaderData }: Route.ComponentProps) {
   const { projects, solutions } = loaderData;
+  const { t, locale } = useOutletContext<{ t: any; locale: "id" | "en" }>();
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedSolution, setSelectedSolution] = useState<string>("");
 
@@ -142,13 +143,14 @@ export default function CaseStudy({ loaderData }: Route.ComponentProps) {
 
         <div className="max-w-7xl mx-auto my-auto h-full px-4 relative flex-col flex justify-center">
           <p className="uppercase tracking-wide mb-6 z-20">
-            <span className="font-semibold">About</span> Us
+            <span className="font-semibold">
+              {t("caseStudy.hero.label.case")}
+            </span>{" "}
+            {t("caseStudy.hero.label.study")}
           </p>
           <div className="flex justify-between items-center">
-            <h2 className="text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10">
-              Where Vision
-              <br />
-              meets Execution
+            <h2 className={`text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10 ${locale === "id" ? "max-w-3xl" : "max-w-xl"}`}>
+              {t("caseStudy.hero.title")}
             </h2>
           </div>
         </div>
@@ -159,12 +161,12 @@ export default function CaseStudy({ loaderData }: Route.ComponentProps) {
         <div className="flex gap-4 mb-6">
           {/* Industry Filter */}
           <Dropdown
-            label="Industry"
+            label={t("caseStudy.filters.industry")}
             onSelect={(value) => setSelectedIndustry(value)}
             className="text-sm !px-3"
             icon={<Building className="w-4 h-4 lg:w-5 lg:h-5 text-gray-500" />}
             items={[
-              { value: "", label: "All Industries" },
+              { value: "", label: t("caseStudy.filters.allIndustries") },
               { value: "Industry", label: "Industry" },
               { value: "Logistics", label: "Logistics" },
               { value: "Retail", label: "Retail" },
@@ -172,7 +174,7 @@ export default function CaseStudy({ loaderData }: Route.ComponentProps) {
           />
 
           <Dropdown
-            label="Solution"
+            label={t("caseStudy.filters.solution")}
             className="text-sm !px-3"
             onSelect={(value) => setSelectedSolution(value)}
             icon={<Light className="w-4 h-4 lg:w-5 lg:h-5 text-gray-500" />}
@@ -190,7 +192,10 @@ export default function CaseStudy({ loaderData }: Route.ComponentProps) {
           ))}
         </div>
       </section>
-      <CTASection />
+      <CTASection
+        title={t("caseStudy.cta.title")}
+        linkText={t("caseStudy.cta.button")}
+      />
     </main>
   );
 }
