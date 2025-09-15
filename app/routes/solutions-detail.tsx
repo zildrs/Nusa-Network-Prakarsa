@@ -6,7 +6,7 @@ import "swiper/css/pagination";
 import { ArrowRight } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useOutletContext } from "react-router";
 import { solutions } from "~/loaders/solutions";
 import { fetchProjectsData } from "~/lib/api.server";
 
@@ -28,6 +28,7 @@ export default function Home() {
   const [Marquee, setMarquee] = useState<any>(null);
 
   const data = useLoaderData<typeof loader>();
+  const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
 
   useEffect(() => {
     import("react-fast-marquee").then((mod) => {
@@ -83,20 +84,21 @@ export default function Home() {
 
         <div className="relative flex flex-col justify-end container mx-auto px-6 py-28 lg:py-40 max-w-7xl">
           <p className="uppercase text-sm tracking-wide">
-            <span className="font-semibold">{data.title}</span> Solutions
+            <span className="font-semibold">{data.title}</span>{" "}
+            {t("solutionsDetail.hero.title")}
           </p>
           <h1 className="mt-4 text-4xl lg:text-5xl font-semibold leading-tight lg:w-[589px]">
-            {data.hero_title}
+            {t("solutionsDetail.hero.subtitle")}
           </h1>
           <p className="mt-6 text-xl max-w-lg text-gray-200">
-            {data.hero_subtitle}
+            {t("solutionsDetail.hero.description")}
           </p>
           <div className="mt-8">
             <a
               href={data.hero_cta_link}
               className="w-fit bg-white flex items-center text-blue-950 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-100 transition"
             >
-              {data.hero_cta}{" "}
+              {t("solutionsDetail.hero.cta")}{" "}
               <ArrowRight className="inline-block ml-2 w-4 h-4" />
             </a>
           </div>
@@ -108,16 +110,16 @@ export default function Home() {
           <div className="container mx-auto px-6 max-w-7xl py-4 flex justify-between items-center text-sm font-medium">
             <div className="flex gap-8 text-gray-700 text-base">
               <a href="#" className="hover:text-blue-950">
-                What we do
+                {t("solutionsDetail.navigation.whatWeDo")}
               </a>
               <a href="#" className="hover:text-blue-950">
-                Our services
+                {t("solutionsDetail.navigation.ourServices")}
               </a>
               <a href="#" className="hover:text-blue-950">
-                Case study
+                {t("solutionsDetail.navigation.caseStudy")}
               </a>
               <a href="#" className="hover:text-blue-950">
-                Our partners
+                {t("solutionsDetail.navigation.ourPartners")}
               </a>
             </div>
 
@@ -125,7 +127,8 @@ export default function Home() {
               href="#"
               className="bg-primary inline-flex items-center text-white px-4 py-2 rounded-lg hover:bg-[#19376D] transition"
             >
-              Consult free with us <ArrowRight className="w-4 h-4 ml-1" />
+              {t("solutionsDetail.navigation.consultFree")}{" "}
+              <ArrowRight className="w-4 h-4 ml-1" />
             </a>
           </div>
         </div>
@@ -136,13 +139,15 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="flex flex-col justify-center">
               <p className="text-sm ">
-                <span className="font-semibold">WHAT</span> WE DO
+                <span className="font-semibold">
+                  {t("solutionsDetail.whatWeDo.label")}
+                </span>
               </p>
               <h2 className="text-4xl font-semibold text-gray-900 mt-2">
-                {data.what_we_do_title}
+                {t("solutionsDetail.whatWeDo.title")}
               </h2>
               <p className="mt-4 text-lg text-gray-600">
-                {data.what_we_do_subtitle}
+                {t("solutionsDetail.whatWeDo.description")}
               </p>
             </div>
             <div className="min-h-[450px] lg:overflow-visible overflow-hidden">
@@ -160,11 +165,12 @@ export default function Home() {
       <section className="bg-gradient-to-r from-[#0A2A5E] to-[#063970] text-white py-16 px-6 lg:px-20">
         <div className="mx-auto max-w-7xl">
           <p className="text-sm ">
-            <span className="font-semibold">OUR</span>{" "}
-            {data.title.toUpperCase()} SERVICES
+            <span className="font-semibold">
+              {t("solutionsDetail.services.label")}
+            </span>
           </p>
           <h2 className="text-3xl lg:text-5xl font-medium tracking-normal mt-2">
-            Solutions that fit <br /> your infrastructure needs
+            {t("solutionsDetail.services.title")}
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
@@ -193,10 +199,12 @@ export default function Home() {
       <section className="bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4">
           <p className="uppercase text-sm tracking-wide text-gray-900 mb-2">
-            <span className="font-semibold">Case</span> Study
+            <span className="font-semibold">
+              {t("solutionsDetail.caseStudy.label")}
+            </span>
           </p>
           <h2 className="text-3xl lg:text-4xl font-semibold mb-8 max-w-md">
-            Customer Success with Nusa Network Prakarsa
+            {t("solutionsDetail.caseStudy.title")}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -209,19 +217,23 @@ export default function Home() {
 
       <section className="py-16 max-w-7xl mx-auto px-4">
         <p className=" tracking-widest text-gray-900 uppercase">
-          <span className="font-semibold">Technology</span> Partners
+          <span className="font-semibold">
+            {t("solutionsDetail.technologyPartners.label")}
+          </span>
         </p>
         <h2 className="mt-2 text-3xl lg:text-4xl max-w-2xl font-semibold text-gray-900 leading-snug">
-          Simplifying Complex Hybrid IT with World-Class Technology Partners
+          {t("solutionsDetail.technologyPartners.title")}
         </h2>
         <a
           href="#"
           className="my-8 hidden lg:inline-flex items-center font-medium"
         >
-          Learn More <ArrowRight className="ml-2 h-5 w-5" />
+          {t("solutionsDetail.technologyPartners.cta")}{" "}
+          <ArrowRight className="ml-2 h-5 w-5" />
         </a>
         <a href="#" className="my-8 flex items-center font-medium lg:hidden">
-          Learn More <ArrowRight className="ml-2 h-5 w-5" />
+          {t("solutionsDetail.technologyPartners.cta")}{" "}
+          <ArrowRight className="ml-2 h-5 w-5" />
         </a>
 
         {/* Logo carousel (contoh pakai flex biasa, bisa ganti swiper/marquee) */}
@@ -246,10 +258,10 @@ export default function Home() {
       </section>
 
       <CTASection
-        title={data.cta_title}
+        title={t("solutionsDetail.cta.title")}
         link={data.cta_link}
-        linkText={data.cta_text}
-        description={data.cta_subtitle}
+        linkText={t("solutionsDetail.cta.button")}
+        description={t("solutionsDetail.cta.description")}
       />
     </main>
   );

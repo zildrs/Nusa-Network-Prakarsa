@@ -234,7 +234,7 @@ export default function About() {
             {values.map((item, i) => (
               <div
                 key={i}
-                className="border min-h-[200px] aspect-auto lg:aspect-square p-4 border-gray-300 rounded-xl bg-white shadow-sm bg-top-right bg-cover bg-no-repeat bg-card flex flex-col justify-between"
+                className="border min-h-[200px] aspect-auto lg:aspect-square p-4 border-gray-300 rounded-xl shadow-sm bg-top-right bg-cover bg-no-repeat bg-card flex flex-col justify-between"
                 style={{ backgroundImage: `url(/bg-card.png)` }}
               >
                 <img

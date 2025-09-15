@@ -207,6 +207,52 @@
     "subtitle": "Bergabunglah dengan tim inovatif yang menghadirkan solusi terbaik",
     "apply": "Lamar Sekarang"
   },
+  "solutionsDetail": {
+    "hero": {
+      "title": "SOLUSI NETWORK INFRASTRUCTURE",
+      "subtitle": "Wujudkan Network Infrastructure yang lebih cerdas, cepat, dan aman untuk bisnis Anda",
+      "description": "Lindungi keberlangsungan operasional Anda dengan desain, implementasi, dan pengelolaan jaringan yang disesuaikan — dikerjakan oleh para ahli terpercaya",
+      "cta": "Jadwalkan Konsultasi Gratis"
+    },
+    "navigation": {
+      "whatWeDo": "Apa yang kami lakukan",
+      "ourServices": "Layanan kami",
+      "caseStudy": "Studi kasus",
+      "ourPartners": "Partner kami",
+      "consultFree": "Gratis konsultasi"
+    },
+    "whatWeDo": {
+      "label": "APA YANG KAMI LAKUKAN",
+      "title": "Bangun Jaringan Canggih Masa Depan Sekarang",
+      "description": "Tim ahli kami bekerja sama dengan Anda untuk merancang, menerapkan, dan mengelola infrastruktur menyeluruh yang disesuaikan dengan kebutuhan bisnis Anda — menjaga kelangsungan operasional secara optimal, kinerja maksimal, dan keamanan di setiap tahap."
+    },
+    "services": {
+      "label": "LAYANAN NETWORK INFRASTRUCTURE KAMI",
+      "title": "Solusi yang Sesuai dengan Kebutuhan Infrastruktur Anda",
+      "items": {
+        "lanWanDesign": "LAN/WAN Design and Deployment",
+        "sdWanSolutions": "SD-WAN Solutions",
+        "wirelessNetwork": "Wireless Network Solutions",
+        "networkSecurity": "Network Security Integration",
+        "dataCenterNetworking": "Data Center Networking",
+        "cloudHybridConnectivity": "Cloud & Hybrid Connectivity"
+      }
+    },
+    "caseStudy": {
+      "label": "STUDI KASUS",
+      "title": "Cerita Sukses Konsumen Nusa Network Prakarsa"
+    },
+    "technologyPartners": {
+      "label": "MITRA TEKNOLOGI",
+      "title": "Hadirkan Solusi Terbaik bersama Mitra Kelas Dunia",
+      "cta": "Temukan lebih banyak tentang mitra teknologi kami"
+    },
+    "cta": {
+      "title": "Siap Tingkatkan Jaringan Anda?",
+      "description": "Hubungi  tim ahli jaringan kami sekarang dan temukan cara kami merancang infrastruktur masa depan untuk Anda",
+      "button": "Jadwalkan konsultasi gratis"
+    }
+  },
   "footer": {
     "address": "Jalan Kamal Raya Outer Ring Road, Mutiara Taman Palem A17 / 29 - 30, Kelurahan Cengkareng Timur, Kecamatan Cengkareng, Jakarta Barat, 11730",
     "solutions": {

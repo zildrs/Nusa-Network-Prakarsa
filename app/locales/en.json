@@ -207,6 +207,52 @@
     "subtitle": "Join a team that blends innovation with solid solutions.",
     "apply": "Apply Now"
   },
+  "solutionsDetail": {
+    "hero": {
+      "title": "NETWORK INFRASTRUCTURE SOLUTIONS",
+      "subtitle": "Build a Smarter, Faster and Secure Network Infrastructure",
+      "description": "Future-proof your operations with tailored network design, implementation, and management — delivered by experts you can trust",
+      "cta": "Schedule a Free Consultation"
+    },
+    "navigation": {
+      "whatWeDo": "What we do",
+      "ourServices": "Our services",
+      "caseStudy": "Case study",
+      "ourPartners": "Our partners",
+      "consultFree": "Consult free with us"
+    },
+    "whatWeDo": {
+      "label": "WHAT WE DO",
+      "title": "Build a Future-Ready Network Today",
+      "description": "Our expert team works with you to design, deploy, and manage end-to-end infrastructures tailored to your business needs — ensuring maximum uptime, optimal performance, and secure operations at every stage."
+    },
+    "services": {
+      "label": "OUR NETWORK INFRASTRUCTURE SERVICES",
+      "title": "Solutions That Fit Your Infrastructure Needs",
+      "items": {
+        "lanWanDesign": "LAN/WAN Design and Deployment",
+        "sdWanSolutions": "SD-WAN Solutions",
+        "wirelessNetwork": "Wireless Network Solutions",
+        "networkSecurity": "Network Security Integration",
+        "dataCenterNetworking": "Data Center Networking",
+        "cloudHybridConnectivity": "Cloud & Hybrid Connectivity"
+      }
+    },
+    "caseStudy": {
+      "label": "CASE STUDY",
+      "title": "Customer Success with Nusa Network Prakarsa"
+    },
+    "technologyPartners": {
+      "label": "TECHNOLOGY PARTNERS",
+      "title": "Leading Solutions with World-Class Partners",
+      "cta": "Learn More about our Technology Partners"
+    },
+    "cta": {
+      "title": "Ready to Upgrade Your Network?",
+      "description": "Talk to our network engineers today and discover how we can architect your next-gen infrastructure",
+      "button": "Schedule a Free Consultation"
+    }
+  },
   "footer": {
     "address": "Jalan Kamal Raya Outer Ring Road, Mutiara Taman Palem A17 / 29 - 30, Kelurahan Cengkareng Timur, Kecamatan Cengkareng, Jakarta Barat, 11730",
     "solutions": {
