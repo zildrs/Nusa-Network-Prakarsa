@@ -33,9 +33,9 @@ export default function Footer({ locale, t }: HeaderProps) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 col-span-3">
             {/* Solutions */}
             <div>
-              <h4 className="font-semibold text-gray-500 mb-3">
+              <h3 className="font-semibold text-gray-500 mb-3">
                 {t("footer.solutions.title")}
-              </h4>
+              </h3>
               <ul className="space-y-2  text-gray-600">
                 <li>
                   <Link to="/solutions/security-infrastructure">
@@ -67,9 +67,9 @@ export default function Footer({ locale, t }: HeaderProps) {
 
             {/* Company */}
             <div>
-              <h4 className="font-semibold text-gray-500 mb-3">
+              <h3 className="font-semibold text-gray-500 mb-3">
                 {t("footer.company.title")}
-              </h4>
+              </h3>
               <ul className="space-y-2  text-gray-600">
                 <li>
                   <Link to="/about">{t("footer.company.items.about")}</Link>
@@ -95,9 +95,9 @@ export default function Footer({ locale, t }: HeaderProps) {
 
             {/* Resources */}
             <div>
-              <h4 className="font-semibold text-gray-500 mb-3">
+              <h3 className="font-semibold text-gray-500 mb-3">
                 {t("footer.resources.title")}
-              </h4>
+              </h3>
               <ul className="space-y-2  text-gray-600">
                 <li>
                   <Link to="/privacy-policy">

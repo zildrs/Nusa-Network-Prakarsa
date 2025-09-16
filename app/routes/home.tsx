@@ -89,7 +89,11 @@ export default function Home() {
       img: "/security-infrastructure.png",
       slug: "security-infrastructure",
     },
-    { title: "Internet of Things (IoT)", img: "/iot.png", slug: "iot" },
+    {
+      title: "Internet of Things (IoT)",
+      img: "/iot.png",
+      slug: "internet-of-things",
+    },
   ];
 
   const caseStudies = [

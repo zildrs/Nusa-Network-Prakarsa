@@ -29,7 +29,7 @@ export function BlogCard({
           className="h-24 aspect-square object-cover rounded-md"
         />
         <div className="flex flex-col justify-between">
-          <h4 className="font-medium text-base line-clamp-2">{blog.title}</h4>
+          <h3 className="font-medium text-base line-clamp-2">{blog.title}</h3>
           <span className="text-sm text-gray-600">{categoryLabel}</span>
         </div>
       </Link>
@@ -69,7 +69,7 @@ export function BlogCard({
         className="w-full aspect-[4/3] object-cover rounded-xl"
       />
       <div className="py-3 px-1">
-        <h4 className="font-medium text-lg line-clamp-3">{blog.title}</h4>
+        <h3 className="font-medium text-lg line-clamp-3">{blog.title}</h3>
       </div>
     </Link>
   );

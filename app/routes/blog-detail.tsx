@@ -29,7 +29,6 @@ export async function loader({
 
 export default function BlogDetail() {
   const { categories, blog } = useLoaderData<typeof loader>();
-  console.log(blog);
   return (
     <main>
       <BlogNavigation categories={categories} />

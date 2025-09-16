@@ -9,7 +9,6 @@ import type { Swiper as SwiperRef } from "swiper/types";
 import CTASection from "~/components/cta";
 import { useOutletContext } from "react-router";
 import { createMetaFunction, seoData } from "~/lib/meta";
-import { createOrganizationSchema } from "~/lib/seo";
 
 export const meta = createMetaFunction(seoData.about);
 

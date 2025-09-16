@@ -92,9 +92,9 @@ export default function Partner() {
 
               {/* Right side */}
               <div className=" rounded-r-2xl text-lg bg-gray-50 py-12 px-8">
-                <h4 className="font-semibold text-2xl mb-2">
+                <h3 className="font-semibold text-2xl mb-2">
                   {t("partners.modal.solutions")}
-                </h4>
+                </h3>
                 <ul className="list-disc list-inside text-gray-500 space-y-1">
                   <li>
                     {t("partners.modal.solutionsList.networkInfrastructure")}
@@ -106,9 +106,9 @@ export default function Partner() {
                   <li>{t("partners.modal.solutionsList.managedServices")}</li>
                 </ul>
 
-                <h4 className="font-semibold mt-4 mb-2">
+                <h3 className="font-semibold mt-4 mb-2">
                   {t("partners.modal.related")}
-                </h4>
+                </h3>
                 <div className="flex">
                   <ul className="list-disc list-inside text-gray-500 space-y-1">
                     <li></li>

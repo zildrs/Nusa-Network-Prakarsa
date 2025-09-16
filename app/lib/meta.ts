@@ -1,5 +1,10 @@
 // seo-utils.ts
 import type { MetaFunction } from "react-router";
+import {
+  createBreadcrumbSchema,
+  createOrganizationSchema,
+  createServiceSchema,
+} from "./seo";
 
 export interface SEOData {
   title: string;
@@ -124,7 +129,7 @@ export function createMetaFunction(seoData: LocalizedSEO): MetaFunction {
     }
 
     const searchParams = new URLSearchParams(urlObj.search);
-    const locale = searchParams.get("locale") === "en" ? "en" : "id";
+    const locale = searchParams.get("locale") === "id" ? "id" : "en";
 
     // pilih seo berdasarkan locale bila seoData bersifat localized
     const seo: SEOData =
@@ -159,9 +164,35 @@ export function createMetaFunction(seoData: LocalizedSEO): MetaFunction {
       tags.push({
         tagName: "script",
         type: "application/ld+json",
-        children: JSON.stringify(seo.schema),
+        children: JSON.stringify(createOrganizationSchema()),
       });
     }
+
+    if (seo.canonical) {
+      tags.push({ rel: "canonical", href: seo.canonical });
+    }
+
+    tags.push({
+      tagName: "script",
+      type: "application/ld+json",
+      children: JSON.stringify(
+        createBreadcrumbSchema([
+          { name: "Home", url: "https://nusanetwork.com/" },
+          { name: "About", url: "https://nusanetwork.com/about" },
+          { name: "Blog", url: "https://nusanetwork.com/blog" },
+          { name: "Case Study", url: "https://nusanetwork.com/case-study" },
+          { name: "Solutions", url: "https://nusanetwork.com/solutions" },
+          { name: "Partners", url: "https://nusanetwork.com/partners" },
+          {
+            name: "Certifications",
+            url: "https://nusanetwork.com/certifications",
+          },
+          { name: "Contact", url: "https://nusanetwork.com/contact" },
+          { name: "Careers", url: "https://nusanetwork.com/careers" },
+          { name: "Sitemap", url: "https://nusanetwork.com/sitemap" },
+        ])
+      ),
+    });
 
     return tags;
   };
