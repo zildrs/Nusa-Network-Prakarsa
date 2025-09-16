@@ -13,19 +13,16 @@ import {
   useLoaderData,
   useOutletContext,
   type LoaderFunctionArgs,
+  type MetaFunction,
 } from "react-router";
 import {
   fetchBlogData,
   fetchProjectsData,
   fetchSolutionsData,
 } from "~/lib/api.server";
+import { createMetaFunction, seoData } from "~/lib/meta";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
+export const meta = createMetaFunction(seoData.home);
 
 export async function loader({ request }: LoaderFunctionArgs) {
   // jalankan paralel biar lebih cepat
@@ -243,7 +240,8 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-4 relative">
           <p className="uppercase tracking-wide mb-6 z-20">
-            <span className="font-semibold">{t("home.solutions.our")}</span> {t("home.solutions.solutions")}
+            <span className="font-semibold">{t("home.solutions.our")}</span>{" "}
+            {t("home.solutions.solutions")}
           </p>
           <div className="flex justify-between items-center">
             <h2 className="text-[32px] max-w-4xl lg:text-5xl font-semibold lg:font-semibold leading-snug mb-10">
@@ -313,14 +311,15 @@ export default function Home() {
       <section className="bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4">
           <p className="uppercase text-sm tracking-wide text-gray-900 mb-2">
-            <span className="font-semibold">{t('home.caseStudy.case')}</span> {t('home.caseStudy.study')}
+            <span className="font-semibold">{t("home.caseStudy.case")}</span>{" "}
+            {t("home.caseStudy.study")}
           </p>
           <h2 className="text-[32px] lg:text-4xl font-semibold mb-8 max-w-md">
-            {t('home.caseStudy.title')}
+            {t("home.caseStudy.title")}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {(projects).map((c, idx) => (
+            {projects.map((c, idx) => (
               <CaseStudyCard key={idx} data={c} />
             ))}
           </div>
@@ -330,7 +329,10 @@ export default function Home() {
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-6">
           <p className="uppercase tracking-wide text-gray-900 mb-2">
-            {t("home.testimonials.our")} <span className="font-semibold">{t("home.testimonials.clients")}</span>
+            {t("home.testimonials.our")}{" "}
+            <span className="font-semibold">
+              {t("home.testimonials.clients")}
+            </span>
           </p>
           <h2 className="text-4xl font-semibold mb-8 max-w-xl">
             {t("home.testimonials.title")}
@@ -364,14 +366,18 @@ export default function Home() {
 
       <section className="py-16 max-w-7xl mx-auto px-6">
         <p className=" tracking-widest text-gray-900 uppercase">
-          <span className="font-semibold">{t("home.technologyPartners.technology")}</span> {t("home.technologyPartners.partners")}
+          <span className="font-semibold">
+            {t("home.technologyPartners.technology")}
+          </span>{" "}
+          {t("home.technologyPartners.partners")}
         </p>
         <h2 className="mt-2 text-3xl lg:text-4xl max-w-lg font-semibold text-gray-900 leading-snug">
           {t("home.technologyPartners.heading")}
         </h2>
 
         <a href="/partners" className="my-8 flex items-center font-medium">
-          {t("home.technologyPartners.cta")} <ArrowRight className="ml-2 h-5 w-5" />
+          {t("home.technologyPartners.cta")}{" "}
+          <ArrowRight className="ml-2 h-5 w-5" />
         </a>
 
         {/* Logo carousel (contoh pakai flex biasa, bisa ganti swiper/marquee) */}

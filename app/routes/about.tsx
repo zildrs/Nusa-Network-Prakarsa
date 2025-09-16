@@ -8,12 +8,24 @@ import "swiper/css/pagination";
 import type { Swiper as SwiperRef } from "swiper/types";
 import CTASection from "~/components/cta";
 import { useOutletContext } from "react-router";
+import { createMetaFunction, seoData } from "~/lib/meta";
+import { createOrganizationSchema } from "~/lib/seo";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+export function meta({ request }: Route.MetaArgs) {
+  const url = new URL(request.url);
+  const locale = url.pathname.startsWith("/en") ? "en" : "id";
+  const seo = seoData.about[locale];
+
+  return createMetaFunction({
+    title: seo.title,
+    description: seo.description,
+    canonical: url.origin + url.pathname,
+    hreflang: [
+      { href: `${url.origin}/en/about`, hreflang: "en" },
+      { href: `${url.origin}/id/about`, hreflang: "id" },
+    ],
+    schema: createOrganizationSchema(),
+  })({ request });
 }
 
 export default function About() {

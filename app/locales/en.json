@@ -208,49 +208,235 @@
     "apply": "Apply Now"
   },
   "solutionsDetail": {
-    "hero": {
-      "title": "NETWORK INFRASTRUCTURE SOLUTIONS",
-      "subtitle": "Build a Smarter, Faster and Secure Network Infrastructure",
-      "description": "Future-proof your operations with tailored network design, implementation, and management — delivered by experts you can trust",
-      "cta": "Schedule a Free Consultation"
-    },
-    "navigation": {
-      "whatWeDo": "What we do",
-      "ourServices": "Our services",
-      "caseStudy": "Case study",
-      "ourPartners": "Our partners",
-      "consultFree": "Consult free with us"
-    },
-    "whatWeDo": {
-      "label": "WHAT WE DO",
-      "title": "Build a Future-Ready Network Today",
-      "description": "Our expert team works with you to design, deploy, and manage end-to-end infrastructures tailored to your business needs — ensuring maximum uptime, optimal performance, and secure operations at every stage."
-    },
-    "services": {
-      "label": "OUR NETWORK INFRASTRUCTURE SERVICES",
-      "title": "Solutions That Fit Your Infrastructure Needs",
-      "items": {
-        "lanWanDesign": "LAN/WAN Design and Deployment",
-        "sdWanSolutions": "SD-WAN Solutions",
-        "wirelessNetwork": "Wireless Network Solutions",
-        "networkSecurity": "Network Security Integration",
-        "dataCenterNetworking": "Data Center Networking",
-        "cloudHybridConnectivity": "Cloud & Hybrid Connectivity"
+    "network-infrastructure": {
+      "hero": {
+        "title": "NETWORK INFRASTRUCTURE SOLUTIONS",
+        "subtitle": "Build a Smarter, Faster and Secure Network Infrastructure",
+        "description": "Future-proof your operations with tailored network design, implementation, and management — delivered by experts you can trust",
+        "cta": "Schedule a Free Consultation"
+      },
+      "navigation": {
+        "whatWeDo": "What we do",
+        "ourServices": "Our services",
+        "caseStudy": "Case study",
+        "ourPartners": "Our partners",
+        "consultFree": "Consult free with us"
+      },
+      "whatWeDo": {
+        "label": "WHAT WE DO",
+        "title": "Build a Future-Ready Network Today",
+        "description": "Our expert team works with you to design, deploy, and manage end-to-end infrastructures tailored to your business needs — ensuring maximum uptime, optimal performance, and secure operations at every stage."
+      },
+      "services": {
+        "label": "OUR NETWORK INFRASTRUCTURE SERVICES",
+        "title": "Solutions That Fit Your Infrastructure Needs",
+        "items": {
+          "lanWanDesign": "LAN/WAN Design and Deployment",
+          "sdWanSolutions": "SD-WAN Solutions",
+          "wirelessNetwork": "Wireless Network Solutions",
+          "networkSecurity": "Network Security Integration",
+          "dataCenterNetworking": "Data Center Networking",
+          "cloudHybridConnectivity": "Cloud & Hybrid Connectivity"
+        }
+      },
+      "caseStudy": {
+        "label": "CASE STUDY",
+        "title": "Customer Success with Nusa Network Prakarsa"
+      },
+      "technologyPartners": {
+        "label": "TECHNOLOGY PARTNERS",
+        "title": "Leading Solutions with World-Class Partners",
+        "cta": "Learn More about our Technology Partners"
+      },
+      "cta": {
+        "title": "Ready to Upgrade Your Network?",
+        "description": "Talk to our network engineers today and discover how we can architect your next-gen infrastructure",
+        "button": "Schedule a Free Consultation"
       }
     },
-    "caseStudy": {
-      "label": "CASE STUDY",
-      "title": "Customer Success with Nusa Network Prakarsa"
+    "data-center": {
+      "hero": {
+        "title": "DATA CENTER SOLUTIONS",
+        "subtitle": "Modern, Secure, and Scalable Data Center Solutions",
+        "description": "Empower your business with enterprise-grade data center solutions, 24/7 uptime, and expert support — all tailored to your needs",
+        "cta": "Schedule Free Consultation"
+      },
+      "navigation": {
+        "whatWeDo": "What we do",
+        "ourServices": "Our services",
+        "caseStudy": "Case study",
+        "ourPartners": "Our partners",
+        "consultFree": "Consult free with us"
+      },
+      "whatWeDo": {
+        "label": "WHAT WE DO",
+        "title": "Reliable. Scalable. Always On.",
+        "description": "From secure colocation and cloud-ready hosting to disaster recovery and 24/7 monitoring, our solutions are tailored to ensure uptime, compliance, and total peace of mind. Backed by certified experts and advanced infrastructure, we help you stay online, connected, and future-ready."
+      },
+      "services": {
+        "label": "OUR DATA CENTER SERVICES",
+        "title": "Solutions that fit your infrastructure needs",
+        "items": {
+          "colocationServices": "Colocation Services",
+          "privateCloudVirtualization": "Private Cloud & Virtualization",
+          "disasterRecovery": "Disaster Recovery",
+          "dataBackupStorage": "Data Backup & Storage Solutions",
+          "networkRedundancyLoadBalancing": "Network Redundancy & Load Balancing",
+          "managedServerHosting": "Managed Server Hosting"
+        }
+      },
+      "caseStudy": {
+        "label": "CASE STUDY",
+        "title": "Customer Success with Nusa Network Prakarsa"
+      },
+      "technologyPartners": {
+        "label": "TECHNOLOGY PARTNERS",
+        "title": "Leading Solutions with World-Class Partners",
+        "cta": "Learn More about our Technology Partners"
+      },
+      "cta": {
+        "title": "Let's Build Your Resilient IT Backbone Today",
+        "description": "Talk to our experts today and discover how we can architect your next-gen infrastructure",
+        "button": "Schedule Free Consultation"
+      }
     },
-    "technologyPartners": {
-      "label": "TECHNOLOGY PARTNERS",
-      "title": "Leading Solutions with World-Class Partners",
-      "cta": "Learn More about our Technology Partners"
+    "managed-services": {
+      "hero": {
+        "title": "MANAGED SERVICES SOLUTIONS",
+        "subtitle": "All-in-One IT Care for Your Business",
+        "description": "Comprehensive IT solutions to keep your business ahead in the digital era",
+        "cta": "Schedule Free Consultation"
+      },
+      "navigation": {
+        "whatWeDo": "What we do",
+        "ourServices": "Our services",
+        "caseStudy": "Case study",
+        "ourPartners": "Our partners",
+        "consultFree": "Consult free with us"
+      },
+      "whatWeDo": {
+        "label": "WHAT WE DO",
+        "title": "IT Solutions, Managed for You",
+        "description": "We take care of monitoring, optimization, security, cloud, and recovery. Keeping your IT smooth, safe, and cost-effective. So you can focus on what matters most: your business."
+      },
+      "services": {
+        "label": "OUR MANAGED SERVICES",
+        "title": "Solutions that fit your business needs",
+        "items": {
+          "itMonitoringMaintenance": "IT Monitoring & Maintenance",
+          "networkOperationCenter": "Network Operation Center",
+          "securityOperationCenter": "Security Operation Center",
+          "itHelpdesk": "IT Helpdesk",
+          "vapt": "VAPT",
+          "engineerOnSite": "Engineer On Site"
+        }
+      },
+      "caseStudy": {
+        "label": "CASE STUDY",
+        "title": "Customer Success with Nusa Network Prakarsa"
+      },
+      "technologyPartners": {
+        "label": "TECHNOLOGY PARTNERS",
+        "title": "Leading Solutions with World-Class Partners",
+        "cta": "Learn More about our Technology Partners"
+      },
+      "cta": {
+        "title": "IT Solutions, Managed for You",
+        "description": "Focus on growing your business while we take care of monitoring, securing, and optimizing your IT.",
+        "button": "Schedule Free Consultation"
+      }
     },
-    "cta": {
-      "title": "Ready to Upgrade Your Network?",
-      "description": "Talk to our network engineers today and discover how we can architect your next-gen infrastructure",
-      "button": "Schedule a Free Consultation"
+    "security-infrastructure": {
+      "hero": {
+        "title": "SECURITY INFRASTRUCTURE SOLUTIONS",
+        "subtitle": "Comprehensive Security Solution for Your Digital Infrastructure",
+        "description": "From endpoints to cloud, Nusa Network delivers comprehensive, enterprise-grade security solutions to protect your business in real time.",
+        "cta": "Schedule a Free Consultation"
+      },
+      "navigation": {
+        "whatWeDo": "What we do",
+        "ourServices": "Our services",
+        "caseStudy": "Case study",
+        "ourPartners": "Our partners",
+        "consultFree": "Consult free with us"
+      },
+      "whatWeDo": {
+        "label": "WHAT WE DO",
+        "title": "Protecting Every Layer of Your IT Infrastructure with Expert Precision",
+        "description": "Our solutions are designed to proactively defend your network, users, data, and infrastructure from evolving threats. From advanced firewalls and secure cloud access to real-time threat detection and compliance enforcement, we integrate security into every layer of your technology stack."
+      },
+      "services": {
+        "label": "OUR SECURITY INFRASTRUCTURE SERVICES",
+        "title": "Solutions that fit your infrastructure needs",
+        "items": {
+          "networkSecurity": "Network Security",
+          "endpointProtection": "Endpoint Protection",
+          "emailWebSecurity": "Email & Web Security",
+          "cloudSecurity": "Cloud Security",
+          "securityOperations": "Security Operations",
+          "complianceAudit": "Compliance & Audit"
+        }
+      },
+      "caseStudy": {
+        "label": "CASE STUDY",
+        "title": "Customer Success with Nusa Network Prakarsa"
+      },
+      "technologyPartners": {
+        "label": "TECHNOLOGY PARTNERS",
+        "title": "Leading Solutions with World-Class Partners",
+        "cta": "Learn More about our Technology Partners"
+      },
+      "cta": {
+        "title": "Ready to Secure Your Business?",
+        "description": "Get a free security assessment or consultation from our certified engineers today.",
+        "button": "Schedule Free Consultation"
+      }
+    },
+    "internet-of-things": {
+      "hero": {
+        "title": "INTERNET OF THINGS SOLUTIONS",
+        "subtitle": "Unlock the Power of IoT for Your Business",
+        "description": "From IoT device management and data analytics to security and network infrastructure, our team of experts is dedicated to helping you unlock the full potential of IoT for your business.",
+        "cta": "Visit NADA Website"
+      },
+      "navigation": {
+        "whatWeDo": "What we do",
+        "ourServices": "Our services",
+        "caseStudy": "Case study",
+        "ourPartners": "Our partners",
+        "consultFree": "Consult free with us"
+      },
+      "whatWeDo": {
+        "label": "WHAT WE DO",
+        "title": "Smarter, Integrated Solutions for Real-Time Ecosystem Observation",
+        "description": "NADA delivers intelligent system solutions designed to simplify and enhance the way we monitor and understand our environment. Whether for smart cities, industrial sites, or natural resource management, NADA empowers decision-makers with accurate, actionable data through a secure, user-friendly platform."
+      },
+      "services": {
+        "label": "OUR INTERNET OF THINGS SERVICES",
+        "title": "Services that help you unlock the power of IoT",
+        "items": {
+          "waveMonitor": "Wave Monitor",
+          "timeLapseCamera": "Time-lapse Camera",
+          "waterQualityMonitor": "Water Quality Monitor",
+          "currentsMonitor": "Currents Monitor",
+          "weatherMonitor": "Weather Monitor",
+          "waterLevelMonitor": "Water Level Monitor"
+        }
+      },
+      "caseStudy": {
+        "label": "CASE STUDY",
+        "title": "Customer Success with Nusa Network Prakarsa"
+      },
+      "technologyPartners": {
+        "label": "TECHNOLOGY PARTNERS",
+        "title": "Leading Solutions with World-Class Partners",
+        "cta": "Learn More about our Technology Partners"
+      },
+      "cta": {
+        "title": "Make Better Environmental Decisions",
+        "description": "NADA empowers you to make informed decisions through smarter, connected monitoring systems. Start transforming your ecosystem today.",
+        "button": "Schedule Free Consultation"
+      }
     }
   },
   "footer": {

@@ -6,12 +6,22 @@ import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
 import { Dropdown } from "~/components/dropdown";
 import { fetchProjectsData, fetchSolutionsData } from "~/lib/api.server";
+import { createMetaFunction, seoData } from "~/lib/meta";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+export function meta({ request }: Route.MetaArgs) {
+  const url = new URL(request.url);
+  const locale = url.pathname.startsWith("/en") ? "en" : "id";
+  const seo = seoData["case-study"][locale];
+
+  return createMetaFunction({
+    title: seo.title,
+    description: seo.description,
+    canonical: url.origin + url.pathname,
+    hreflang: [
+      { href: `${url.origin}/en/case-study`, hreflang: "en" },
+      { href: `${url.origin}/id/case-study`, hreflang: "id" },
+    ],
+  })({ request });
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -149,7 +159,9 @@ export default function CaseStudy({ loaderData }: Route.ComponentProps) {
             {t("caseStudy.hero.label.study")}
           </p>
           <div className="flex justify-between items-center">
-            <h2 className={`text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10 ${locale === "id" ? "max-w-3xl" : "max-w-xl"}`}>
+            <h2
+              className={`text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10 ${locale === "id" ? "max-w-3xl" : "max-w-xl"}`}
+            >
               {t("caseStudy.hero.title")}
             </h2>
           </div>

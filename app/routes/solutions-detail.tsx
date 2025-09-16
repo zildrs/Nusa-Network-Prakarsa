@@ -6,16 +6,46 @@ import "swiper/css/pagination";
 import { ArrowRight } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
-import { useLoaderData, useOutletContext } from "react-router";
-import { solutions } from "~/loaders/solutions";
+import {
+  useLoaderData,
+  useOutletContext,
+  type MetaFunction,
+} from "react-router";
+import { solutions } from "~/data/solutions";
 import { fetchProjectsData } from "~/lib/api.server";
+import { createMetaFunction, seoData } from "~/lib/meta";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
+type SolutionSlug = keyof typeof seoData;
+export const meta: MetaFunction = (args) => {
+  const { location, params } = args;
+  const origin =
+    typeof window !== "undefined"
+      ? window.location.origin
+      : "https://usanetwork.com";
+
+  const url = new URL(location.pathname + location.search, origin);
+  const searchParams = new URLSearchParams(url.search);
+
+  // ambil slug dari params
+  const rawSlug = params.slug as SolutionSlug | undefined;
+
+  // cek valid slug
+  const slug: SolutionSlug | null =
+    rawSlug && rawSlug in seoData ? (rawSlug as SolutionSlug) : null;
+
+  // ambil locale dari query param
+  const locale = searchParams.get("locale") === "en" ? "en" : "id";
+
+  const seo =
+    (slug && seoData[slug]?.[locale]) ??
+    ({
+      title: "Solution",
+      description: "Detail Solution",
+    } as const);
+
+  // ✅ langsung kembalikan MetaFunction
+  return createMetaFunction(seo)(args);
+};
 
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
@@ -85,20 +115,20 @@ export default function Home() {
         <div className="relative flex flex-col justify-end container mx-auto px-6 py-28 lg:py-40 max-w-7xl">
           <p className="uppercase text-sm tracking-wide">
             <span className="font-semibold">{data.title}</span>{" "}
-            {t("solutionsDetail.hero.title")}
+            {t(`solutionsDetail.${data.slug}.hero.title`)}
           </p>
           <h1 className="mt-4 text-4xl lg:text-5xl font-semibold leading-tight lg:w-[589px]">
-            {t("solutionsDetail.hero.subtitle")}
+            {t(`solutionsDetail.${data.slug}.hero.subtitle`)}
           </h1>
           <p className="mt-6 text-xl max-w-lg text-gray-200">
-            {t("solutionsDetail.hero.description")}
+            {t(`solutionsDetail.${data.slug}.hero.description`)}
           </p>
           <div className="mt-8">
             <a
               href={data.hero_cta_link}
               className="w-fit bg-white flex items-center text-blue-950 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-100 transition"
             >
-              {t("solutionsDetail.hero.cta")}{" "}
+              {t(`solutionsDetail.${data.slug}.hero.cta`)}{" "}
               <ArrowRight className="inline-block ml-2 w-4 h-4" />
             </a>
           </div>
@@ -110,16 +140,16 @@ export default function Home() {
           <div className="container mx-auto px-6 max-w-7xl py-4 flex justify-between items-center text-sm font-medium">
             <div className="flex gap-8 text-gray-700 text-base">
               <a href="#" className="hover:text-blue-950">
-                {t("solutionsDetail.navigation.whatWeDo")}
+                {t(`solutionsDetail.${data.slug}.navigation.whatWeDo`)}
               </a>
               <a href="#" className="hover:text-blue-950">
-                {t("solutionsDetail.navigation.ourServices")}
+                {t(`solutionsDetail.${data.slug}.navigation.ourServices`)}
               </a>
               <a href="#" className="hover:text-blue-950">
-                {t("solutionsDetail.navigation.caseStudy")}
+                {t(`solutionsDetail.${data.slug}.navigation.caseStudy`)}
               </a>
               <a href="#" className="hover:text-blue-950">
-                {t("solutionsDetail.navigation.ourPartners")}
+                {t(`solutionsDetail.${data.slug}.navigation.ourPartners`)}
               </a>
             </div>
 
@@ -127,7 +157,7 @@ export default function Home() {
               href="#"
               className="bg-primary inline-flex items-center text-white px-4 py-2 rounded-lg hover:bg-[#19376D] transition"
             >
-              {t("solutionsDetail.navigation.consultFree")}{" "}
+              {t(`solutionsDetail.${data.slug}.navigation.consultFree`)}{" "}
               <ArrowRight className="w-4 h-4 ml-1" />
             </a>
           </div>
@@ -140,14 +170,14 @@ export default function Home() {
             <div className="flex flex-col justify-center">
               <p className="text-sm ">
                 <span className="font-semibold">
-                  {t("solutionsDetail.whatWeDo.label")}
+                  {t(`solutionsDetail.${data.slug}.whatWeDo.label`)}
                 </span>
               </p>
               <h2 className="text-4xl font-semibold text-gray-900 mt-2">
-                {t("solutionsDetail.whatWeDo.title")}
+                {t(`solutionsDetail.${data.slug}.whatWeDo.title`)}
               </h2>
               <p className="mt-4 text-lg text-gray-600">
-                {t("solutionsDetail.whatWeDo.description")}
+                {t(`solutionsDetail.${data.slug}.whatWeDo.description`)}
               </p>
             </div>
             <div className="min-h-[450px] lg:overflow-visible overflow-hidden">
@@ -166,11 +196,11 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <p className="text-sm ">
             <span className="font-semibold">
-              {t("solutionsDetail.services.label")}
+              {t(`solutionsDetail.${data.slug}.services.label`)}
             </span>
           </p>
           <h2 className="text-3xl lg:text-5xl font-medium tracking-normal mt-2">
-            {t("solutionsDetail.services.title")}
+            {t(`solutionsDetail.${data.slug}.services.title`)}
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
@@ -200,11 +230,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4">
           <p className="uppercase text-sm tracking-wide text-gray-900 mb-2">
             <span className="font-semibold">
-              {t("solutionsDetail.caseStudy.label")}
+              {t(`solutionsDetail.${data.slug}.caseStudy.label`)}
             </span>
           </p>
           <h2 className="text-3xl lg:text-4xl font-semibold mb-8 max-w-md">
-            {t("solutionsDetail.caseStudy.title")}
+            {t(`solutionsDetail.${data.slug}.caseStudy.title`)}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -218,21 +248,21 @@ export default function Home() {
       <section className="py-16 max-w-7xl mx-auto px-4">
         <p className=" tracking-widest text-gray-900 uppercase">
           <span className="font-semibold">
-            {t("solutionsDetail.technologyPartners.label")}
+            {t(`solutionsDetail.${data.slug}.technologyPartners.label`)}
           </span>
         </p>
         <h2 className="mt-2 text-3xl lg:text-4xl max-w-2xl font-semibold text-gray-900 leading-snug">
-          {t("solutionsDetail.technologyPartners.title")}
+          {t(`solutionsDetail.${data.slug}.technologyPartners.title`)}
         </h2>
         <a
           href="#"
           className="my-8 hidden lg:inline-flex items-center font-medium"
         >
-          {t("solutionsDetail.technologyPartners.cta")}{" "}
+          {t(`solutionsDetail.${data.slug}.technologyPartners.cta`)}{" "}
           <ArrowRight className="ml-2 h-5 w-5" />
         </a>
         <a href="#" className="my-8 flex items-center font-medium lg:hidden">
-          {t("solutionsDetail.technologyPartners.cta")}{" "}
+          {t(`solutionsDetail.${data.slug}.technologyPartners.cta`)}{" "}
           <ArrowRight className="ml-2 h-5 w-5" />
         </a>
 
@@ -258,10 +288,10 @@ export default function Home() {
       </section>
 
       <CTASection
-        title={t("solutionsDetail.cta.title")}
+        title={t(`solutionsDetail.${data.slug}.cta.title`)}
         link={data.cta_link}
-        linkText={t("solutionsDetail.cta.button")}
-        description={t("solutionsDetail.cta.description")}
+        linkText={t(`solutionsDetail.${data.slug}.cta.button`)}
+        description={t(`solutionsDetail.${data.slug}.cta.description`)}
       />
     </main>
   );

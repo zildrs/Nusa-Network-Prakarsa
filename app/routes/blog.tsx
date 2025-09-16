@@ -10,15 +10,22 @@ import {
 } from "~/components/blog";
 import { fetchBlogData, fetchCategoriesData } from "~/lib/api.server";
 import { nameToSlug } from "~/lib/utils";
+import { createMetaFunction, seoData } from "~/lib/meta";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Blog - Nusa Network" },
-    {
-      name: "description",
-      content: "Latest insights and updates from Nusa Network",
-    },
-  ];
+export function meta({ request }: Route.MetaArgs) {
+  const url = new URL(request.url);
+  const locale = url.pathname.startsWith("/en") ? "en" : "id";
+  const seo = seoData.blog[locale];
+
+  return createMetaFunction({
+    title: seo.title,
+    description: seo.description,
+    canonical: url.origin + url.pathname,
+    hreflang: [
+      { href: `${url.origin}/en/blog`, hreflang: "en" },
+      { href: `${url.origin}/id/blog`, hreflang: "id" },
+    ],
+  })({ request });
 }
 
 export async function loader({ request }: Route.LoaderArgs) {

@@ -208,49 +208,235 @@
     "apply": "Lamar Sekarang"
   },
   "solutionsDetail": {
-    "hero": {
-      "title": "SOLUSI NETWORK INFRASTRUCTURE",
-      "subtitle": "Wujudkan Network Infrastructure yang lebih cerdas, cepat, dan aman untuk bisnis Anda",
-      "description": "Lindungi keberlangsungan operasional Anda dengan desain, implementasi, dan pengelolaan jaringan yang disesuaikan — dikerjakan oleh para ahli terpercaya",
-      "cta": "Jadwalkan Konsultasi Gratis"
-    },
-    "navigation": {
-      "whatWeDo": "Apa yang kami lakukan",
-      "ourServices": "Layanan kami",
-      "caseStudy": "Studi kasus",
-      "ourPartners": "Partner kami",
-      "consultFree": "Gratis konsultasi"
-    },
-    "whatWeDo": {
-      "label": "APA YANG KAMI LAKUKAN",
-      "title": "Bangun Jaringan Canggih Masa Depan Sekarang",
-      "description": "Tim ahli kami bekerja sama dengan Anda untuk merancang, menerapkan, dan mengelola infrastruktur menyeluruh yang disesuaikan dengan kebutuhan bisnis Anda — menjaga kelangsungan operasional secara optimal, kinerja maksimal, dan keamanan di setiap tahap."
-    },
-    "services": {
-      "label": "LAYANAN NETWORK INFRASTRUCTURE KAMI",
-      "title": "Solusi yang Sesuai dengan Kebutuhan Infrastruktur Anda",
-      "items": {
-        "lanWanDesign": "LAN/WAN Design and Deployment",
-        "sdWanSolutions": "SD-WAN Solutions",
-        "wirelessNetwork": "Wireless Network Solutions",
-        "networkSecurity": "Network Security Integration",
-        "dataCenterNetworking": "Data Center Networking",
-        "cloudHybridConnectivity": "Cloud & Hybrid Connectivity"
+    "network-infrastructure": {
+      "hero": {
+        "title": "SOLUSI NETWORK INFRASTRUCTURE",
+        "subtitle": "Wujudkan Network Infrastructure yang lebih cerdas, cepat, dan aman untuk bisnis Anda",
+        "description": "Lindungi keberlangsungan operasional Anda dengan desain, implementasi, dan pengelolaan jaringan yang disesuaikan — dikerjakan oleh para ahli terpercaya",
+        "cta": "Jadwalkan Konsultasi Gratis"
+      },
+      "navigation": {
+        "whatWeDo": "Apa yang kami lakukan",
+        "ourServices": "Layanan kami",
+        "caseStudy": "Studi kasus",
+        "ourPartners": "Partner kami",
+        "consultFree": "Gratis konsultasi"
+      },
+      "whatWeDo": {
+        "label": "APA YANG KAMI LAKUKAN",
+        "title": "Bangun Jaringan Canggih Masa Depan Sekarang",
+        "description": "Tim ahli kami bekerja sama dengan Anda untuk merancang, menerapkan, dan mengelola infrastruktur menyeluruh yang disesuaikan dengan kebutuhan bisnis Anda — menjaga kelangsungan operasional secara optimal, kinerja maksimal, dan keamanan di setiap tahap."
+      },
+      "services": {
+        "label": "LAYANAN NETWORK INFRASTRUCTURE KAMI",
+        "title": "Solusi yang Sesuai dengan Kebutuhan Infrastruktur Anda",
+        "items": {
+          "lanWanDesign": "LAN/WAN Design and Deployment",
+          "sdWanSolutions": "SD-WAN Solutions",
+          "wirelessNetwork": "Wireless Network Solutions",
+          "networkSecurity": "Network Security Integration",
+          "dataCenterNetworking": "Data Center Networking",
+          "cloudHybridConnectivity": "Cloud & Hybrid Connectivity"
+        }
+      },
+      "caseStudy": {
+        "label": "STUDI KASUS",
+        "title": "Cerita Sukses Konsumen Nusa Network Prakarsa"
+      },
+      "technologyPartners": {
+        "label": "MITRA TEKNOLOGI",
+        "title": "Hadirkan Solusi Terbaik bersama Mitra Kelas Dunia",
+        "cta": "Temukan lebih banyak tentang mitra teknologi kami"
+      },
+      "cta": {
+        "title": "Siap Tingkatkan Jaringan Anda?",
+        "description": "Hubungi  tim ahli jaringan kami sekarang dan temukan cara kami merancang infrastruktur masa depan untuk Anda",
+        "button": "Jadwalkan konsultasi gratis"
       }
     },
-    "caseStudy": {
-      "label": "STUDI KASUS",
-      "title": "Cerita Sukses Konsumen Nusa Network Prakarsa"
+    "data-center": {
+      "hero": {
+        "title": "SOLUSI DATA CENTER",
+        "subtitle": "Modern, Aman, dan Dapat Diskalakan untuk Bisnis Anda",
+        "description": "Dukung bisnis Anda dengan solusi data center enterprise-grade, uptime 24/7, dan dukungan ahli — semua disesuaikan dengan kebutuhan Anda",
+        "cta": "Jadwalkan Konsultasi Gratis"
+      },
+      "navigation": {
+        "whatWeDo": "Apa yang kami lakukan",
+        "ourServices": "Layanan kami",
+        "caseStudy": "Studi kasus",
+        "ourPartners": "Partner kami",
+        "consultFree": "Gratis konsultasi"
+      },
+      "whatWeDo": {
+        "label": "APA YANG KAMI LAKUKAN",
+        "title": "Dapat Diandalkan. Dapat Diskalakan. Selalu Aktif.",
+        "description": "Dari colocation yang aman dan hosting siap cloud hingga disaster recovery dan monitoring 24/7, solusi kami disesuaikan untuk memastikan uptime, compliance, dan ketenangan pikiran total. Didukung oleh ahli bersertifikat dan infrastruktur canggih, kami membantu Anda tetap online, terhubung, dan siap masa depan."
+      },
+      "services": {
+        "label": "LAYANAN DATA CENTER KAMI",
+        "title": "Solusi yang Sesuai dengan Kebutuhan Infrastruktur Anda",
+        "items": {
+          "colocationServices": "Colocation Services",
+          "privateCloudVirtualization": "Private Cloud & Virtualization",
+          "disasterRecovery": "Disaster Recovery",
+          "dataBackupStorage": "Data Backup & Storage Solutions",
+          "networkRedundancyLoadBalancing": "Network Redundancy & Load Balancing",
+          "managedServerHosting": "Managed Server Hosting"
+        }
+      },
+      "caseStudy": {
+        "label": "STUDI KASUS",
+        "title": "Cerita Sukses Konsumen Nusa Network Prakarsa"
+      },
+      "technologyPartners": {
+        "label": "MITRA TEKNOLOGI",
+        "title": "Hadirkan Solusi Terbaik bersama Mitra Kelas Dunia",
+        "cta": "Temukan lebih banyak tentang mitra teknologi kami"
+      },
+      "cta": {
+        "title": "Mari Bangun Tulang Punggung IT yang Tangguh Hari Ini",
+        "description": "Hubungi tim ahli kami sekarang dan temukan cara kami merancang infrastruktur masa depan untuk Anda",
+        "button": "Jadwalkan konsultasi gratis"
+      }
     },
-    "technologyPartners": {
-      "label": "MITRA TEKNOLOGI",
-      "title": "Hadirkan Solusi Terbaik bersama Mitra Kelas Dunia",
-      "cta": "Temukan lebih banyak tentang mitra teknologi kami"
+    "managed-services": {
+      "hero": {
+        "title": "SOLUSI MANAGED SERVICES",
+        "subtitle": "Perawatan IT Lengkap untuk Bisnis Anda",
+        "description": "Solusi IT komprehensif untuk menjaga bisnis Anda tetap unggul di era digital",
+        "cta": "Jadwalkan Konsultasi Gratis"
+      },
+      "navigation": {
+        "whatWeDo": "Apa yang kami lakukan",
+        "ourServices": "Layanan kami",
+        "caseStudy": "Studi kasus",
+        "ourPartners": "Partner kami",
+        "consultFree": "Gratis konsultasi"
+      },
+      "whatWeDo": {
+        "label": "APA YANG KAMI LAKUKAN",
+        "title": "Solusi IT, Dikelola untuk Anda",
+        "description": "Kami mengurus monitoring, optimasi, keamanan, cloud, dan recovery. Menjaga IT Anda tetap lancar, aman, dan hemat biaya. Sehingga Anda dapat fokus pada yang paling penting: bisnis Anda."
+      },
+      "services": {
+        "label": "LAYANAN MANAGED SERVICES KAMI",
+        "title": "Solusi yang Sesuai dengan Kebutuhan Bisnis Anda",
+        "items": {
+          "itMonitoringMaintenance": "IT Monitoring & Maintenance",
+          "networkOperationCenter": "Network Operation Center",
+          "securityOperationCenter": "Security Operation Center",
+          "itHelpdesk": "IT Helpdesk",
+          "vapt": "VAPT",
+          "engineerOnSite": "Engineer On Site"
+        }
+      },
+      "caseStudy": {
+        "label": "STUDI KASUS",
+        "title": "Cerita Sukses Konsumen Nusa Network Prakarsa"
+      },
+      "technologyPartners": {
+        "label": "MITRA TEKNOLOGI",
+        "title": "Hadirkan Solusi Terbaik bersama Mitra Kelas Dunia",
+        "cta": "Temukan lebih banyak tentang mitra teknologi kami"
+      },
+      "cta": {
+        "title": "Solusi IT, Dikelola untuk Anda",
+        "description": "Fokus pada pertumbuhan bisnis Anda sementara kami mengurus monitoring, mengamankan, dan mengoptimalkan IT Anda.",
+        "button": "Jadwalkan konsultasi gratis"
+      }
     },
-    "cta": {
-      "title": "Siap Tingkatkan Jaringan Anda?",
-      "description": "Hubungi  tim ahli jaringan kami sekarang dan temukan cara kami merancang infrastruktur masa depan untuk Anda",
-      "button": "Jadwalkan konsultasi gratis"
+    "security-infrastructure": {
+      "hero": {
+        "title": "SOLUSI SECURITY INFRASTRUCTURE",
+        "subtitle": "Solusi Keamanan Komprehensif untuk Infrastruktur Digital Anda",
+        "description": "Dari endpoint hingga cloud, Nusa Network menyediakan solusi keamanan komprehensif kelas enterprise untuk melindungi bisnis Anda secara real time.",
+        "cta": "Jadwalkan Konsultasi Gratis"
+      },
+      "navigation": {
+        "whatWeDo": "Apa yang kami lakukan",
+        "ourServices": "Layanan kami",
+        "caseStudy": "Studi kasus",
+        "ourPartners": "Partner kami",
+        "consultFree": "Gratis konsultasi"
+      },
+      "whatWeDo": {
+        "label": "APA YANG KAMI LAKUKAN",
+        "title": "Melindungi Setiap Lapisan Infrastruktur IT Anda dengan Presisi Ahli",
+        "description": "Solusi kami dirancang untuk secara proaktif mempertahankan jaringan, pengguna, data, dan infrastruktur Anda dari ancaman yang berkembang. Dari firewall canggih dan akses cloud yang aman hingga deteksi ancaman real-time dan penegakan compliance, kami mengintegrasikan keamanan ke dalam setiap lapisan stack teknologi Anda."
+      },
+      "services": {
+        "label": "LAYANAN SECURITY INFRASTRUCTURE KAMI",
+        "title": "Solusi yang Sesuai dengan Kebutuhan Infrastruktur Anda",
+        "items": {
+          "networkSecurity": "Network Security",
+          "endpointProtection": "Endpoint Protection",
+          "emailWebSecurity": "Email & Web Security",
+          "cloudSecurity": "Cloud Security",
+          "securityOperations": "Security Operations",
+          "complianceAudit": "Compliance & Audit"
+        }
+      },
+      "caseStudy": {
+        "label": "STUDI KASUS",
+        "title": "Cerita Sukses Konsumen Nusa Network Prakarsa"
+      },
+      "technologyPartners": {
+        "label": "MITRA TEKNOLOGI",
+        "title": "Hadirkan Solusi Terbaik bersama Mitra Kelas Dunia",
+        "cta": "Temukan lebih banyak tentang mitra teknologi kami"
+      },
+      "cta": {
+        "title": "Siap Mengamankan Bisnis Anda?",
+        "description": "Dapatkan penilaian keamanan gratis atau konsultasi dari engineer bersertifikat kami hari ini.",
+        "button": "Jadwalkan konsultasi gratis"
+      }
+    },
+    "internet-of-things": {
+      "hero": {
+        "title": "SOLUSI INTERNET OF THINGS",
+        "subtitle": "Buka Kekuatan IoT untuk Bisnis Anda",
+        "description": "Dari manajemen perangkat IoT dan analitik data hingga keamanan dan infrastruktur jaringan, tim ahli kami berdedikasi untuk membantu Anda membuka potensi penuh IoT untuk bisnis Anda.",
+        "cta": "Kunjungi Website NADA"
+      },
+      "navigation": {
+        "whatWeDo": "Apa yang kami lakukan",
+        "ourServices": "Layanan kami",
+        "caseStudy": "Studi kasus",
+        "ourPartners": "Partner kami",
+        "consultFree": "Gratis konsultasi"
+      },
+      "whatWeDo": {
+        "label": "APA YANG KAMI LAKUKAN",
+        "title": "Solusi Terintegrasi yang Cerdas untuk Observasi Ekosistem Real-Time",
+        "description": "NADA menyediakan solusi sistem cerdas yang dirancang untuk menyederhanakan dan meningkatkan cara kami memantau dan memahami lingkungan kita. Baik untuk smart cities, situs industri, atau manajemen sumber daya alam, NADA memberdayakan pengambil keputusan dengan data yang akurat dan dapat ditindaklanjuti melalui platform yang aman dan ramah pengguna."
+      },
+      "services": {
+        "label": "LAYANAN INTERNET OF THINGS KAMI",
+        "title": "Layanan yang Membantu Anda Membuka Kekuatan IoT",
+        "items": {
+          "waveMonitor": "Wave Monitor",
+          "timeLapseCamera": "Time-lapse Camera",
+          "waterQualityMonitor": "Water Quality Monitor",
+          "currentsMonitor": "Currents Monitor",
+          "weatherMonitor": "Weather Monitor",
+          "waterLevelMonitor": "Water Level Monitor"
+        }
+      },
+      "caseStudy": {
+        "label": "STUDI KASUS",
+        "title": "Cerita Sukses Konsumen Nusa Network Prakarsa"
+      },
+      "technologyPartners": {
+        "label": "MITRA TEKNOLOGI",
+        "title": "Hadirkan Solusi Terbaik bersama Mitra Kelas Dunia",
+        "cta": "Temukan lebih banyak tentang mitra teknologi kami"
+      },
+      "cta": {
+        "title": "Buat Keputusan Lingkungan yang Lebih Baik",
+        "description": "NADA memberdayakan Anda untuk membuat keputusan yang tepat melalui sistem monitoring yang lebih cerdas dan terhubung. Mulai transformasi ekosistem Anda hari ini.",
+        "button": "Jadwalkan konsultasi gratis"
+      }
     }
   },
   "footer": {

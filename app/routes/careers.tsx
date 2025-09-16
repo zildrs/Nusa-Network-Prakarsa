@@ -2,12 +2,22 @@ import type { Route } from "./+types/contact";
 
 import { ArrowRight } from "@carbon/icons-react";
 import { useOutletContext } from "react-router";
+import { createMetaFunction, seoData } from "~/lib/meta";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Careers" },
-    { name: "description", content: "Get in touch with us" },
-  ];
+export function meta({ request }: Route.MetaArgs) {
+  const url = new URL(request.url);
+  const locale = url.pathname.startsWith("/en") ? "en" : "id";
+  const seo = seoData.careers[locale];
+
+  return createMetaFunction({
+    title: seo.title,
+    description: seo.description,
+    canonical: url.origin + url.pathname,
+    hreflang: [
+      { href: `${url.origin}/en/careers`, hreflang: "en" },
+      { href: `${url.origin}/id/careers`, hreflang: "id" },
+    ],
+  })({ request });
 }
 
 // create const for engineering, operations, and growth section with few open position

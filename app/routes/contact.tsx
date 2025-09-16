@@ -13,12 +13,22 @@ import { Button } from "~/components/ui/button";
 import { Textarea } from "~/components/ui/textarea";
 import { Input } from "~/components/ui/input";
 import CTASection from "~/components/cta";
+import { createMetaFunction, seoData } from "~/lib/meta";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Contact" },
-    { name: "description", content: "Get in touch with us" },
-  ];
+export function meta({ request }: Route.MetaArgs) {
+  const url = new URL(request.url);
+  const locale = url.pathname.startsWith("/en") ? "en" : "id";
+  const seo = seoData.contact[locale];
+
+  return createMetaFunction({
+    title: seo.title,
+    description: seo.description,
+    canonical: url.origin + url.pathname,
+    hreflang: [
+      { href: `${url.origin}/en/contact`, hreflang: "en" },
+      { href: `${url.origin}/id/contact`, hreflang: "id" },
+    ],
+  })({ request });
 }
 
 export default function Contact() {
