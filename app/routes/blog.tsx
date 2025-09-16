@@ -1,5 +1,5 @@
 import type { Route } from "./+types/blog";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import type { BlogPost } from "~/types/blog";
 import CTASection from "~/components/cta";
 import {
@@ -11,22 +11,9 @@ import {
 import { fetchBlogData, fetchCategoriesData } from "~/lib/api.server";
 import { nameToSlug } from "~/lib/utils";
 import { createMetaFunction, seoData } from "~/lib/meta";
+import { useLoaderData } from "react-router";
 
-export function meta({ request }: Route.MetaArgs) {
-  const url = new URL(request.url);
-  const locale = url.pathname.startsWith("/en") ? "en" : "id";
-  const seo = seoData.blog[locale];
-
-  return createMetaFunction({
-    title: seo.title,
-    description: seo.description,
-    canonical: url.origin + url.pathname,
-    hreflang: [
-      { href: `${url.origin}/en/blog`, hreflang: "en" },
-      { href: `${url.origin}/id/blog`, hreflang: "id" },
-    ],
-  })({ request });
-}
+export const meta = createMetaFunction(seoData.blog);
 
 export async function loader({ request }: Route.LoaderArgs) {
   const [{ blogs, locale }, { categories }] = await Promise.all([
@@ -38,7 +25,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export default function Blog({ loaderData }: Route.ComponentProps) {
-  const { blogs, categories, locale } = loaderData;
+  const { blogs, categories, locale } = useLoaderData<typeof loader>();
   /**
    * Client-side fetch probe
    * Purpose: Verify whether TLS/CORS issues are limited to SSR (Node) or also affect the browser.

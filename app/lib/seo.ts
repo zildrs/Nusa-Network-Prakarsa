@@ -4,7 +4,7 @@ export interface SEOData {
   title: string;
   description: string;
   canonical: string;
-  hreflang: Array<{ href: string; hreflang: string }>;
+  hrefLang: Array<{ href: string; hrefLang: string }>;
   schema?: any;
 }
 
@@ -17,17 +17,17 @@ export function getCanonicalUrl(request: Request): string {
 }
 
 /**
- * Generate hreflang URLs berbasis query param locale
+ * Generate hrefLang URLs berbasis query param locale
  */
-export function getHreflangUrls(
+export function gethrefLangUrls(
   request: Request
-): Array<{ href: string; hreflang: string }> {
+): Array<{ href: string; hrefLang: string }> {
   const url = new URL(request.url);
   const base = url.origin + url.pathname;
 
   return [
-    { href: `${base}?locale=en`, hreflang: "en" },
-    { href: `${base}?locale=id`, hreflang: "id" },
+    { href: `${base}?locale=en`, hrefLang: "en" },
+    { href: `${base}?locale=id`, hrefLang: "id" },
   ];
 }
 

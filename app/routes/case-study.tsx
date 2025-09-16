@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Route } from "./+types/case-study";
-import { Link, useOutletContext } from "react-router";
+import { Link, useLoaderData, useOutletContext } from "react-router";
 import { Light, Building } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
@@ -8,21 +8,7 @@ import { Dropdown } from "~/components/dropdown";
 import { fetchProjectsData, fetchSolutionsData } from "~/lib/api.server";
 import { createMetaFunction, seoData } from "~/lib/meta";
 
-export function meta({ request }: Route.MetaArgs) {
-  const url = new URL(request.url);
-  const locale = url.pathname.startsWith("/en") ? "en" : "id";
-  const seo = seoData["case-study"][locale];
-
-  return createMetaFunction({
-    title: seo.title,
-    description: seo.description,
-    canonical: url.origin + url.pathname,
-    hreflang: [
-      { href: `${url.origin}/en/case-study`, hreflang: "en" },
-      { href: `${url.origin}/id/case-study`, hreflang: "id" },
-    ],
-  })({ request });
-}
+export const meta = createMetaFunction(seoData["case-study"]);
 
 export async function loader({ request }: Route.LoaderArgs) {
   const [{ projects }, { solutions }] = await Promise.all([
@@ -109,7 +95,7 @@ const caseStudies = [
 ];
 
 export default function CaseStudy({ loaderData }: Route.ComponentProps) {
-  const { projects, solutions } = loaderData;
+  const { projects, solutions } = useLoaderData<typeof loader>();
   const { t, locale } = useOutletContext<{ t: any; locale: "id" | "en" }>();
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedSolution, setSelectedSolution] = useState<string>("");

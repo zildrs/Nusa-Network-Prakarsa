@@ -3,21 +3,7 @@ import type { Route } from "./+types/certifications";
 import { useOutletContext } from "react-router";
 import { createMetaFunction, seoData } from "~/lib/meta";
 
-export function meta({ request }: Route.MetaArgs) {
-  const url = new URL(request.url);
-  const locale = url.pathname.startsWith("/en") ? "en" : "id";
-  const seo = seoData.certifications[locale];
-
-  return createMetaFunction({
-    title: seo.title,
-    description: seo.description,
-    canonical: url.origin + url.pathname,
-    hreflang: [
-      { href: `${url.origin}/en/certifications`, hreflang: "en" },
-      { href: `${url.origin}/id/certifications`, hreflang: "id" },
-    ],
-  })({ request });
-}
+export const meta = createMetaFunction(seoData["certifications"]);
 
 const items = [
   {

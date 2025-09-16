@@ -12,21 +12,7 @@ import {
 } from "~/components/ui/dialog";
 import { createMetaFunction, seoData } from "~/lib/meta";
 
-export function meta({ request }: Route.MetaArgs) {
-  const url = new URL(request.url);
-  const locale = url.pathname.startsWith("/en") ? "en" : "id";
-  const seo = seoData.partners[locale];
-
-  return createMetaFunction({
-    title: seo.title,
-    description: seo.description,
-    canonical: url.origin + url.pathname,
-    hreflang: [
-      { href: `${url.origin}/en/partners`, hreflang: "en" },
-      { href: `${url.origin}/id/partners`, hreflang: "id" },
-    ],
-  })({ request });
-}
+export const meta = createMetaFunction(seoData.partners);
 
 const partners: Array<{ name: string; logo: string }> = [
   { name: "Fortinet", logo: "/partners/fortinet.png" },

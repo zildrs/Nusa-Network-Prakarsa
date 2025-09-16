@@ -4,21 +4,7 @@ import { ArrowRight } from "@carbon/icons-react";
 import { useOutletContext } from "react-router";
 import { createMetaFunction, seoData } from "~/lib/meta";
 
-export function meta({ request }: Route.MetaArgs) {
-  const url = new URL(request.url);
-  const locale = url.pathname.startsWith("/en") ? "en" : "id";
-  const seo = seoData.careers[locale];
-
-  return createMetaFunction({
-    title: seo.title,
-    description: seo.description,
-    canonical: url.origin + url.pathname,
-    hreflang: [
-      { href: `${url.origin}/en/careers`, hreflang: "en" },
-      { href: `${url.origin}/id/careers`, hreflang: "id" },
-    ],
-  })({ request });
-}
+export const meta = createMetaFunction(seoData.careers);
 
 // create const for engineering, operations, and growth section with few open position
 const openRoles = {

@@ -1,22 +1,7 @@
 import type { Route } from "./+types/home";
 import { createMetaFunction, seoData } from "~/lib/meta";
 
-export function meta({ request }: Route.MetaArgs) {
-  const url = new URL(request.url);
-  const locale = url.pathname.startsWith("/en") ? "en" : "id";
-  const seo = seoData.sitemap[locale];
-
-  return createMetaFunction({
-    title: seo.title,
-    description: seo.description,
-    canonical: url.origin + url.pathname,
-    hreflang: [
-      { href: `${url.origin}/en/sitemap`, hreflang: "en" },
-      { href: `${url.origin}/id/sitemap`, hreflang: "id" },
-    ],
-  })({ request });
-}
-
+export const meta = createMetaFunction(seoData.sitemap);
 export default function About() {
   return (
     <main>

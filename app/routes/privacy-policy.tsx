@@ -4,21 +4,7 @@ import { useState } from "react";
 import { useOutletContext } from "react-router";
 import { createMetaFunction, seoData } from "~/lib/meta";
 
-export function meta({ request }: Route.MetaArgs) {
-  const url = new URL(request.url);
-  const locale = url.pathname.startsWith("/en") ? "en" : "id";
-  const seo = seoData["privacy-policy"][locale];
-
-  return createMetaFunction({
-    title: seo.title,
-    description: seo.description,
-    canonical: url.origin + url.pathname,
-    hreflang: [
-      { href: `${url.origin}/en/privacy-policy`, hreflang: "en" },
-      { href: `${url.origin}/id/privacy-policy`, hreflang: "id" },
-    ],
-  })({ request });
-}
+export const meta = createMetaFunction(seoData["privacy-policy"]);
 
 export default function Contact() {
   const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();

@@ -5,7 +5,7 @@ export interface SEOData {
   title: string;
   description: string;
   canonical?: string;
-  hreflang?: Array<{ href: string; hreflang: string }>;
+  hrefLang?: Array<{ href: string; hrefLang: string }>;
   schema?: any;
 }
 
@@ -49,13 +49,13 @@ export function getCanonicalUrl(
 }
 
 /**
- * Generate hreflang URLs berdasarkan sumber yang diberikan.
+ * Generate hrefLang URLs berdasarkan sumber yang diberikan.
  * Selalu menghasilkan link dengan query param ?locale=en dan ?locale=id
  */
-export function getHreflangUrls(
+export function gethrefLangUrls(
   source: UrlSource,
   originFallback?: string
-): Array<{ href: string; hreflang: string }> {
+): Array<{ href: string; hrefLang: string }> {
   // Jika source adalah Request, ambil origin + pathname dari request.url
   let basePath: string;
   const origin =
@@ -79,8 +79,8 @@ export function getHreflangUrls(
   }
 
   return [
-    { href: `${basePath}?locale=en`, hreflang: "en" },
-    { href: `${basePath}?locale=id`, hreflang: "id" },
+    { href: `${basePath}?locale=en`, hrefLang: "en" },
+    { href: `${basePath}?locale=id`, hrefLang: "id" },
   ];
 }
 
@@ -133,7 +133,7 @@ export function createMetaFunction(seoData: LocalizedSEO): MetaFunction {
         : (seoData as SEOData);
 
     const canonical = getCanonicalUrl(source, origin);
-    const hreflangUrls = getHreflangUrls(source, origin);
+    const hrefLangUrls = gethrefLangUrls(source, origin);
 
     const tags: Record<string, any>[] = [
       { title: seo.title },
@@ -148,10 +148,10 @@ export function createMetaFunction(seoData: LocalizedSEO): MetaFunction {
       { name: "twitter:title", content: seo.title },
       { name: "twitter:description", content: seo.description },
       { rel: "canonical", href: canonical },
-      ...hreflangUrls.map(({ href, hreflang }) => ({
+      ...hrefLangUrls.map(({ href, hrefLang }) => ({
         rel: "alternate",
         href,
-        hreflang,
+        hrefLang,
       })),
     ];
 
