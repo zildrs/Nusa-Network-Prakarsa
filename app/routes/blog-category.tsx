@@ -28,37 +28,23 @@ export function meta({}: Route.MetaArgs) {
 export async function loader({
   request,
   params,
-}: Route.LoaderArgs & { params: { category: string; locale?: string } }) {
-  // Extract locale from URL params
-  const urlLocale = params.locale as "id" | "en" | undefined;
-
-  // If no locale in URL, check localStorage/cookies for user preference
-  if (!urlLocale) {
-    const categoryName = slugToName(params.category);
-    const [{ blogs, locale, meta }, { categories }] = await Promise.all([
-      fetchBlogData(request, categoryName),
-      fetchCategoriesData(request),
-    ]);
-
-    return { blogs, categories, locale, meta, categoryName, urlLocale: locale };
-  }
-
+}: Route.LoaderArgs & { params: { category: string } }) {
   const categoryName = slugToName(params.category);
   const [{ blogs, locale, meta }, { categories }] = await Promise.all([
     fetchBlogData(request, categoryName),
     fetchCategoriesData(request),
   ]);
 
-  return { blogs, categories, locale, meta, categoryName, urlLocale };
+  return { blogs, categories, locale, meta, categoryName };
 }
 
 export default function BlogCategory() {
-  const { blogs, categories, locale, meta, categoryName, urlLocale } =
+  const { blogs, categories, locale, meta, categoryName } =
     useLoaderData<typeof loader>();
   const navigate = useNavigate();
 
-  // Use urlLocale for UI/display purposes, fallback to API locale
-  const currentLocale = urlLocale || locale;
+  // Use locale from API for UI/display purposes
+  const currentLocale = locale as "id" | "en";
   /**
    * Client-side fetch probe
    * Purpose: Verify whether TLS/CORS issues are limited to SSR (Node) or also affect the browser.
@@ -134,7 +120,7 @@ export default function BlogCategory() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {blogs.map((blog) => (
-            <BlogCard key={blog.id} blog={blog} locale={urlLocale} />
+            <BlogCard key={blog.id} blog={blog} locale={currentLocale} />
           ))}
         </div>
 

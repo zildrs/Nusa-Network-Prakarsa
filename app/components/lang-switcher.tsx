@@ -1,12 +1,12 @@
 // app/components/LanguageSwitcher.tsx
 import { useNavigate } from "react-router";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "~/components/ui/select";
-import { saveLanguagePreference } from "~/lib/locale-storage";
+import { saveLanguagePreference, translateCurrentPath, type LanguagePreference } from "~/lib/locale-storage";
 
 export function LanguageSwitcher({ current }: { current: "id" | "en" }) {
   const navigate = useNavigate();
 
-  const handleLanguageChange = (newLocale: "id" | "en") => {
+  const handleLanguageChange = (newLocale: LanguagePreference) => {
     if (newLocale === current) return;
 
     // Save preference to localStorage
@@ -15,35 +15,13 @@ export function LanguageSwitcher({ current }: { current: "id" | "en" }) {
     // Also set cookie for server-side persistence
     document.cookie = `user-language=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
 
-    // Get current path segments
-    const pathSegments = window.location.pathname.split('/').filter(Boolean);
+    // Translate current path to target locale using route translation utilities
+    const newPath = translateCurrentPath(window.location.pathname, newLocale);
 
-    let newPath: string;
-
-    if (newLocale === "en") {
-      // For English, remove the locale prefix if it exists
-      if (pathSegments[0] === "id") {
-        // Remove the 'id' prefix and reconstruct path
-        const remainingSegments = pathSegments.slice(1);
-        newPath = remainingSegments.length > 0 ? '/' + remainingSegments.join('/') : '/';
-      } else {
-        // Already English or no prefix, keep as is
-        newPath = window.location.pathname;
-      }
-    } else {
-      // For Indonesian, add the 'id' prefix
-      if (pathSegments[0] === "id") {
-        // Already has 'id' prefix, keep as is
-        newPath = window.location.pathname;
-      } else {
-        // Add 'id' prefix to current path
-        newPath = '/id' + window.location.pathname;
-      }
-    }
-
-    // Preserve query parameters
+    // Preserve query parameters and hash
     const search = window.location.search;
-    const newUrl = search ? `${newPath}${search}` : newPath;
+    const hash = window.location.hash;
+    const newUrl = `${newPath}${search}${hash}`;
 
     navigate(newUrl);
   };

@@ -24,6 +24,7 @@ import { LanguageSwitcher } from "~/components/lang-switcher";
 import {
   getLanguagePreference,
   getLocalePrefix,
+  getLocalizedUrl as getTranslatedUrl,
   type LanguagePreference,
 } from "~/lib/locale-storage";
 
@@ -76,10 +77,9 @@ export default function Header({ locale, t }: HeaderProps) {
     locale === "id" || locale === "en" ? (locale as LanguagePreference) : "en";
   const preferredLocale = currentLocale || userPreference || "en";
 
-  // Helper function to generate locale-aware URLs
-  const getLocalizedUrl = (path: string): string => {
-    const prefix = getLocalePrefix(preferredLocale);
-    return `${prefix}${path}`;
+  // Helper function to generate locale-aware URLs with route translation
+  const getLocalizedUrl = (englishRoute: string): string => {
+    return getTranslatedUrl(englishRoute, preferredLocale);
   };
 
   return (
@@ -279,9 +279,7 @@ export default function Header({ locale, t }: HeaderProps) {
             {t("nav.about")}
           </Link>
           <Link
-            to={getLocalizedUrl(
-              locale === "id" ? "/case-study" : "/case-study"
-            )}
+            to={getLocalizedUrl("case-study")}
             className="block py-3 border-b font-medium border-gray-300"
             onClick={() => setMobileOpen(false)}
           >

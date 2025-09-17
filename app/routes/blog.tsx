@@ -15,34 +15,20 @@ import { useLoaderData } from "react-router";
 
 export const meta = createMetaFunction(seoData.blog);
 
-export async function loader({ request, params }: Route.LoaderArgs) {
-  // Extract locale from URL params (now available from route structure)
-  const urlLocale = params.locale;
-
-  // If no locale in URL, check localStorage/cookies for user preference
-  if (!urlLocale) {
-    const [{ blogs, locale }, { categories }] = await Promise.all([
-      fetchBlogData(request),
-      fetchCategoriesData(request),
-    ]);
-
-    return { blogs, categories, locale, urlLocale: locale };
-  }
-
+export async function loader({ request }: Route.LoaderArgs) {
   const [{ blogs, locale }, { categories }] = await Promise.all([
     fetchBlogData(request),
     fetchCategoriesData(request),
   ]);
 
-  return { blogs, categories, locale, urlLocale };
+  return { blogs, categories, locale };
 }
 
 export default function Blog({ loaderData }: Route.ComponentProps) {
-  const { blogs, categories, locale, urlLocale } =
-    useLoaderData<typeof loader>();
+  const { blogs, categories, locale } = useLoaderData<typeof loader>();
 
-  // Use urlLocale for UI/display purposes, fallback to API locale
-  const currentLocale = (urlLocale || locale) as "id" | "en";
+  // Use locale from API for UI/display purposes
+  const currentLocale = locale as "id" | "en";
   /**
    * Client-side fetch probe
    * Purpose: Verify whether TLS/CORS issues are limited to SSR (Node) or also affect the browser.
