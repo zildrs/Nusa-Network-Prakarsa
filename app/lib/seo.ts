@@ -39,8 +39,8 @@ export function createOrganizationSchema() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Nusa Network Prakarsa",
-    url: "https://usanetwork.com",
-    logo: "https://usanetwork.com/logo.png",
+    url: "https://nusanetwork.com",
+    logo: "https://nusanetwork.com/logo.png",
     description:
       "Trusted System Integrator in Indonesia providing end-to-end IT solutions",
     address: {
@@ -80,7 +80,7 @@ export function createServiceSchema(
     provider: {
       "@type": "Organization",
       name: "Nusa Network Prakarsa",
-      url: "https://usanetwork.com",
+      url: "https://nusanetwork.com",
     },
     serviceType: "IT Services",
     areaServed: {

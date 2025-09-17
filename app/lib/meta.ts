@@ -31,7 +31,7 @@ export function getCanonicalUrl(
     originFallback ??
     (typeof window !== "undefined"
       ? window.location.origin
-      : "https://usanetwork.com");
+      : "https://nusanetwork.com");
 
   if (typeof source === "string") {
     const u = new URL(source, origin);
@@ -67,7 +67,7 @@ export function gethrefLangUrls(
     originFallback ??
     (typeof window !== "undefined"
       ? window.location.origin
-      : "https://usanetwork.com");
+      : "https://nusanetwork.com");
 
   if (typeof source === "string") {
     const u = new URL(source, origin);
@@ -112,7 +112,7 @@ export function createMetaFunction(seoData: LocalizedSEO): MetaFunction {
     const origin =
       typeof window !== "undefined"
         ? window.location.origin
-        : "https://usanetwork.com";
+        : "https://nusanetwork.com";
 
     // make URL object for parsing query
     let urlObj: URL;

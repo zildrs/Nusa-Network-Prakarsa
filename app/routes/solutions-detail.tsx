@@ -21,7 +21,7 @@ export const meta: MetaFunction = (args) => {
   const origin =
     typeof window !== "undefined"
       ? window.location.origin
-      : "https://usanetwork.com";
+      : "https://nusanetwork.com";
 
   const url = new URL(location.pathname + location.search, origin);
   const searchParams = new URLSearchParams(url.search);

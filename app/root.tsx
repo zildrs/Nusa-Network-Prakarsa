@@ -10,11 +10,13 @@ import { useLoaderData } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
 import { detectLocale } from "./lib/locale.server";
 import { createT } from "./i18n";
+import { HelmetProvider, Helmet } from "react-helmet-async";
 
 import type { Route } from "./+types/root";
 import "./app.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import { createOrganizationSchema } from "./lib/seo";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -39,26 +41,36 @@ export function Layout() {
   const t = createT(locale);
 
   return (
-    <html lang={locale}>
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-          name="google-site-verification"
-          content="E_Eg6_oNxGnmJ1xQjAe5I6YDdjI8aw0w2fmXCjiBJq8"
-        />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <Header locale={locale} t={t} />
-        {/* Hanya pakai Outlet, jangan gabung dengan children */}
-        <Outlet context={{ t, locale }} />
-        <Footer locale={locale} t={t} />
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
+    <HelmetProvider>
+      <html lang={locale}>
+        <head>
+          <Helmet>
+            <meta charSet="utf-8" />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1"
+            />
+            <meta
+              name="google-site-verification"
+              content="E_Eg6_oNxGnmJ1xQjAe5I6YDdjI8aw0w2fmXCjiBJq8"
+            />
+            <Meta />
+            <Links />
+            <script type="application/ld+json">
+              {JSON.stringify(createOrganizationSchema())}
+            </script>
+          </Helmet>
+        </head>
+        <body>
+          <Header locale={locale} t={t} />
+          {/* Hanya pakai Outlet, jangan gabung dengan children */}
+          <Outlet context={{ t, locale }} />
+          <Footer locale={locale} t={t} />
+          <ScrollRestoration />
+          <Scripts />
+        </body>
+      </html>
+    </HelmetProvider>
   );
 }
 
