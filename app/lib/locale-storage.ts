@@ -1,9 +1,22 @@
 // app/lib/locale-storage.ts
 // localStorage utilities for language preference persistence
+// Also re-exports route translation utilities for convenience
 
 const STORAGE_KEY = 'user-language';
 
 export type LanguagePreference = "id" | "en";
+
+// Re-export route translation utilities
+export {
+  translateRoute,
+  getLocalizedUrl,
+  translateCurrentPath,
+  parseUrlPath,
+  hasTranslation,
+  getAllRoutesForLocale,
+  ROUTE_TRANSLATIONS,
+  type RouteKey
+} from './route-translations';
 
 /**
  * Save user's language preference to localStorage

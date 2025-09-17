@@ -7,8 +7,8 @@
     "support": "Bantuan",
     "contact": "Hubungi Kami",
     "careers": "Karir",
-    "partners": "Patner",
-    "resources": "Resources",
+    "partners": "Partner",
+    "resources": "Sumber Daya",
     "privacy": "Kebijakan Privasi",
     "certification": "Sertifikat",
     "sitemap": "Sitemap"
@@ -128,7 +128,7 @@
   },
   "partners": {
     "hero": {
-      "title": "Patner Teknologi",
+      "title": "Partner Teknologi",
       "description": "Kami bekerja sama dengan berbagai merek teknologi global terkemuka untuk menghadirkan solusi layanan yang aman, dan dapat disesuaikan dengan kebutuhan bisnis Anda"
     },
     "modal": {
@@ -458,7 +458,7 @@
         "caseStudy": "Studi Kasus",
         "blog": "Blog",
         "careers": "Karir",
-        "partners": "Patner"
+        "partners": "Partner"
       }
     },
     "resources": {

@@ -38,7 +38,7 @@ export default [
 
   // Partners
   route("partners", "routes/partners.tsx"),
-  route("id/patner", "routes/partners.tsx", { id: "patner" }),
+  route("id/partner", "routes/partners.tsx", { id: "partner" }),
 
   // Certifications
   route("certifications", "routes/certifications.tsx"),
