@@ -21,6 +21,7 @@ import {
   navigationMenuTriggerStyle,
 } from "~/components/ui/navigation-menu";
 import { LanguageSwitcher } from "~/components/lang-switcher";
+import { getLanguagePreference, getLocalePrefix, type LanguagePreference } from "~/lib/locale-storage";
 
 interface HeaderProps {
   locale: string;
@@ -64,6 +65,18 @@ export default function Header({ locale, t }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
 
+  // Get user's language preference from localStorage
+  const userPreference = getLanguagePreference();
+  // Use URL locale first, then user preference, fallback to current locale
+  const currentLocale: LanguagePreference = (locale === 'id' || locale === 'en') ? locale as LanguagePreference : 'en';
+  const preferredLocale = currentLocale || userPreference || 'en';
+
+  // Helper function to generate locale-aware URLs
+  const getLocalizedUrl = (path: string): string => {
+    const prefix = getLocalePrefix(preferredLocale);
+    return `${prefix}${path}`;
+  };
+
   return (
     <header className="border-b border-gray-200 bg-white text-gray-600">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 lg:py-4">
@@ -85,7 +98,7 @@ export default function Header({ locale, t }: HeaderProps) {
                     {solutionsMenu.map((item) => (
                       <Link
                         key={item.title}
-                        to={`/solutions/${item.slug}`}
+                        to={getLocalizedUrl(`/solutions/${item.slug}`)}
                         className="py-3 flex items-center gap-2 group hover:bg-gray-50 px-4"
                         onClick={() => setMobileOpen(false)}
                       >
@@ -106,7 +119,7 @@ export default function Header({ locale, t }: HeaderProps) {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <Link to="/about">{t("nav.about")}</Link>
+                    <Link to={getLocalizedUrl("/about")}>{t("nav.about")}</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -114,7 +127,7 @@ export default function Header({ locale, t }: HeaderProps) {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <Link to="/case-study">{t("nav.caseStudy")}</Link>
+                    <Link to={getLocalizedUrl("/case-study")}>{t("nav.caseStudy")}</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -122,7 +135,7 @@ export default function Header({ locale, t }: HeaderProps) {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <Link to="/blog">{t("nav.article")}</Link>
+                    <Link to={getLocalizedUrl("/blog")}>{t("nav.article")}</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
@@ -170,7 +183,7 @@ export default function Header({ locale, t }: HeaderProps) {
 
         {/* Right buttons */}
         <div className="hidden lg:flex items-center gap-2">
-          <LanguageSwitcher current={locale as "id" | "en"} />
+          <LanguageSwitcher current={preferredLocale} />
           <Link
             to="https://ticket.nusanetwork.com/helpdesk"
             className="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-500"
@@ -187,7 +200,7 @@ export default function Header({ locale, t }: HeaderProps) {
 
         {/* Mobile menu button */}
         <div className="flex gap-2 items-center lg:hidden">
-          <LanguageSwitcher current={locale as "id" | "en"} />
+          <LanguageSwitcher current={preferredLocale} />
           <button
             className="lg:hidden border border-gray-300 p-2 rounded-lg"
             onClick={() => setMobileOpen(true)}
@@ -218,7 +231,7 @@ export default function Header({ locale, t }: HeaderProps) {
               {solutionsMenu.map((item) => (
                 <Link
                   key={item.title}
-                  to={`/solutions/${item.slug}`}
+                  to={getLocalizedUrl(`/solutions/${item.slug}`)}
                   className="py-3 flex items-center gap-2"
                   onClick={() => setMobileOpen(false)}
                 >
@@ -233,21 +246,21 @@ export default function Header({ locale, t }: HeaderProps) {
           )}
 
           <Link
-            to="/about"
+            to={getLocalizedUrl("/about")}
             className="block py-3 border-b font-medium border-gray-300"
             onClick={() => setMobileOpen(false)}
           >
             {t("nav.about")}
           </Link>
           <Link
-            to="/case-study"
+            to={getLocalizedUrl("/case-study")}
             className="block py-3 border-b font-medium border-gray-300"
             onClick={() => setMobileOpen(false)}
           >
             {t("nav.caseStudy")}
           </Link>
           <Link
-            to="/blog"
+            to={getLocalizedUrl("/blog")}
             className="block py-3 border-b font-medium border-gray-300"
             onClick={() => setMobileOpen(false)}
           >

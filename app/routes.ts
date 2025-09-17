@@ -2,9 +2,11 @@ import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
 export default [
   index("routes/home.tsx"),
-  route("blog", "routes/blog.tsx"),
-  route("blog/:category", "routes/blog-category.tsx"),
-  route("blog/read/:slug", "routes/blog-detail.tsx"),
+  // Locale-aware blog routes (optional locale parameter)
+  route(":locale?/blog", "routes/blog.tsx"),
+  route(":locale?/blog/:category", "routes/blog-category.tsx"),
+  route(":locale?/blog/read/:slug", "routes/blog-detail.tsx"),
+  // Other routes (to be updated later for full locale support)
   route("case-study", "routes/case-study.tsx"),
   route("case-study/:slug", "routes/case-study-detail.tsx"),
   route("solutions/:slug", "routes/solutions-detail.tsx"),

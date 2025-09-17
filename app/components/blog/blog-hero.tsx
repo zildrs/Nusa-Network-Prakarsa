@@ -5,9 +5,10 @@ interface BlogHeroProps {
   featuredBlog: BlogPost;
   relatedBlogs: BlogPost[];
   className?: string;
+  locale?: "id" | "en";
 }
 
-export function BlogHero({ featuredBlog, relatedBlogs, className = '' }: BlogHeroProps) {
+export function BlogHero({ featuredBlog, relatedBlogs, className = '', locale }: BlogHeroProps) {
   return (
     <section className={`overflow-hidden relative px-4 lg:px-6 ${className}`}>
       <img
@@ -19,13 +20,13 @@ export function BlogHero({ featuredBlog, relatedBlogs, className = '' }: BlogHer
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Featured Blog Card */}
           <div className="md:col-span-2 h-full">
-            <BlogCard blog={featuredBlog} variant="featured" />
+            <BlogCard blog={featuredBlog} variant="featured" locale={locale} />
           </div>
 
           {/* Related Blogs */}
           <div className="flex flex-col gap-4 justify-between">
             {relatedBlogs.slice(0, 3).map((blog) => (
-              <BlogCard key={blog.id} blog={blog} variant="compact" />
+              <BlogCard key={blog.id} blog={blog} variant="compact" locale={locale} />
             ))}
           </div>
         </div>
