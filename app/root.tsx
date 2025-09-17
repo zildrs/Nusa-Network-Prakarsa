@@ -19,6 +19,7 @@ import { createOrganizationSchema } from "./lib/seo";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
   {
     rel: "preconnect",
     href: "https://fonts.gstatic.com",

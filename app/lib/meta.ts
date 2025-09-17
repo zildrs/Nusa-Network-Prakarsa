@@ -149,9 +149,17 @@ export function createMetaFunction(seoData: LocalizedSEO): MetaFunction {
       { property: "og:type", content: "website" },
       { property: "og:url", content: canonical },
       { property: "og:site_name", content: "Nusa Network Prakarsa" },
+      {
+        property: "og:image",
+        content: "https://nnp-landing.vercel.app/opengraph-image.png",
+      },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: seo.title },
       { name: "twitter:description", content: seo.description },
+      {
+        name: "twitter:image",
+        content: "https://nnp-landing.vercel.app/opengraph-image.png",
+      },
       { rel: "canonical", href: canonical },
       ...hrefLangUrls.map(({ href, hrefLang }) => ({
         rel: "alternate",
