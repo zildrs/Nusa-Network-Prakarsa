@@ -2,21 +2,68 @@ import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
 export default [
   index("routes/home.tsx"),
-  // Locale-aware blog routes (optional locale parameter)
-  route(":locale?/blog", "routes/blog.tsx"),
-  route(":locale?/blog/:category", "routes/blog-category.tsx"),
-  route(":locale?/blog/read/:slug", "routes/blog-detail.tsx"),
-  // Other routes (to be updated later for full locale support)
-  route("case-study", "routes/case-study.tsx"),
-  route("case-study/:slug", "routes/case-study-detail.tsx"),
-  route("solutions/:slug", "routes/solutions-detail.tsx"),
-  route("partners", "routes/partners.tsx"),
-  route("certifications", "routes/certifications.tsx"),
-  route("contact", "routes/contact.tsx"),
+  route("id", "routes/home.tsx", { id: "home-id" }),
+
+  // About
   route("about", "routes/about.tsx"),
-  route("privacy-policy", "routes/privacy-policy.tsx"),
+  route("id/tentang", "routes/about.tsx", { id: "tentang" }),
+
+  // Contact
+  route("contact", "routes/contact.tsx"),
+  route("id/hubungi-kami", "routes/contact.tsx", { id: "hubungi-kami" }),
+
+  // Careers
   route("careers", "routes/careers.tsx"),
+  route("id/karir", "routes/careers.tsx", { id: "karir" }),
+
+  // Blog
+  route("blog", "routes/blog.tsx"),
+  route("id/blog", "routes/blog.tsx", { id: "blog-id" }),
+  route("blog/:category", "routes/blog-category.tsx"),
+  route("id/blog/:category", "routes/blog-category.tsx", {
+    id: "blog-category-id",
+  }),
+  route("blog/read/:slug", "routes/blog-detail.tsx"),
+  route("id/blog/read/:slug", "routes/blog-detail.tsx", {
+    id: "blog-detail-id",
+  }),
+
+  // Case Study
+  route("case-study", "routes/case-study.tsx"),
+  route("id/studi-kasus", "routes/case-study.tsx", { id: "studi-kasus" }),
+  route("case-study/:slug", "routes/case-study-detail.tsx"),
+  route("id/studi-kasus/:slug", "routes/case-study-detail.tsx", {
+    id: "studi-kasus-detail",
+  }),
+
+  // Partners
+  route("partners", "routes/partners.tsx"),
+  route("id/patner", "routes/partners.tsx", { id: "patner" }),
+
+  // Certifications
+  route("certifications", "routes/certifications.tsx"),
+  route("id/sertifikat", "routes/certifications.tsx", { id: "sertifikat" }),
+
+  // Privacy Policy
+  route("policies", "routes/privacy-policy.tsx"),
+  route("id/kebijakan-privasi", "routes/privacy-policy.tsx", {
+    id: "kebijakan-privasi",
+  }),
+
+  // Sitemap
   route("sitemap", "routes/sitemap.tsx"),
+  route("id/sitemap", "routes/sitemap.tsx", { id: "sitemap-id" }),
+
+  // Solutions (auto-generate EN & ID)
+  // routes.ts
+  // Solutions (universal handler)
+  route("solution/:slug", "routes/solutions-detail.tsx", {
+    id: "solutions-detail-en",
+  }),
+  route("id/solusi/:slug", "routes/solutions-detail.tsx", {
+    id: "solutions-detail-id",
+  }),
+
   route("*", "routes/404.tsx"),
 
   // resource route

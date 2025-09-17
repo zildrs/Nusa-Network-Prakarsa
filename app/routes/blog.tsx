@@ -17,7 +17,7 @@ export const meta = createMetaFunction(seoData.blog);
 
 export async function loader({ request, params }: Route.LoaderArgs) {
   // Extract locale from URL params (now available from route structure)
-  const urlLocale = params.locale as "id" | "en" | undefined;
+  const urlLocale = params.locale;
 
   // If no locale in URL, check localStorage/cookies for user preference
   if (!urlLocale) {
@@ -38,10 +38,11 @@ export async function loader({ request, params }: Route.LoaderArgs) {
 }
 
 export default function Blog({ loaderData }: Route.ComponentProps) {
-  const { blogs, categories, locale, urlLocale } = useLoaderData<typeof loader>();
+  const { blogs, categories, locale, urlLocale } =
+    useLoaderData<typeof loader>();
 
   // Use urlLocale for UI/display purposes, fallback to API locale
-  const currentLocale = urlLocale || locale;
+  const currentLocale = (urlLocale || locale) as "id" | "en";
   /**
    * Client-side fetch probe
    * Purpose: Verify whether TLS/CORS issues are limited to SSR (Node) or also affect the browser.
@@ -135,13 +136,17 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
           <span className="opacity-70">Client fetch running…</span>
         )}
       </div> */}
-      <BlogHero featuredBlog={featuredBlog} relatedBlogs={relatedBlogs} locale={currentLocale} />
+      <BlogHero
+        featuredBlog={featuredBlog}
+        relatedBlogs={relatedBlogs}
+        locale={currentLocale}
+      />
       {categoryList.map((category) => (
         <BlogSection
           key={category.id}
           title={category.name.toUpperCase()}
           blogs={category.blogs || []}
-          seeAllLink={`${currentLocale === 'id' ? '/id' : ''}/blog/${nameToSlug(category.name)}`}
+          seeAllLink={`${currentLocale === "id" ? "/id" : ""}/blog/${nameToSlug(category.name)}`}
           locale={currentLocale}
         />
       ))}

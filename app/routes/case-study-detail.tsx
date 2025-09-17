@@ -128,7 +128,7 @@ export default function CaseStudyDetail() {
                 Ready to solve your challenges?
               </p>
               <a
-                href="/contact"
+                href={locale === "en" ? "/contact" : "/id/hubungi-kami"}
                 className="bg-primary w-fit hover:bg-primary text-white px-5 py-3 rounded-lg flex items-center gap-2 transition"
               >
                 Contact our experts <ArrowRight className="w-4 h-4" />

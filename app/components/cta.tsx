@@ -9,7 +9,7 @@ type CTAPropsType = {
 };
 
 const CTASection = (props: CTAPropsType) => {
-  const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
+  const { t, locale } = useOutletContext<{ t: any; locale: "id" | "en" }>();
   return (
     <section className="relative bg-primary text-white py-20 overflow-hidden">
       <img
@@ -41,7 +41,7 @@ const CTASection = (props: CTAPropsType) => {
           <p className=" mt-4 max-w-md">{props.description || ""}</p>
         </div>
         <a
-          href={props.link || "/contact"}
+          href={props.link || locale === "en" ? "/contact" : "/id/hubungi-kami"}
           className="mt-6 md:mt-0 inline-flex items-center px-6 py-3 bg-white text-gray-900 font-medium rounded-lg shadow"
         >
           {props.linkText || t("home.cta.button")}{" "}
