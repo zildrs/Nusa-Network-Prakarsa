@@ -15,17 +15,33 @@ import { useLoaderData } from "react-router";
 
 export const meta = createMetaFunction(seoData.blog);
 
-export async function loader({ request }: Route.LoaderArgs) {
+export async function loader({ request, params }: Route.LoaderArgs) {
+  // Extract locale from URL params (now available from route structure)
+  const urlLocale = params.locale as "id" | "en" | undefined;
+
+  // If no locale in URL, use default (English)
+  if (!urlLocale) {
+    const [{ blogs, locale }, { categories }] = await Promise.all([
+      fetchBlogData(request),
+      fetchCategoriesData(request),
+    ]);
+
+    return { blogs, categories, locale, urlLocale: "en" as const };
+  }
+
   const [{ blogs, locale }, { categories }] = await Promise.all([
     fetchBlogData(request),
     fetchCategoriesData(request),
   ]);
 
-  return { blogs, categories, locale };
+  return { blogs, categories, locale, urlLocale };
 }
 
 export default function Blog({ loaderData }: Route.ComponentProps) {
-  const { blogs, categories, locale } = useLoaderData<typeof loader>();
+  const { blogs, categories, locale, urlLocale } = useLoaderData<typeof loader>();
+
+  // Use urlLocale for UI/display purposes, fallback to API locale
+  const currentLocale = urlLocale || locale;
   /**
    * Client-side fetch probe
    * Purpose: Verify whether TLS/CORS issues are limited to SSR (Node) or also affect the browser.
@@ -40,7 +56,7 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
     const run = async () => {
       try {
         const res = await fetch(
-          `https://dash.nusanetwork.com/api/blogs?locale=${locale}`,
+          `https://dash.nusanetwork.com/api/blogs?locale=${currentLocale}`,
           {
             headers: { Accept: "application/json" },
             signal: controller.signal,
@@ -63,12 +79,12 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
       isMounted = false;
       controller.abort();
     };
-  }, [locale]);
+  }, [currentLocale]);
 
   if (!blogs || blogs.length === 0) {
     return (
       <main>
-        <BlogNavigation categories={categories} />
+        <BlogNavigation categories={categories} locale={currentLocale} />
         {/* Client fetch status banner for debugging SSR vs client behavior */}
         <div className="mx-auto mb-4 max-w-5xl rounded-md border p-3 text-sm">
           {clientFetchError ? (
@@ -104,7 +120,7 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
 
   return (
     <main>
-      <BlogNavigation categories={categories} />
+      <BlogNavigation categories={categories} locale={currentLocale} />
       {/* Client fetch status banner for debugging SSR vs client behavior */}
       {/* <div className="mx-auto mb-4 max-w-5xl rounded-md border p-3 text-sm">
         {clientFetchError ? (
@@ -119,13 +135,14 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
           <span className="opacity-70">Client fetch running…</span>
         )}
       </div> */}
-      <BlogHero featuredBlog={featuredBlog} relatedBlogs={relatedBlogs} />
+      <BlogHero featuredBlog={featuredBlog} relatedBlogs={relatedBlogs} locale={currentLocale} />
       {categoryList.map((category) => (
         <BlogSection
           key={category.id}
           title={category.name.toUpperCase()}
           blogs={category.blogs || []}
-          seeAllLink={`/blog/${nameToSlug(category.name)}`}
+          seeAllLink={`${currentLocale === 'id' ? '/id' : ''}/blog/${nameToSlug(category.name)}`}
+          locale={currentLocale}
         />
       ))}
       <CTASection />

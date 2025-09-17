@@ -28,21 +28,37 @@ export function meta({}: Route.MetaArgs) {
 export async function loader({
   request,
   params,
-}: Route.LoaderArgs & { params: { category: string } }) {
+}: Route.LoaderArgs & { params: { category: string; locale?: string } }) {
+  // Extract locale from URL params
+  const urlLocale = params.locale as "id" | "en" | undefined;
+
+  // If no locale in URL, use default (English)
+  if (!urlLocale) {
+    const categoryName = slugToName(params.category);
+    const [{ blogs, locale, meta }, { categories }] = await Promise.all([
+      fetchBlogData(request, categoryName),
+      fetchCategoriesData(request),
+    ]);
+
+    return { blogs, categories, locale, meta, categoryName, urlLocale: "en" as const };
+  }
+
   const categoryName = slugToName(params.category);
   const [{ blogs, locale, meta }, { categories }] = await Promise.all([
     fetchBlogData(request, categoryName),
     fetchCategoriesData(request),
   ]);
 
-  return { blogs, categories, locale, meta, categoryName };
-  // return await fetchBlogData(request);
+  return { blogs, categories, locale, meta, categoryName, urlLocale };
 }
 
 export default function BlogCategory() {
-  const { blogs, categories, locale, meta, categoryName } =
+  const { blogs, categories, locale, meta, categoryName, urlLocale } =
     useLoaderData<typeof loader>();
   const navigate = useNavigate();
+
+  // Use urlLocale for UI/display purposes, fallback to API locale
+  const currentLocale = urlLocale || locale;
   /**
    * Client-side fetch probe
    * Purpose: Verify whether TLS/CORS issues are limited to SSR (Node) or also affect the browser.
@@ -57,7 +73,7 @@ export default function BlogCategory() {
     const run = async () => {
       try {
         const res = await fetch(
-          `https://dash.nusanetwork.com/api/blogs?locale=${locale}`,
+          `https://dash.nusanetwork.com/api/blogs?locale=${currentLocale}`,
           {
             headers: { Accept: "application/json" },
             signal: controller.signal,
@@ -80,12 +96,12 @@ export default function BlogCategory() {
       isMounted = false;
       controller.abort();
     };
-  }, [locale]);
+  }, [currentLocale]);
 
   if (!blogs || blogs.length === 0) {
     return (
       <main>
-        <BlogNavigation categories={categories} />
+        <BlogNavigation categories={categories} locale={currentLocale} />
         {/* Client fetch status banner for debugging SSR vs client behavior */}
         <div className="mx-auto mb-4 max-w-5xl rounded-md border p-3 text-sm">
           {clientFetchError ? (
@@ -108,7 +124,7 @@ export default function BlogCategory() {
 
   return (
     <main>
-      <BlogNavigation categories={categories} />
+      <BlogNavigation categories={categories} locale={currentLocale} />
       <section className={`py-10 max-w-7xl mx-auto px-4 lg:px-6`}>
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-semibold">
@@ -118,7 +134,7 @@ export default function BlogCategory() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {blogs.map((blog) => (
-            <BlogCard key={blog.id} blog={blog} />
+            <BlogCard key={blog.id} blog={blog} locale={urlLocale} />
           ))}
         </div>
 
@@ -131,7 +147,7 @@ export default function BlogCategory() {
                   onClick={(e) => {
                     e.preventDefault();
                     if (meta.pagination.page > 1)
-                      navigate(`?page=${meta.pagination.page - 1}`);
+                      navigate(`${currentLocale === 'id' ? '/id' : ''}/blog/${categoryName.toLowerCase().replace(/\s+/g, '-')}?page=${meta.pagination.page - 1}`);
                   }}
                 />
               </PaginationItem>
@@ -146,7 +162,7 @@ export default function BlogCategory() {
                         isActive={pageNum === meta.pagination.page}
                         onClick={(e) => {
                           e.preventDefault();
-                          navigate(`?page=${pageNum}`);
+                          navigate(`${currentLocale === 'id' ? '/id' : ''}/blog/${categoryName.toLowerCase().replace(/\s+/g, '-')}?page=${pageNum}`);
                         }}
                       >
                         {pageNum}
@@ -162,7 +178,7 @@ export default function BlogCategory() {
                   onClick={(e) => {
                     e.preventDefault();
                     if (meta.pagination.page < meta.pagination.pageCount)
-                      navigate(`?page=${meta.pagination.page + 1}`);
+                      navigate(`${currentLocale === 'id' ? '/id' : ''}/blog/${categoryName.toLowerCase().replace(/\s+/g, '-')}?page=${meta.pagination.page + 1}`);
                   }}
                 />
               </PaginationItem>

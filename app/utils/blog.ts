@@ -1,8 +1,9 @@
 import { nameToSlug } from "~/lib/utils";
 import type { BlogPost } from "~/types/blog";
 
-export function getBlogSlug(blog: BlogPost): string {
-  return `/blog/read/${nameToSlug(blog.slug || "")}` || `/blog/read/${blog.id}`;
+export function getBlogSlug(blog: BlogPost, locale?: "id" | "en"): string {
+  const baseSlug = `/blog/read/${nameToSlug(blog.slug || "")}` || `/blog/read/${blog.id}`;
+  return locale ? `/${locale}${baseSlug}` : baseSlug;
 }
 
 export function formatBlogDate(dateString?: string): string {

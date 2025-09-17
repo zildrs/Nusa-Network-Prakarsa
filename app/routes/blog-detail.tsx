@@ -17,21 +17,38 @@ export function meta({}: Route.MetaArgs) {
 export async function loader({
   request,
   params,
-}: Route.LoaderArgs & { params: { slug: string } }) {
+}: Route.LoaderArgs & { params: { slug: string; locale?: string } }) {
+  // Extract locale from URL params
+  const urlLocale = params.locale as "id" | "en" | undefined;
+
+  // If no locale in URL, use default (English)
+  if (!urlLocale) {
+    const slug = params.slug;
+    const [blog, { categories, locale }] = await Promise.all([
+      fetchBlogBySlug(request, slug),
+      fetchCategoriesData(request),
+    ]);
+
+    return { blog, categories, locale, urlLocale: "en" as const };
+  }
+
   const slug = params.slug;
   const [blog, { categories, locale }] = await Promise.all([
     fetchBlogBySlug(request, slug),
     fetchCategoriesData(request),
   ]);
 
-  return { blog, categories, locale };
+  return { blog, categories, locale, urlLocale };
 }
 
 export default function BlogDetail() {
-  const { categories, blog } = useLoaderData<typeof loader>();
+  const { categories, blog, urlLocale, locale } = useLoaderData<typeof loader>();
+
+  // Use urlLocale for UI/display purposes, fallback to API locale
+  const currentLocale = urlLocale || locale;
   return (
     <main>
-      <BlogNavigation categories={categories} />
+      <BlogNavigation categories={categories} locale={currentLocale} />
 
       <div className="min-h-screen bg-white font-sans">
         <section className="bg-primary text-white py-12 px-4">
@@ -105,7 +122,7 @@ export default function BlogDetail() {
                 {solutionsMenu.map((item) => (
                   <Link
                     key={item.title}
-                    to={`/solutions/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
+                    to={`${currentLocale === 'id' ? '/id' : ''}/solutions/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
                     className="py-3 flex items-center gap-4"
                   >
                     <item.icon className="mr-2" size={20} />

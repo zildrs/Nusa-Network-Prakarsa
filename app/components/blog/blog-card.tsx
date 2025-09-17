@@ -7,14 +7,16 @@ interface BlogCardProps {
   blog: BlogPost;
   variant?: "default" | "compact" | "featured";
   className?: string;
+  locale?: "id" | "en";
 }
 
 export function BlogCard({
   blog,
   variant = "default",
   className = "",
+  locale,
 }: BlogCardProps) {
-  const slug = getBlogSlug(blog);
+  const slug = getBlogSlug(blog, locale);
   const imageSrc = "/bg-card.png";
   const categoryLabel = blog.category.name || "BLOG";
   if (variant === "compact") {

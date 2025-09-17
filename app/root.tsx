@@ -8,7 +8,7 @@ import {
 } from "react-router";
 import { useLoaderData } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
-import { detectLocale } from "./lib/locale.server";
+import { getRequestLocale } from "./lib/locale-utils.server";
 import { createT } from "./i18n";
 
 import type { Route } from "./+types/root";
@@ -32,7 +32,7 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const locale = detectLocale(request);
+  const locale = getRequestLocale(request);
   return { locale }; // cukup primitif, data kecil
 }
 

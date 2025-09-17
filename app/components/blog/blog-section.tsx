@@ -9,6 +9,7 @@ interface BlogSectionProps {
   showSeeAll?: boolean;
   seeAllLink?: string;
   className?: string;
+  locale?: "id" | "en";
 }
 
 export function BlogSection({
@@ -17,6 +18,7 @@ export function BlogSection({
   showSeeAll = true,
   seeAllLink = "/blog",
   className = "",
+  locale,
 }: BlogSectionProps) {
   if (!blogs || blogs.length === 0) return null;
 
@@ -36,7 +38,7 @@ export function BlogSection({
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {blogs.map((blog) => (
-          <BlogCard key={blog.id} blog={blog} />
+          <BlogCard key={blog.id} blog={blog} locale={locale} />
         ))}
       </div>
     </section>
