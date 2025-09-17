@@ -18,7 +18,13 @@ export function getRequestLocale(request: Request): "id" | "en" {
     return qpLocale;
   }
 
-  // 3) For routes without explicit locale, default to English
-  // This handles cases where no locale is specified in URL
-  return "en";
+  // 3) Check for user's language preference in cookies
+  const cookies = request.headers.get("Cookie") ?? "";
+  const userLangMatch = cookies.match(/(?:^|;\s*)user-language=(id|en)\b/);
+  if (userLangMatch) {
+    return userLangMatch[1] as "id" | "en";
+  }
+
+  // 4) Fallback to existing detection (Accept-Language header)
+  return detectLocale(request);
 }

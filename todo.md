@@ -1,17 +1,23 @@
-# Locale-Aware Routing Implementation Plan
+# Locale-Aware Routing & localStorage Persistence Implementation Plan
 
 ## Overview
-Implement locale-specific routes where:
+✅ **COMPLETED**: Locale-specific routes working:
 - English (en): `/blog`, `/blog/:category`, `/blog/read/:slug`
 - Indonesian (id): `/id/blog`, `/id/blog/:category`, `/id/blog/read/:slug`
 
-Current system detects locale via query params, cookies, or Accept-Language. New system will use URL path segments as primary locale indicator.
+❌ **MISSING**: localStorage persistence for language preferences
 
 ## Current Architecture Analysis
-- Routes defined in `routes.ts` without locale prefixes
-- Locale detection via `getRequestLocale()` in `locale-utils.server.ts`
+✅ **Working:**
+- Routes defined with optional locale prefixes in `routes.ts`
+- Locale detection via `getRequestLocale()` in `locale-utils.server.ts` (URL path first)
 - API calls include `locale` parameter (Strapi supports multi-locale)
-- Navigation links currently use relative paths without locale prefix
+- Language switcher changes URLs correctly
+
+❌ **Missing:**
+- localStorage persistence for user language preference
+- Consistent language state across page navigation
+- Language preference maintained on page refresh
 
 ## Implementation Plan
 
@@ -73,6 +79,135 @@ Current system detects locale via query params, cookies, or Accept-Language. New
 4. Implement redirects and fallbacks
 5. Test thoroughly across all blog routes
 6. Update SEO meta tags
+
+---
+
+# NEW: localStorage Persistence Implementation Plan
+
+## Overview
+✅ **COMPLETED**: Locale-specific routes working:
+- English (en): `/blog`, `/blog/:category`, `/blog/read/:slug`
+- Indonesian (id): `/id/blog`, `/id/blog/:category`, `/id/blog/read/:slug`
+
+❌ **MISSING**: localStorage persistence for language preferences
+
+## Current State Analysis
+✅ **Working:**
+- Routes defined with optional locale prefixes in `routes.ts`
+- Locale detection via `getRequestLocale()` in `locale-utils.server.ts` (URL path first)
+- API calls include `locale` parameter (Strapi supports multi-locale)
+- Language switcher changes URLs correctly
+
+❌ **Missing:**
+- localStorage persistence for user language preference
+- Consistent language state across page navigation
+- Language preference maintained on page refresh
+
+## localStorage Implementation Plan
+
+### 1. Core localStorage Utilities
+- [ ] Create `app/lib/locale-storage.ts` with functions:
+  - `saveLanguagePreference(locale: "id" | "en"): void`
+  - `getLanguagePreference(): "id" | "en" | null`
+  - `clearLanguagePreference(): void`
+
+### 2. Language Switcher Updates
+- [ ] Update `app/components/lang-switcher.tsx`:
+  - Save to localStorage when language changes
+  - Read from localStorage on component mount
+  - Use localStorage as fallback when URL doesn't specify locale
+
+### 3. Root Loader Enhancement
+- [ ] Update `app/root.tsx` loader:
+  - Check localStorage first for language preference
+  - Use localStorage → URL path → cookies → Accept-Language priority
+  - Ensure SSR compatibility
+
+### 4. Navigation Links Enhancement
+- [ ] Update header navigation links to respect localStorage:
+  - Home link: `/` or `/id/` based on preference
+  - About link: `/about` or `/id/about`
+  - Case Study: `/case-study` or `/id/case-study`
+  - Blog: `/blog` or `/id/blog` (already implemented)
+
+### 5. Context Provider (Optional)
+- [ ] Create `LanguageProvider` context for global state management
+- [ ] Alternative to localStorage-only approach
+- [ ] Provides reactive language state across components
+
+### 6. Route-Level Fallback Logic
+- [ ] Update route loaders to check localStorage when no URL locale:
+  - `blog.tsx`: Use localStorage → default to "en"
+  - `blog-category.tsx`: Use localStorage → default to "en"
+  - `blog-detail.tsx`: Use localStorage → default to "en"
+
+### 7. Component Updates
+- [ ] Update components that generate links:
+  - `app/components/header.tsx`: All navigation links
+  - `app/routes/blog.tsx`: Internal blog links
+  - `app/routes/blog-category.tsx`: Pagination links
+  - `app/routes/blog-detail.tsx`: Solution links
+
+### 8. Testing Strategy
+- [ ] Test localStorage persistence:
+  - Switch language → refresh page → language maintained
+  - Navigate between pages → language maintained
+  - Clear localStorage → fallback to default behavior
+- [ ] Test URL priority over localStorage:
+  - Direct URL access should override localStorage
+  - Language switcher should update both URL and localStorage
+
+### 9. Implementation Context
+
+**How to implement localStorage in components:**
+```typescript
+// Save to localStorage
+const saveLanguagePreference = (locale: "id" | "en") => {
+  try {
+    localStorage.setItem('user-language', locale);
+  } catch (error) {
+    console.warn('Failed to save language preference:', error);
+  }
+};
+
+// Read from localStorage
+const getLanguagePreference = (): "id" | "en" | null => {
+  try {
+    const stored = localStorage.getItem('user-language');
+    return stored === 'id' || stored === 'en' ? stored : null;
+  } catch (error) {
+    return null;
+  }
+};
+```
+
+**How to implement in navigation links:**
+```typescript
+// Instead of: <Link to="/about">
+// Use: <Link to={`${currentLocale === 'id' ? '/id' : ''}/about`}>
+```
+
+**Priority order for locale detection:**
+1. URL path (highest priority - direct navigation)
+2. localStorage (user preference persistence)
+3. Cookies (server-side session)
+4. Accept-Language header (browser default)
+5. Default to "en" (fallback)
+
+### 10. Migration Strategy
+- [ ] Backward compatibility: existing behavior unchanged
+- [ ] Gradual rollout: start with blog routes, expand to others
+- [ ] localStorage key: `user-language` (clear, descriptive)
+- [ ] Error handling: Graceful fallback if localStorage fails
+
+### 11. Implementation Order
+1. Create localStorage utilities
+2. Update language switcher to save/load preferences
+3. Update root loader to check localStorage
+4. Update navigation components (header, etc.)
+5. Update route-level loaders for consistency
+6. Test persistence across page navigation
+7. Test URL priority over localStorage
 
 ---
 

@@ -19,14 +19,14 @@ export async function loader({ request, params }: Route.LoaderArgs) {
   // Extract locale from URL params (now available from route structure)
   const urlLocale = params.locale as "id" | "en" | undefined;
 
-  // If no locale in URL, use default (English)
+  // If no locale in URL, check localStorage/cookies for user preference
   if (!urlLocale) {
     const [{ blogs, locale }, { categories }] = await Promise.all([
       fetchBlogData(request),
       fetchCategoriesData(request),
     ]);
 
-    return { blogs, categories, locale, urlLocale: "en" as const };
+    return { blogs, categories, locale, urlLocale: locale };
   }
 
   const [{ blogs, locale }, { categories }] = await Promise.all([

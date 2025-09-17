@@ -1,12 +1,19 @@
 // app/components/LanguageSwitcher.tsx
 import { useNavigate } from "react-router";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "~/components/ui/select";
+import { saveLanguagePreference } from "~/lib/locale-storage";
 
 export function LanguageSwitcher({ current }: { current: "id" | "en" }) {
   const navigate = useNavigate();
 
   const handleLanguageChange = (newLocale: "id" | "en") => {
     if (newLocale === current) return;
+
+    // Save preference to localStorage
+    saveLanguagePreference(newLocale);
+
+    // Also set cookie for server-side persistence
+    document.cookie = `user-language=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
 
     // Get current path segments
     const pathSegments = window.location.pathname.split('/').filter(Boolean);
