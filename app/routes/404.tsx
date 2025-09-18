@@ -1,7 +1,6 @@
 import { solutionsMenu } from "~/components/header";
 import type { Route } from "./+types/contact";
 
-
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Contact" },
@@ -9,7 +8,7 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function Contact() {
+export default function NotFoundPage() {
   return (
     <main className="w-full">
       <section className="bg-primary relative text-white pt-12 py-18 lg:py-12 lg:min-h-[350px] overflow-hidden">

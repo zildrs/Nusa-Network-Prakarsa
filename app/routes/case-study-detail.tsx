@@ -11,13 +11,13 @@ import {
 } from "~/lib/api.server";
 import { APP_BASE_URL } from "~/lib/utils";
 import BlogContent from "~/components/blog/blog-content";
+import NotFoundPage from "./404";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
+export const meta = () => ({
+  title: "Case Study | Nusa Network",
+  description:
+    "Nusa Network is a leading provider of cloud computing services in Indonesia. Check out our case study to learn how we helped our clients in their digital transformation journey.",
+});
 
 export async function loader({
   request,
@@ -33,39 +33,12 @@ export async function loader({
   return { project, solutions, locale, projects };
 }
 
-const caseStudies = [
-  {
-    title: "Transforming Peruri Businesses with SD–WAN Technology",
-    company: "Peruri",
-    category: "Finance",
-    solution: "SD-WAN",
-    img: "https://awsimages.detik.net.id/community/media/visual/2024/11/19/kantor-peruri-resmi-jadi-cagar-budaya-1_169.jpeg?w=700&q=90",
-    companyLogo:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_2024_Perum_Peruri.svg/2560px-Logo_2024_Perum_Peruri.svg.png",
-  },
-  {
-    title: "Transforming J&T Express Businesses with SD–WAN Technology",
-    company: "J&T Express",
-    category: "Logistics",
-    solution: "SD-WAN",
-    img: "https://foto.kontan.co.id/8TQWPa6yy4jEQX5iWDd_3ql1pv4=/640x360/smart/2021/12/15/1054233720p.jpg",
-    companyLogo:
-      "https://1000logos.net/wp-content/uploads/2022/08/JT-Express-Logo.png",
-  },
-  {
-    title: "Transforming Peruri Businesses with SD–WAN Technology",
-    company: "Peruri",
-    category: "Finance",
-    solution: "SD-WAN",
-    img: "https://awsimages.detik.net.id/community/media/visual/2024/11/19/kantor-peruri-resmi-jadi-cagar-budaya-1_169.jpeg?w=700&q=90",
-    companyLogo:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_2024_Perum_Peruri.svg/2560px-Logo_2024_Perum_Peruri.svg.png",
-  },
-];
-
 export default function CaseStudyDetail() {
   const { project, solutions, locale, projects } =
     useLoaderData<typeof loader>();
+  console.log(project, solutions);
+
+  if (!project) return <NotFoundPage />;
   return (
     <main>
       <section className="max-w-6xl mx-auto px-6 py-16">

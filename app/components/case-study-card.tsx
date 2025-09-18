@@ -1,8 +1,20 @@
 import { ArrowRight } from "@carbon/icons-react";
-import { APP_BASE_URL } from "~/lib/utils";
+import { useOutletContext } from "react-router";
+import { APP_BASE_URL, nameToSlug } from "~/lib/utils";
 import type { ProjectType } from "~/types/project";
 
+export function getCaseStudySlug(
+  caseStudy: ProjectType,
+  locale?: "id" | "en"
+): string {
+  const baseUrl = locale === "id" ? "/id/studi-kasus" : "/case-study";
+  const baseSlug = `${nameToSlug(caseStudy.slug || "")}` || `${caseStudy.id}`;
+  return locale === "id" ? `${baseUrl}/${baseSlug}` : `${baseUrl}/${baseSlug}`;
+}
+
 const CaseStudyCard = ({ data }: { data: ProjectType }) => {
+  const { locale } = useOutletContext<{ locale: "id" | "en" }>();
+  const slug = getCaseStudySlug(data, locale);
   return (
     <div className="rounded-lg overflow-hidden relative aspect-square group">
       <img
@@ -12,7 +24,7 @@ const CaseStudyCard = ({ data }: { data: ProjectType }) => {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 gap-2 flex flex-col justify-end items-start">
         <a
-          href={`/case-study/${data.slug}`}
+          href={slug}
           className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0"
         >
           <img

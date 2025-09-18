@@ -1,5 +1,5 @@
-import { Link, useLoaderData } from "react-router";
-import type { Route } from "./+types/blog";
+import { Link, useLoaderData, type MetaFunction } from "react-router";
+import type { Route } from "./+types/blog-detail";
 import CTASection from "~/components/cta";
 import { solutionsMenu } from "~/components/header";
 import { BlogNavigation } from "~/components/blog";
@@ -7,13 +7,8 @@ import { fetchBlogBySlug, fetchCategoriesData } from "~/lib/api.server";
 import { formatBlogDate } from "~/utils/blog";
 import BlogContent from "~/components/blog/blog-content";
 import { APP_BASE_URL } from "~/lib/utils";
+import NotFoundPage from "./404";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
 export async function loader({
   request,
   params,
@@ -41,11 +36,28 @@ export async function loader({
   return { blog, categories, locale, urlLocale };
 }
 
+export const meta: MetaFunction<typeof loader> = (args) => {
+  const { data } = args as { data: Awaited<ReturnType<typeof loader>> };
+  const { blog } = data;
+  if (!blog) return [{ title: "Not found" }];
+
+  return [
+    { title: `${blog.title} | Nusa Network` },
+    { name: "description", content: blog.summary },
+    { property: "og:title", content: `${blog.title} | Nusa Network` },
+    { property: "og:description", content: blog.summary },
+    { property: "og:image", content: blog.banner[0].url },
+  ];
+};
+
 export default function BlogDetail() {
-  const { categories, blog, urlLocale, locale } = useLoaderData<typeof loader>();
+  const { categories, blog, urlLocale, locale } =
+    useLoaderData<typeof loader>();
 
   // Use urlLocale for UI/display purposes, fallback to API locale
   const currentLocale = urlLocale || locale;
+
+  if (!blog) return <NotFoundPage />;
   return (
     <main>
       <BlogNavigation categories={categories} locale={currentLocale} />
@@ -122,7 +134,7 @@ export default function BlogDetail() {
                 {solutionsMenu.map((item) => (
                   <Link
                     key={item.title}
-                    to={`${currentLocale === 'id' ? '/id' : ''}/solutions/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
+                    to={`${currentLocale === "id" ? "/id" : ""}/solutions/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
                     className="py-3 flex items-center gap-4"
                   >
                     <item.icon className="mr-2" size={20} />
