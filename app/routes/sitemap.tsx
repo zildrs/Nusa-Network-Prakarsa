@@ -104,7 +104,7 @@ export default function About() {
             </h2>
             <ul className="space-y-2 text-gray-700">
               <li>
-                <a href="/privacy-policy" className="hover:underline">
+                <a href="/policies" className="hover:underline">
                   Privacy & Terms
                 </a>
               </li>

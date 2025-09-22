@@ -341,7 +341,7 @@ export const seoData = {
         "Temukan mitra Nusa Network dan bagaimana kolaborasi kami dengan penyedia teknologi terkemuka menghadirkan solusi IT inovatif untuk bisnis di seluruh Indonesia",
     },
   },
-  "privacy-policy": {
+  policies: {
     en: {
       title: "Privacy & Terms | Nusa Network Prakasa",
       description:

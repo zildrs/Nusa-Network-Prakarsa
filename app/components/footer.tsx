@@ -5,12 +5,27 @@ import {
   ArrowRight,
 } from "@carbon/icons-react";
 import { Link } from "react-router";
+import {
+  getLanguagePreference,
+  getLocalizedUrl as getTranslatedUrl,
+  type LanguagePreference,
+} from "~/lib/locale-storage";
 
 interface HeaderProps {
   locale: string;
   t: (key: string) => string;
 }
 export default function Footer({ locale, t }: HeaderProps) {
+  const userPreference = getLanguagePreference();
+  // Use URL locale first, then user preference, fallback to current locale
+  const currentLocale: LanguagePreference =
+    locale === "id" || locale === "en" ? (locale as LanguagePreference) : "en";
+  const preferredLocale = currentLocale || userPreference || "en";
+
+  // Helper function to generate locale-aware URLs with route translation
+  const getLocalizedUrl = (englishRoute: string): string => {
+    return getTranslatedUrl(englishRoute, preferredLocale);
+  };
   return (
     <>
       <footer className="bg-white">
@@ -38,27 +53,47 @@ export default function Footer({ locale, t }: HeaderProps) {
               </h3>
               <ul className="space-y-2  text-gray-600">
                 <li>
-                  <Link to="/solutions/security-infrastructure">
+                  <Link
+                    to={getLocalizedUrl(
+                      `/${locale === "id" ? "solusi" : "solution"}/security-infrastructure`
+                    )}
+                  >
                     {t("footer.solutions.items.securityInfrastructure")}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/solutions/managed-services">
+                  <Link
+                    to={getLocalizedUrl(
+                      `/${locale === "id" ? "solusi" : "solution"}/managed-services`
+                    )}
+                  >
                     {t("footer.solutions.items.managedServices")}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/solutions/internet-of-things">
+                  <Link
+                    to={getLocalizedUrl(
+                      `/${locale === "id" ? "solusi" : "solution"}/internet-of-things`
+                    )}
+                  >
                     {t("footer.solutions.items.iotSolution")}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/solutions/data-center">
+                  <Link
+                    to={getLocalizedUrl(
+                      `/${locale === "id" ? "solusi" : "solution"}/data-center`
+                    )}
+                  >
                     {t("footer.solutions.items.dataCenter")}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/solutions/network-infrastructure">
+                  <Link
+                    to={getLocalizedUrl(
+                      `/${locale === "id" ? "solusi" : "solution"}/network-infrastructure`
+                    )}
+                  >
                     {t("footer.solutions.items.networkInfrastructure")}
                   </Link>
                 </li>
@@ -72,21 +107,45 @@ export default function Footer({ locale, t }: HeaderProps) {
               </h3>
               <ul className="space-y-2  text-gray-600">
                 <li>
-                  <Link to="/about">{t("footer.company.items.about")}</Link>
+                  <Link
+                    to={getLocalizedUrl(
+                      locale === "id" ? "/tentang" : "/about"
+                    )}
+                  >
+                    {t("footer.company.items.about")}
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/case-study">
+                  <Link
+                    to={getLocalizedUrl(
+                      locale === "id" ? "/studi-kasus" : "/case-study"
+                    )}
+                  >
                     {t("footer.company.items.caseStudy")}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/blog">{t("footer.company.items.blog")}</Link>
+                  <Link
+                    to={getLocalizedUrl(locale === "id" ? "/blog" : "/blog")}
+                  >
+                    {t("footer.company.items.blog")}
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/careers">{t("footer.company.items.careers")}</Link>
+                  <Link
+                    to={getLocalizedUrl(
+                      locale === "id" ? "/karir" : "/careers"
+                    )}
+                  >
+                    {t("footer.company.items.careers")}
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/partners">
+                  <Link
+                    to={getLocalizedUrl(
+                      locale === "id" ? "/partners" : "/partners"
+                    )}
+                  >
                     {t("footer.company.items.partners")}
                   </Link>
                 </li>
@@ -100,22 +159,26 @@ export default function Footer({ locale, t }: HeaderProps) {
               </h3>
               <ul className="space-y-2  text-gray-600">
                 <li>
-                  <Link to="/privacy-policy">
+                  <Link
+                    to={getLocalizedUrl(
+                      locale === "id" ? "/kebijakan-privasi" : "/policies"
+                    )}
+                  >
                     {t("footer.resources.items.privacy")}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/sitemap">
+                  <Link to={getLocalizedUrl("/sitemap")}>
                     {t("footer.resources.items.sitemap")}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/certifications">
+                  <Link to={getLocalizedUrl("/certifications")}>
                     {t("footer.resources.items.certifications")}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/contact">
+                  <Link to={getLocalizedUrl("/contact")}>
                     {t("footer.resources.items.contact")}
                   </Link>
                 </li>

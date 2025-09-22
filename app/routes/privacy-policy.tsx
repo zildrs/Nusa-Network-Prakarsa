@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useOutletContext } from "react-router";
 import { createMetaFunction, seoData } from "~/lib/meta";
 
-export const meta = createMetaFunction(seoData["privacy-policy"]);
+export const meta = createMetaFunction(seoData["policies"]);
 
 export default function Contact() {
   const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();

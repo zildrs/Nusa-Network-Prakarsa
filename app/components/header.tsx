@@ -23,7 +23,6 @@ import {
 import { LanguageSwitcher } from "~/components/lang-switcher";
 import {
   getLanguagePreference,
-  getLocalePrefix,
   getLocalizedUrl as getTranslatedUrl,
   type LanguagePreference,
 } from "~/lib/locale-storage";
