@@ -210,7 +210,8 @@
   "solutionsDetail": {
     "network-infrastructure": {
       "hero": {
-        "title": "SOLUSI NETWORK INFRASTRUCTURE",
+        "solution": "Network Infrastructure",
+        "title": "SOLUSI",
         "subtitle": "Wujudkan Network Infrastructure yang lebih cerdas, cepat, dan aman untuk bisnis Anda",
         "description": "Lindungi keberlangsungan operasional Anda dengan desain, implementasi, dan pengelolaan jaringan yang disesuaikan — dikerjakan oleh para ahli terpercaya",
         "cta": "Jadwalkan Konsultasi Gratis"
@@ -228,7 +229,8 @@
         "description": "Tim ahli kami bekerja sama dengan Anda untuk merancang, menerapkan, dan mengelola infrastruktur menyeluruh yang disesuaikan dengan kebutuhan bisnis Anda — menjaga kelangsungan operasional secara optimal, kinerja maksimal, dan keamanan di setiap tahap."
       },
       "services": {
-        "label": "LAYANAN NETWORK INFRASTRUCTURE KAMI",
+        "our": "Layanan",
+        "label": "NETWORK INFRASTRUCTURE KAMI",
         "title": "Solusi yang Sesuai dengan Kebutuhan Infrastruktur Anda",
         "items": {
           "lanWanDesign": "LAN/WAN Design and Deployment",
@@ -256,9 +258,10 @@
     },
     "data-center": {
       "hero": {
-        "title": "SOLUSI DATA CENTER",
+        "solution": "Data Center",
+        "title": "Solusi",
         "subtitle": "Modern, Aman, dan Dapat Diskalakan untuk Bisnis Anda",
-        "description": "Dukung bisnis Anda dengan solusi data center enterprise-grade, uptime 24/7, dan dukungan ahli — semua disesuaikan dengan kebutuhan Anda",
+        "description": "Kembangkan bisnis Anda dengan infrastruktur data center kelas enterprise, operasional 24/7, dan dukungan ahli sesuai kebutuhan Anda",
         "cta": "Jadwalkan Konsultasi Gratis"
       },
       "navigation": {
@@ -270,11 +273,12 @@
       },
       "whatWeDo": {
         "label": "APA YANG KAMI LAKUKAN",
-        "title": "Dapat Diandalkan. Dapat Diskalakan. Selalu Aktif.",
-        "description": "Dari colocation yang aman dan hosting siap cloud hingga disaster recovery dan monitoring 24/7, solusi kami disesuaikan untuk memastikan uptime, compliance, dan ketenangan pikiran total. Didukung oleh ahli bersertifikat dan infrastruktur canggih, kami membantu Anda tetap online, terhubung, dan siap masa depan."
+        "title": "Handal, Fleksibel, Selalu Online",
+        "description": "Mulai dari colocation aman dan hosting siap cloud, hingga disaster recovery dan pemantauan 24/7, kami menyediakan solusi yang memastikan sistem Anda selalu aktif, patuh pada standar, dan membuat Anda bebas khawatir. Dengan dukungan ahli bersertifikat dan infrastruktur canggih, kami siap membantu Anda tetap online, terhubung, dan siap melangkah ke masa depan."
       },
       "services": {
-        "label": "LAYANAN DATA CENTER KAMI",
+        "our": "Layanan",
+        "label": "DATA CENTER KAMI",
         "title": "Solusi yang Sesuai dengan Kebutuhan Infrastruktur Anda",
         "items": {
           "colocationServices": "Colocation Services",
@@ -295,16 +299,16 @@
         "cta": "Temukan lebih banyak tentang mitra teknologi kami"
       },
       "cta": {
-        "title": "Mari Bangun Tulang Punggung IT yang Tangguh Hari Ini",
-        "description": "Hubungi tim ahli kami sekarang dan temukan cara kami merancang infrastruktur masa depan untuk Anda",
+        "title": "Bangun Sistem IT yang Tangguh untuk Bisnis Anda Sekarang",
         "button": "Jadwalkan konsultasi gratis"
       }
     },
     "managed-services": {
       "hero": {
-        "title": "SOLUSI MANAGED SERVICES",
-        "subtitle": "Perawatan IT Lengkap untuk Bisnis Anda",
-        "description": "Solusi IT komprehensif untuk menjaga bisnis Anda tetap unggul di era digital",
+        "solution": "Managed Services",
+        "title": "Solusi",
+        "subtitle": "Layanan IT Lengkap untuk Bisnis Anda",
+        "description": "Solusi IT lengkap dari tim profesional untuk memastikan bisnis Anda selalu siap menghadapi tantangan digital",
         "cta": "Jadwalkan Konsultasi Gratis"
       },
       "navigation": {
@@ -316,11 +320,12 @@
       },
       "whatWeDo": {
         "label": "APA YANG KAMI LAKUKAN",
-        "title": "Solusi IT, Dikelola untuk Anda",
-        "description": "Kami mengurus monitoring, optimasi, keamanan, cloud, dan recovery. Menjaga IT Anda tetap lancar, aman, dan hemat biaya. Sehingga Anda dapat fokus pada yang paling penting: bisnis Anda."
+        "title": "Solusi IT Lengkap untuk Anda",
+        "description": "Kami menangani pemantauan, optimalisasi, keamanan, cloud, dan pemulihan. Menjaga IT Anda tetap berjalan lancar, aman, dan hemat biaya. Sehingga Anda dapat fokus pada hal terpenting: pertumbuhan bisnis Anda."
       },
       "services": {
-        "label": "LAYANAN MANAGED SERVICES KAMI",
+        "our": "Layanan",
+        "label": "KAMI",
         "title": "Solusi yang Sesuai dengan Kebutuhan Bisnis Anda",
         "items": {
           "itMonitoringMaintenance": "IT Monitoring & Maintenance",
@@ -341,16 +346,17 @@
         "cta": "Temukan lebih banyak tentang mitra teknologi kami"
       },
       "cta": {
-        "title": "Solusi IT, Dikelola untuk Anda",
-        "description": "Fokus pada pertumbuhan bisnis Anda sementara kami mengurus monitoring, mengamankan, dan mengoptimalkan IT Anda.",
+        "title": "Solusi IT Lengkap untuk Anda",
+        "description": "Fokus kembangkan bisnis Anda, sementara kami urus pemantauan, keamanan, dan optimasi IT",
         "button": "Jadwalkan konsultasi gratis"
       }
     },
     "security-infrastructure": {
       "hero": {
-        "title": "SOLUSI SECURITY INFRASTRUCTURE",
-        "subtitle": "Solusi Keamanan Komprehensif untuk Infrastruktur Digital Anda",
-        "description": "Dari endpoint hingga cloud, Nusa Network menyediakan solusi keamanan komprehensif kelas enterprise untuk melindungi bisnis Anda secara real time.",
+        "solution": "Security",
+        "title": "Solusi",
+        "subtitle": "Security Solution Komprehensif untuk Infrastruktur Digital Anda",
+        "description": "Dari endpoint hingga cloud, Nusa Network menghadirkan solusi keamanan lengkap berkelas enterprise untuk melindungi bisnis Anda secara real time.",
         "cta": "Jadwalkan Konsultasi Gratis"
       },
       "navigation": {
@@ -362,11 +368,12 @@
       },
       "whatWeDo": {
         "label": "APA YANG KAMI LAKUKAN",
-        "title": "Melindungi Setiap Lapisan Infrastruktur IT Anda dengan Presisi Ahli",
-        "description": "Solusi kami dirancang untuk secara proaktif mempertahankan jaringan, pengguna, data, dan infrastruktur Anda dari ancaman yang berkembang. Dari firewall canggih dan akses cloud yang aman hingga deteksi ancaman real-time dan penegakan compliance, kami mengintegrasikan keamanan ke dalam setiap lapisan stack teknologi Anda."
+        "title": "Melindungi Setiap Lapisan Infrastruktur IT Anda dengan Keahlian Tepat Sasaran",
+        "description": "Kami menyediakan solusi yang secara proaktif melindungi jaringan, pengguna, data, dan infrastruktur Anda dari ancaman yang terus berkembang. Dari firewall canggih dan akses cloud aman hingga deteksi ancaman real-time, kami memastikan keamanan hadir di setiap bagian teknologi Anda."
       },
       "services": {
-        "label": "LAYANAN SECURITY INFRASTRUCTURE KAMI",
+        "our": "Layanan",
+        "label": "SOLUSI SECURITY KAMI ",
         "title": "Solusi yang Sesuai dengan Kebutuhan Infrastruktur Anda",
         "items": {
           "networkSecurity": "Network Security",
@@ -387,16 +394,17 @@
         "cta": "Temukan lebih banyak tentang mitra teknologi kami"
       },
       "cta": {
-        "title": "Siap Mengamankan Bisnis Anda?",
-        "description": "Dapatkan penilaian keamanan gratis atau konsultasi dari engineer bersertifikat kami hari ini.",
+        "title": "Siap Amankan Bisnis Anda?",
+        "description": "Dapatkan konsultasi gratis dari tim bersertifikasi kami sekarang.",
         "button": "Jadwalkan konsultasi gratis"
       }
     },
     "internet-of-things": {
       "hero": {
-        "title": "SOLUSI INTERNET OF THINGS",
-        "subtitle": "Buka Kekuatan IoT untuk Bisnis Anda",
-        "description": "Dari manajemen perangkat IoT dan analitik data hingga keamanan dan infrastruktur jaringan, tim ahli kami berdedikasi untuk membantu Anda membuka potensi penuh IoT untuk bisnis Anda.",
+        "solution": "IOT",
+        "title": "SOLUSI",
+        "subtitle": "Perangkat Pintar untuk Memantau Lingkungan",
+        "description": "NADA adalah solusi sistem berkualitas tinggi yang menawarkan cara pemantauan lingkungan yang cerdas, terintegrasi, dan mudah digunakan.",
         "cta": "Kunjungi Website NADA"
       },
       "navigation": {
@@ -408,12 +416,13 @@
       },
       "whatWeDo": {
         "label": "APA YANG KAMI LAKUKAN",
-        "title": "Solusi Terintegrasi yang Cerdas untuk Observasi Ekosistem Real-Time",
-        "description": "NADA menyediakan solusi sistem cerdas yang dirancang untuk menyederhanakan dan meningkatkan cara kami memantau dan memahami lingkungan kita. Baik untuk smart cities, situs industri, atau manajemen sumber daya alam, NADA memberdayakan pengambil keputusan dengan data yang akurat dan dapat ditindaklanjuti melalui platform yang aman dan ramah pengguna."
+        "title": "Solusi Cerdas dan Terintegrasi untuk Pemantauan Lingkungan Secara Real-Time",
+        "description": "NADA menghadirkan solusi sistem pintar yang membuat pemantauan dan pemahaman lingkungan jadi lebih mudah dan efektif. Mulai dari kota pintar, kawasan industri, hingga pengelolaan sumber daya alam, NADA memberikan data akurat dan siap digunakan bagi para pengambil keputusan melalui platform yang aman dan mudah dioperasikan."
       },
       "services": {
-        "label": "LAYANAN INTERNET OF THINGS KAMI",
-        "title": "Layanan yang Membantu Anda Membuka Kekuatan IoT",
+        "our": "Layanan",
+        "label": " KAMI",
+        "title": "Solusi NADA untuk Pemantauan Lingkungan",
         "items": {
           "waveMonitor": "Wave Monitor",
           "timeLapseCamera": "Time-lapse Camera",
@@ -433,8 +442,8 @@
         "cta": "Temukan lebih banyak tentang mitra teknologi kami"
       },
       "cta": {
-        "title": "Buat Keputusan Lingkungan yang Lebih Baik",
-        "description": "NADA memberdayakan Anda untuk membuat keputusan yang tepat melalui sistem monitoring yang lebih cerdas dan terhubung. Mulai transformasi ekosistem Anda hari ini.",
+        "title": "Buat Keputusan Terbaik untuk Lingkungan",
+        "description": "NADA membantu Anda membuat keputusan yang lebih tepat melalui sistem pemantauan pintar dan terhubung. Mulailah mengubah ekosiste hari ini",
         "button": "Jadwalkan konsultasi gratis"
       }
     }

@@ -11,7 +11,7 @@ export type Locale = keyof typeof resources;
 export function createT(locale: Locale) {
   const dict = resources[locale];
 
-  return function t(key: string): string {
+  return function t(key: string, options?: { defaultValue?: string }): string {
     const parts = key.split(".");
     let value: any = dict;
 
@@ -20,6 +20,16 @@ export function createT(locale: Locale) {
       if (value === undefined) break;
     }
 
-    return typeof value === "string" ? value : key;
+    if (typeof value === "string") {
+      return value;
+    }
+
+    // kalau ada defaultValue → pakai itu
+    if (options?.defaultValue !== undefined) {
+      return options.defaultValue;
+    }
+
+    // fallback terakhir → key mentah
+    return key;
   };
 }

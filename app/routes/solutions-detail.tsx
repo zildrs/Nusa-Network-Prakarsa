@@ -114,8 +114,10 @@ export default function Home() {
 
         <div className="relative flex flex-col justify-end container mx-auto px-6 py-28 lg:py-40 max-w-7xl">
           <p className="uppercase text-sm tracking-wide">
-            <span className="font-semibold">{data.title}</span>{" "}
-            {t(`solutionsDetail.${data.slug}.hero.title`)}
+            <span className="font-semibold">
+              {t(`solutionsDetail.${data.slug}.hero.title`)}
+            </span>{" "}
+            {t(`solutionsDetail.${data.slug}.hero.solution`)}
           </p>
           <h1 className="mt-4 text-4xl lg:text-5xl font-semibold leading-tight lg:w-[589px]">
             {t(`solutionsDetail.${data.slug}.hero.subtitle`)}
@@ -192,14 +194,30 @@ export default function Home() {
       </section>
 
       {/* Section 1 - Services */}
-      <section className="bg-gradient-to-r from-[#0A2A5E] to-[#063970] text-white py-16 px-6 lg:px-20">
+      <section className="bg-primary text-white py-16 px-6 lg:px-20 relative overflow-hidden">
+        <div
+          className="absolute z-10 top-[-250px] right-[-250px] w-[500px] h-[500px] rounded-full filter blur-xl"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(135,206,250,0.15), rgba(0,128,128,0.1))",
+          }}
+        ></div>
+
+        <div
+          className="absolute z-10 bottom-[-150px] left-[-100px] w-[300px] h-[300px] rounded-full filter blur-xl"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(135,206,250,0.15), rgba(0,128,128,0.1))",
+          }}
+        ></div>
         <div className="mx-auto max-w-7xl">
-          <p className="text-sm ">
-            <span className="font-semibold">
+          <p className="text-sm uppercase tracking-wide font-semibold">
+            {t(`solutionsDetail.${data.slug}.services.our`)}{" "}
+            <span className="font-normal">
               {t(`solutionsDetail.${data.slug}.services.label`)}
             </span>
           </p>
-          <h2 className="text-3xl lg:text-5xl font-medium tracking-normal mt-2">
+          <h2 className="text-3xl lg:text-5xl font-medium tracking-normal mt-6 max-w-2xl">
             {t(`solutionsDetail.${data.slug}.services.title`)}
           </h2>
 
@@ -291,7 +309,9 @@ export default function Home() {
         title={t(`solutionsDetail.${data.slug}.cta.title`)}
         link={data.cta_link}
         linkText={t(`solutionsDetail.${data.slug}.cta.button`)}
-        description={t(`solutionsDetail.${data.slug}.cta.description`)}
+        description={t(`solutionsDetail.${data.slug}.cta.description`, {
+          defaultValue: "",
+        })}
       />
     </main>
   );
