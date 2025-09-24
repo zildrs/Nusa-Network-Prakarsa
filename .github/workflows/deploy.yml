@@ -1,0 +1,45 @@
+name: Deploy to self-hosted (prod)
+
+on:
+  push:
+    branches: [ prod ]
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install OS deps (rsync)
+        run: |
+          if ! command -v rsync >/dev/null; then
+            sudo apt-get update && sudo apt-get install -y rsync
+          fi
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Stage deploy to /opt/nnp-web
+        run: |
+          sudo mkdir -p /opt/nnp-web
+          rsync -a --delete build/ /opt/nnp-web/build/
+          install -m 0644 package.json package-lock.json /opt/nnp-web/
+
+      - name: Install runtime deps (prod only)
+        working-directory: /opt/nnp-web
+        run: sudo npm ci --omit=dev
+
+      - name: Restart service
+        run: sudo systemctl restart nnp-web
