@@ -6,7 +6,7 @@ export type ProjectType = BaseDataType & {
   banner: Banner;
   content: string | null;
   slug: string;
-  solutions: SolutionType[];
+  solution: SolutionType;
   timeline: string;
   title: string;
   company_logo: Banner;
@@ -20,7 +20,13 @@ export type ProjectsReponseType = {
   projects: ProjectType[];
 };
 
-export type IndustryType = {
+export type IndustryType = BaseDataType & {
   name: string;
   projects: ProjectType[];
+};
+
+export type IndustriesReponseType = {
+  locale: "id" | "en";
+  meta?: MetaDataType;
+  industries: IndustryType[];
 };

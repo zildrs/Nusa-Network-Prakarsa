@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Route } from "./+types/case-study";
-import { useLoaderData } from "react-router";
+import { useLoaderData, type MetaFunction } from "react-router";
 import { ArrowRight } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
@@ -13,12 +13,6 @@ import { APP_BASE_URL } from "~/lib/utils";
 import BlogContent from "~/components/blog/blog-content";
 import NotFoundPage from "./404";
 
-export const meta = () => ({
-  title: "Case Study | Nusa Network",
-  description:
-    "Nusa Network is a leading provider of cloud computing services in Indonesia. Check out our case study to learn how we helped our clients in their digital transformation journey.",
-});
-
 export async function loader({
   request,
   params,
@@ -29,9 +23,24 @@ export async function loader({
     fetchSolutionsData(request),
     fetchProjectsData(request),
   ]);
+  console.log(locale);
 
   return { project, solutions, locale, projects };
 }
+
+export const meta: MetaFunction<typeof loader> = (args) => {
+  const { data } = args as { data: Awaited<ReturnType<typeof loader>> };
+  const { project } = data;
+  if (!project) return [{ title: "Not found" }];
+
+  return [
+    { title: `${project.title} | Nusa Network` },
+    { name: "description", content: project.title },
+    { property: "og:title", content: `${project.title} | Nusa Network` },
+    { property: "og:description", content: project.title },
+    { property: "og:image", content: project.banner.url },
+  ];
+};
 
 export default function CaseStudyDetail() {
   const { project, solutions, locale, projects } =

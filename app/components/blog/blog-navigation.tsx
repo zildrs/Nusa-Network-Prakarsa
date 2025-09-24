@@ -31,7 +31,7 @@ export function BlogNavigation({
           {categories.map((item) => (
             <Link
               key={item.id}
-              to={`${locale ? `/${locale}` : ''}/blog/${nameToSlug(item.name)}`}
+              to={`${locale ? `${locale === "id" ? "/id" : ""}` : ""}/blog/${nameToSlug(item.name)}`}
               className="font-medium text-gray-800 whitespace-nowrap"
             >
               {item.name}

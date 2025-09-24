@@ -3,7 +3,12 @@ import { createApiRequest } from "~/lib/request.server";
 import type { DataResponseType } from "~/types";
 import type { BackendBlogResponse, BlogData, BlogPost } from "~/types/blog";
 import type { CategoriesReponseType, CategoryType } from "~/types/category";
-import type { ProjectsReponseType, ProjectType } from "~/types/project";
+import type {
+  IndustriesReponseType,
+  IndustryType,
+  ProjectsReponseType,
+  ProjectType,
+} from "~/types/project";
 import type { SolutionsReponseType, SolutionType } from "~/types/solution";
 import type { TestimonyReponseType, TestimonyType } from "~/types/testimony";
 // import type {
@@ -21,6 +26,7 @@ export async function fetchBlogData(
   request: Request,
   categoryName: string = ""
 ): Promise<BlogData> {
+  console.log("CALLED");
   const locale = getRequestLocale(request);
   const url = new URL(request.url);
 
@@ -28,6 +34,7 @@ export async function fetchBlogData(
   const pageSize = Number(
     url.searchParams.get("pageSize") || categoryName ? 6 : 25
   );
+  console.log(url, page, pageSize);
 
   const query: Record<string, any> = {
     locale,
@@ -80,6 +87,26 @@ export async function fetchSolutionsData(
 
   const solutions: SolutionType[] = Array.isArray(json?.data) ? json!.data : [];
   return { solutions, locale, meta: json?.meta };
+}
+
+export async function fetchIndustriesData(
+  request: Request
+): Promise<IndustriesReponseType> {
+  const locale = getRequestLocale(request);
+
+  const json = await createApiRequest<DataResponseType<IndustryType[]>>(
+    API_BASE,
+    "industries",
+    {
+      query: { locale, populate: "*" },
+      serviceName: "industries",
+    }
+  );
+
+  const industries: IndustryType[] = Array.isArray(json?.data)
+    ? json!.data
+    : [];
+  return { industries, locale, meta: json?.meta };
 }
 
 /**
@@ -151,14 +178,14 @@ export async function fetchBlogBySlug(
   slug: string
 ): Promise<BlogPost | null> {
   const locale = getRequestLocale(request);
-
+  console.log("ISO I");
   const json = await createApiRequest<BackendBlogResponse>(API_BASE, "blogs", {
     query: {
       locale,
       "filters[slug][$eq]": slug, // ✅ sesuai format Strapi
       populate: "*", // opsional, kalau mau ambil relasi
     },
-    serviceName: "blog",
+    serviceName: "blog-by-slug",
   });
 
   const blog: BlogPost | null = json?.data?.length ? json.data[0] : null;

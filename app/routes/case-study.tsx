@@ -5,40 +5,41 @@ import { Light, Building } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
 import { Dropdown } from "~/components/dropdown";
-import { fetchProjectsData, fetchSolutionsData } from "~/lib/api.server";
+import {
+  fetchIndustriesData,
+  fetchProjectsData,
+  fetchSolutionsData,
+} from "~/lib/api.server";
 import { createMetaFunction, seoData } from "~/lib/meta";
 
 export const meta = createMetaFunction(seoData["case-study"]);
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const [{ projects }, { solutions }] = await Promise.all([
+  const [{ projects }, { solutions }, { industries }] = await Promise.all([
     fetchProjectsData(request),
     fetchSolutionsData(request),
+    fetchIndustriesData(request),
   ]);
 
-  return { projects, solutions };
+  return { projects, solutions, industries };
 }
 
-export default function CaseStudy({ loaderData }: Route.ComponentProps) {
-  const { projects, solutions } = useLoaderData<typeof loader>();
+export default function CaseStudy() {
+  const { projects, solutions, industries } = useLoaderData<typeof loader>();
   const { t, locale } = useOutletContext<{ t: any; locale: "id" | "en" }>();
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedSolution, setSelectedSolution] = useState<string>("");
 
-  // const filteredData = projects.filter((item) => {
-  //   return (
-  //     (selectedIndustry === "" ||
-  //       item.solutions.some(
-  //         (solution) => solution.id.toString() === selectedIndustry
-  //       )) &&
-  //     (selectedSolution === "" ||
-  //       item.solutions.some(
-  //         (solution) => solution.id.toString() === selectedSolution
-  //       ))
-  //   );
-  // });
+  console.log(solutions, industries, projects);
 
-  const filteredData = projects;
+  const filteredData = projects.filter((item) => {
+    return (
+      (selectedIndustry === "" ||
+        item.industry?.id?.toString() === selectedIndustry) &&
+      (selectedSolution === "" ||
+        item.solution?.id?.toString() === selectedSolution)
+    );
+  });
 
   return (
     <main>
@@ -90,12 +91,10 @@ export default function CaseStudy({ loaderData }: Route.ComponentProps) {
             onSelect={(value) => setSelectedIndustry(value)}
             className="text-sm !px-3"
             icon={<Building className="w-4 h-4 lg:w-5 lg:h-5 text-gray-500" />}
-            items={[
-              { value: "", label: t("caseStudy.filters.allIndustries") },
-              { value: "Industry", label: "Industry" },
-              { value: "Logistics", label: "Logistics" },
-              { value: "Retail", label: "Retail" },
-            ]}
+            items={industries.map((industry) => ({
+              value: industry.id.toString(),
+              label: industry.name,
+            }))}
           />
 
           <Dropdown

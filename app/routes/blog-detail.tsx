@@ -1,9 +1,13 @@
-import { Link, useLoaderData, type MetaFunction } from "react-router";
+import { Link, Links, useLoaderData, type MetaFunction } from "react-router";
 import type { Route } from "./+types/blog-detail";
 import CTASection from "~/components/cta";
 import { solutionsMenu } from "~/components/header";
 import { BlogNavigation } from "~/components/blog";
-import { fetchBlogBySlug, fetchCategoriesData } from "~/lib/api.server";
+import {
+  fetchBlogBySlug,
+  fetchBlogData,
+  fetchCategoriesData,
+} from "~/lib/api.server";
 import { formatBlogDate } from "~/utils/blog";
 import BlogContent from "~/components/blog/blog-content";
 import { APP_BASE_URL } from "~/lib/utils";
@@ -19,21 +23,23 @@ export async function loader({
   // If no locale in URL, check localStorage/cookies for user preference
   if (!urlLocale) {
     const slug = params.slug;
-    const [blog, { categories, locale }] = await Promise.all([
+    const [blog, { categories, locale }, { blogs }] = await Promise.all([
       fetchBlogBySlug(request, slug),
       fetchCategoriesData(request),
+      fetchBlogData(request),
     ]);
 
-    return { blog, categories, locale, urlLocale: locale };
+    return { blog, categories, locale, urlLocale: locale, blogs };
   }
 
   const slug = params.slug;
-  const [blog, { categories, locale }] = await Promise.all([
+  const [blog, { categories, locale }, { blogs }] = await Promise.all([
     fetchBlogBySlug(request, slug),
     fetchCategoriesData(request),
+    fetchBlogData(request),
   ]);
 
-  return { blog, categories, locale, urlLocale };
+  return { blog, categories, locale, urlLocale, blogs };
 }
 
 export const meta: MetaFunction<typeof loader> = (args) => {
@@ -51,7 +57,7 @@ export const meta: MetaFunction<typeof loader> = (args) => {
 };
 
 export default function BlogDetail() {
-  const { categories, blog, urlLocale, locale } =
+  const { categories, blog, urlLocale, locale, blogs } =
     useLoaderData<typeof loader>();
 
   // Use urlLocale for UI/display purposes, fallback to API locale
@@ -101,28 +107,31 @@ export default function BlogDetail() {
                 More <span className="font-semibold">Like This</span>
               </p>
               <div className="space-y-4">
-                {[1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="flex h-full items-center gap-4 p-2 rounded-xl border border-gray-200 hover:shadow-sm transition"
-                  >
-                    <img
-                      src="https://placehold.co/100"
-                      alt="thumbnail"
-                      className="rounded-lg h-full object-cover aspect-square"
-                    />
-                    <div
-                      className="flex flex-col justify-between"
-                      style={{ height: "-webkit-fill-available" }}
+                {blogs &&
+                  blogs.slice(0, 3).map((data, i) => (
+                    <Link
+                      to={`${locale === "id" ? "/id" : ""}/blog/read/${data.slug}`}
+                      key={i}
+                      className="flex h-full items-center gap-4 p-2 rounded-xl border border-gray-200 hover:shadow-sm transition"
                     >
-                      <p className="text-sm font-medium text-gray-800 line-clamp-3">
-                        Transforming Peruri Businesses with SD-WAN Technologymax
-                        3 lines
-                      </p>
-                      <p className="text-xs text-gray-500">Technology</p>
-                    </div>
-                  </div>
-                ))}
+                      <img
+                        src={APP_BASE_URL + data.banner[0].url}
+                        alt="thumbnail"
+                        className="rounded-lg h-full object-cover aspect-square w-[100px]"
+                      />
+                      <div
+                        className="flex flex-col justify-between"
+                        style={{ height: "-webkit-fill-available" }}
+                      >
+                        <p className="text-sm font-medium text-gray-800 line-clamp-3">
+                          {data.title}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {data.category?.name}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
               </div>
             </div>
 
