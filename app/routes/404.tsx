@@ -3,8 +3,23 @@ import type { Route } from "./+types/contact";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Contact" },
-    { name: "description", content: "Get in touch with us" },
+    { title: "404 - Not Found" },
+    { property: "og:title", content: "404 - Not Found" },
+    {
+      property: "og:description",
+      content:
+        "Page not found. Please contact us if you need further assistance.",
+    },
+    { property: "og:image", content: "https://nusanetwork.com/logo.png" },
+    { property: "og:url", content: "https://nusanetwork.com/404" },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: "404 - Not Found | Nusa Network" },
+    {
+      name: "description",
+      content:
+        "Page not found. Please contact us if you need further assistance.",
+    },
   ];
 }
 
