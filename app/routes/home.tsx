@@ -19,27 +19,31 @@ import {
   fetchBlogData,
   fetchProjectsData,
   fetchSolutionsData,
+  fetchTestimonialsData,
 } from "~/lib/api.server";
 import { createMetaFunction, seoData } from "~/lib/meta";
+import { APP_BASE_URL } from "~/lib/utils";
 
 export const meta = createMetaFunction(seoData.home);
 
 export async function loader({ request }: LoaderFunctionArgs) {
   // jalankan paralel biar lebih cepat
-  const [{ blogs }, { solutions }, { projects }] = await Promise.all([
-    fetchBlogData(request),
-    fetchSolutionsData(request),
-    fetchProjectsData(request),
-  ]);
+  const [{ blogs }, { solutions }, { projects }, { testimonies }] =
+    await Promise.all([
+      fetchBlogData(request),
+      fetchSolutionsData(request),
+      fetchProjectsData(request),
+      fetchTestimonialsData(request),
+    ]);
 
-  return { blogs, solutions, projects };
+  return { blogs, solutions, projects, testimonies };
 }
 
 export default function Home() {
   const swiperRef = useRef<SwiperRef | null>(null);
   const [Marquee, setMarquee] = useState<any>(null);
   const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
-  const { blogs, projects } = useLoaderData<typeof loader>();
+  const { blogs, projects, testimonies } = useLoaderData<typeof loader>();
 
   useEffect(() => {
     import("react-fast-marquee").then((mod) => {
@@ -95,39 +99,6 @@ export default function Home() {
       slug: "internet-of-things",
     },
   ];
-
-  const caseStudies = [
-    {
-      title: "Transforming Peruri Businesses with SD–WAN Technology",
-      company: "Peruri",
-      img: "https://awsimages.detik.net.id/community/media/visual/2024/11/19/kantor-peruri-resmi-jadi-cagar-budaya-1_169.jpeg?w=700&q=90",
-      companyLogo:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_2024_Perum_Peruri.svg/2560px-Logo_2024_Perum_Peruri.svg.png",
-    },
-    {
-      title: "Transforming J&T Express Businesses with SD–WAN Technology",
-      company: "J&T Express",
-      img: "https://foto.kontan.co.id/8TQWPa6yy4jEQX5iWDd_3ql1pv4=/640x360/smart/2021/12/15/1054233720p.jpg",
-      companyLogo:
-        "https://1000logos.net/wp-content/uploads/2022/08/JT-Express-Logo.png",
-    },
-    {
-      title: "Transforming Peruri Businesses with SD–WAN Technology",
-      company: "Peruri",
-      img: "https://awsimages.detik.net.id/community/media/visual/2024/11/19/kantor-peruri-resmi-jadi-cagar-budaya-1_169.jpeg?w=700&q=90",
-      companyLogo:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_2024_Perum_Peruri.svg/2560px-Logo_2024_Perum_Peruri.svg.png",
-    },
-  ];
-
-  const testimonials = Array(6).fill({
-    quote:
-      "Overall, everything has been good from the salesperson and other teams, including other services such as SOC, Managed Services, and Application Platform.",
-    name: "Widiya Kumoro",
-    role: "IT Manager",
-    companyLogo:
-      "https://rec-data.kalibrr.com/www.kalibrr.com/logos/7QSUT6KX6LRD4USDXZXTUD4PCDAMZN5F7EKZV3ZF-60e032e2.png",
-  });
 
   return (
     <main>
@@ -343,21 +314,21 @@ export default function Home() {
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((t, idx) => (
+            {testimonies.slice(0, 6).map((t, idx) => (
               <div
                 key={idx}
-                className="bg-white rounded-2xl  border border-gray-200"
+                className="bg-white rounded-2xl  border border-gray-200 flex flex-col justify-between"
               >
                 <p className="text-gray-700 mb-4 leading-relaxed p-6">
-                  “{t.quote}”
+                  “{t.description}”
                 </p>
                 <div className="flex items-center gap-3 bg-gray-50 px-6 py-4 rounded-b-2xl">
                   <div>
                     <p className="font-medium mb-2">{t.name}</p>
-                    <p className="text-sm text-gray-500">{t.role}</p>
+                    <p className="text-sm text-gray-500">{t.position}</p>
                   </div>
                   <img
-                    src={t.companyLogo}
+                    src={APP_BASE_URL + t.company_logo.url}
                     alt="Company Logo"
                     className="ml-auto h-10"
                   />

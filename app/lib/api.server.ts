@@ -5,6 +5,7 @@ import type { BackendBlogResponse, BlogData, BlogPost } from "~/types/blog";
 import type { CategoriesReponseType, CategoryType } from "~/types/category";
 import type { ProjectsReponseType, ProjectType } from "~/types/project";
 import type { SolutionsReponseType, SolutionType } from "~/types/solution";
+import type { TestimonyReponseType, TestimonyType } from "~/types/testimony";
 // import type {
 //   BackendSolutionsResponse,
 //   SolutionsData,
@@ -123,6 +124,26 @@ export async function fetchProjectsData(
 
   const projects: ProjectType[] = Array.isArray(json?.data) ? json!.data : [];
   return { projects, locale, meta: json?.meta };
+}
+
+export async function fetchTestimonialsData(
+  request: Request
+): Promise<TestimonyReponseType> {
+  const locale = getRequestLocale(request);
+
+  const json = await createApiRequest<DataResponseType<TestimonyType[]>>(
+    API_BASE,
+    "testimonies",
+    {
+      query: { locale, populate: "*" },
+      serviceName: "testimonies",
+    }
+  );
+
+  const testimonies: TestimonyType[] = Array.isArray(json?.data)
+    ? json!.data
+    : [];
+  return { testimonies, locale, meta: json?.meta };
 }
 
 export async function fetchBlogBySlug(
