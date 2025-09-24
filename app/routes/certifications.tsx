@@ -1,45 +1,20 @@
 import CTASection from "~/components/cta";
 import type { Route } from "./+types/certifications";
-import { useOutletContext } from "react-router";
+import { useLoaderData, useOutletContext } from "react-router";
 import { createMetaFunction, seoData } from "~/lib/meta";
+import { fetchCertificationsData } from "~/lib/api.server";
+import { APP_BASE_URL } from "~/lib/utils";
 
 export const meta = createMetaFunction(seoData["certifications"]);
 
-const items = [
-  {
-    logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
-    title: "Leading Solutions with World-Class Partners",
-    year: "2024",
-  },
-  {
-    logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
-    title: "Leading Solutions with World-Class Partners",
-    year: "2024",
-  },
-  {
-    logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
-    title: "Leading Solutions with World-Class Partners",
-    year: "2024",
-  },
-  {
-    logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6zMRfdQfGIwszxvfn1gm9fdUZgoa1U68MmQ&s",
-    title: "ISO 9001:2015 – Quality Management Systems",
-    year: "2024",
-  },
-  {
-    logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6zMRfdQfGIwszxvfn1gm9fdUZgoa1U68MmQ&s",
-    title: "ISO 9001:2015 – Quality Management Systems",
-    year: "2024",
-  },
-  {
-    logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6zMRfdQfGIwszxvfn1gm9fdUZgoa1U68MmQ&s",
-    title: "ISO 9001:2015 – Quality Management Systems",
-    year: "2024",
-  },
-];
+export async function loader({ request }: Route.LoaderArgs) {
+  const { certifications } = await fetchCertificationsData(request);
+  return { certifications };
+}
 
 export default function Certification() {
   const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
+  const { certifications } = useLoaderData<typeof loader>();
   return (
     <main>
       <section className="bg-primary relative text-white pt-12 py-18 lg:py-12 lg:min-h-[350px] overflow-hidden">
@@ -73,14 +48,18 @@ export default function Certification() {
 
       <section className="w-full max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {items.map((item, i) => (
+          {certifications.map((item, i) => (
             <div
               key={i}
               className="border rounded-2xl p-6  bg-white transition"
             >
-              <img src={item.logo} alt={item.title} className="h-8 mb-4" />
+              <img
+                src={APP_BASE_URL + item.certification_img.url}
+                alt={item.name}
+                className="h-8 mb-4"
+              />
               <h3 className="text-base font-medium text-gray-900 mb-2 max-w-3xs line-clamp-2">
-                {item.title}
+                {item.name}
               </h3>
               <p className="text-sm text-gray-500">{item.year}</p>
             </div>

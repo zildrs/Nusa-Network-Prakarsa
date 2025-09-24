@@ -1,8 +1,9 @@
 import type { BaseDataType, MetaDataType } from ".";
+import type { Banner } from "./blog";
 
 export type CertificationType = BaseDataType & {
   name: string;
-  certification_img: string;
+  certification_img: Banner;
   year: string;
   link: string;
 };

@@ -7,14 +7,22 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import type { Swiper as SwiperRef } from "swiper/types";
 import CTASection from "~/components/cta";
-import { useOutletContext } from "react-router";
+import { useLoaderData, useOutletContext } from "react-router";
 import { createMetaFunction, seoData } from "~/lib/meta";
+import { fetchCertificationsData } from "~/lib/api.server";
+import { APP_BASE_URL } from "~/lib/utils";
 
 export const meta = createMetaFunction(seoData.about);
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const { certifications } = await fetchCertificationsData(request);
+  return { certifications };
+}
 
 export default function About() {
   const swiperRef = useRef<SwiperRef | null>(null);
   const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
+  const { certifications } = useLoaderData<typeof loader>();
 
   const stats = [
     { value: "150+", label: t("home.stats.projectsAccomplished") },
@@ -47,51 +55,6 @@ export default function About() {
     {
       letter: "A",
       text: t("about.mission.principles.a"),
-    },
-  ];
-
-  const awards = [
-    {
-      id: 1,
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/2560px-Microsoft_logo_%282012%29.svg.png",
-      company: "Microsoft",
-      title: "Leading Solutions with World-Class Partners",
-      year: "2024",
-    },
-    {
-      id: 2,
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/2560px-Microsoft_logo_%282012%29.svg.png",
-      company: "Microsoft",
-      title: "Leading Solutions with World-Class Partners",
-      year: "2024",
-    },
-    {
-      id: 3,
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/2560px-Microsoft_logo_%282012%29.svg.png",
-      company: "Microsoft",
-      title: "Leading Solutions with World-Class Partners",
-      year: "2024",
-    },
-    {
-      id: 4,
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/2560px-Microsoft_logo_%282012%29.svg.png",
-      company: "Microsoft",
-      title: "Leading Solutions with World-Class Partners",
-      year: "2024",
-    },
-    {
-      id: 5,
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/2560px-Microsoft_logo_%282012%29.svg.png",
-      company: "Microsoft",
-      title: "Leading Solutions with World-Class Partners",
-      year: "2024",
-    },
-    {
-      id: 6,
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/2560px-Microsoft_logo_%282012%29.svg.png",
-      company: "Microsoft",
-      title: "Leading Solutions with World-Class Partners",
-      year: "2024",
     },
   ];
 
@@ -285,21 +248,21 @@ export default function About() {
 
           {/* Grid */}
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {awards.map((award) => (
+            {certifications.map((award) => (
               <div
                 key={award.id}
                 className="rounded-2xl min-h-[230px] border border-gray-200 bg-white p-6 transition flex flex-col justify-between"
               >
                 <div className="flex items-center gap-2 mb-4">
                   <img
-                    src={award.logo}
-                    alt={award.company}
+                    src={APP_BASE_URL + award.certification_img.url}
+                    alt={award.name}
                     className="h-5 object-contain"
                   />
                 </div>
                 <div>
                   <h3 className="font-medium text-lg text-gray-900 max-w-[200px]">
-                    {award.title}
+                    {award.name}
                   </h3>
                   <p className="text-sm text-gray-500 mt-2">{award.year}</p>
                 </div>

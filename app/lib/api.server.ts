@@ -4,6 +4,10 @@ import type { DataResponseType } from "~/types";
 import type { BackendBlogResponse, BlogData, BlogPost } from "~/types/blog";
 import type { CategoriesReponseType, CategoryType } from "~/types/category";
 import type {
+  CertificationsReponseType,
+  CertificationType,
+} from "~/types/certification";
+import type {
   IndustriesReponseType,
   IndustryType,
   ProjectsReponseType,
@@ -26,7 +30,6 @@ export async function fetchBlogData(
   request: Request,
   categoryName: string = ""
 ): Promise<BlogData> {
-  console.log("CALLED");
   const locale = getRequestLocale(request);
   const url = new URL(request.url);
 
@@ -171,6 +174,26 @@ export async function fetchTestimonialsData(
     ? json!.data
     : [];
   return { testimonies, locale, meta: json?.meta };
+}
+
+export async function fetchCertificationsData(
+  request: Request
+): Promise<CertificationsReponseType> {
+  const locale = getRequestLocale(request);
+  const json = await createApiRequest<DataResponseType<CertificationType[]>>(
+    API_BASE,
+    "certificantions",
+    {
+      query: { locale, populate: "*" },
+      serviceName: "certifications",
+    }
+  );
+  console.log(json);
+
+  const certifications: CertificationType[] = Array.isArray(json?.data)
+    ? json!.data
+    : [];
+  return { certifications, locale, meta: json?.meta };
 }
 
 export async function fetchBlogBySlug(
