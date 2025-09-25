@@ -2,11 +2,13 @@ import { getRequestLocale } from "~/lib/locale-utils.server";
 import { createApiRequest } from "~/lib/request.server";
 import type { DataResponseType } from "~/types";
 import type { BackendBlogResponse, BlogData, BlogPost } from "~/types/blog";
+import type { DepartmentsReponseType, DepartmentType } from "~/types/career";
 import type { CategoriesReponseType, CategoryType } from "~/types/category";
 import type {
   CertificationsReponseType,
   CertificationType,
 } from "~/types/certification";
+import type { PartnerReponseType, PartnerType } from "~/types/partner";
 import type {
   IndustriesReponseType,
   IndustryType,
@@ -188,12 +190,47 @@ export async function fetchCertificationsData(
       serviceName: "certifications",
     }
   );
-  console.log(json);
 
   const certifications: CertificationType[] = Array.isArray(json?.data)
     ? json!.data
     : [];
   return { certifications, locale, meta: json?.meta };
+}
+
+export async function fetchPartnersData(
+  request: Request
+): Promise<PartnerReponseType> {
+  const locale = getRequestLocale(request);
+  const json = await createApiRequest<DataResponseType<PartnerType[]>>(
+    API_BASE,
+    "partners",
+    {
+      query: { locale, populate: "*" },
+      serviceName: "partners",
+    }
+  );
+
+  const partners: PartnerType[] = Array.isArray(json?.data) ? json!.data : [];
+  return { partners, locale, meta: json?.meta };
+}
+
+export async function fetchDepartmentsData(
+  request: Request
+): Promise<DepartmentsReponseType> {
+  const locale = getRequestLocale(request);
+  const json = await createApiRequest<DataResponseType<DepartmentType[]>>(
+    API_BASE,
+    "departments",
+    {
+      query: { locale, populate: "*" },
+      serviceName: "departments",
+    }
+  );
+
+  const departments: DepartmentType[] = Array.isArray(json?.data)
+    ? json!.data
+    : [];
+  return { departments, locale, meta: json?.meta };
 }
 
 export async function fetchBlogBySlug(

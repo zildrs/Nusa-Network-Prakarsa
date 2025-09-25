@@ -5,10 +5,11 @@ export type CareerType = BaseDataType & {
   location: string;
   type: "Full Time" | "Part Time" | "Intern" | "Freelance";
   arrangement: "Remote" | "Onsite" | "Hybrid";
+  link: string;
   department?: DepartmentType[];
 };
 
-export type SolutionsReponseType = {
+export type CareersReponseType = {
   locale: "id" | "en";
   meta?: MetaDataType;
   solutions: CareerType[];
@@ -17,4 +18,10 @@ export type SolutionsReponseType = {
 export type DepartmentType = BaseDataType & {
   name: string;
   careers?: CareerType[];
+};
+
+export type DepartmentsReponseType = {
+  locale: "id" | "en";
+  meta?: MetaDataType;
+  departments: DepartmentType[];
 };

@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import type { Route } from "./+types/partners";
-import { useOutletContext } from "react-router";
+import { useLoaderData, useOutletContext } from "react-router";
 import {
   Dialog,
   DialogContent,
@@ -11,28 +11,25 @@ import {
   DialogClose,
 } from "~/components/ui/dialog";
 import { createMetaFunction, seoData } from "~/lib/meta";
+import { fetchPartnersData, fetchProjectsData } from "~/lib/api.server";
+import type { PartnerType } from "~/types/partner";
+import { APP_BASE_URL } from "~/lib/utils";
 
 export const meta = createMetaFunction(seoData.partners);
 
-const partners: Array<{ name: string; logo: string }> = [
-  { name: "Fortinet", logo: "/partners/fortinet.png" },
-  { name: "Nutanix", logo: "/partners/nutanix.png" },
-  { name: "SentinelOne", logo: "/partners/sentinelone.png" },
-  { name: "Dell Technologies", logo: "/partners/dell.png" },
-  { name: "Cisco", logo: "/partners/cisco.png" },
-  { name: "Fortinet", logo: "/partners/fortinet.png" },
-  { name: "Nutanix", logo: "/partners/nutanix.png" },
-  { name: "SentinelOne", logo: "/partners/sentinelone.png" },
-  { name: "Dell Technologies", logo: "/partners/dell.png" },
-  { name: "Cisco", logo: "/partners/cisco.png" },
-];
+export async function loader({ request }: Route.LoaderArgs) {
+  const [{ partners }, { projects }] = await Promise.all([
+    fetchPartnersData(request),
+    fetchProjectsData(request),
+  ]);
+
+  return { partners, projects };
+}
 
 export default function Partner() {
-  const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
-  const [selected, setSelected] = useState<{
-    name: string;
-    logo: string;
-  } | null>(null);
+  const { t, locale } = useOutletContext<{ t: any; locale: "id" | "en" }>();
+  const { partners, projects } = useLoaderData<typeof loader>();
+  const [selected, setSelected] = useState<PartnerType | null>(null);
 
   return (
     <div className="relative min-h-screen bg-white border-b border-gray-200">
@@ -59,7 +56,11 @@ export default function Partner() {
             onClick={() => setSelected(p)}
             className="flex justify-center grayscale min-h-[150px] items-center hover:grayscale-0 transition"
           >
-            <img src={p.logo} alt={p.name} className="h-12 object-contain" />
+            <img
+              src={APP_BASE_URL + p.company_logo.url}
+              alt={p.name}
+              className="h-12 object-contain"
+            />
           </button>
         ))}
       </div>
@@ -71,9 +72,9 @@ export default function Partner() {
             <div className="grid grid-cols-1 md:grid-cols-2">
               {/* Left side */}
               <div className=" py-12 px-8">
-                {selected?.logo && (
+                {selected?.company_logo.url && (
                   <img
-                    src={selected.logo}
+                    src={APP_BASE_URL + selected.company_logo.url}
                     alt={selected.name}
                     className="h-10 mb-4"
                   />
@@ -83,9 +84,7 @@ export default function Partner() {
                     {selected?.name}
                   </DialogTitle>
                   <DialogDescription className="text-gray-500 text-lg mt-2 text-left">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Curabitur eget orci ac justo porta tincidunt. Suspendisse
-                    sed lorem nec metus placerat facilisis.
+                    {selected?.description}
                   </DialogDescription>
                 </DialogHeader>
               </div>
@@ -96,28 +95,33 @@ export default function Partner() {
                   {t("partners.modal.solutions")}
                 </h3>
                 <ul className="list-disc list-inside text-gray-500 space-y-1">
-                  <li>
-                    {t("partners.modal.solutionsList.networkInfrastructure")}
-                  </li>
-                  <li>
-                    {t("partners.modal.solutionsList.dataInfrastructure")}
-                  </li>
-                  <li>{t("partners.modal.solutionsList.securitySolutions")}</li>
-                  <li>{t("partners.modal.solutionsList.managedServices")}</li>
+                  {selected?.solutions?.map((s, i) => (
+                    <li key={i}>{s.name}</li>
+                  ))}
                 </ul>
 
                 <h3 className="font-semibold mt-4 mb-2">
                   {t("partners.modal.related")}
                 </h3>
-                <div className="flex">
-                  <ul className="list-disc list-inside text-gray-500 space-y-1">
-                    <li></li>
-                  </ul>
-                  <a className="text-blue-600 underline hover:text-blue-800 line-clamp-3 ">
-                    Transforming Peruri Businesses with SD-WAN Technology max 3
-                    lines
-                  </a>
-                </div>
+
+                {projects
+                  .filter((p) =>
+                    selected?.solutions?.some((s) => s.id === p.solution?.id)
+                  )
+                  .slice(0, 2)
+                  .map((p, i) => (
+                    <div key={i} className="flex">
+                      <ul className="list-disc list-inside text-gray-500 space-y-1">
+                        <li></li>
+                      </ul>
+                      <a
+                        href={`${locale === "id" ? "/id/studi-kasus" : "/case-study"}/${p.slug}`}
+                        className="text-blue-600 underline hover:text-blue-800 line-clamp-3 "
+                      >
+                        {p.title}
+                      </a>
+                    </div>
+                  ))}
               </div>
             </div>
           </DialogContent>

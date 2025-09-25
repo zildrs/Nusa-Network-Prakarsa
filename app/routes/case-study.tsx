@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { Route } from "./+types/case-study";
 import { Link, useLoaderData, useOutletContext } from "react-router";
 import { Light, Building } from "@carbon/icons-react";
@@ -30,16 +30,19 @@ export default function CaseStudy() {
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedSolution, setSelectedSolution] = useState<string>("");
 
-  console.log(solutions, industries, projects);
-
-  const filteredData = projects.filter((item) => {
-    return (
-      (selectedIndustry === "" ||
-        item.industry?.id?.toString() === selectedIndustry) &&
-      (selectedSolution === "" ||
-        item.solution?.id?.toString() === selectedSolution)
-    );
-  });
+  const filteredDataMemo = useMemo(
+    () =>
+      projects.filter((item) => {
+        console.log(item.industry?.id.toString(), selectedIndustry);
+        return (
+          (selectedIndustry === "" ||
+            item.industry?.id?.toString() === selectedIndustry) &&
+          (selectedSolution === "" ||
+            item.solution?.id?.toString() === selectedSolution)
+        );
+      }),
+    [projects, selectedIndustry, selectedSolution]
+  );
 
   return (
     <main>
@@ -91,10 +94,16 @@ export default function CaseStudy() {
             onSelect={(value) => setSelectedIndustry(value)}
             className="text-sm !px-3"
             icon={<Building className="w-4 h-4 lg:w-5 lg:h-5 text-gray-500" />}
-            items={industries.map((industry) => ({
-              value: industry.id.toString(),
-              label: industry.name,
-            }))}
+            items={[
+              {
+                value: "",
+                label: t("caseStudy.filters.allIndustries"),
+              },
+              ...industries.map((industry) => ({
+                value: industry.id.toString(),
+                label: industry.name,
+              })),
+            ]}
           />
 
           <Dropdown
@@ -102,16 +111,22 @@ export default function CaseStudy() {
             className="text-sm !px-3"
             onSelect={(value) => setSelectedSolution(value)}
             icon={<Light className="w-4 h-4 lg:w-5 lg:h-5 text-gray-500" />}
-            items={solutions.map((s) => ({
-              value: s.id.toString(),
-              label: s.name,
-            }))}
+            items={[
+              {
+                value: "",
+                label: t("caseStudy.filters.allSolutions"),
+              },
+              ...solutions.map((solution) => ({
+                value: solution.id.toString(),
+                label: solution.name,
+              })),
+            ]}
           />
         </div>
 
         {/* Grid Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {filteredData.map((c, idx) => (
+          {filteredDataMemo.map((c, idx) => (
             <CaseStudyCard key={idx} data={c} />
           ))}
         </div>

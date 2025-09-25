@@ -119,7 +119,8 @@
     "filters": {
       "industry": "Industri",
       "solution": "Solusi",
-      "allIndustries": "Semua Industri"
+      "allIndustries": "Semua Industri",
+      "allSolutions": "Semua Solusi"
     },
     "cta": {
       "title": "Kami menyediakan berbagai layanan IT untuk menunjang kesuksesan Anda",

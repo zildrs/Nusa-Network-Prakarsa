@@ -1,4 +1,3 @@
-import { useState } from "react";
 import type { Route } from "./+types/case-study";
 import { useLoaderData, type MetaFunction } from "react-router";
 import { ArrowRight } from "@carbon/icons-react";

@@ -119,7 +119,8 @@
     "filters": {
       "industry": "Industry",
       "solution": "Solution",
-      "allIndustries": "All Industries"
+      "allIndustries": "All Industries",
+      "allSolutions": "All Solutions"
     },
     "cta": {
       "title": "We run all kinds of IT services that vow your success",
