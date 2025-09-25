@@ -22,7 +22,6 @@ export async function loader({
     fetchSolutionsData(request),
     fetchProjectsData(request),
   ]);
-  console.log(locale);
 
   return { project, solutions, locale, projects };
 }
@@ -44,7 +43,6 @@ export const meta: MetaFunction<typeof loader> = (args) => {
 export default function CaseStudyDetail() {
   const { project, solutions, locale, projects } =
     useLoaderData<typeof loader>();
-  console.log(project, solutions);
 
   if (!project) return <NotFoundPage />;
   return (

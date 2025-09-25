@@ -33,7 +33,6 @@ export default function CaseStudy() {
   const filteredDataMemo = useMemo(
     () =>
       projects.filter((item) => {
-        console.log(item.industry?.id.toString(), selectedIndustry);
         return (
           (selectedIndustry === "" ||
             item.industry?.id?.toString() === selectedIndustry) &&

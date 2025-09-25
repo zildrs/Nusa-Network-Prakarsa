@@ -39,7 +39,6 @@ export async function fetchBlogData(
   const pageSize = Number(
     url.searchParams.get("pageSize") || categoryName ? 6 : 25
   );
-  console.log(url, page, pageSize);
 
   const query: Record<string, any> = {
     locale,
@@ -238,7 +237,6 @@ export async function fetchBlogBySlug(
   slug: string
 ): Promise<BlogPost | null> {
   const locale = getRequestLocale(request);
-  console.log("ISO I");
   const json = await createApiRequest<BackendBlogResponse>(API_BASE, "blogs", {
     query: {
       locale,
