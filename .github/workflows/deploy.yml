@@ -34,7 +34,7 @@ jobs:
       # ---- Deploy to /opt/nnp-web ----
       - name: Stage deploy to /opt/nnp-web
         run: |
-          sudo mkdir -p /opt/nnp-web
+          #sudo mkdir -p /opt/nnp-web
           # copy only what runtime needs; keep it clean each deploy
           rsync -a --delete build/ /opt/nnp-web/build/
           install -m 0644 package.json package-lock.json /opt/nnp-web/
