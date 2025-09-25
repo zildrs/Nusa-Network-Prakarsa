@@ -19,27 +19,53 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install OS deps (rsync)
+      - name: Ensure OS deps (rsync)
         run: |
           if ! command -v rsync >/dev/null; then
             sudo apt-get update && sudo apt-get install -y rsync
           fi
 
-      - name: Install deps
+      - name: Install deps (for build)
         run: npm ci
 
-      - name: Build
+      - name: Build (SSR)
         run: npm run build
 
+      # ---- Deploy to /opt/nnp-web ----
       - name: Stage deploy to /opt/nnp-web
         run: |
           sudo mkdir -p /opt/nnp-web
+          # copy only what runtime needs; keep it clean each deploy
           rsync -a --delete build/ /opt/nnp-web/build/
           install -m 0644 package.json package-lock.json /opt/nnp-web/
+          # make sure runner user can manage files with pm2
+          sudo chown -R "$USER":"$USER" /opt/nnp-web
 
       - name: Install runtime deps (prod only)
         working-directory: /opt/nnp-web
-        run: sudo npm ci --omit=dev
+        run: npm ci --omit=dev
 
-      - name: Restart service
-        run: sudo systemctl restart nnp-web
+      # ---- PM2 section ----
+      - name: Ensure PM2 installed
+        run: |
+          if ! command -v pm2 >/dev/null; then
+            npm i -g pm2
+          fi
+          pm2 -v
+
+      - name: Restart app with PM2
+        working-directory: /opt/nnp-web
+        env:
+          PORT: 3000
+          NODE_ENV: production
+        run: |
+          # stop old instance if exists (ignore error)
+          pm2 delete nnp-web || true
+          # start SSR server via react-router-serve
+          pm2 start "npx --yes react-router-serve ./build/server/index.js --port=${PORT}" --name nnp-web --update-env
+          pm2 save
+
+      # (First time only; safe to run repeatedly)
+      - name: Enable PM2 on boot (idempotent)
+        run: |
+          sudo pm2 startup systemd -u "$USER" --hp "$HOME" || true
