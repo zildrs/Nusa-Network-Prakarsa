@@ -1,76 +1,47 @@
-name: Deploy to self-hosted (prod)
-
+name: build-and-deploy
 on:
   push:
-    branches: [ prod ]
+    branches: [prod]
 
 jobs:
-  build-and-deploy:
-    runs-on: self-hosted
-    env:
-      DEPLOY_DIR: /opt/nnp-web   # must already exist and be owned by the runner user
-      PORT: 3000
-      NODE_ENV: production
-
+  build:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: npm
+      - run: npm ci --no-audit --no-fund     # include dev
+      - run: npm run build                    # needs @tailwindcss/vite
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-build
+          path: build/
 
-      - name: Ensure rsync present
-        run: |
-          if ! command -v rsync >/dev/null; then
-            echo "rsync not found; install it once on the runner: sudo apt-get install -y rsync"
-            exit 1
-          fi
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: app-build
+          path: ./build
 
-      # Build workspace uses install (so new devDeps like tailwind v4 plugin resolve even if lock isn't updated yet)
-      - name: Install deps (for build)
-        run: npm install --no-audit --no-fund
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
-      - name: Build (SSR)
-        run: npm run build
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
 
-      # ---- Deploy to $DEPLOY_DIR (must already exist; we do NOT create it) ----
-      - name: Stage deploy
-        run: |
-          if [ ! -d "$DEPLOY_DIR" ]; then
-            echo "❌ Deploy directory $DEPLOY_DIR does not exist."
-            echo "Create it once on the runner and give ownership to the runner user, e.g.:"
-            echo "  sudo mkdir -p $DEPLOY_DIR && sudo chown -R $(whoami):$(whoami) $DEPLOY_DIR"
-            exit 1
-          fi
-
-          # sync build output
-          rsync -a --delete build/ "$DEPLOY_DIR/build/"
-
-          # sync manifests needed for runtime install
-          rsync -a package.json package-lock.json "$DEPLOY_DIR/"
-
-      # Runtime install in the deployed directory (omit dev deps)
-      - name: Install runtime deps (prod only)
-        working-directory: ${{ env.DEPLOY_DIR }}
-        run: npm install --omit=dev --no-audit --no-fund
-
-      # ---- PM2 section ----
-      - name: Ensure PM2 installed
-        run: |
-          if ! command -v pm2 >/dev/null; then
-            npm i -g pm2
-          fi
-          pm2 -v
+      # Install only runtime deps on the server
+      - run: npm ci --omit=dev --no-audit --no-fund
 
       - name: Restart app with PM2
-        working-directory: ${{ env.DEPLOY_DIR }}
         run: |
-          pm2 delete nnp-web || true
-          pm2 start "npx --yes react-router-serve ./build/server/index.js --port=${PORT}" \
-            --name nnp-web --update-env
+          pm2 delete nnp || true
+          pm2 start ./build/server/index.js --name nnp
           pm2 save
