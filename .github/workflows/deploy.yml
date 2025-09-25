@@ -24,15 +24,16 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Ensure rsync present (no sudo; optional)
+      - name: Ensure rsync present
         run: |
           if ! command -v rsync >/dev/null; then
-            echo "rsync not found; please install it on the runner once (outside CI)."
+            echo "rsync not found; install it once on the runner: sudo apt-get install -y rsync"
             exit 1
           fi
 
+      # Build workspace uses install (so new devDeps like tailwind v4 plugin resolve even if lock isn't updated yet)
       - name: Install deps (for build)
-        run: npm install
+        run: npm install --no-audit --no-fund
 
       - name: Build (SSR)
         run: npm run build
@@ -40,16 +41,25 @@ jobs:
       # ---- Deploy to $DEPLOY_DIR (must already exist; we do NOT create it) ----
       - name: Stage deploy
         run: |
+          if [ ! -d "$DEPLOY_DIR" ]; then
+            echo "❌ Deploy directory $DEPLOY_DIR does not exist."
+            echo "Create it once on the runner and give ownership to the runner user, e.g.:"
+            echo "  sudo mkdir -p $DEPLOY_DIR && sudo chown -R $(whoami):$(whoami) $DEPLOY_DIR"
+            exit 1
+          fi
+
           # sync build output
           rsync -a --delete build/ "$DEPLOY_DIR/build/"
-          # sync manifests needed for runtime npm ci
+
+          # sync manifests needed for runtime install
           rsync -a package.json package-lock.json "$DEPLOY_DIR/"
 
+      # Runtime install in the deployed directory (omit dev deps)
       - name: Install runtime deps (prod only)
         working-directory: ${{ env.DEPLOY_DIR }}
-        run: npm ci --omit=dev
+        run: npm install --omit=dev --no-audit --no-fund
 
-      # ---- PM2 section (no sudo) ----
+      # ---- PM2 section ----
       - name: Ensure PM2 installed
         run: |
           if ! command -v pm2 >/dev/null; then
