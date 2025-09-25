@@ -3,45 +3,83 @@ on:
   push:
     branches: [prod]
 
+env:
+  APP_DIR: /opt/nnp-web
+  PM2_NAME: nnp-web
+  NODE_VERSION: '20'
+  BUILD_DIR: build  
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: npm
-      - run: npm ci --no-audit --no-fund     # include dev
-      - run: npm run build                    # needs @tailwindcss/vite
-      - uses: actions/upload-artifact@v4
-        with:
-          name: app-build
-          path: build/
-
-  deploy:
-    needs: build
+  build-deploy:
     runs-on: self-hosted
+
     steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: app-build
-          path: ./build
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          fetch-depth: 1
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
           cache: npm
 
-      # Install only runtime deps on the server
-      - run: npm ci --omit=dev --no-audit --no-fund
+      - name: Ensure rsync present (Linux)
+        run: |
+          if ! command -v rsync >/dev/null; then
+            if command -v apt-get >/dev/null; then sudo apt-get update -y && sudo apt-get install -y rsync;
+            elif command -v dnf >/dev/null; then sudo dnf install -y rsync;
+            elif command -v yum >/dev/null; then sudo yum install -y rsync;
+            fi
+          fi
+
+      # Sync repo into /opt/nnp-web, but keep local env & node_modules there
+      - name: Sync to $APP_DIR
+        run: |
+          sudo mkdir -p "$APP_DIR"
+          # exclude stuff we don't need to copy
+          EXCLUDES="
+            --exclude .git
+            --exclude .github
+            --exclude node_modules
+            --exclude ${BUILD_DIR}
+            --exclude dist
+            --exclude .next
+            --exclude .cache
+            --exclude pnpm-lock.yaml
+          "
+          sudo rsync -a --delete $EXCLUDES ./ "$APP_DIR"/
+          # Do NOT overwrite local .env if it exists
+          if [ -f .env ]; then sudo cp -f .env "$APP_DIR"/.env; fi
+          # Make sure runner user can write there
+          sudo chown -R $(id -u):$(id -g) "$APP_DIR"
+
+      # From here on, work inside /opt/nnp-web
+      - name: Install deps (include dev)
+        working-directory: ${{ env.APP_DIR }}
+        run: |
+          # install with dev deps for the build
+          npm ci --no-audit --no-fund
+
+      - name: Build (needs @tailwindcss/vite in devDependencies)
+        working-directory: ${{ env.APP_DIR }}
+        env:
+          NODE_ENV: development   # ensure npm doesn't skip dev deps implicitly
+        run: npm run build
+
+      # OPTIONAL but recommended: strip dev deps after build
+      - name: Remove dev deps (runtime only)
+        working-directory: ${{ env.APP_DIR }}
+        run: npm prune --omit=dev
+
+      - name: Ensure PM2 installed
+        run: |
+          if ! command -v pm2 >/dev/null; then
+            sudo npm i -g pm2
+          fi
 
       - name: Restart app with PM2
+        working-directory: ${{ env.APP_DIR }}
         run: |
-          pm2 delete nnp || true
-          pm2 start ./build/server/index.js --name nnp
+          pm2 delete "${PM2_NAME}" || true
+          pm2 start "./${BUILD_DIR}/server/index.js" --name "${PM2_NAME}" --update-env
           pm2 save
