@@ -265,9 +265,10 @@ export async function fetchProjectBySlug(
         "filters[slug][$eq]": slug, // ✅ sesuai format Strapi
         populate: "*", // opsional, kalau mau ambil relasi
       },
-      serviceName: "projects",
+      serviceName: "project-by-slug",
     }
   );
+  console.log(json);
 
   const project: ProjectType | null = json?.data?.length ? json.data[0] : null;
   return project;
