@@ -7,7 +7,8 @@ env:
   APP_DIR: /opt/nnp-web
   PM2_NAME: nnp-web
   NODE_VERSION: '20'
-  BUILD_DIR: build  
+  BUILD_DIR: build                      # change if your server output differs
+  PM2_HOME: /home/dsn/.pm2              # ensure PM2 state is writable by 'dsn'
 
 jobs:
   build-deploy:
@@ -23,20 +24,18 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
 
-      - name: Ensure rsync present (Linux)
+      - name: Debug whoami & perms
         run: |
-          if ! command -v rsync >/dev/null; then
-            if command -v apt-get >/dev/null; then sudo apt-get update -y && sudo apt-get install -y rsync;
-            elif command -v dnf >/dev/null; then sudo dnf install -y rsync;
-            elif command -v yum >/dev/null; then sudo yum install -y rsync;
-            fi
-          fi
+          echo "USER: $(whoami)"
+          id
+          echo "--- DIR perms ---"
+          ls -ld /opt /opt/nnp-web || true
+          echo "--- TOUCH test ---"
+          mkdir -p "$APP_DIR"
+          > "$APP_DIR/.gh-actions-write-test" && echo "write ok" || { echo "::error::Cannot write to $APP_DIR"; exit 1; }
 
-      # Sync repo into /opt/nnp-web, but keep local env & node_modules there
-      - name: Sync to $APP_DIR
+      - name: Sync to $APP_DIR (no sudo)
         run: |
-          sudo mkdir -p "$APP_DIR"
-          # exclude stuff we don't need to copy
           EXCLUDES="
             --exclude .git
             --exclude .github
@@ -45,41 +44,49 @@ jobs:
             --exclude dist
             --exclude .next
             --exclude .cache
-            --exclude pnpm-lock.yaml
           "
-          sudo rsync -a --delete $EXCLUDES ./ "$APP_DIR"/
-          # Do NOT overwrite local .env if it exists
-          if [ -f .env ]; then sudo cp -f .env "$APP_DIR"/.env; fi
-          # Make sure runner user can write there
-          sudo chown -R $(id -u):$(id -g) "$APP_DIR"
+          if command -v rsync >/dev/null; then
+            rsync -a --delete $EXCLUDES ./ "$APP_DIR"/
+          else
+            # fallback if rsync missing
+            shopt -s dotglob
+            for p in *; do
+              case "$p" in
+                .git|.github|node_modules|${BUILD_DIR}|dist|.next|.cache) continue ;;
+              esac
+              rm -rf "$APP_DIR/$p"
+              cp -a "$p" "$APP_DIR/"
+            done
+          fi
+          # keep local environment if already present on server
+          [ -f "$APP_DIR/.env" ] && echo "Keeping existing $APP_DIR/.env"
 
-      # From here on, work inside /opt/nnp-web
       - name: Install deps (include dev)
         working-directory: ${{ env.APP_DIR }}
-        run: |
-          # install with dev deps for the build
-          npm ci --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
 
-      - name: Build (needs @tailwindcss/vite in devDependencies)
+      - name: Build (Tailwind plugin in devDependencies)
         working-directory: ${{ env.APP_DIR }}
         env:
-          NODE_ENV: development   # ensure npm doesn't skip dev deps implicitly
+          NODE_ENV: development
         run: npm run build
 
-      # OPTIONAL but recommended: strip dev deps after build
-      - name: Remove dev deps (runtime only)
+      - name: Prune dev deps for runtime
         working-directory: ${{ env.APP_DIR }}
         run: npm prune --omit=dev
 
-      - name: Ensure PM2 installed
-        run: |
-          if ! command -v pm2 >/dev/null; then
-            sudo npm i -g pm2
-          fi
-
-      - name: Restart app with PM2
+      # Use local pm2 so we don't rely on a root/global install
+      - name: Ensure pm2 (local)
         working-directory: ${{ env.APP_DIR }}
         run: |
-          pm2 delete "${PM2_NAME}" || true
-          pm2 start "./${BUILD_DIR}/server/index.js" --name "${PM2_NAME}" --update-env
-          pm2 save
+          jq '.dependencies.pm2? // empty' package.json >/dev/null 2>&1 || npm i -E pm2@latest
+
+      - name: Restart app with PM2 (local)
+        working-directory: ${{ env.APP_DIR }}
+        env:
+          PM2_HOME: ${{ env.PM2_HOME }}
+        run: |
+          npx pm2 delete "${PM2_NAME}" || true
+          npx pm2 start "./${BUILD_DIR}/server/index.js" --name "${PM2_NAME}" --update-env
+          npx pm2 save
+          npx pm2 status || true
