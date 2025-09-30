@@ -12,10 +12,8 @@ import {
   useLoaderData,
   useOutletContext,
   type LoaderFunctionArgs,
-  type MetaFunction,
 } from "react-router";
 import {
-  fetchBlogData,
   fetchHomeData,
   fetchProjectsData,
   fetchSolutionsData,
