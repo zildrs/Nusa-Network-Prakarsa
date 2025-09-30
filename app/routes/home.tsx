@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from "react";
-import type { Route } from "./+types/home";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { CountUp } from "react-countup";
 import { ArrowLeft, ArrowRight } from "@carbon/icons-react";
 import type { Swiper as SwiperRef } from "swiper/types";
 import CTASection from "~/components/cta";
@@ -52,10 +52,10 @@ export default function Home() {
   }, []);
 
   const stats = [
-    { value: "150+", label: t("home.stats.projectsAccomplished") },
-    { value: "100+", label: t("home.stats.clientsSuccess") },
-    { value: "32+", label: t("home.stats.technologyPartners") },
-    { value: "15+", label: t("home.stats.amazingAwards") },
+    { value: 150, label: t("home.stats.projectsAccomplished") },
+    { value: 100, label: t("home.stats.clientsSuccess") },
+    { value: 32, label: t("home.stats.technologyPartners") },
+    { value: 15, label: t("home.stats.amazingAwards") },
   ];
 
   const partners = [
@@ -113,11 +113,17 @@ export default function Home() {
         >
           {/* Left Side */}
           <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 lg:gap-10 items-end w-full">
-            <h1 className="text-5xl text-[40px] lg:text-[64px] leading-[50px] lg:leading-[80px] tracking-[-0.02em] font-semibold col-span-6">
+            <h1
+              data-aos="fade-up"
+              className="text-5xl text-[40px] lg:text-[64px] leading-[50px] lg:leading-[80px] tracking-[-0.02em] font-semibold col-span-6"
+            >
               {t("home.hero.title")}
             </h1>
             {/* Right Side - Hero Image */}
-            <p className="text-gray-500 mt-4 text-xl lg:text-xl col-span-2">
+            <p
+              data-aos="fade-left"
+              className="text-gray-500 mt-4 text-xl lg:text-xl col-span-2"
+            >
               {t("home.hero.subtitle")}
             </p>
           </div>
@@ -129,7 +135,7 @@ export default function Home() {
         />
         {/* Partner Logos */}
         <div className="lg:p-[64px] py-[64px] ">
-          <div className="max-w-7xl mx-auto px-4">
+          <div data-aos="fade-up" className="max-w-7xl mx-auto px-4">
             <p className="text-center text-xs lg:text-lg tracking-[4px] leading-[18px] lg:tracking-[0.2em] text-gray-500 mb-12 lg:w-[80%] mx-auto">
               {t("home.hero.trustedBy")}
             </p>
@@ -176,9 +182,9 @@ export default function Home() {
                 className="border border-gray-200 rounded-xl aspect-square lg:aspect-auto bg-center bg-cover bg-no-repeat bg-card flex flex-col justify-between"
                 style={{ backgroundImage: `url(/bg-card.png)` }}
               >
-                <p className="lg:text-4xl text-[32px] font-semibold p-4 lg:p-6">
-                  {item.value}
-                </p>
+                {/* <div className="lg:text-4xl text-[32px] font-semibold p-4 lg:p-6"> */}
+                <CountUp end={100} duration={3} />
+                {/* </div> */}
                 <div className="text-lg text-gray-500 bg-gray-50 p-3 rounded-b-xl">
                   <p className="lg:w-42 wrap-all text-sm lg:text-base">
                     {item.label}
