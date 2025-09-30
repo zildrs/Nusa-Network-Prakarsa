@@ -1,9 +1,8 @@
-import {
-  LogoLinkedin,
-  LogoFacebook,
-  LogoInstagram,
-  ArrowRight,
-} from "@carbon/icons-react";
+import LogoFacebook from "~/components/icons/facebook.svg";
+import LogoTiktok from "~/components/icons/tiktok.svg";
+import LogoLinkedin from "~/components/icons/linkedin.svg";
+import LogoInstagram from "~/components/icons/instagram.svg";
+
 import { Link } from "react-router";
 import {
   getLanguagePreference,
@@ -48,10 +47,17 @@ export default function Footer({ locale, t }: HeaderProps) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 col-span-3">
             {/* Solutions */}
             <div>
-              <h3 data-aos="fade-up" className="font-semibold text-gray-500 mb-3">
+              <h3
+                data-aos="fade-up"
+                className="font-semibold text-gray-500 mb-3"
+              >
                 {t("footer.solutions.title")}
               </h3>
-              <ul data-aos="fade-up" data-aos-delay="300" className="space-y-2  text-gray-600">
+              <ul
+                data-aos="fade-up"
+                data-aos-delay="300"
+                className="space-y-2  text-gray-600"
+              >
                 <li>
                   <Link
                     to={getLocalizedUrl(
@@ -102,10 +108,17 @@ export default function Footer({ locale, t }: HeaderProps) {
 
             {/* Company */}
             <div>
-              <h3 data-aos="fade-up" className="font-semibold text-gray-500 mb-3">
+              <h3
+                data-aos="fade-up"
+                className="font-semibold text-gray-500 mb-3"
+              >
                 {t("footer.company.title")}
               </h3>
-              <ul data-aos="fade-up" data-aos-delay="300" className="space-y-2  text-gray-600">
+              <ul
+                data-aos="fade-up"
+                data-aos-delay="300"
+                className="space-y-2  text-gray-600"
+              >
                 <li>
                   <Link
                     to={getLocalizedUrl(
@@ -154,10 +167,17 @@ export default function Footer({ locale, t }: HeaderProps) {
 
             {/* Resources */}
             <div>
-              <h3 data-aos="fade-up" className="font-semibold text-gray-500 mb-3">
+              <h3
+                data-aos="fade-up"
+                className="font-semibold text-gray-500 mb-3"
+              >
                 {t("footer.resources.title")}
               </h3>
-              <ul data-aos="fade-up" data-aos-delay="300" className="space-y-2  text-gray-600">
+              <ul
+                data-aos="fade-up"
+                data-aos-delay="300"
+                className="space-y-2  text-gray-600"
+              >
                 <li>
                   <Link
                     to={getLocalizedUrl(
@@ -195,25 +215,44 @@ export default function Footer({ locale, t }: HeaderProps) {
         {/* Bottom bar */}
         <div className="border-t-2 py-6 text-center md:flex md:justify-between flex-row-reverse border-gray-200 md:items-center max-w-7xl mx-auto px-6">
           <div className="flex mb-6 lg:mb-0 justify-center gap-4 mt-4 md:mt-0">
-            {/* <a href="#">
-              <Tikt size={24} />
-            </a> */}
-            <a href="#">
-              <LogoLinkedin
-                size={24}
-                className="text-gray-400 hover:text-gray-600"
+            <a
+              target="_blank"
+              href="https://www.tiktok.com/@nusanetworkprakarsa"
+            >
+              <img
+                src={LogoTiktok}
+                alt="tiktok"
+                className="text-gray-400 hover:text-gray-600 w-6 h-6"
               />
             </a>
-            <a href="#">
-              <LogoFacebook
-                size={24}
-                className="text-gray-400 hover:text-gray-600"
+            <a
+              target="_blank"
+              href="https://www.linkedin.com/company/nusanetworkprakarsa/"
+            >
+              <img
+                src={LogoLinkedin}
+                alt="linkedin"
+                className="text-gray-400 hover:text-gray-600 w-6 h-6"
               />
             </a>
-            <a href="#">
-              <LogoInstagram
-                size={24}
-                className="text-gray-400 hover:text-gray-600"
+            <a
+              target="_blank"
+              href="https://www.facebook.com/nusanetworkprakarsa"
+            >
+              <img
+                src={LogoFacebook}
+                alt="facebook"
+                className="text-gray-400 hover:text-gray-600 w-6 h-6"
+              />
+            </a>
+            <a
+              target="_blank"
+              href="https://www.instagram.com/nusanetworkprakarsa"
+            >
+              <img
+                src={LogoInstagram}
+                alt="instagram"
+                className="text-gray-400 hover:text-gray-600 w-6 h-6"
               />
             </a>
           </div>
