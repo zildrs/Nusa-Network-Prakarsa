@@ -12,7 +12,7 @@ import {
   type MetaFunction,
 } from "react-router";
 import { solutions } from "~/data/solutions";
-import { fetchProjectsData } from "~/lib/api.server";
+import { fetchProjectsData, fetchSolutionBySlug } from "~/lib/api.server";
 import { createMetaFunction, seoData } from "~/lib/meta";
 
 type SolutionSlug = keyof typeof seoData;
@@ -50,11 +50,14 @@ export const meta: MetaFunction = (args) => {
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const slug = url.pathname.split("/").pop() as keyof typeof solutions;
-  const { projects } = await fetchProjectsData(request);
-  return { ...solutions[slug], slug, projects };
+  const [{ projects }, solution] = await Promise.all([
+    fetchProjectsData(request),
+    fetchSolutionBySlug(request, slug),
+  ]);
+  return { ...solutions[slug], slug, projects, solution };
 }
 
-export default function Home() {
+export default function SolutionDetail() {
   const [Marquee, setMarquee] = useState<any>(null);
 
   const data = useLoaderData<typeof loader>();
@@ -119,11 +122,16 @@ export default function Home() {
             </span>{" "}
             {t(`solutionsDetail.${data.slug}.hero.solution`)}
           </p>
-          <h1 data-aos="fade-up" className="mt-4 text-4xl lg:text-5xl font-semibold leading-tight lg:w-[589px]">
-            {t(`solutionsDetail.${data.slug}.hero.subtitle`)}
+          <h1
+            data-aos="fade-up"
+            className="mt-4 text-4xl lg:text-5xl font-semibold leading-tight lg:w-[589px]"
+          >
+            {data.solution?.hero_title ??
+              t(`solutionsDetail.${data.slug}.hero.subtitle`)}
           </h1>
           <p data-aos="fade-up" className="mt-6 text-xl max-w-lg text-gray-200">
-            {t(`solutionsDetail.${data.slug}.hero.description`)}
+            {data.solution?.hero_subtitle ??
+              t(`solutionsDetail.${data.slug}.hero.description`)}
           </p>
           <div data-aos="fade-left" className="mt-8">
             <a
@@ -141,16 +149,36 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 w-full bg-white">
           <div className="container mx-auto px-6 max-w-7xl py-4 flex justify-between items-center text-sm font-medium">
             <div className="flex gap-8 text-gray-700 text-base">
-              <a data-aos="fade-up" data-aos-delay="100" href="#whatWeDo" className="hover:text-blue-950">
+              <a
+                data-aos="fade-up"
+                data-aos-delay="100"
+                href="#whatWeDo"
+                className="hover:text-blue-950"
+              >
                 {t(`solutionsDetail.${data.slug}.navigation.whatWeDo`)}
               </a>
-              <a data-aos="fade-up" data-aos-delay="200" href="#ourServices" className="hover:text-blue-950">
+              <a
+                data-aos="fade-up"
+                data-aos-delay="200"
+                href="#ourServices"
+                className="hover:text-blue-950"
+              >
                 {t(`solutionsDetail.${data.slug}.navigation.ourServices`)}
               </a>
-              <a data-aos="fade-up" data-aos-delay="300" href="#caseStudy" className="hover:text-blue-950">
+              <a
+                data-aos="fade-up"
+                data-aos-delay="300"
+                href="#caseStudy"
+                className="hover:text-blue-950"
+              >
                 {t(`solutionsDetail.${data.slug}.navigation.caseStudy`)}
               </a>
-              <a data-aos="fade-up" data-aos-delay="400" href="#technologyPartners" className="hover:text-blue-950">
+              <a
+                data-aos="fade-up"
+                data-aos-delay="400"
+                href="#technologyPartners"
+                className="hover:text-blue-950"
+              >
                 {t(`solutionsDetail.${data.slug}.navigation.ourPartners`)}
               </a>
             </div>
@@ -177,14 +205,20 @@ export default function Home() {
                   {t(`solutionsDetail.${data.slug}.whatWeDo.label`)}
                 </span>
               </p>
-              <h2 data-aos="fade-up" className="text-4xl font-semibold text-gray-900 mt-2">
+              <h2
+                data-aos="fade-up"
+                className="text-4xl font-semibold text-gray-900 mt-2"
+              >
                 {t(`solutionsDetail.${data.slug}.whatWeDo.title`)}
               </h2>
               <p data-aos="fade-up" className="mt-4 text-lg text-gray-600">
                 {t(`solutionsDetail.${data.slug}.whatWeDo.description`)}
               </p>
             </div>
-            <div data-aos="fade-left" className="min-h-[450px] lg:overflow-visible overflow-hidden">
+            <div
+              data-aos="fade-left"
+              className="min-h-[450px] lg:overflow-visible overflow-hidden"
+            >
               <img
                 src={data.what_we_do_img}
                 alt="what we do"
@@ -196,7 +230,10 @@ export default function Home() {
       </section>
 
       {/* Section 1 - Services */}
-      <section id="ourServices" className="bg-primary text-white py-16 px-6 lg:px-20 relative overflow-hidden">
+      <section
+        id="ourServices"
+        className="bg-primary text-white py-16 px-6 lg:px-20 relative overflow-hidden"
+      >
         <div
           className="absolute z-10 top-[-250px] right-[-250px] w-[500px] h-[500px] rounded-full filter blur-xl"
           style={{
@@ -213,13 +250,19 @@ export default function Home() {
           }}
         ></div>
         <div className="mx-auto max-w-7xl">
-          <p data-aos="fade-up" className="text-sm uppercase tracking-wide font-semibold">
+          <p
+            data-aos="fade-up"
+            className="text-sm uppercase tracking-wide font-semibold"
+          >
             {t(`solutionsDetail.${data.slug}.services.our`)}{" "}
             <span className="font-normal">
               {t(`solutionsDetail.${data.slug}.services.label`)}
             </span>
           </p>
-          <h2 data-aos="fade-up" className="text-3xl lg:text-5xl font-medium tracking-normal mt-6 max-w-2xl">
+          <h2
+            data-aos="fade-up"
+            className="text-3xl lg:text-5xl font-medium tracking-normal mt-6 max-w-2xl"
+          >
             {t(`solutionsDetail.${data.slug}.services.title`)}
           </h2>
 
@@ -230,7 +273,7 @@ export default function Home() {
                 <div
                   key={i}
                   data-aos="fade-up"
-                  data-aos-delay={(i+1) * 200}
+                  data-aos-delay={(i + 1) * 200}
                   style={{ backgroundImage: "url('/bg-card-2.png')" }}
                   className="bg-white max-h-[250px] h-full flex flex-col justify-between aspect-[6/3] text-gray-800 p-6 rounded-xl"
                 >
@@ -250,19 +293,29 @@ export default function Home() {
       {/*  */}
       <section id="caseStudy" className="bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4">
-          <p data-aos="fade-up" className="uppercase text-sm tracking-wide text-gray-900 mb-2">
+          <p
+            data-aos="fade-up"
+            className="uppercase text-sm tracking-wide text-gray-900 mb-2"
+          >
             <span className="font-semibold">
               {t(`solutionsDetail.${data.slug}.caseStudy.label`)}
             </span>
           </p>
-          <h2 data-aos="fade-up" className="text-3xl lg:text-4xl font-semibold mb-8 max-w-md">
+          <h2
+            data-aos="fade-up"
+            className="text-3xl lg:text-4xl font-semibold mb-8 max-w-md"
+          >
             {t(`solutionsDetail.${data.slug}.caseStudy.title`)}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
             {data.projects.slice(0, 3).map((c, idx) => (
-              <div key={idx} data-aos="fade-up" data-aos-delay={(idx + 1) * 200}>
-                <CaseStudyCard  data={c} />
+              <div
+                key={idx}
+                data-aos="fade-up"
+                data-aos-delay={(idx + 1) * 200}
+              >
+                <CaseStudyCard data={c} />
               </div>
             ))}
           </div>
@@ -270,12 +323,18 @@ export default function Home() {
       </section>
 
       <section id="technologyPartners" className="py-16 max-w-7xl mx-auto px-4">
-        <p data-aos="fade-up" className=" tracking-widest text-gray-900 uppercase">
+        <p
+          data-aos="fade-up"
+          className=" tracking-widest text-gray-900 uppercase"
+        >
           <span className="font-semibold">
             {t(`solutionsDetail.${data.slug}.technologyPartners.label`)}
           </span>
         </p>
-        <h2 data-aos="fade-up" className="mt-2 text-3xl lg:text-4xl max-w-2xl font-semibold text-gray-900 leading-snug">
+        <h2
+          data-aos="fade-up"
+          className="mt-2 text-3xl lg:text-4xl max-w-2xl font-semibold text-gray-900 leading-snug"
+        >
           {t(`solutionsDetail.${data.slug}.technologyPartners.title`)}
         </h2>
         <a
@@ -288,7 +347,10 @@ export default function Home() {
           <ArrowRight className="ml-2 h-5 w-5" />
         </a>
         <a
-          data-aos="fade-up" href="/contact" className="my-8 flex items-center font-medium lg:hidden">
+          data-aos="fade-up"
+          href="/contact"
+          className="my-8 flex items-center font-medium lg:hidden"
+        >
           {t(`solutionsDetail.${data.slug}.technologyPartners.cta`)}{" "}
           <ArrowRight className="ml-2 h-5 w-5" />
         </a>

@@ -16,6 +16,7 @@ import {
 } from "react-router";
 import {
   fetchBlogData,
+  fetchHomeData,
   fetchProjectsData,
   fetchSolutionsData,
   fetchTestimonialsData,
@@ -28,22 +29,22 @@ export const meta = createMetaFunction(seoData.home);
 
 export async function loader({ request }: LoaderFunctionArgs) {
   // jalankan paralel biar lebih cepat
-  const [{ blogs }, { solutions }, { projects }, { testimonies }] =
+  const [{ solutions }, { projects }, { testimonies }, home] =
     await Promise.all([
-      fetchBlogData(request),
       fetchSolutionsData(request),
       fetchProjectsData(request),
       fetchTestimonialsData(request),
+      fetchHomeData(request),
     ]);
 
-  return { blogs, solutions, projects, testimonies };
+  return { solutions, projects, testimonies, home };
 }
 
 export default function Home() {
   const swiperRef = useRef<SwiperRef | null>(null);
   const [Marquee, setMarquee] = useState<any>(null);
   const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
-  const { blogs, projects, testimonies } = useLoaderData<typeof loader>();
+  const { projects, testimonies, home } = useLoaderData<typeof loader>();
 
   useEffect(() => {
     import("react-fast-marquee").then((mod) => {
@@ -97,14 +98,14 @@ export default function Home() {
               data-aos="fade-up"
               className="text-5xl text-[40px] lg:text-[64px] leading-[50px] lg:leading-[80px] tracking-[-0.02em] font-semibold col-span-6"
             >
-              {t("home.hero.title")}
+              {home?.hero_title ?? t("home.hero.title")}
             </h1>
             {/* Right Side - Hero Image */}
             <p
               data-aos="fade-left"
               className="text-gray-500 mt-4 text-xl lg:text-xl col-span-2"
             >
-              {t("home.hero.subtitle")}
+              {home?.hero_subtitle ?? t("home.hero.subtitle")}
             </p>
           </div>
         </div>
@@ -144,13 +145,22 @@ export default function Home() {
         <div className="max-w-7xl justify-between mx-auto px-4 py-16 grid md:grid-cols-2 gap-12 items-center">
           {/* Text */}
           <div>
-            <h2 data-aos="fade-up" className="text-[32px] lg:text-[40px] font-semibold leading-snug">
+            <h2
+              data-aos="fade-up"
+              className="text-[32px] lg:text-[40px] font-semibold leading-snug"
+            >
               {t("home.consultant.heading")}
             </h2>
-            <p data-aos="fade-up" className="text-gray-500 mt-4 leading-7 text-base lg:text-lg">
+            <p
+              data-aos="fade-up"
+              className="text-gray-500 mt-4 leading-7 text-base lg:text-lg"
+            >
               {t("home.consultant.description1")}
             </p>
-            <p data-aos="fade-up" className="text-gray-500 mt-4 leading-7 text-base lg:text-lg">
+            <p
+              data-aos="fade-up"
+              className="text-gray-500 mt-4 leading-7 text-base lg:text-lg"
+            >
               {t("home.consultant.description2")}
             </p>
           </div>
@@ -160,7 +170,7 @@ export default function Home() {
               <div
                 key={item.label}
                 data-aos="fade-up"
-                data-aos-delay={200 * ( i + 1 )}
+                data-aos-delay={200 * (i + 1)}
                 className="border border-gray-200 rounded-xl aspect-square lg:aspect-auto bg-center bg-cover bg-no-repeat bg-card flex flex-col justify-between"
                 style={{ backgroundImage: `url(/bg-card.png)` }}
               >
@@ -207,7 +217,10 @@ export default function Home() {
             {t("home.solutions.solutions")}
           </p>
           <div className="flex justify-between items-center">
-            <h2 data-aos="fade-up" className="text-[32px] max-w-4xl lg:text-5xl font-semibold lg:font-semibold leading-snug mb-10">
+            <h2
+              data-aos="fade-up"
+              className="text-[32px] max-w-4xl lg:text-5xl font-semibold lg:font-semibold leading-snug mb-10"
+            >
               {t("home.solutions.subtitle")} <br />
             </h2>
             <div className="z-10 hidden lg:flex gap-8">
@@ -276,18 +289,28 @@ export default function Home() {
       {/* Section 2 - Case Study */}
       <section className="bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4">
-          <p data-aos="fade-up" className="uppercase text-sm tracking-wide text-gray-900 mb-2">
+          <p
+            data-aos="fade-up"
+            className="uppercase text-sm tracking-wide text-gray-900 mb-2"
+          >
             <span className="font-semibold">{t("home.caseStudy.case")}</span>{" "}
             {t("home.caseStudy.study")}
           </p>
-          <h2 data-aos="fade-up" className="text-[32px] lg:text-4xl font-semibold mb-8 max-w-md">
+          <h2
+            data-aos="fade-up"
+            className="text-[32px] lg:text-4xl font-semibold mb-8 max-w-md"
+          >
             {t("home.caseStudy.title")}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
             {projects.map((c, idx) => (
-              <div key={idx} data-aos="fade-up" data-aos-delay={200 * ( idx + 1 )}>
-                <CaseStudyCard  data={c} />
+              <div
+                key={idx}
+                data-aos="fade-up"
+                data-aos-delay={200 * (idx + 1)}
+              >
+                <CaseStudyCard data={c} />
               </div>
             ))}
           </div>
@@ -296,13 +319,19 @@ export default function Home() {
 
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-6">
-          <p data-aos="fade-up" className="uppercase tracking-wide text-gray-900 mb-2">
+          <p
+            data-aos="fade-up"
+            className="uppercase tracking-wide text-gray-900 mb-2"
+          >
             {t("home.testimonials.our")}{" "}
             <span className="font-semibold">
               {t("home.testimonials.clients")}
             </span>
           </p>
-          <h2 data-aos="fade-up" className="text-4xl font-semibold mb-8 max-w-xl">
+          <h2
+            data-aos="fade-up"
+            className="text-4xl font-semibold mb-8 max-w-xl"
+          >
             {t("home.testimonials.title")}
           </h2>
 
@@ -311,7 +340,7 @@ export default function Home() {
               <div
                 key={idx}
                 data-aos="fade-up"
-                data-aos-delay={200 * ( idx + 1 )}
+                data-aos-delay={200 * (idx + 1)}
                 className="bg-white rounded-2xl  border border-gray-200 flex flex-col justify-between"
               >
                 <p className="text-gray-700 mb-4 leading-relaxed p-6">
@@ -335,17 +364,27 @@ export default function Home() {
       </section>
 
       <section className="py-16 max-w-7xl mx-auto px-6">
-        <p data-aos="fade-up" className=" tracking-widest text-gray-900 uppercase">
+        <p
+          data-aos="fade-up"
+          className=" tracking-widest text-gray-900 uppercase"
+        >
           <span className="font-semibold">
             {t("home.technologyPartners.technology")}
           </span>{" "}
           {t("home.technologyPartners.partners")}
         </p>
-        <h2 data-aos="fade-up" className="mt-2 text-3xl lg:text-4xl max-w-lg font-semibold text-gray-900 leading-snug">
+        <h2
+          data-aos="fade-up"
+          className="mt-2 text-3xl lg:text-4xl max-w-lg font-semibold text-gray-900 leading-snug"
+        >
           {t("home.technologyPartners.heading")}
         </h2>
 
-        <a data-aos="fade-right" href="/partners" className="my-8 flex items-center font-medium">
+        <a
+          data-aos="fade-right"
+          href="/partners"
+          className="my-8 flex items-center font-medium"
+        >
           {t("home.technologyPartners.cta")}{" "}
           <ArrowRight className="ml-2 h-5 w-5" />
         </a>
