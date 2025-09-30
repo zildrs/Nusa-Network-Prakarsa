@@ -40,10 +40,10 @@ export default function Partner() {
         className="absolute top-0 right-0 opacity-10 max-w-md lg:max-w-3xl"
       />
       <div className="max-w-7xl mx-auto px-6 py-16">
-        <h2 className="text-5xl font-medium lg:font-semibold text-gray-900">
+        <h2 data-aos="fade-up" className="text-5xl font-medium lg:font-semibold text-gray-900">
           {t("partners.hero.title")}
         </h2>
-        <p className="mt-4 text-lg text-gray-600 max-w-2xl">
+        <p data-aos="fade-up" className="mt-4 text-lg text-gray-600 max-w-2xl">
           {t("partners.hero.description")}
         </p>
       </div>
@@ -54,7 +54,8 @@ export default function Partner() {
           <button
             key={i}
             onClick={() => setSelected(p)}
-            className="flex justify-center grayscale min-h-[150px] items-center hover:grayscale-0 transition"
+            data-aos="fade-up" data-aos-delay={100 * (i + 1)}
+            className="flex justify-center grayscale min-h-[150px] items-center hover:grayscale-0 transition hover:scale-105 hover:cursor-pointer"
           >
             <img
               src={APP_BASE_URL + p.company_logo.url}

@@ -13,6 +13,7 @@ const CTASection = (props: CTAPropsType) => {
   return (
     <section className="relative bg-primary text-white py-20 overflow-hidden">
       <img
+        data-aos="fade-left"
         src="/bg-solutions.png"
         alt="Background Solution"
         className="absolute top-0 right-0 opacity-70 max-w-4xl"
@@ -35,12 +36,13 @@ const CTASection = (props: CTAPropsType) => {
       ></div>
       <div className="max-w-7xl relative mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
         <div>
-          <h2 className="text-[32px] lg:text-[36px] text-center lg:text-left font-semibold max-w-lg leading-snug">
+          <h2 data-aos="fade-right" className="text-[32px] lg:text-[36px] text-center lg:text-left font-semibold max-w-lg leading-snug">
             {props.title || t("home.cta.title")}
           </h2>
-          <p className=" mt-4 max-w-md">{props.description || ""}</p>
+          <p data-aos="fade-right" className=" mt-4 max-w-md">{props.description || ""}</p>
         </div>
         <a
+          data-aos="fade-left"
           href={props.link || locale === "en" ? "/contact" : "/id/hubungi-kami"}
           className="mt-6 md:mt-0 inline-flex items-center px-6 py-3 bg-white text-gray-900 font-medium rounded-lg shadow"
         >

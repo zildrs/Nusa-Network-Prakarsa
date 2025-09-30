@@ -35,11 +35,11 @@ export default function Certification() {
         ></div>
 
         <div className="max-w-7xl mx-auto my-auto lg:min-h-[250px] px-4 relative flex-col flex justify-center">
-          <p className="uppercase tracking-wide mb-6 z-20">
+          <p data-aos="fade-up" className="uppercase tracking-wide mb-6 z-20">
             <span className="font-semibold">{t("achievement.title")}</span>
           </p>
           <div className="flex justify-between items-center">
-            <h2 className="text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10">
+            <h2 data-aos="fade-up" className="text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10">
               {t("achievement.subtitle")}
             </h2>
           </div>
@@ -50,6 +50,7 @@ export default function Certification() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {certifications.map((item, i) => (
             <div
+              data-aos="fade-up" data-aos-delay={100 * (i + 1)}
               key={i}
               className="border rounded-2xl p-6  bg-white transition"
             >

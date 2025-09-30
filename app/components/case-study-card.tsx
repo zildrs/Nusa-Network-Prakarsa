@@ -30,7 +30,7 @@ const CaseStudyCard = ({ data }: { data: ProjectType }) => {
           <img
             src={`${APP_BASE_URL}/${data.company_logo?.url || ""}`}
             alt={data.title}
-            className="h-8 object-contain brightness-0 grayscale invert mb-4"
+            className="h-8 object-contain mb-4"
           />
           <p className="text-white font-medium text-xl">{data.title}</p>
           <div className="flex mt-4 items-center gap-2 opacity-0 group-hover:opacity-100 duration-500 transition-all">

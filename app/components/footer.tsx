@@ -31,7 +31,7 @@ export default function Footer({ locale, t }: HeaderProps) {
       <footer className="bg-white">
         <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-5 gap-10">
           {/* Company Info */}
-          <div className="col-span-2">
+          <div data-aos="fade-right" className="col-span-2">
             <img src="/logo.png" alt="NNP" className="h-10 mb-4" />
             <p className=" text-gray-600 leading-relaxed">
               Jalan Kamal Raya Outer Ring Road, <br />
@@ -48,10 +48,10 @@ export default function Footer({ locale, t }: HeaderProps) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 col-span-3">
             {/* Solutions */}
             <div>
-              <h3 className="font-semibold text-gray-500 mb-3">
+              <h3 data-aos="fade-up" className="font-semibold text-gray-500 mb-3">
                 {t("footer.solutions.title")}
               </h3>
-              <ul className="space-y-2  text-gray-600">
+              <ul data-aos="fade-up" data-aos-delay="300" className="space-y-2  text-gray-600">
                 <li>
                   <Link
                     to={getLocalizedUrl(
@@ -102,10 +102,10 @@ export default function Footer({ locale, t }: HeaderProps) {
 
             {/* Company */}
             <div>
-              <h3 className="font-semibold text-gray-500 mb-3">
+              <h3 data-aos="fade-up" className="font-semibold text-gray-500 mb-3">
                 {t("footer.company.title")}
               </h3>
-              <ul className="space-y-2  text-gray-600">
+              <ul data-aos="fade-up" data-aos-delay="300" className="space-y-2  text-gray-600">
                 <li>
                   <Link
                     to={getLocalizedUrl(
@@ -154,10 +154,10 @@ export default function Footer({ locale, t }: HeaderProps) {
 
             {/* Resources */}
             <div>
-              <h3 className="font-semibold text-gray-500 mb-3">
+              <h3 data-aos="fade-up" className="font-semibold text-gray-500 mb-3">
                 {t("footer.resources.title")}
               </h3>
-              <ul className="space-y-2  text-gray-600">
+              <ul data-aos="fade-up" data-aos-delay="300" className="space-y-2  text-gray-600">
                 <li>
                   <Link
                     to={getLocalizedUrl(
@@ -217,7 +217,7 @@ export default function Footer({ locale, t }: HeaderProps) {
               />
             </a>
           </div>
-          <p className="text-gray-500">
+          <p data-aos="fade-up" className="text-gray-500">
             © 2025 Nusa Network Prakarsa. All rights reserved.
           </p>
         </div>

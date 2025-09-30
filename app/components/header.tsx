@@ -34,34 +34,39 @@ interface HeaderProps {
 
 export const solutionsMenu = [
   {
-    title: "Data Center",
-    slug: "data-center",
-    desc: "Safely secure your business data",
-    icon: DataCenter,
-  },
-  {
     title: "Managed Services",
     slug: "managed-services",
     desc: "Preventive & Corrective Maintenance",
     icon: LoadBalancerNetwork,
-  },
-  {
-    title: "Security Infrastructure",
-    slug: "security-infrastructure",
-    desc: "Securing systems with layered defense",
-    icon: IbmCloudHyperProtectDbaas,
+    img: "/hero.png",
   },
   {
     title: "Network Infrastructure",
     slug: "network-infrastructure",
     desc: "Reliable connectivity for operations",
     icon: CloudMonitoring,
+    img: "/network-infrastructure.jpg",
+  },
+  {
+    title: "Data Center",
+    slug: "data-center",
+    desc: "Safely secure your business data",
+    icon: DataCenter,
+    img: "/data-center.jpg",
+  },
+  {
+    title: "Security Infrastructure",
+    slug: "security-infrastructure",
+    desc: "Securing systems with layered defense",
+    icon: IbmCloudHyperProtectDbaas,
+    img: "/security-infrastructure.png",
   },
   {
     title: "Internet of Things (IoT)",
     slug: "internet-of-things",
     desc: "Smart environment monitoring tools",
     icon: IotPlatform,
+    img: "/iot.png",
   },
 ];
 

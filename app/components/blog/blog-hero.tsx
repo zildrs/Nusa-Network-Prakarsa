@@ -19,14 +19,16 @@ export function BlogHero({ featuredBlog, relatedBlogs, className = '', locale }:
       <div className="py-10 max-w-7xl mx-auto relative">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Featured Blog Card */}
-          <div className="md:col-span-2 h-full">
+          <div data-aos="fade-up" className="md:col-span-2 h-full">
             <BlogCard blog={featuredBlog} variant="featured" locale={locale} />
           </div>
 
           {/* Related Blogs */}
           <div className="flex flex-col gap-4 justify-between">
-            {relatedBlogs.slice(0, 3).map((blog) => (
-              <BlogCard key={blog.id} blog={blog} variant="compact" locale={locale} />
+            {relatedBlogs.slice(0, 3).map((blog, i) => (
+              <div key={blog.id} data-aos="fade-up" data-aos-delay={200 * (i + 1)}>
+                <BlogCard  blog={blog} variant="compact" locale={locale} />
+              </div>
             ))}
           </div>
         </div>

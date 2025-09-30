@@ -47,6 +47,7 @@ export function Layout() {
     AOS.init({
       duration: 600,
       easing: "ease-out",
+      once: true,
     });
   }, []);
 
