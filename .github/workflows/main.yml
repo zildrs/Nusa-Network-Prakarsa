@@ -4,7 +4,7 @@ on:
     branches: [master]   # changed from prod → master
 
 env:
-  APP_DIR: /home/runner/nnp-web  
+  APP_DIR: /opt/nnp-web  
   PM2_NAME: nnp-web
   NODE_VERSION: '20'
   BUILD_DIR: build
