@@ -72,6 +72,6 @@ jobs:
           which pm2 || true
           npx pm2 -v || true
           npx pm2 delete "${PM2_NAME}" || true
-          npx pm2 start "./${BUILD_DIR}/server/index.js" --name "${PM2_NAME}" --update-env
+          npx pm2 start "npm run start ./${BUILD_DIR}/server/index.js" --name "${PM2_NAME}" --update-env
           npx pm2 save
           npx pm2 status || true
