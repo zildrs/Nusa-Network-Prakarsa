@@ -12,7 +12,7 @@ env:
 
 jobs:
   build-deploy:
-    runs-on: [self-hosted, svrwebnnp02]   # restrict to svrwebnnp02
+    runs-on: [self-hosted, Linux, X64, Staging]   # restrict to svrwebnnp02
 
     steps:
       - name: Checkout
