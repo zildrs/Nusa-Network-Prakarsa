@@ -1,0 +1,77 @@
+name: build-and-deploy-staging
+on:
+  push:
+    branches: [master]   # changed from prod → master
+
+env:
+  APP_DIR: /opt/nnp-web
+  PM2_NAME: nnp-web
+  NODE_VERSION: '20'
+  BUILD_DIR: build
+  PM2_HOME: /home/dsn/.pm2
+
+jobs:
+  build-deploy:
+    runs-on: [self-hosted, Linux, X64, svrwebnnp02]   # restrict to svrwebnnp02
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Debug whoami & perms
+        run: |
+          echo "USER: $(whoami)"
+          id
+          echo "--- DIR perms ---"
+          ls -ld /opt /opt/nnp-web || true
+          echo "--- TOUCH test ---"
+          mkdir -p "$APP_DIR"
+          > "$APP_DIR/.gh-actions-write-test" && echo "write ok" || { echo "::error::Cannot write to $APP_DIR"; exit 1; }
+
+      - name: Sync to $APP_DIR (simple copy, keep .env)
+        run: |
+          set -euo pipefail
+          shopt -s dotglob nullglob
+          rm -rf "${APP_DIR:?}/"*
+          cp -a ./* "$APP_DIR"/
+          echo "Copied to $APP_DIR"
+
+      - name: Install deps (include dev)
+        working-directory: ${{ env.APP_DIR }}
+        run: npm ci --no-audit --no-fund
+
+      - name: Build (Tailwind plugin in devDependencies)
+        working-directory: ${{ env.APP_DIR }}
+        env:
+          NODE_ENV: development
+        run: npm run build
+
+      - name: Prune dev deps for runtime
+        working-directory: ${{ env.APP_DIR }}
+        run: npm prune --omit=dev
+
+      - name: Ensure pm2 (local, no jq needed)
+        working-directory: ${{ env.APP_DIR }}
+        run: |
+          if [ ! -d "node_modules/pm2" ]; then
+            npm i -E pm2@latest
+          fi
+
+      - name: Restart app with PM2 (local)
+        working-directory: ${{ env.APP_DIR }}
+        env:
+          PM2_HOME: ${{ env.PM2_HOME }}
+        run: |
+          echo "PM2_HOME=$PM2_HOME"
+          which pm2 || true
+          npx pm2 -v || true
+          npx pm2 delete "${PM2_NAME}" || true
+          npx pm2 start "./${BUILD_DIR}/server/index.js" --name "${PM2_NAME}" --update-env
+          npx pm2 save
+          npx pm2 status || true
