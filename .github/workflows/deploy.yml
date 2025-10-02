@@ -12,7 +12,7 @@ env:
 
 jobs:
   build-deploy:
-    runs-on: self-hosted
+    runs-on: [self-hosted, Linux, X64, Prod]
 
     steps:
       - name: Checkout
