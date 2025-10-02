@@ -25,11 +25,11 @@ export default function Careers() {
           <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 items-center justify-between px-6 lg:px-12">
             {/* Text Section */}
             <div className="max-w-lg order-2 lg:order-1">
-              <p className="tracking-widest text-gray-800 uppercase">
+              <p data-aos="fade-up" className="tracking-widest text-gray-800 uppercase">
                 {t("career.open")}{" "}
                 <span className="font-semibold">{t("career.roles")}</span>
               </p>
-              <h2 className="mt-4 text-4xl lg:text-5xl font-medium lg:font-semibold leading-tight text-gray-900">
+              <h2 data-aos="fade-up" className="mt-4 text-4xl lg:text-5xl font-medium lg:font-semibold leading-tight text-gray-900">
                 {t("career.subtitle")}
               </h2>
             </div>
@@ -38,6 +38,7 @@ export default function Careers() {
             <div className="relative flex gap-6 order-1 lg:order-2">
               {/* Left Image */}
               <img
+                data-aos="fade-up"
                 src="/hero-career.png"
                 alt="hero-career"
                 className=" h-auto"
@@ -52,12 +53,13 @@ export default function Careers() {
         <section className="py-12">
           {departments.map((department, idx) => (
             <div className="max-w-7xl mx-auto px-6" key={idx}>
-              <h2 className="text-lg font-normal mb-8 uppercase">
+              <h2 data-aos="fade-up" className="text-lg font-normal mb-8 uppercase">
                 {department.name}
               </h2>
               {department.careers?.map((job, jdx) => (
                 <div
                   key={jdx}
+                  data-aos="fade-up" data-aos-delay={200 * (jdx + 1)}
                   className="border border-gray-200 rounded-2xl p-6 flex flex-col md:flex-row md:items-center justify-between mb-6"
                 >
                   <div>

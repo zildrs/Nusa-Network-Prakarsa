@@ -47,6 +47,7 @@ export default function CaseStudy() {
     <main>
       <section className="bg-primary relative text-white pt-12 py-18 lg:py-12 lg:min-h-[350px] overflow-hidden">
         <img
+          data-aos="fade-left"
           src="/bg-solutions.png"
           alt="Background Solution"
           className="absolute top-0 right-0 opacity-70 max-w-lg"
@@ -68,7 +69,7 @@ export default function CaseStudy() {
         ></div>
 
         <div className="max-w-7xl mx-auto my-auto h-full px-4 relative flex-col flex justify-center">
-          <p className="uppercase tracking-wide mb-6 z-20">
+          <p data-aos="fade-up" className="uppercase tracking-wide mb-6 z-20">
             <span className="font-semibold">
               {t("caseStudy.hero.label.case")}
             </span>{" "}
@@ -76,6 +77,7 @@ export default function CaseStudy() {
           </p>
           <div className="flex justify-between items-center">
             <h2
+              data-aos="fade-up"
               className={`text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10 ${locale === "id" ? "max-w-3xl" : "max-w-xl"}`}
             >
               {t("caseStudy.hero.title")}
@@ -86,9 +88,10 @@ export default function CaseStudy() {
 
       <section className="w-full max-w-7xl mx-auto p-6">
         {/* Filter */}
-        <div className="flex gap-4 mb-6">
+        <div data-aos="fade-right" className="flex gap-4 mb-6">
           {/* Industry Filter */}
           <Dropdown
+            
             label={t("caseStudy.filters.industry")}
             onSelect={(value) => setSelectedIndustry(value)}
             className="text-sm !px-3"
@@ -126,7 +129,9 @@ export default function CaseStudy() {
         {/* Grid Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {filteredDataMemo.map((c, idx) => (
-            <CaseStudyCard key={idx} data={c} />
+            <div data-aos="fade-up" data-aos-delay={200 * (idx + 1)} key={c.id}>
+              <CaseStudyCard data={c} />
+            </div>
           ))}
         </div>
       </section>

@@ -26,15 +26,15 @@ export default function Contact() {
       <section className="max-w-7xl mx-auto grid lg:grid-cols-2 lg:gap-44 px-6 lg:px-8 py-16">
         {/* Left - Form */}
         <div className="flex flex-col justify-center lg:py-4 pb-12">
-          <h2 className="text-4xl font-semibold text-gray-900">
+          <h2 data-aos="fade-up" className="text-4xl font-semibold text-gray-900">
             {t("contact.hero.title")}
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
+          <p data-aos="fade-up" className="mt-4 text-lg text-gray-600">
             {t("contact.hero.description")}
           </p>
 
           <form className="mt-8 space-y-6 relative w-full">
-            <div>
+            <div data-aos="fade-up">
               <label className="block text-sm font-medium text-gray-900">
                 {t("contact.form.name")}
                 <span className="text-red-500">*</span>
@@ -45,7 +45,7 @@ export default function Contact() {
                 className="mt-1"
               />
             </div>
-            <div>
+            <div data-aos="fade-up">
               <label className="block text-sm font-medium text-gray-900">
                 {t("contact.form.email")}
                 <span className="text-red-500">*</span>
@@ -56,7 +56,7 @@ export default function Contact() {
                 className="mt-1"
               />
             </div>
-            <div>
+            <div data-aos="fade-up">
               <label className="block text-sm font-medium text-gray-900">
                 {t("contact.form.message")}
               </label>
@@ -67,6 +67,7 @@ export default function Contact() {
             </div>
 
             <Button
+            data-aos="fade-up"
               type="submit"
               className="bg-[#002855] hover:bg-[#001f40] w-full rounded-lg px-6 py-6 text-base"
             >
@@ -78,6 +79,7 @@ export default function Contact() {
         {/* Right - Image */}
         <div className="flex items-center justify-center">
           <img
+            data-aos="fade-up"
             src="/hero.png"
             alt="Data Center Team"
             className="rounded-2xl aspect-[3/4] w-full object-cover h-full"
@@ -93,13 +95,13 @@ export default function Contact() {
           className="absolute block lg:hidden top-0 right-0 opacity-20 max-w-sm"
         />
 
-        <h2 className="text-3xl lg:text-4xl font-semibold text-gray-900">
+        <h2 data-aos="fade-up" className="text-3xl lg:text-4xl font-semibold text-gray-900">
           {t("contact.channels.title")}
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10 relative">
           {/* Card 1 */}
-          <div className="border justify-between rounded-2xl p-6 flex flex-col gap-3 lg:min-h-[320px] bg-white">
+          <div data-aos="fade-up" className="border justify-between rounded-2xl p-6 flex flex-col gap-3 lg:min-h-[320px] bg-white">
             <UserFeedback size={32} className="text-[#002855]" />
             <div className="grid gap-1">
               <h3 className="font-semibold text-lg">
@@ -121,7 +123,7 @@ export default function Contact() {
           </div>
 
           {/* Card 2 */}
-          <div className="border justify-between rounded-2xl p-6 flex flex-col gap-3 lg:min-h-[320px] bg-white">
+          <div data-aos="fade-up" data-aos-delay={100} className="border justify-between rounded-2xl p-6 flex flex-col gap-3 lg:min-h-[320px] bg-white">
             <Email size={32} className="text-[#002855]" />
             <div className="grid gap-1">
               <h3 className="font-semibold text-lg">
@@ -143,7 +145,7 @@ export default function Contact() {
           </div>
 
           {/* Card 3 */}
-          <div className="border justify-between rounded-2xl p-6 flex flex-col gap-3 lg:min-h-[320px] bg-white">
+          <div data-aos="fade-up" data-aos-delay={200} className="border justify-between rounded-2xl p-6 flex flex-col gap-3 lg:min-h-[320px] bg-white">
             <Building size={32} className="text-[#002855]" />
             <div className="grid gap-1">
               <h3 className="font-semibold text-lg">
@@ -169,7 +171,7 @@ export default function Contact() {
           </div>
 
           {/* Card 4 */}
-          <div className="border justify-between rounded-2xl p-6 flex flex-col gap-3 lg:min-h-[320px] bg-white">
+          <div data-aos="fade-up" data-aos-delay={300} className="border justify-between rounded-2xl p-6 flex flex-col gap-3 lg:min-h-[320px] bg-white">
             <Phone size={32} className="text-[#002855]" />
             <div className="grid gap-1">
               <h3 className="font-semibold text-lg">

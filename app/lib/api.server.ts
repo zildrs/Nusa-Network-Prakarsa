@@ -8,6 +8,7 @@ import type {
   CertificationsReponseType,
   CertificationType,
 } from "~/types/certification";
+import type { HomeDataType } from "~/types/home";
 import type { PartnerReponseType, PartnerType } from "~/types/partner";
 import type {
   IndustriesReponseType,
@@ -265,10 +266,57 @@ export async function fetchProjectBySlug(
         "filters[slug][$eq]": slug, // ✅ sesuai format Strapi
         populate: "*", // opsional, kalau mau ambil relasi
       },
-      serviceName: "projects",
+      serviceName: "project-by-slug",
+    }
+  );
+  const project: ProjectType | null = json?.data?.length ? json.data[0] : null;
+  return project;
+}
+
+export async function fetchSolutionBySlug(
+  request: Request,
+  slug: string
+): Promise<SolutionType | null> {
+  const locale = getRequestLocale(request);
+
+  const json = await createApiRequest<DataResponseType<SolutionType[]>>(
+    API_BASE,
+    "solutions",
+    {
+      query: {
+        locale,
+        "filters[slug][$eq]": slug, // ✅ sesuai format Strapi
+        populate: "*", // opsional, kalau mau ambil relasi
+      },
+      serviceName: "solution-by-slug",
     }
   );
 
-  const project: ProjectType | null = json?.data?.length ? json.data[0] : null;
-  return project;
+  const solution: SolutionType | null = Array.isArray(json?.data)
+    ? json!.data[0]
+    : null;
+  return solution;
+}
+
+export async function fetchHomeData(
+  request: Request
+): Promise<HomeDataType | null> {
+  const locale = getRequestLocale(request);
+
+  const json = await createApiRequest<DataResponseType<HomeDataType[]>>(
+    API_BASE,
+    "homes",
+    {
+      query: {
+        locale,
+        populate: "*", // opsional, kalau mau ambil relasi
+      },
+      serviceName: "home-data",
+    }
+  );
+
+  const home: HomeDataType | null = Array.isArray(json?.data)
+    ? json!.data[0]
+    : null;
+  return home;
 }

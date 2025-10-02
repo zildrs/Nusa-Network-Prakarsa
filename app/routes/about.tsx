@@ -7,10 +7,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import type { Swiper as SwiperRef } from "swiper/types";
 import CTASection from "~/components/cta";
-import { useLoaderData, useOutletContext } from "react-router";
+import { Link, useLoaderData, useOutletContext } from "react-router";
 import { createMetaFunction, seoData } from "~/lib/meta";
 import { fetchCertificationsData } from "~/lib/api.server";
 import { APP_BASE_URL } from "~/lib/utils";
+import { solutionsMenu } from "~/components/header";
 
 export const meta = createMetaFunction(seoData.about);
 
@@ -25,19 +26,12 @@ export default function About() {
   const { certifications } = useLoaderData<typeof loader>();
 
   const stats = [
-    { value: "150+", label: t("home.stats.projectsAccomplished") },
-    { value: "100+", label: t("home.stats.clientsSuccess") },
-    { value: "32+", label: t("home.stats.technologyPartners") },
-    { value: "15+", label: t("home.stats.amazingAwards") },
+    { value: "150", label: t("home.stats.projectsAccomplished") },
+    { value: "100", label: t("home.stats.clientsSuccess") },
+    { value: "32", label: t("home.stats.technologyPartners") },
+    { value: "15", label: t("home.stats.amazingAwards") },
   ];
 
-  const solutions = [
-    { title: "Managed Services", img: "/hero.png" },
-    { title: "Network Infrastructure", img: "/network-infrastructure.jpg" },
-    { title: "Data Center", img: "/data-center.jpg" },
-    { title: "Security Infrastructure", img: "/security-infrastructure.png" },
-    { title: "Internet of Things (IoT)", img: "/iot.png" },
-  ];
 
   const values = [
     {
@@ -78,11 +72,11 @@ export default function About() {
         ></div>
 
         <div className="max-w-7xl mx-auto my-auto h-full px-4 relative flex-col flex justify-center">
-          <p className="uppercase tracking-wide mb-6 z-20">
+          <p data-aos="fade-right" className="uppercase tracking-wide mb-6 z-20">
             <span className="font-semibold">{t("about.label.about")}</span>{" "}
             {t("about.label.us")}
           </p>
-          <div className="flex justify-between items-center">
+          <div data-aos="fade-right" className="flex justify-between items-center">
             <h2 className="text-4xl max-w-md lg:text-5xl lg:font-semibold leading-snug mb-10">
               {t("about.hero.subtitle")}
             </h2>
@@ -109,9 +103,9 @@ export default function About() {
             pagination={{ clickable: true }}
             centeredSlides
           >
-            {solutions.map((s, idx) => (
+            {solutionsMenu.map((s, idx) => (
               <SwiperSlide key={idx}>
-                <div className="rounded-xl overflow-hidden">
+                <Link to={`/solutions/${s.slug}`} data-aos="fade-right" data-aos-delay={(idx + 1) * 100} className="rounded-xl overflow-hidden">
                   <img
                     src={s.img}
                     alt={s.title}
@@ -120,7 +114,7 @@ export default function About() {
                   <div className="p-4 bg-gradient-to-t from-black/50 to-transparent absolute bottom-0 w-full">
                     <p className="text-white font-medium text-xl">{s.title}</p>
                   </div>
-                </div>
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -129,26 +123,28 @@ export default function About() {
         <div className="max-w-7xl justify-between mx-auto px-4 py-16 grid md:grid-cols-2 gap-12 items-center">
           {/* Text */}
           <div>
-            <h2 className="text-[32px] lg:text-[40px] font-semibold leading-snug">
+            <h2 data-aos="fade-up" className="text-[32px] lg:text-[40px] font-semibold leading-snug">
               {t("home.consultant.heading")}
             </h2>
-            <p className="text-gray-500 mt-4 leading-7 text-base lg:text-lg">
+            <p data-aos="fade-up" className="text-gray-500 mt-4 leading-7 text-base lg:text-lg">
               {t("home.consultant.description1")}
             </p>
-            <p className="text-gray-500 mt-4 leading-7 text-base lg:text-lg">
+            <p data-aos="fade-up" className="text-gray-500 mt-4 leading-7 text-base lg:text-lg">
               {t("home.consultant.description2")}
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4 h-full">
-            {stats.map((item) => (
+            {stats.map((item, i) => (
               <div
+                data-aos="fade-up"
+                  data-aos-delay={200 * (i + 1)}
                 key={item.label}
                 className="border border-gray-200 rounded-xl aspect-square lg:aspect-auto bg-center bg-cover bg-no-repeat bg-card flex flex-col justify-between"
                 style={{ backgroundImage: `url(/bg-card.png)` }}
               >
                 <p className="lg:text-4xl text-[32px] font-semibold p-4 lg:p-6">
-                  {item.value}
+                  {item.value}+
                 </p>
                 <div className="text-lg text-gray-500 bg-gray-50 p-3 rounded-b-xl">
                   <p className="lg:w-42 wrap-all text-sm lg:text-base">
@@ -179,11 +175,11 @@ export default function About() {
         ></div>
 
         <div className="max-w-7xl mx-auto px-4 relative">
-          <p className="uppercase tracking-wide mb-6 z-20">
+          <p data-aos="fade-right" className="uppercase tracking-wide mb-6 z-20">
             <span className="font-semibold">{t("about.values.our")}</span>{" "}
             {t("about.values.values")}
           </p>
-          <div className="flex justify-between items-center">
+          <div data-aos="fade-right" className="flex justify-between items-center">
             <h2 className="text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10">
               {t("about.values.subtitle")}
             </h2>
@@ -193,6 +189,8 @@ export default function About() {
             {values.map((item, i) => (
               <div
                 key={i}
+                data-aos="fade-up"
+                data-aos-delay={200 * (i + 1)}
                 className="border min-h-[200px] aspect-auto lg:aspect-square p-4 border-gray-300 rounded-xl shadow-sm bg-top-right bg-cover bg-no-repeat bg-card flex flex-col justify-between"
                 style={{ backgroundImage: `url(/bg-card.png)` }}
               >
@@ -211,18 +209,18 @@ export default function About() {
           {/* Vision & Mission */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 min-h-[400px] ">
             <div>
-              <h3 className="uppercase text-xl mb-2">
+              <h3 data-aos="fade-right" className="uppercase text-xl mb-2">
                 {t("about.vision.title")}
               </h3>
-              <p className="text-lg leading-relaxed">
+              <p data-aos="fade-right" className="text-lg leading-relaxed">
                 {t("about.vision.description")}
               </p>
             </div>
             <div className="lg:items-start items-end flex flex-col justify-end lg:text-left text-right">
-              <h3 className="uppercase text-xl mb-2">
+              <h3 data-aos="fade-left" className="uppercase text-xl mb-2">
                 {t("about.mission.title")}
               </h3>
-              <p className="text-lg leading-relaxed">
+              <p data-aos="fade-left" className="text-lg leading-relaxed">
                 {t("about.mission.description")}
               </p>
             </div>
@@ -234,23 +232,25 @@ export default function About() {
         <div className="max-w-7xl mx-auto">
           {/* Heading */}
           <div className="mb-12">
-            <p className="uppercase tracking-wide mb-6 z-20">
+            <p data-aos="fade-up" className="uppercase tracking-wide mb-6 z-20">
               {t("about.achievement.our")}{" "}
               <span className="font-semibold">
                 {" "}
                 {t("about.achievement.achievement")}
               </span>
             </p>
-            <h2 className="text-3xl md:text-4xl max-w-md leading-14 font-semibold text-gray-900 mt-2">
+            <h2 data-aos="fade-up" className="text-3xl md:text-4xl max-w-md leading-14 font-semibold text-gray-900 mt-2">
               {t("about.achievement.subtitle")}
             </h2>
           </div>
 
           {/* Grid */}
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {certifications.map((award) => (
+            {certifications.slice(0, 9).map((award, i) => (
               <div
                 key={award.id}
+                data-aos="fade-up"
+                data-aos-delay={200 * (i + 1)}
                 className="rounded-2xl min-h-[230px] border border-gray-200 bg-white p-6 transition flex flex-col justify-between"
               >
                 <div className="flex items-center gap-2 mb-4">

@@ -13,9 +13,12 @@ import { createT } from "./i18n";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import "aos/dist/aos.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import { createOrganizationSchema } from "./lib/seo";
+import { useEffect } from "react";
+import AOS from "aos";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -39,6 +42,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export function Layout() {
   const { locale } = useLoaderData<typeof loader>();
   const t = createT(locale);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 600,
+      easing: "ease-out",
+      once: true,
+    });
+  }, []);
 
   return (
     <html lang={locale}>

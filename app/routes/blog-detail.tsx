@@ -143,7 +143,7 @@ export default function BlogDetail() {
                 {solutionsMenu.map((item) => (
                   <Link
                     key={item.title}
-                    to={`${currentLocale === "id" ? "/id" : ""}/solutions/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
+                    to={`${currentLocale === "id" ? "/id/solusi" : "/solution"}/${item.slug}`}
                     className="py-3 flex items-center gap-4"
                   >
                     <item.icon className="mr-2" size={20} />

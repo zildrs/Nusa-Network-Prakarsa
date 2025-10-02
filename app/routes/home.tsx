@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import type { Route } from "./+types/home";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -13,37 +12,37 @@ import {
   useLoaderData,
   useOutletContext,
   type LoaderFunctionArgs,
-  type MetaFunction,
 } from "react-router";
 import {
-  fetchBlogData,
+  fetchHomeData,
   fetchProjectsData,
   fetchSolutionsData,
   fetchTestimonialsData,
 } from "~/lib/api.server";
 import { createMetaFunction, seoData } from "~/lib/meta";
 import { APP_BASE_URL } from "~/lib/utils";
+import { solutionsMenu } from "~/components/header";
 
 export const meta = createMetaFunction(seoData.home);
 
 export async function loader({ request }: LoaderFunctionArgs) {
   // jalankan paralel biar lebih cepat
-  const [{ blogs }, { solutions }, { projects }, { testimonies }] =
+  const [{ solutions }, { projects }, { testimonies }, home] =
     await Promise.all([
-      fetchBlogData(request),
       fetchSolutionsData(request),
       fetchProjectsData(request),
       fetchTestimonialsData(request),
+      fetchHomeData(request),
     ]);
 
-  return { blogs, solutions, projects, testimonies };
+  return { solutions, projects, testimonies, home };
 }
 
 export default function Home() {
   const swiperRef = useRef<SwiperRef | null>(null);
   const [Marquee, setMarquee] = useState<any>(null);
   const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
-  const { blogs, projects, testimonies } = useLoaderData<typeof loader>();
+  const { projects, testimonies, home } = useLoaderData<typeof loader>();
 
   useEffect(() => {
     import("react-fast-marquee").then((mod) => {
@@ -52,10 +51,10 @@ export default function Home() {
   }, []);
 
   const stats = [
-    { value: "150+", label: t("home.stats.projectsAccomplished") },
-    { value: "100+", label: t("home.stats.clientsSuccess") },
-    { value: "32+", label: t("home.stats.technologyPartners") },
-    { value: "15+", label: t("home.stats.amazingAwards") },
+    { value: 150, label: t("home.stats.projectsAccomplished") },
+    { value: 100, label: t("home.stats.clientsSuccess") },
+    { value: 32, label: t("home.stats.technologyPartners") },
+    { value: 15, label: t("home.stats.amazingAwards") },
   ];
 
   const partners = [
@@ -80,26 +79,6 @@ export default function Home() {
     "/logos/telkom.png",
   ];
 
-  const solutions = [
-    { title: "Managed Services", img: "/hero.png", slug: "managed-services" },
-    {
-      title: "Network Infrastructure",
-      img: "/network-infrastructure.jpg",
-      slug: "network-infrastructure",
-    },
-    { title: "Data Center", img: "/data-center.jpg", slug: "data-center" },
-    {
-      title: "Security Infrastructure",
-      img: "/security-infrastructure.png",
-      slug: "security-infrastructure",
-    },
-    {
-      title: "Internet of Things (IoT)",
-      img: "/iot.png",
-      slug: "internet-of-things",
-    },
-  ];
-
   return (
     <main>
       <section className="bg-white">
@@ -113,12 +92,18 @@ export default function Home() {
         >
           {/* Left Side */}
           <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 lg:gap-10 items-end w-full">
-            <h1 className="text-5xl text-[40px] lg:text-[64px] leading-[50px] lg:leading-[80px] tracking-[-0.02em] font-semibold col-span-6">
-              {t("home.hero.title")}
+            <h1
+              data-aos="fade-up"
+              className="text-5xl text-[40px] lg:text-[64px] leading-[50px] lg:leading-[80px] tracking-[-0.02em] font-semibold col-span-6"
+            >
+              {home?.hero_title ?? t("home.hero.title")}
             </h1>
             {/* Right Side - Hero Image */}
-            <p className="text-gray-500 mt-4 text-xl lg:text-xl col-span-2">
-              {t("home.hero.subtitle")}
+            <p
+              data-aos="fade-left"
+              className="text-gray-500 mt-4 text-xl lg:text-xl col-span-2"
+            >
+              {home?.hero_subtitle ?? t("home.hero.subtitle")}
             </p>
           </div>
         </div>
@@ -129,7 +114,7 @@ export default function Home() {
         />
         {/* Partner Logos */}
         <div className="lg:p-[64px] py-[64px] ">
-          <div className="max-w-7xl mx-auto px-4">
+          <div data-aos="fade-up" className="max-w-7xl mx-auto px-4">
             <p className="text-center text-xs lg:text-lg tracking-[4px] leading-[18px] lg:tracking-[0.2em] text-gray-500 mb-12 lg:w-[80%] mx-auto">
               {t("home.hero.trustedBy")}
             </p>
@@ -158,27 +143,38 @@ export default function Home() {
         <div className="max-w-7xl justify-between mx-auto px-4 py-16 grid md:grid-cols-2 gap-12 items-center">
           {/* Text */}
           <div>
-            <h2 className="text-[32px] lg:text-[40px] font-semibold leading-snug">
+            <h2
+              data-aos="fade-up"
+              className="text-[32px] lg:text-[40px] font-semibold leading-snug"
+            >
               {t("home.consultant.heading")}
             </h2>
-            <p className="text-gray-500 mt-4 leading-7 text-base lg:text-lg">
+            <p
+              data-aos="fade-up"
+              className="text-gray-500 mt-4 leading-7 text-base lg:text-lg"
+            >
               {t("home.consultant.description1")}
             </p>
-            <p className="text-gray-500 mt-4 leading-7 text-base lg:text-lg">
+            <p
+              data-aos="fade-up"
+              className="text-gray-500 mt-4 leading-7 text-base lg:text-lg"
+            >
               {t("home.consultant.description2")}
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4 h-full">
-            {stats.map((item) => (
+            {stats.map((item, i) => (
               <div
                 key={item.label}
+                data-aos="fade-up"
+                data-aos-delay={200 * (i + 1)}
                 className="border border-gray-200 rounded-xl aspect-square lg:aspect-auto bg-center bg-cover bg-no-repeat bg-card flex flex-col justify-between"
                 style={{ backgroundImage: `url(/bg-card.png)` }}
               >
-                <p className="lg:text-4xl text-[32px] font-semibold p-4 lg:p-6">
-                  {item.value}
-                </p>
+                <div className="lg:text-4xl text-[32px] font-semibold p-4 lg:p-6">
+                  {item.value}+
+                </div>
                 <div className="text-lg text-gray-500 bg-gray-50 p-3 rounded-b-xl">
                   <p className="lg:w-42 wrap-all text-sm lg:text-base">
                     {item.label}
@@ -214,22 +210,27 @@ export default function Home() {
         ></div>
 
         <div className="max-w-7xl mx-auto px-4 relative">
-          <p className="uppercase tracking-wide mb-6 z-20">
+          <p data-aos="fade-up" className="uppercase tracking-wide mb-6 z-20">
             <span className="font-semibold">{t("home.solutions.our")}</span>{" "}
             {t("home.solutions.solutions")}
           </p>
           <div className="flex justify-between items-center">
-            <h2 className="text-[32px] max-w-4xl lg:text-5xl font-semibold lg:font-semibold leading-snug mb-10">
+            <h2
+              data-aos="fade-up"
+              className="text-[32px] max-w-4xl lg:text-5xl font-semibold lg:font-semibold leading-snug mb-10"
+            >
               {t("home.solutions.subtitle")} <br />
             </h2>
             <div className="z-10 hidden lg:flex gap-8">
               <button
+                data-aos="fade-right"
                 onClick={() => swiperRef.current?.slidePrev()}
                 className="p-3 bg-white rounded-lg hover:bg-gray-300"
               >
                 <ArrowLeft className="text-gray-700" />
               </button>
               <button
+                data-aos="fade-left"
                 onClick={() => swiperRef.current?.slideNext()}
                 className="p-3 bg-white rounded-lg hover:bg-gray-300"
               >
@@ -239,6 +240,7 @@ export default function Home() {
           </div>
 
           <Swiper
+            data-aos="fade-left"
             className="!overflow-visible z-10 relative"
             modules={[Navigation, Pagination]}
             loop
@@ -253,7 +255,7 @@ export default function Home() {
             }}
             pagination={{ clickable: true }}
           >
-            {solutions.map((s, idx) => (
+            {solutionsMenu.map((s, idx) => (
               <SwiperSlide key={idx}>
                 <div className="rounded-xl overflow-hidden relative group z-50 bg-gradient-to-t from-black/50 to-transparent">
                   <img
@@ -285,17 +287,29 @@ export default function Home() {
       {/* Section 2 - Case Study */}
       <section className="bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4">
-          <p className="uppercase text-sm tracking-wide text-gray-900 mb-2">
+          <p
+            data-aos="fade-up"
+            className="uppercase text-sm tracking-wide text-gray-900 mb-2"
+          >
             <span className="font-semibold">{t("home.caseStudy.case")}</span>{" "}
             {t("home.caseStudy.study")}
           </p>
-          <h2 className="text-[32px] lg:text-4xl font-semibold mb-8 max-w-md">
+          <h2
+            data-aos="fade-up"
+            className="text-[32px] lg:text-4xl font-semibold mb-8 max-w-md"
+          >
             {t("home.caseStudy.title")}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
             {projects.map((c, idx) => (
-              <CaseStudyCard key={idx} data={c} />
+              <div
+                key={idx}
+                data-aos="fade-up"
+                data-aos-delay={200 * (idx + 1)}
+              >
+                <CaseStudyCard data={c} />
+              </div>
             ))}
           </div>
         </div>
@@ -303,13 +317,19 @@ export default function Home() {
 
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-6">
-          <p className="uppercase tracking-wide text-gray-900 mb-2">
+          <p
+            data-aos="fade-up"
+            className="uppercase tracking-wide text-gray-900 mb-2"
+          >
             {t("home.testimonials.our")}{" "}
             <span className="font-semibold">
               {t("home.testimonials.clients")}
             </span>
           </p>
-          <h2 className="text-4xl font-semibold mb-8 max-w-xl">
+          <h2
+            data-aos="fade-up"
+            className="text-4xl font-semibold mb-8 max-w-xl"
+          >
             {t("home.testimonials.title")}
           </h2>
 
@@ -317,6 +337,8 @@ export default function Home() {
             {testimonies.slice(0, 6).map((t, idx) => (
               <div
                 key={idx}
+                data-aos="fade-up"
+                data-aos-delay={200 * (idx + 1)}
                 className="bg-white rounded-2xl  border border-gray-200 flex flex-col justify-between"
               >
                 <p className="text-gray-700 mb-4 leading-relaxed p-6">
@@ -340,17 +362,27 @@ export default function Home() {
       </section>
 
       <section className="py-16 max-w-7xl mx-auto px-6">
-        <p className=" tracking-widest text-gray-900 uppercase">
+        <p
+          data-aos="fade-up"
+          className=" tracking-widest text-gray-900 uppercase"
+        >
           <span className="font-semibold">
             {t("home.technologyPartners.technology")}
           </span>{" "}
           {t("home.technologyPartners.partners")}
         </p>
-        <h2 className="mt-2 text-3xl lg:text-4xl max-w-lg font-semibold text-gray-900 leading-snug">
+        <h2
+          data-aos="fade-up"
+          className="mt-2 text-3xl lg:text-4xl max-w-lg font-semibold text-gray-900 leading-snug"
+        >
           {t("home.technologyPartners.heading")}
         </h2>
 
-        <a href="/partners" className="my-8 flex items-center font-medium">
+        <a
+          data-aos="fade-right"
+          href="/partners"
+          className="my-8 flex items-center font-medium"
+        >
           {t("home.technologyPartners.cta")}{" "}
           <ArrowRight className="ml-2 h-5 w-5" />
         </a>
@@ -358,6 +390,7 @@ export default function Home() {
         {/* Logo carousel (contoh pakai flex biasa, bisa ganti swiper/marquee) */}
         {Marquee && (
           <Marquee
+            data-aos="fade-up"
             className="mt-16"
             gradient={true}
             autoFill={true}
