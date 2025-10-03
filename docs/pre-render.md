@@ -264,7 +264,24 @@ export async function loader({ request, params }: Route.LoaderArgs) {
 - [x] Remove incompatible exports (`action`, `headers`) from pre-rendered routes (resource set-locale removed).
 
 ### Phase 4 – Content Freshness Strategy (in progress)
-- [ ] Document Strapi → build webhook flow (recommended: CMS triggers a deploy hook that runs `npm run build` + upload).
+- [x] Document Strapi → build webhook flow.
+  **Strapi Setup**
+  1. In Strapi, open *Settings → Webhooks* and create a new webhook.
+  2. Select triggers for content publish/unpublish (Blogs, Case Studies, Solutions).
+  3. Add the automation endpoint URL (build hook, VPS endpoint, or CI/CD runner).
+  4. Add a shared secret header (e.g. `X-DEPLOY-TOKEN`) and enable Strapi delivery logs/retries.
+
+  **CI/CD or VPS Automation**
+  1. Expose a secure HTTP endpoint (Vercel/Netlify build hook, GitHub Actions workflow_dispatch URL, or VPS handler via nginx + script).
+  2. Validate the shared secret from Strapi; reject unauthorized requests.
+  3. In the handler/pipeline steps: pull the latest code, run `ALLOW_INSECURE_TLS=1 npm install --prefer-offline`, `ALLOW_INSECURE_TLS=1 npm run build`, then sync `build/client` to the static host (rsync/SCP/`vercel deploy`).
+  4. Restart the static-serving process (if on VPS) or let the hosting platform serve the new assets.
+  5. Emit success/failure logs; send alerts (Slack/email) when the run fails.
+
+  **Trigger Flow**
+  1. Editor publishes content in Strapi → webhook fires with payload.
+  2. Automation endpoint verifies the secret and kicks off the build/deploy steps.
+  3. On success, static assets are updated; on failure, alerts fire and Strapi shows retry options.
 - [ ] Decide on rebuild cadence for non-critical updates (daily fallback).
 - [ ] Add monitoring/alerts for failed webhook builds.
 
