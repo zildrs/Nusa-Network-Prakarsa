@@ -139,6 +139,7 @@ export function createMetaFunction(seoData: LocalizedSEO): MetaFunction {
 
     const canonical = getCanonicalUrl(source, origin);
     const hrefLangUrls = gethrefLangUrls(source, origin);
+    const thumbnail = new URL("/nnp-thumbnail.png", origin).toString();
 
     const tags: Record<string, any>[] = [
       { title: seo.title },
@@ -149,17 +150,11 @@ export function createMetaFunction(seoData: LocalizedSEO): MetaFunction {
       { property: "og:type", content: "website" },
       { property: "og:url", content: canonical },
       { property: "og:site_name", content: "Nusa Network Prakarsa" },
-      {
-        property: "og:image",
-        content: "https://nnp-landing.vercel.app/opengraph-image.png",
-      },
+      { property: "og:image", content: thumbnail },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: seo.title },
       { name: "twitter:description", content: seo.description },
-      {
-        name: "twitter:image",
-        content: "https://nnp-landing.vercel.app/opengraph-image.png",
-      },
+      { name: "twitter:image", content: thumbnail },
       { rel: "canonical", href: canonical },
       ...hrefLangUrls.map(({ href, hrefLang }) => ({
         rel: "alternate",
