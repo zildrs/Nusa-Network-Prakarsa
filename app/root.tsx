@@ -51,6 +51,12 @@ export function Layout() {
     });
   }, []);
 
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = locale;
+    }
+  }, [locale]);
+
   return (
     <html lang={locale}>
       <head>

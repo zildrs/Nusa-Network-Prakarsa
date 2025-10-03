@@ -12,8 +12,14 @@ import {
   type MetaFunction,
 } from "react-router";
 import { solutions } from "~/data/solutions";
-import { fetchProjectsData, fetchSolutionBySlug } from "~/lib/api.server";
+import type { Solution } from "~/data/solutions";
+import {
+  fetchProjectsCollection,
+  fetchSolutionsCollection,
+} from "~/lib/api.build";
 import { createMetaFunction, seoData } from "~/lib/meta";
+import { inferLocaleFromUrl } from "~/lib/locale-utils";
+import type { Locale } from "~/i18n";
 
 type SolutionSlug = keyof typeof seoData;
 export const meta: MetaFunction = (args) => {
@@ -49,19 +55,33 @@ export const meta: MetaFunction = (args) => {
 
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
-  const slug = url.pathname.split("/").pop() as keyof typeof solutions;
-  const [{ projects }, solution] = await Promise.all([
-    fetchProjectsData(request),
-    fetchSolutionBySlug(request, slug),
+  const locale = inferLocaleFromUrl(url);
+  const slugParam = url.pathname.split("/").pop();
+  if (!slugParam) {
+    throw new Response("Not Found", { status: 404 });
+  }
+
+  const [{ projects }, { solutions: cmsSolutions }] = await Promise.all([
+    fetchProjectsCollection({ locale }),
+    fetchSolutionsCollection({ locale }),
   ]);
-  return { ...solutions[slug], slug, projects, solution };
+
+  const solutionKey = slugParam as Solution;
+  const staticSolution = solutions[solutionKey];
+  if (!staticSolution) {
+    throw new Response("Not Found", { status: 404 });
+  }
+
+  const solution = cmsSolutions.find((item) => item.slug === slugParam) ?? null;
+
+  return { ...staticSolution, slug: solutionKey, projects, solution, locale };
 }
 
 export default function SolutionDetail() {
   const [Marquee, setMarquee] = useState<any>(null);
 
   const data = useLoaderData<typeof loader>();
-  const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
+  const { t } = useOutletContext<{ t: any; locale: Locale }>();
 
   useEffect(() => {
     import("react-fast-marquee").then((mod) => {

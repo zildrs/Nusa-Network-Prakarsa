@@ -11,23 +11,30 @@ import {
   DialogClose,
 } from "~/components/ui/dialog";
 import { createMetaFunction, seoData } from "~/lib/meta";
-import { fetchPartnersData, fetchProjectsData } from "~/lib/api.server";
+import {
+  fetchPartnersCollection,
+  fetchProjectsCollection,
+} from "~/lib/api.build";
 import type { PartnerType } from "~/types/partner";
 import { APP_BASE_URL } from "~/lib/utils";
+import { inferLocaleFromUrl } from "~/lib/locale-utils";
+import type { Locale } from "~/i18n";
 
 export const meta = createMetaFunction(seoData.partners);
 
 export async function loader({ request }: Route.LoaderArgs) {
+  const url = new URL(request.url);
+  const locale = inferLocaleFromUrl(url);
   const [{ partners }, { projects }] = await Promise.all([
-    fetchPartnersData(request),
-    fetchProjectsData(request),
+    fetchPartnersCollection({ locale }),
+    fetchProjectsCollection({ locale }),
   ]);
 
-  return { partners, projects };
+  return { partners, projects, locale };
 }
 
 export default function Partner() {
-  const { t, locale } = useOutletContext<{ t: any; locale: "id" | "en" }>();
+  const { t, locale } = useOutletContext<{ t: any; locale: Locale }>();
   const { partners, projects } = useLoaderData<typeof loader>();
   const [selected, setSelected] = useState<PartnerType | null>(null);
 

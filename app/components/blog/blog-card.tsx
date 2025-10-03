@@ -18,6 +18,10 @@ export function BlogCard({
 }: BlogCardProps) {
   const slug = getBlogSlug(blog, locale);
   const imageSrc = "/bg-card.png";
+  const bannerPath = blog.banner?.[0]?.url ?? "/bg-card.png";
+  const resolvedBannerSrc = bannerPath
+    ? new URL(bannerPath, APP_BASE_URL).toString()
+    : imageSrc;
   const categoryLabel = blog.category.name || "BLOG";
   if (variant === "compact") {
     return (
@@ -26,7 +30,7 @@ export function BlogCard({
         className={`flex p-2 gap-3 rounded-xl border border-gray-200 bg-white overflow-hidden hover:shadow-sm transition ${className}`}
       >
         <img
-          src={`${APP_BASE_URL}/${blog.banner[0].url}` || imageSrc}
+          src={resolvedBannerSrc}
           alt={blog.title}
           className="h-24 aspect-square object-cover rounded-md"
         />
@@ -45,7 +49,7 @@ export function BlogCard({
         className={`block p-3 h-full rounded-2xl overflow-hidden border border-gray-200 bg-white transition hover:shadow-sm ${className}`}
       >
         <img
-          src={`${APP_BASE_URL}/${blog.banner[0].url}` || imageSrc}
+          src={resolvedBannerSrc}
           alt={blog.title}
           className="w-full h-60 md:h-80 object-cover rounded-xl"
         />
@@ -66,7 +70,7 @@ export function BlogCard({
       className={`rounded-2xl p-3 overflow-hidden border border-gray-200 bg-white transition hover:shadow-sm ${className}`}
     >
       <img
-        src={`${APP_BASE_URL}/${blog.banner[0].url}` || imageSrc}
+        src={resolvedBannerSrc}
         alt={blog.title}
         className="w-full aspect-[4/3] object-cover rounded-xl"
       />

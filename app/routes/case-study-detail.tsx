@@ -4,24 +4,40 @@ import { ArrowRight } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
 import {
-  fetchProjectBySlug,
-  fetchProjectsData,
-  fetchSolutionsData,
-} from "~/lib/api.server";
-import { APP_BASE_URL } from "~/lib/utils";
+  fetchProjectsCollection,
+  fetchSolutionsCollection,
+} from "~/lib/api.build";
+import { APP_BASE_URL, nameToSlug } from "~/lib/utils";
 import BlogContent from "~/components/blog/blog-content";
 import NotFoundPage from "./404";
+import { inferLocaleFromUrl } from "~/lib/locale-utils";
+import type { Locale } from "~/i18n";
+
+function ensureSlug(params: { slug?: string } | undefined): string {
+  const slug = params?.slug;
+  if (!slug) {
+    throw new Response("Not Found", { status: 404 });
+  }
+  return slug;
+}
 
 export async function loader({
   request,
   params,
 }: Route.LoaderArgs & { params: { slug: string } }) {
-  const slug = params.slug;
-  const [project, { solutions, locale }, { projects }] = await Promise.all([
-    fetchProjectBySlug(request, slug),
-    fetchSolutionsData(request),
-    fetchProjectsData(request),
+  const url = new URL(request.url);
+  const locale = inferLocaleFromUrl(url);
+  const slug = ensureSlug(params);
+  const [{ projects }, { solutions }] = await Promise.all([
+    fetchProjectsCollection({ locale }),
+    fetchSolutionsCollection({ locale }),
   ]);
+
+  const project =
+    projects.find((item) => {
+      const candidate = item.slug && item.slug.trim().length > 0 ? item.slug : String(item.id);
+      return nameToSlug(candidate) === slug;
+    }) ?? null;
 
   return { project, solutions, locale, projects };
 }

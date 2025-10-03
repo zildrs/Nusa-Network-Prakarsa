@@ -65,7 +65,4 @@ export default [
   }),
 
   route("*", "routes/404.tsx"),
-
-  // resource route
-  route("resources/set-locale", "routes/resources.set-locale.tsx"),
 ] satisfies RouteConfig;

@@ -14,34 +14,38 @@ import {
   type LoaderFunctionArgs,
 } from "react-router";
 import {
-  fetchHomeData,
-  fetchProjectsData,
-  fetchSolutionsData,
-  fetchTestimonialsData,
-} from "~/lib/api.server";
+  fetchHomeContent,
+  fetchProjectsCollection,
+  fetchSolutionsCollection,
+  fetchTestimonialsCollection,
+} from "~/lib/api.build";
 import { createMetaFunction, seoData } from "~/lib/meta";
 import { APP_BASE_URL } from "~/lib/utils";
 import { solutionsMenu } from "~/components/header";
+import { inferLocaleFromUrl } from "~/lib/locale-utils";
+import type { Locale } from "~/i18n";
 
 export const meta = createMetaFunction(seoData.home);
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  // jalankan paralel biar lebih cepat
-  const [{ solutions }, { projects }, { testimonies }, home] =
+  const url = new URL(request.url);
+  const locale = inferLocaleFromUrl(url);
+
+  const [{ solutions }, { projects }, { testimonies }, { home }] =
     await Promise.all([
-      fetchSolutionsData(request),
-      fetchProjectsData(request),
-      fetchTestimonialsData(request),
-      fetchHomeData(request),
+      fetchSolutionsCollection({ locale }),
+      fetchProjectsCollection({ locale }),
+      fetchTestimonialsCollection({ locale }),
+      fetchHomeContent({ locale }),
     ]);
 
-  return { solutions, projects, testimonies, home };
+  return { solutions, projects, testimonies, home, locale };
 }
 
 export default function Home() {
   const swiperRef = useRef<SwiperRef | null>(null);
   const [Marquee, setMarquee] = useState<any>(null);
-  const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
+  const { t } = useOutletContext<{ t: any; locale: Locale }>();
   const { projects, testimonies, home } = useLoaderData<typeof loader>();
 
   useEffect(() => {

@@ -2,7 +2,6 @@ let tlsBypassInitialized = false;
 
 async function ensureDevInsecureTLS() {
   if (tlsBypassInitialized) return;
-  if (process.env.NODE_ENV === "production") return;
   if (process.env.ALLOW_INSECURE_TLS !== "1") return;
   try {
     const { setGlobalDispatcher, Agent } = await import("undici");

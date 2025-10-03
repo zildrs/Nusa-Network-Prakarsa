@@ -1,10 +1,15 @@
 // app/components/LanguageSwitcher.tsx
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "~/components/ui/select";
 import { saveLanguagePreference, translateCurrentPath, type LanguagePreference } from "~/lib/locale-storage";
 
 export function LanguageSwitcher({ current }: { current: "id" | "en" }) {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  if (/\/blog\/read\//.test(location.pathname)) {
+    return null;
+  }
 
   const handleLanguageChange = (newLocale: LanguagePreference) => {
     if (newLocale === current) return;
@@ -27,10 +32,7 @@ export function LanguageSwitcher({ current }: { current: "id" | "en" }) {
   };
 
   return (
-    <Select
-      defaultValue={current}
-      onValueChange={handleLanguageChange}
-    >
+    <Select defaultValue={current} onValueChange={handleLanguageChange}>
       <SelectTrigger className="border border-gray-300 rounded-lg px-3 py-2 text-sm w-24">
         <SelectValue>
           <img

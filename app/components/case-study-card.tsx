@@ -8,8 +8,12 @@ export function getCaseStudySlug(
   locale?: "id" | "en"
 ): string {
   const baseUrl = locale === "id" ? "/id/studi-kasus" : "/case-study";
-  const baseSlug = `${nameToSlug(caseStudy.slug || "")}` || `${caseStudy.id}`;
-  return locale === "id" ? `${baseUrl}/${baseSlug}` : `${baseUrl}/${baseSlug}`;
+  const rawSlug =
+    caseStudy.slug && caseStudy.slug.trim().length > 0
+      ? caseStudy.slug
+      : String(caseStudy.id);
+  const slug = nameToSlug(rawSlug);
+  return `${baseUrl}/${slug}`;
 }
 
 const CaseStudyCard = ({ data }: { data: ProjectType }) => {
