@@ -8,7 +8,12 @@ interface BlogHeroProps {
   locale?: "id" | "en";
 }
 
-export function BlogHero({ featuredBlog, relatedBlogs, className = '', locale }: BlogHeroProps) {
+export function BlogHero({
+  featuredBlog,
+  relatedBlogs,
+  className = "",
+  locale,
+}: BlogHeroProps) {
   return (
     <section className={`overflow-hidden relative px-4 lg:px-6 ${className}`}>
       <img
@@ -26,9 +31,12 @@ export function BlogHero({ featuredBlog, relatedBlogs, className = '', locale }:
           {/* Related Blogs */}
           <div className="flex flex-col gap-4 justify-between">
             {relatedBlogs.slice(0, 3).map((blog, i) => (
-              <div key={blog.id} data-aos="fade-up" data-aos-delay={200 * (i + 1)}>
-                <BlogCard  blog={blog} variant="compact" locale={locale} />
-              </div>
+              <BlogCard
+                key={blog.id}
+                blog={blog}
+                variant="compact"
+                locale={locale}
+              />
             ))}
           </div>
         </div>

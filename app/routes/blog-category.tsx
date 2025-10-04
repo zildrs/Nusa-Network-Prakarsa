@@ -1,9 +1,6 @@
 import type { Route } from "./+types/blog";
-import { useEffect, useState } from "react";
-import type { BlogPost } from "~/types/blog";
 import CTASection from "~/components/cta";
 import { BlogNavigation, BlogEmptyState, BlogCard } from "~/components/blog";
-import { fetchBlogData, fetchCategoriesData } from "~/lib/api.server";
 import {
   Pagination,
   PaginationContent,
@@ -14,6 +11,9 @@ import {
 } from "~/components/ui/pagination";
 import { useLoaderData, useNavigate } from "react-router";
 import { slugToName } from "~/lib/utils";
+import { fetchBlogCategories, fetchBlogCollection } from "~/lib/api.build";
+import { inferLocaleFromUrl } from "~/lib/locale-utils";
+import type { Locale } from "~/i18n";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -30,9 +30,13 @@ export async function loader({
   params,
 }: Route.LoaderArgs & { params: { category: string } }) {
   const categoryName = slugToName(params.category);
-  const [{ blogs, locale, meta }, { categories }] = await Promise.all([
-    fetchBlogData(request, categoryName),
-    fetchCategoriesData(request),
+  const url = new URL(request.url);
+  const locale = inferLocaleFromUrl(url);
+  const page = Number(url.searchParams.get("page") ?? 1);
+
+  const [{ blogs, meta }, { categories }] = await Promise.all([
+    fetchBlogCollection({ locale, categoryName, page }),
+    fetchBlogCategories({ locale }),
   ]);
 
   return { blogs, categories, locale, meta, categoryName };
@@ -42,66 +46,13 @@ export default function BlogCategory() {
   const { blogs, categories, locale, meta, categoryName } =
     useLoaderData<typeof loader>();
   const navigate = useNavigate();
-
-  // Use locale from API for UI/display purposes
-  const currentLocale = locale as "id" | "en";
-  /**
-   * Client-side fetch probe
-   * Purpose: Verify whether TLS/CORS issues are limited to SSR (Node) or also affect the browser.
-   * Behavior: Runs in the browser only; attempts to fetch the same API and shows a small status banner.
-   */
-  const [clientBlogs, setClientBlogs] = useState<BlogPost[] | null>(null);
-  const [clientFetchError, setClientFetchError] = useState<string | null>(null);
-
-  useEffect(() => {
-    let isMounted = true;
-    const controller = new AbortController();
-    const run = async () => {
-      try {
-        const res = await fetch(
-          `https://dash.nusanetwork.com/api/blogs?locale=${currentLocale}`,
-          {
-            headers: { Accept: "application/json" },
-            signal: controller.signal,
-          }
-        );
-        if (!res.ok) throw new Error(`Client fetch failed: ${res.status}`);
-        const json = (await res.json()) as { data?: BlogPost[] };
-        if (!isMounted) return;
-        setClientFetchError(null);
-        setClientBlogs(Array.isArray(json?.data) ? json.data : []);
-      } catch (e) {
-        if (!isMounted) return;
-        const msg = e instanceof Error ? e.message : String(e);
-        setClientBlogs([]);
-        setClientFetchError(msg);
-      }
-    };
-    run();
-    return () => {
-      isMounted = false;
-      controller.abort();
-    };
-  }, [currentLocale]);
+  
+  const currentLocale = locale as Locale;
 
   if (!blogs || blogs.length === 0) {
     return (
       <main>
         <BlogNavigation categories={categories} locale={currentLocale} />
-        {/* Client fetch status banner for debugging SSR vs client behavior */}
-        <div className="mx-auto mb-4 max-w-5xl rounded-md border p-3 text-sm">
-          {clientFetchError ? (
-            <span className="text-red-600">
-              Client fetch error: {clientFetchError}
-            </span>
-          ) : clientBlogs ? (
-            <span className="text-green-700">
-              Client fetch ok: {clientBlogs.length} posts
-            </span>
-          ) : (
-            <span className="opacity-70">Client fetch running…</span>
-          )}
-        </div>
         <BlogEmptyState />
         <CTASection />
       </main>

@@ -2,19 +2,23 @@ import type { Route } from "./+types/contact";
 
 import { ArrowRight } from "@carbon/icons-react";
 import { useLoaderData, useOutletContext } from "react-router";
-import { fetchDepartmentsData } from "~/lib/api.server";
+import { fetchDepartmentsCollection } from "~/lib/api.build";
 import { createMetaFunction, seoData } from "~/lib/meta";
+import { inferLocaleFromUrl } from "~/lib/locale-utils";
+import type { Locale } from "~/i18n";
 
 export const meta = createMetaFunction(seoData.careers);
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const [{ departments }] = await Promise.all([fetchDepartmentsData(request)]);
+  const url = new URL(request.url);
+  const locale = inferLocaleFromUrl(url);
+  const { departments } = await fetchDepartmentsCollection({ locale });
 
-  return { departments };
+  return { departments, locale };
 }
 
 export default function Careers() {
-  const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
+  const { t } = useOutletContext<{ t: any; locale: Locale }>();
 
   const { departments } = useLoaderData<typeof loader>();
   return (

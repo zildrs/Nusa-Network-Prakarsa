@@ -1,45 +1,47 @@
-import { Link, Links, useLoaderData, type MetaFunction } from "react-router";
+import { Link, useLoaderData, type MetaFunction } from "react-router";
 import type { Route } from "./+types/blog-detail";
 import CTASection from "~/components/cta";
 import { solutionsMenu } from "~/components/header";
 import { BlogNavigation } from "~/components/blog";
 import {
-  fetchBlogBySlug,
-  fetchBlogData,
-  fetchCategoriesData,
-} from "~/lib/api.server";
-import { formatBlogDate } from "~/utils/blog";
+  fetchBlogCategories,
+  fetchBlogCollection,
+} from "~/lib/api.build";
+import { formatBlogDate, getBlogSlug } from "~/utils/blog";
 import BlogContent from "~/components/blog/blog-content";
-import { APP_BASE_URL } from "~/lib/utils";
+import { APP_BASE_URL, nameToSlug } from "~/lib/utils";
 import NotFoundPage from "./404";
+import { inferLocaleFromUrl } from "~/lib/locale-utils";
+import type { Locale } from "~/i18n";
+
+function ensureSlug(params: Route.LoaderArgs["params"]) {
+  const slug = params?.slug;
+  if (!slug) {
+    throw new Response("Not Found", { status: 404 });
+  }
+  return slug;
+}
 
 export async function loader({
   request,
   params,
-}: Route.LoaderArgs & { params: { slug: string; locale?: string } }) {
-  // Extract locale from URL params
-  const urlLocale = params.locale as "id" | "en" | undefined;
+}: Route.LoaderArgs & { params: { slug: string } }) {
+  const url = new URL(request.url);
+  const locale = inferLocaleFromUrl(url);
+  const slug = ensureSlug(params);
 
-  // If no locale in URL, check localStorage/cookies for user preference
-  if (!urlLocale) {
-    const slug = params.slug;
-    const [blog, { categories, locale }, { blogs }] = await Promise.all([
-      fetchBlogBySlug(request, slug),
-      fetchCategoriesData(request),
-      fetchBlogData(request),
-    ]);
-
-    return { blog, categories, locale, urlLocale: locale, blogs };
-  }
-
-  const slug = params.slug;
-  const [blog, { categories, locale }, { blogs }] = await Promise.all([
-    fetchBlogBySlug(request, slug),
-    fetchCategoriesData(request),
-    fetchBlogData(request),
+  const [{ blogs }, { categories }] = await Promise.all([
+    fetchBlogCollection({ locale }),
+    fetchBlogCategories({ locale }),
   ]);
 
-  return { blog, categories, locale, urlLocale, blogs };
+  const blog =
+    blogs.find((item) => {
+      const candidate = item.slug && item.slug.trim().length > 0 ? item.slug : String(item.id);
+      return nameToSlug(candidate) === slug;
+    }) ?? null;
+
+  return { blog, categories, locale, blogs };
 }
 
 export const meta: MetaFunction<typeof loader> = (args) => {
@@ -57,11 +59,10 @@ export const meta: MetaFunction<typeof loader> = (args) => {
 };
 
 export default function BlogDetail() {
-  const { categories, blog, urlLocale, locale, blogs } =
+  const { categories, blog, locale, blogs } =
     useLoaderData<typeof loader>();
 
-  // Use urlLocale for UI/display purposes, fallback to API locale
-  const currentLocale = urlLocale || locale;
+  const currentLocale = locale as Locale;
 
   if (!blog) return <NotFoundPage />;
   return (
@@ -110,7 +111,7 @@ export default function BlogDetail() {
                 {blogs &&
                   blogs.slice(0, 3).map((data, i) => (
                     <Link
-                      to={`${locale === "id" ? "/id" : ""}/blog/read/${data.slug}`}
+                      to={getBlogSlug(data, locale as Locale)}
                       key={i}
                       className="flex h-full items-center gap-4 p-2 rounded-xl border border-gray-200 hover:shadow-sm transition"
                     >

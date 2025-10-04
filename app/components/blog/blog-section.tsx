@@ -25,7 +25,9 @@ export function BlogSection({
   return (
     <section className={`py-10 max-w-7xl mx-auto px-4 lg:px-6 ${className}`}>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg font-semibold" data-aos="fade-right">{title}</h2>
+        <h2 className="text-lg font-semibold" data-aos="fade-right">
+          {title}
+        </h2>
         {showSeeAll && (
           <Link
             data-aos="fade-left"
@@ -40,9 +42,7 @@ export function BlogSection({
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {blogs.slice(0, 6).map((blog, i) => (
-          <div key={blog.id} data-aos="fade-up" data-aos-delay={100 * (i + 1)}>
-            <BlogCard  blog={blog} locale={locale} />
-          </div>
+          <BlogCard key={blog.id} blog={blog} locale={locale} />
         ))}
       </div>
     </section>

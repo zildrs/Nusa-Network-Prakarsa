@@ -9,20 +9,24 @@ import type { Swiper as SwiperRef } from "swiper/types";
 import CTASection from "~/components/cta";
 import { Link, useLoaderData, useOutletContext } from "react-router";
 import { createMetaFunction, seoData } from "~/lib/meta";
-import { fetchCertificationsData } from "~/lib/api.server";
+import { fetchCertificationsCollection } from "~/lib/api.build";
 import { APP_BASE_URL } from "~/lib/utils";
 import { solutionsMenu } from "~/components/header";
+import { inferLocaleFromUrl } from "~/lib/locale-utils";
+import type { Locale } from "~/i18n";
 
 export const meta = createMetaFunction(seoData.about);
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { certifications } = await fetchCertificationsData(request);
-  return { certifications };
+  const url = new URL(request.url);
+  const locale = inferLocaleFromUrl(url);
+  const { certifications } = await fetchCertificationsCollection({ locale });
+  return { certifications, locale };
 }
 
 export default function About() {
   const swiperRef = useRef<SwiperRef | null>(null);
-  const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
+  const { t } = useOutletContext<{ t: any; locale: Locale }>();
   const { certifications } = useLoaderData<typeof loader>();
 
   const stats = [

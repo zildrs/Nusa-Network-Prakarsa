@@ -6,27 +6,31 @@ import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
 import { Dropdown } from "~/components/dropdown";
 import {
-  fetchIndustriesData,
-  fetchProjectsData,
-  fetchSolutionsData,
-} from "~/lib/api.server";
+  fetchIndustriesCollection,
+  fetchProjectsCollection,
+  fetchSolutionsCollection,
+} from "~/lib/api.build";
 import { createMetaFunction, seoData } from "~/lib/meta";
+import { inferLocaleFromUrl } from "~/lib/locale-utils";
+import type { Locale } from "~/i18n";
 
 export const meta = createMetaFunction(seoData["case-study"]);
 
 export async function loader({ request }: Route.LoaderArgs) {
+  const url = new URL(request.url);
+  const locale = inferLocaleFromUrl(url);
   const [{ projects }, { solutions }, { industries }] = await Promise.all([
-    fetchProjectsData(request),
-    fetchSolutionsData(request),
-    fetchIndustriesData(request),
+    fetchProjectsCollection({ locale }),
+    fetchSolutionsCollection({ locale }),
+    fetchIndustriesCollection({ locale }),
   ]);
 
-  return { projects, solutions, industries };
+  return { projects, solutions, industries, locale };
 }
 
 export default function CaseStudy() {
   const { projects, solutions, industries } = useLoaderData<typeof loader>();
-  const { t, locale } = useOutletContext<{ t: any; locale: "id" | "en" }>();
+  const { t, locale } = useOutletContext<{ t: any; locale: Locale }>();
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedSolution, setSelectedSolution] = useState<string>("");
 
@@ -102,7 +106,7 @@ export default function CaseStudy() {
                 label: t("caseStudy.filters.allIndustries"),
               },
               ...industries.map((industry) => ({
-                value: industry.id.toString(),
+                value: industry.id?.toString() ?? "",
                 label: industry.name,
               })),
             ]}
@@ -119,7 +123,7 @@ export default function CaseStudy() {
                 label: t("caseStudy.filters.allSolutions"),
               },
               ...solutions.map((solution) => ({
-                value: solution.id.toString(),
+                value: solution.id?.toString() ?? "",
                 label: solution.name,
               })),
             ]}
