@@ -20,7 +20,7 @@ import {
   fetchTestimonialsCollection,
 } from "~/lib/api.build";
 import { createMetaFunction, seoData } from "~/lib/meta";
-import { APP_BASE_URL } from "~/lib/utils";
+import { API_BASE_URL } from "~/lib/utils";
 import { solutionsMenu } from "~/components/header";
 import { inferLocaleFromUrl } from "~/lib/locale-utils";
 import type { Locale } from "~/i18n";
@@ -354,7 +354,7 @@ export default function Home() {
                     <p className="text-sm text-gray-500">{t.position}</p>
                   </div>
                   <img
-                    src={APP_BASE_URL + t.company_logo.url}
+                    src={API_BASE_URL + t.company_logo.url}
                     alt="Company Logo"
                     className="ml-auto h-10"
                   />

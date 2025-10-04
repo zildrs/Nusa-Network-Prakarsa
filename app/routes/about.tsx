@@ -10,7 +10,7 @@ import CTASection from "~/components/cta";
 import { Link, useLoaderData, useOutletContext } from "react-router";
 import { createMetaFunction, seoData } from "~/lib/meta";
 import { fetchCertificationsCollection } from "~/lib/api.build";
-import { APP_BASE_URL } from "~/lib/utils";
+import { API_BASE_URL } from "~/lib/utils";
 import { solutionsMenu } from "~/components/header";
 import { inferLocaleFromUrl } from "~/lib/locale-utils";
 import type { Locale } from "~/i18n";
@@ -35,7 +35,6 @@ export default function About() {
     { value: "32", label: t("home.stats.technologyPartners") },
     { value: "15", label: t("home.stats.amazingAwards") },
   ];
-
 
   const values = [
     {
@@ -76,11 +75,17 @@ export default function About() {
         ></div>
 
         <div className="max-w-7xl mx-auto my-auto h-full px-4 relative flex-col flex justify-center">
-          <p data-aos="fade-right" className="uppercase tracking-wide mb-6 z-20">
+          <p
+            data-aos="fade-right"
+            className="uppercase tracking-wide mb-6 z-20"
+          >
             <span className="font-semibold">{t("about.label.about")}</span>{" "}
             {t("about.label.us")}
           </p>
-          <div data-aos="fade-right" className="flex justify-between items-center">
+          <div
+            data-aos="fade-right"
+            className="flex justify-between items-center"
+          >
             <h2 className="text-4xl max-w-md lg:text-5xl lg:font-semibold leading-snug mb-10">
               {t("about.hero.subtitle")}
             </h2>
@@ -109,7 +114,12 @@ export default function About() {
           >
             {solutionsMenu.map((s, idx) => (
               <SwiperSlide key={idx}>
-                <Link to={`/solutions/${s.slug}`} data-aos="fade-right" data-aos-delay={(idx + 1) * 100} className="rounded-xl overflow-hidden">
+                <Link
+                  to={`/solutions/${s.slug}`}
+                  data-aos="fade-right"
+                  data-aos-delay={(idx + 1) * 100}
+                  className="rounded-xl overflow-hidden"
+                >
                   <img
                     src={s.img}
                     alt={s.title}
@@ -127,13 +137,22 @@ export default function About() {
         <div className="max-w-7xl justify-between mx-auto px-4 py-16 grid md:grid-cols-2 gap-12 items-center">
           {/* Text */}
           <div>
-            <h2 data-aos="fade-up" className="text-[32px] lg:text-[40px] font-semibold leading-snug">
+            <h2
+              data-aos="fade-up"
+              className="text-[32px] lg:text-[40px] font-semibold leading-snug"
+            >
               {t("home.consultant.heading")}
             </h2>
-            <p data-aos="fade-up" className="text-gray-500 mt-4 leading-7 text-base lg:text-lg">
+            <p
+              data-aos="fade-up"
+              className="text-gray-500 mt-4 leading-7 text-base lg:text-lg"
+            >
               {t("home.consultant.description1")}
             </p>
-            <p data-aos="fade-up" className="text-gray-500 mt-4 leading-7 text-base lg:text-lg">
+            <p
+              data-aos="fade-up"
+              className="text-gray-500 mt-4 leading-7 text-base lg:text-lg"
+            >
               {t("home.consultant.description2")}
             </p>
           </div>
@@ -142,7 +161,7 @@ export default function About() {
             {stats.map((item, i) => (
               <div
                 data-aos="fade-up"
-                  data-aos-delay={200 * (i + 1)}
+                data-aos-delay={200 * (i + 1)}
                 key={item.label}
                 className="border border-gray-200 rounded-xl aspect-square lg:aspect-auto bg-center bg-cover bg-no-repeat bg-card flex flex-col justify-between"
                 style={{ backgroundImage: `url(/bg-card.png)` }}
@@ -179,11 +198,17 @@ export default function About() {
         ></div>
 
         <div className="max-w-7xl mx-auto px-4 relative">
-          <p data-aos="fade-right" className="uppercase tracking-wide mb-6 z-20">
+          <p
+            data-aos="fade-right"
+            className="uppercase tracking-wide mb-6 z-20"
+          >
             <span className="font-semibold">{t("about.values.our")}</span>{" "}
             {t("about.values.values")}
           </p>
-          <div data-aos="fade-right" className="flex justify-between items-center">
+          <div
+            data-aos="fade-right"
+            className="flex justify-between items-center"
+          >
             <h2 className="text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10">
               {t("about.values.subtitle")}
             </h2>
@@ -243,7 +268,10 @@ export default function About() {
                 {t("about.achievement.achievement")}
               </span>
             </p>
-            <h2 data-aos="fade-up" className="text-3xl md:text-4xl max-w-md leading-14 font-semibold text-gray-900 mt-2">
+            <h2
+              data-aos="fade-up"
+              className="text-3xl md:text-4xl max-w-md leading-14 font-semibold text-gray-900 mt-2"
+            >
               {t("about.achievement.subtitle")}
             </h2>
           </div>
@@ -259,7 +287,7 @@ export default function About() {
               >
                 <div className="flex items-center gap-2 mb-4">
                   <img
-                    src={APP_BASE_URL + award.certification_img.url}
+                    src={API_BASE_URL + award.certification_img.url}
                     alt={award.name}
                     className="h-5 object-contain"
                   />

@@ -112,7 +112,8 @@ export function createMetaFunction(seoData: LocalizedSEO): MetaFunction {
     const origin =
       typeof window !== "undefined"
         ? window.location.origin
-        : "https://nusanetwork.com";
+        : (import.meta.env.VITE_APP_BASE_URL ??
+          "https://staging.nusanetwork.com");
 
     // make URL object for parsing query
     let urlObj: URL;
@@ -142,6 +143,9 @@ export function createMetaFunction(seoData: LocalizedSEO): MetaFunction {
     const canonical = getCanonicalUrl(source, origin);
     const hrefLangUrls = gethrefLangUrls(source, origin);
     const thumbnail = new URL("/nnp-thumbnail.png", origin).toString();
+
+    console.log(thumbnail, "THUMBNAIL!!");
+    console.log(origin, "ORIGIN!!");
 
     const tags: Record<string, any>[] = [
       { title: seo.title },

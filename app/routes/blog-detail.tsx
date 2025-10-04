@@ -3,13 +3,10 @@ import type { Route } from "./+types/blog-detail";
 import CTASection from "~/components/cta";
 import { solutionsMenu } from "~/components/header";
 import { BlogNavigation } from "~/components/blog";
-import {
-  fetchBlogCategories,
-  fetchBlogCollection,
-} from "~/lib/api.build";
+import { fetchBlogCategories, fetchBlogCollection } from "~/lib/api.build";
 import { formatBlogDate, getBlogSlug } from "~/utils/blog";
 import BlogContent from "~/components/blog/blog-content";
-import { APP_BASE_URL, nameToSlug } from "~/lib/utils";
+import { API_BASE_URL, nameToSlug } from "~/lib/utils";
 import NotFoundPage from "./404";
 import { inferLocaleFromUrl } from "~/lib/locale-utils";
 import type { Locale } from "~/i18n";
@@ -37,7 +34,8 @@ export async function loader({
 
   const blog =
     blogs.find((item) => {
-      const candidate = item.slug && item.slug.trim().length > 0 ? item.slug : String(item.id);
+      const candidate =
+        item.slug && item.slug.trim().length > 0 ? item.slug : String(item.id);
       return nameToSlug(candidate) === slug;
     }) ?? null;
 
@@ -59,8 +57,7 @@ export const meta: MetaFunction<typeof loader> = (args) => {
 };
 
 export default function BlogDetail() {
-  const { categories, blog, locale, blogs } =
-    useLoaderData<typeof loader>();
+  const { categories, blog, locale, blogs } = useLoaderData<typeof loader>();
 
   const currentLocale = locale as Locale;
 
@@ -89,7 +86,7 @@ export default function BlogDetail() {
 
             <div className="flex justify-end">
               <img
-                src={`${APP_BASE_URL}/${blog?.banner[0].url}`}
+                src={`${API_BASE_URL}/${blog?.banner[0].url}`}
                 alt={blog?.title}
                 className="rounded-xl w-full aspect-[5/3] lg:aspect-[6/3] object-cover "
               />
@@ -116,7 +113,7 @@ export default function BlogDetail() {
                       className="flex h-full items-center gap-4 p-2 rounded-xl border border-gray-200 hover:shadow-sm transition"
                     >
                       <img
-                        src={APP_BASE_URL + data.banner[0].url}
+                        src={API_BASE_URL + data.banner[0].url}
                         alt="thumbnail"
                         className="rounded-lg h-full object-cover aspect-square w-[100px]"
                       />

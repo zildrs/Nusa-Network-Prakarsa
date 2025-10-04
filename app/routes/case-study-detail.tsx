@@ -7,7 +7,7 @@ import {
   fetchProjectsCollection,
   fetchSolutionsCollection,
 } from "~/lib/api.build";
-import { APP_BASE_URL, nameToSlug } from "~/lib/utils";
+import { API_BASE_URL, nameToSlug } from "~/lib/utils";
 import BlogContent from "~/components/blog/blog-content";
 import NotFoundPage from "./404";
 import { inferLocaleFromUrl } from "~/lib/locale-utils";
@@ -35,7 +35,8 @@ export async function loader({
 
   const project =
     projects.find((item) => {
-      const candidate = item.slug && item.slug.trim().length > 0 ? item.slug : String(item.id);
+      const candidate =
+        item.slug && item.slug.trim().length > 0 ? item.slug : String(item.id);
       return nameToSlug(candidate) === slug;
     }) ?? null;
 
@@ -79,7 +80,7 @@ export default function CaseStudyDetail() {
         {/* Image */}
         <div className="rounded-lg lg:rounded-xl overflow-hidden mb-12">
           <img
-            src={APP_BASE_URL + project?.banner?.url}
+            src={API_BASE_URL + project?.banner?.url}
             alt="Project Banner"
             className="w-full object-cover"
           />
@@ -99,27 +100,48 @@ export default function CaseStudyDetail() {
           >
             {/* Metric 1 */}
             <div className="mb-6">
-              <p data-aos="fade-down" className="text-2xl lg:text-3xl font-semibold lg:font-medium flex items-center gap-2">
-                50% <span data-aos="fade-down" className="text-red-500 text-xl">↓</span>
+              <p
+                data-aos="fade-down"
+                className="text-2xl lg:text-3xl font-semibold lg:font-medium flex items-center gap-2"
+              >
+                50%{" "}
+                <span data-aos="fade-down" className="text-red-500 text-xl">
+                  ↓
+                </span>
               </p>
-              <p data-aos="fade-down" className="mt-2 text-gray-400 text-sm lg:text-base">
+              <p
+                data-aos="fade-down"
+                className="mt-2 text-gray-400 text-sm lg:text-base"
+              >
                 Reduction in network latency
               </p>
             </div>
 
             {/* Metric 2 */}
             <div className="mb-6">
-              <p data-aos="fade-up" className="text-2xl lg:text-3xl font-semibold lg:font-medium flex items-center gap-2">
-                30% <span data-aos="fade-up" className="text-green-500 text-xl">↑</span>
+              <p
+                data-aos="fade-up"
+                className="text-2xl lg:text-3xl font-semibold lg:font-medium flex items-center gap-2"
+              >
+                30%{" "}
+                <span data-aos="fade-up" className="text-green-500 text-xl">
+                  ↑
+                </span>
               </p>
-              <p data-aos="fade-up" className="mt-2 text-gray-400 text-sm lg:text-base">
+              <p
+                data-aos="fade-up"
+                className="mt-2 text-gray-400 text-sm lg:text-base"
+              >
                 Improvement in application performance
               </p>
             </div>
 
             {/* CTA */}
             <div>
-              <p data-aos="fade-up" className="text-base lg:text-xl font-semibold lg:font-medium mb-6">
+              <p
+                data-aos="fade-up"
+                className="text-base lg:text-xl font-semibold lg:font-medium mb-6"
+              >
                 Ready to solve your challenges?
               </p>
               <a
@@ -136,17 +158,27 @@ export default function CaseStudyDetail() {
       <div className="grid gap-4">
         <section className="bg-gray-50 py-12 lg:order-1 order-2">
           <div className="max-w-7xl mx-auto px-4">
-            <p data-aos="fade-up" className="uppercase text-sm tracking-wide text-gray-900 mb-2">
+            <p
+              data-aos="fade-up"
+              className="uppercase text-sm tracking-wide text-gray-900 mb-2"
+            >
               <span className="font-semibold">Case</span> Study
             </p>
-            <h2 data-aos="fade-up" className="text-3xl lg:text-4xl font-semibold mb-8 max-w-md">
+            <h2
+              data-aos="fade-up"
+              className="text-3xl lg:text-4xl font-semibold mb-8 max-w-md"
+            >
               Customer Success with Nusa Network Prakarsa
             </h2>
 
             <div className="grid md:grid-cols-3 gap-6">
               {projects.map((c, idx) => (
-                <div data-aos="fade-up" data-aos-delay={100 * (idx + 1)} key={idx} >
-                  <CaseStudyCard  data={c} />
+                <div
+                  data-aos="fade-up"
+                  data-aos-delay={100 * (idx + 1)}
+                  key={idx}
+                >
+                  <CaseStudyCard data={c} />
                 </div>
               ))}
             </div>

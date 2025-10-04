@@ -3,7 +3,7 @@ import type { Route } from "./+types/certifications";
 import { useLoaderData, useOutletContext } from "react-router";
 import { createMetaFunction, seoData } from "~/lib/meta";
 import { fetchCertificationsCollection } from "~/lib/api.build";
-import { APP_BASE_URL } from "~/lib/utils";
+import { API_BASE_URL } from "~/lib/utils";
 import { inferLocaleFromUrl } from "~/lib/locale-utils";
 import type { Locale } from "~/i18n";
 
@@ -43,7 +43,10 @@ export default function Certification() {
             <span className="font-semibold">{t("achievement.title")}</span>
           </p>
           <div className="flex justify-between items-center">
-            <h2 data-aos="fade-up" className="text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10">
+            <h2
+              data-aos="fade-up"
+              className="text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10"
+            >
               {t("achievement.subtitle")}
             </h2>
           </div>
@@ -54,12 +57,13 @@ export default function Certification() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {certifications.map((item, i) => (
             <div
-              data-aos="fade-up" data-aos-delay={100 * (i + 1)}
+              data-aos="fade-up"
+              data-aos-delay={100 * (i + 1)}
               key={i}
               className="border rounded-2xl p-6  bg-white transition"
             >
               <img
-                src={APP_BASE_URL + item.certification_img.url}
+                src={API_BASE_URL + item.certification_img.url}
                 alt={item.name}
                 className="h-8 mb-4"
               />
