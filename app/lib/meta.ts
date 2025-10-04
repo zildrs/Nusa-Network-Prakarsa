@@ -128,8 +128,10 @@ export function createMetaFunction(seoData: LocalizedSEO): MetaFunction {
       urlObj = new URL((loc.pathname ?? "/") + (loc.search ?? ""), origin);
     }
 
-    const searchParams = new URLSearchParams(urlObj.search);
-    const locale = searchParams.get("locale") === "id" ? "id" : "en";
+    const pathname = urlObj.pathname; // contoh: "/" atau "/id" atau "/about"
+    const firstSegment = pathname.split("/")[1]; // ambil segmen pertama
+
+    const locale = firstSegment === "id" ? "id" : "en";
 
     // pilih seo berdasarkan locale bila seoData bersifat localized
     const seo: SEOData =
