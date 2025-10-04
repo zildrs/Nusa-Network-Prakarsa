@@ -27,7 +27,7 @@ const staticRoutes: string[] = [
 ];
 
 export default {
-  ssr: false,
+  ssr: true,
   async prerender() {
     const paths = new Set<string>(staticRoutes);
     const [blogPaths, caseStudyPaths] = await Promise.all([
