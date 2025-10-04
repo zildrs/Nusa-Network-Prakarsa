@@ -46,7 +46,7 @@ export default function BlogCategory() {
   const { blogs, categories, locale, meta, categoryName } =
     useLoaderData<typeof loader>();
   const navigate = useNavigate();
-
+  
   const currentLocale = locale as Locale;
 
   if (!blogs || blogs.length === 0) {
