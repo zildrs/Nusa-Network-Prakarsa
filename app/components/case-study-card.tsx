@@ -1,6 +1,6 @@
 import { ArrowRight } from "@carbon/icons-react";
 import { useOutletContext } from "react-router";
-import { APP_BASE_URL, nameToSlug } from "~/lib/utils";
+import { API_BASE_URL, nameToSlug } from "~/lib/utils";
 import type { ProjectType } from "~/types/project";
 
 export function getCaseStudySlug(
@@ -22,7 +22,7 @@ const CaseStudyCard = ({ data }: { data: ProjectType }) => {
   return (
     <div className="rounded-lg overflow-hidden relative aspect-square group">
       <img
-        src={`${APP_BASE_URL}/${data.banner?.url || ""}`}
+        src={`${API_BASE_URL}/${data.banner?.url || ""}`}
         alt={data.title}
         className="w-full object-cover h-full"
       />
@@ -32,7 +32,7 @@ const CaseStudyCard = ({ data }: { data: ProjectType }) => {
           className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0"
         >
           <img
-            src={`${APP_BASE_URL}/${data.company_logo?.url || ""}`}
+            src={`${API_BASE_URL}/${data.company_logo?.url || ""}`}
             alt={data.title}
             className="h-8 object-contain mb-4"
           />

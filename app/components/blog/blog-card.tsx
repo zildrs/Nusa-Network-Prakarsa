@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { APP_BASE_URL } from "~/lib/utils";
+import { API_BASE_URL } from "~/lib/utils";
 import type { BlogPost } from "~/types/blog";
 import { getBlogSlug } from "~/utils/blog";
 
@@ -20,7 +20,7 @@ export function BlogCard({
   const imageSrc = "/bg-card.png";
   const bannerPath = blog.banner?.[0]?.url ?? "/bg-card.png";
   const resolvedBannerSrc = bannerPath
-    ? new URL(bannerPath, APP_BASE_URL).toString()
+    ? new URL(bannerPath, API_BASE_URL).toString()
     : imageSrc;
   const categoryLabel = blog.category.name || "BLOG";
   if (variant === "compact") {

@@ -16,7 +16,7 @@ import {
   fetchProjectsCollection,
 } from "~/lib/api.build";
 import type { PartnerType } from "~/types/partner";
-import { APP_BASE_URL } from "~/lib/utils";
+import { API_BASE_URL } from "~/lib/utils";
 import { inferLocaleFromUrl } from "~/lib/locale-utils";
 import type { Locale } from "~/i18n";
 
@@ -47,7 +47,10 @@ export default function Partner() {
         className="absolute top-0 right-0 opacity-10 max-w-md lg:max-w-3xl"
       />
       <div className="max-w-7xl mx-auto px-6 py-16">
-        <h2 data-aos="fade-up" className="text-5xl font-medium lg:font-semibold text-gray-900">
+        <h2
+          data-aos="fade-up"
+          className="text-5xl font-medium lg:font-semibold text-gray-900"
+        >
           {t("partners.hero.title")}
         </h2>
         <p data-aos="fade-up" className="mt-4 text-lg text-gray-600 max-w-2xl">
@@ -61,11 +64,12 @@ export default function Partner() {
           <button
             key={i}
             onClick={() => setSelected(p)}
-            data-aos="fade-up" data-aos-delay={100 * (i + 1)}
+            data-aos="fade-up"
+            data-aos-delay={100 * (i + 1)}
             className="flex justify-center grayscale min-h-[150px] items-center hover:grayscale-0 transition hover:scale-105 hover:cursor-pointer"
           >
             <img
-              src={APP_BASE_URL + p.company_logo.url}
+              src={API_BASE_URL + p.company_logo.url}
               alt={p.name}
               className="h-12 object-contain"
             />
@@ -82,7 +86,7 @@ export default function Partner() {
               <div className=" py-12 px-8">
                 {selected?.company_logo.url && (
                   <img
-                    src={APP_BASE_URL + selected.company_logo.url}
+                    src={API_BASE_URL + selected.company_logo.url}
                     alt={selected.name}
                     className="h-10 mb-4"
                   />
