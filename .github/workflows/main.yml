@@ -1,10 +1,13 @@
 name: build-and-deploy-staging
+
 on:
   push:
-    branches: [master]   # changed from prod → master
+    branches: [master]
+  repository_dispatch:
+    types: [strapi_publish]
 
 env:
-  APP_DIR: /opt/nnp-web  
+  APP_DIR: /opt/nnp-web
   PM2_NAME: nnp-web
   NODE_VERSION: '20'
   BUILD_DIR: build
@@ -12,7 +15,7 @@ env:
 
 jobs:
   build-deploy:
-    runs-on: [self-hosted, Linux, X64, Staging]   # restrict to svrwebnnp02
+    runs-on: [self-hosted, Linux, X64, Staging]
 
     steps:
       - name: Checkout
@@ -28,9 +31,7 @@ jobs:
         run: |
           echo "USER: $(whoami)"
           id
-          echo "--- DIR perms ---"
           ls -ld /opt /opt/nnp-web || true
-          echo "--- TOUCH test ---"
           mkdir -p "$APP_DIR"
           > "$APP_DIR/.gh-actions-write-test" && echo "write ok" || { echo "::error::Cannot write to $APP_DIR"; exit 1; }
 
