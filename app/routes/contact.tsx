@@ -1,12 +1,9 @@
-import type { Route } from "./+types/contact";
 import { useOutletContext } from "react-router";
 import {
   ArrowRight,
   Building,
   Email,
-  Location,
   Phone,
-  User,
   UserFeedback,
 } from "@carbon/icons-react";
 import { Button } from "~/components/ui/button";
@@ -14,11 +11,65 @@ import { Textarea } from "~/components/ui/textarea";
 import { Input } from "~/components/ui/input";
 import CTASection from "~/components/cta";
 import { createMetaFunction, seoData } from "~/lib/meta";
+import { useState } from "react";
+import { Spinner } from "~/components/ui/spinner";
+import { toast } from "sonner";
+import { API_BASE_URL } from "~/lib/utils";
 
 export const meta = createMetaFunction(seoData.contact);
 
 export default function Contact() {
   const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
+
+  // 🔹 Form state
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+
+  // 🔹 Update form field
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // 🔹 Submit handler
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus("idle");
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/contacts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data: formData,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Failed with status ${res.status}`);
+      }
+
+      setStatus("success");
+      toast.success("Message sent successfully!");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err) {
+      console.error("Error submitting form:", err);
+      toast.error("Something went wrong. Please try again.");
+      setStatus("error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main className="w-full">
@@ -36,7 +87,10 @@ export default function Contact() {
             {t("contact.hero.description")}
           </p>
 
-          <form className="mt-8 space-y-6 relative w-full">
+          <form
+            className="mt-8 space-y-6 relative w-full"
+            onSubmit={handleSubmit}
+          >
             <div data-aos="fade-up">
               <label className="block text-sm font-medium text-gray-900">
                 {t("contact.form.name")}
@@ -46,6 +100,10 @@ export default function Contact() {
                 type="text"
                 placeholder={t("contact.form.namePlaceholder")}
                 className="mt-1"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
               />
             </div>
             <div data-aos="fade-up">
@@ -57,6 +115,10 @@ export default function Contact() {
                 type="email"
                 placeholder={t("contact.form.emailPlaceholder")}
                 className="mt-1"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
               />
             </div>
             <div data-aos="fade-up">
@@ -66,15 +128,21 @@ export default function Contact() {
               <Textarea
                 placeholder={t("contact.form.messagePlaceholder")}
                 className="mt-1 h-[124px]"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
               />
             </div>
 
             <Button
+              disabled={loading}
               data-aos="fade-up"
               type="submit"
-              className="bg-[#002855] hover:bg-[#001f40] w-full rounded-lg px-6 py-6 text-base"
+              className="bg-[#002855] disabled:bg-[#1D486F] hover:bg-[#001f40] w-full rounded-lg px-6 py-6 text-base"
             >
-              {t("contact.form.submitButton")} <ArrowRight />
+              {t("contact.form.submitButton")}{" "}
+              {!loading ? <ArrowRight /> : <Spinner />}
             </Button>
           </form>
         </div>
