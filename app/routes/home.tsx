@@ -306,7 +306,7 @@ export default function Home() {
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {projects.map((c, idx) => (
+            {projects.slice(0, 3).map((c, idx) => (
               <div
                 key={idx}
                 data-aos="fade-up"

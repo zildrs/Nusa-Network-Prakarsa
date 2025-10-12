@@ -36,6 +36,15 @@ export default function About() {
     { value: "15", label: t("home.stats.amazingAwards") },
   ];
 
+  const aboutImg = [
+    "/about/about-1.jpg",
+    "/about/about-2.jpg",
+    "/about/about-3.jpg",
+    "/about/about-1.jpg",
+    "/about/about-2.jpg",
+    "/about/about-3.jpg",
+  ];
+
   const values = [
     {
       letter: "N",
@@ -112,23 +121,19 @@ export default function About() {
             pagination={{ clickable: true }}
             centeredSlides
           >
-            {solutionsMenu.map((s, idx) => (
+            {aboutImg.map((img, idx) => (
               <SwiperSlide key={idx}>
-                <Link
-                  to={`/solutions/${s.slug}`}
+                <div
                   data-aos="fade-right"
                   data-aos-delay={(idx + 1) * 100}
                   className="rounded-xl overflow-hidden"
                 >
                   <img
-                    src={s.img}
-                    alt={s.title}
+                    src={img}
+                    alt={img}
                     className="w-full aspect-[12/7] lg:aspect-[12/5] object-cover"
                   />
-                  <div className="p-4 bg-gradient-to-t from-black/50 to-transparent absolute bottom-0 w-full">
-                    <p className="text-white font-medium text-xl">{s.title}</p>
-                  </div>
-                </Link>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
