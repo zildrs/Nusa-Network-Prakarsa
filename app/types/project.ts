@@ -12,6 +12,12 @@ export type ProjectType = BaseDataType & {
   company_logo: Banner;
   industry: IndustryType;
   locale: "id" | "en";
+  result_description1: string;
+  result_description2: string;
+  result_percentage1: string;
+  result_percentage2: string;
+  result_type1: "DECREASE" | "INCREASE";
+  result_type2: "DECREASE" | "INCREASE";
 };
 
 export type ProjectsReponseType = {

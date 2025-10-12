@@ -1,12 +1,9 @@
 import type { Route } from "./+types/case-study";
 import { useLoaderData, type MetaFunction } from "react-router";
-import { ArrowRight } from "@carbon/icons-react";
+import { ArrowDown, ArrowRight, ArrowUp } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
-import {
-  fetchProjectsCollection,
-  fetchSolutionsCollection,
-} from "~/lib/api.build";
+import { fetchProjectsCollection } from "~/lib/api.build";
 import { API_BASE_URL, nameToSlug } from "~/lib/utils";
 import BlogContent from "~/components/blog/blog-content";
 import NotFoundPage from "./404";
@@ -28,9 +25,8 @@ export async function loader({
   const url = new URL(request.url);
   const locale = inferLocaleFromUrl(url);
   const slug = ensureSlug(params);
-  const [{ projects }, { solutions }] = await Promise.all([
+  const [{ projects }] = await Promise.all([
     fetchProjectsCollection({ locale }),
-    fetchSolutionsCollection({ locale }),
   ]);
 
   const project =
@@ -40,7 +36,7 @@ export async function loader({
       return nameToSlug(candidate) === slug;
     }) ?? null;
 
-  return { project, solutions, locale, projects };
+  return { project, locale, projects };
 }
 
 export const meta: MetaFunction<typeof loader> = (args) => {
@@ -58,8 +54,7 @@ export const meta: MetaFunction<typeof loader> = (args) => {
 };
 
 export default function CaseStudyDetail() {
-  const { project, solutions, locale, projects } =
-    useLoaderData<typeof loader>();
+  const { project, locale, projects } = useLoaderData<typeof loader>();
 
   if (!project) return <NotFoundPage />;
   return (
@@ -104,35 +99,57 @@ export default function CaseStudyDetail() {
                 data-aos="fade-down"
                 className="text-2xl lg:text-3xl font-semibold lg:font-medium flex items-center gap-2"
               >
-                50%{" "}
-                <span data-aos="fade-down" className="text-red-500 text-xl">
-                  ↓
+                {project?.result_percentage1 || "0"}%{" "}
+                <span
+                  data-aos="fade-down"
+                  className={
+                    project.result_type1 === "DECREASE"
+                      ? "text-red-500"
+                      : "text-green-500"
+                  }
+                >
+                  {project.result_type1 === "DECREASE" ? (
+                    <ArrowDown className="h-auto w-6" />
+                  ) : (
+                    <ArrowUp className="h-auto w-6" />
+                  )}
                 </span>
               </p>
               <p
                 data-aos="fade-down"
                 className="mt-2 text-gray-400 text-sm lg:text-base"
               >
-                Reduction in network latency
+                {project?.result_description1 || ""}
               </p>
             </div>
 
             {/* Metric 2 */}
             <div className="mb-6">
               <p
-                data-aos="fade-up"
+                data-aos="fade-down"
                 className="text-2xl lg:text-3xl font-semibold lg:font-medium flex items-center gap-2"
               >
-                30%{" "}
-                <span data-aos="fade-up" className="text-green-500 text-xl">
-                  ↑
+                {project?.result_percentage2 || "0"}%{" "}
+                <span
+                  data-aos="fade-down"
+                  className={
+                    project.result_type2 === "DECREASE"
+                      ? "text-red-500"
+                      : "text-green-500"
+                  }
+                >
+                  {project.result_type2 === "DECREASE" ? (
+                    <ArrowDown className="h-auto w-6" />
+                  ) : (
+                    <ArrowUp className="h-auto w-6" />
+                  )}
                 </span>
               </p>
               <p
-                data-aos="fade-up"
+                data-aos="fade-down"
                 className="mt-2 text-gray-400 text-sm lg:text-base"
               >
-                Improvement in application performance
+                {project?.result_description2 || ""}
               </p>
             </div>
 
