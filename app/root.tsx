@@ -9,6 +9,7 @@ import {
 import { useLoaderData } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
 import { getRequestLocale } from "./lib/locale-utils.server";
+import { Toaster } from "~/components/ui/sonner";
 import { createT } from "./i18n";
 
 import type { Route } from "./+types/root";
@@ -80,6 +81,7 @@ export function Layout() {
         {/* Hanya pakai Outlet, jangan gabung dengan children */}
         <Outlet context={{ t, locale }} />
         <Footer locale={locale} t={t} />
+        <Toaster position="top-right" richColors />
         <ScrollRestoration />
         <Scripts />
       </body>
