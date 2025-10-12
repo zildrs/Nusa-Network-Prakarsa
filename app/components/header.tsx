@@ -78,12 +78,18 @@ export default function Header({ locale, t }: HeaderProps) {
   // Get user's language preference from localStorage
   const userPreference = getLanguagePreference();
   // Use URL locale first, then user preference, fallback to provided locale
-  const urlLocale: LanguagePreference | null = location.pathname.startsWith("/id")
+  const urlLocale: LanguagePreference | null = location.pathname.startsWith(
+    "/id"
+  )
     ? "id"
     : null;
   const currentLocale: LanguagePreference =
-    urlLocale || (locale === "id" || locale === "en" ? (locale as LanguagePreference) : null) ||
-    userPreference || "en";
+    urlLocale ||
+    (locale === "id" || locale === "en"
+      ? (locale as LanguagePreference)
+      : null) ||
+    userPreference ||
+    "en";
 
   // Helper function to generate locale-aware URLs with route translation
   const getLocalizedUrl = (englishPath: string): string =>
@@ -134,9 +140,7 @@ export default function Header({ locale, t }: HeaderProps) {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <Link to={getLocalizedUrl("/about")}>
-                      {t("nav.about")}
-                    </Link>
+                    <Link to={getLocalizedUrl("/about")}>{t("nav.about")}</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -212,7 +216,7 @@ export default function Header({ locale, t }: HeaderProps) {
             {t("nav.support")}
           </Link>
           <Link
-            to="https://www.nusanetwork.com/contact/"
+            to="/contact"
             className="bg-primary text-white rounded-lg px-4 py-2 text-sm flex items-center gap-1"
           >
             {t("nav.contact")} <ArrowRight className="w-4 h-4 ml-1" />
@@ -290,7 +294,7 @@ export default function Header({ locale, t }: HeaderProps) {
 
           <div className="mt-6 flex flex-col gap-2">
             <Link
-              to="https://www.nusanetwork.com/contact/"
+              to="/contact"
               className="bg-primary text-white rounded-lg px-4 py-3 flex justify-center items-center gap-1"
             >
               {t("nav.contact")} <ArrowRight className="w-4 h-4 ml-1" />

@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import type { Route } from "./+types/case-study";
-import { Link, useLoaderData, useOutletContext } from "react-router";
+import { useLoaderData, useOutletContext } from "react-router";
 import { Light, Building } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
@@ -92,10 +92,9 @@ export default function CaseStudy() {
 
       <section className="w-full max-w-7xl mx-auto p-6">
         {/* Filter */}
-        <div data-aos="fade-right" className="flex gap-4 mb-6">
+        <div className="flex gap-4 mb-6">
           {/* Industry Filter */}
           <Dropdown
-            
             label={t("caseStudy.filters.industry")}
             onSelect={(value) => setSelectedIndustry(value)}
             className="text-sm !px-3"
@@ -132,11 +131,23 @@ export default function CaseStudy() {
 
         {/* Grid Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {filteredDataMemo.map((c, idx) => (
-            <div data-aos="fade-up" data-aos-delay={200 * (idx + 1)} key={c.id}>
-              <CaseStudyCard data={c} />
+          {filteredDataMemo.length > 0 ? (
+            filteredDataMemo.map((c, idx) => (
+              <div
+                data-aos="fade-up"
+                data-aos-delay={200 * (idx + 1)}
+                key={c.id}
+              >
+                <CaseStudyCard data={c} />
+              </div>
+            ))
+          ) : (
+            <div className="col-span-3 py-8 text-center">
+              <p>
+                {locale === "id" ? "Data tidak ditemukan" : "No data found"}
+              </p>
             </div>
-          ))}
+          )}
         </div>
       </section>
       <CTASection
