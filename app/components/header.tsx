@@ -249,7 +249,7 @@ export default function Header({ locale, t }: HeaderProps) {
             className="flex justify-between w-full py-3 border-b font-medium border-gray-300"
             onClick={() => setSolutionsOpen(!solutionsOpen)}
           >
-            {t("nav.solutions")} <ChevronDown size={16} />
+            {t("nav.solution")} <ChevronDown size={16} />
           </button>
           {solutionsOpen && (
             <div className="pl-4">
@@ -289,7 +289,7 @@ export default function Header({ locale, t }: HeaderProps) {
             className="block py-3 border-b font-medium border-gray-300"
             onClick={() => setMobileOpen(false)}
           >
-            {t("nav.blog")}
+            {t("nav.article")}
           </Link>
 
           <div className="mt-6 flex flex-col gap-2">
