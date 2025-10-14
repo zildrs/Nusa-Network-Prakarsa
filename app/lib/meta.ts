@@ -144,9 +144,6 @@ export function createMetaFunction(seoData: LocalizedSEO): MetaFunction {
     const hrefLangUrls = gethrefLangUrls(source, origin);
     const thumbnail = new URL("/nnp-thumbnail.png", origin).toString();
 
-    console.log(thumbnail, "THUMBNAIL!!");
-    console.log(origin, "ORIGIN!!");
-
     const tags: Record<string, any>[] = [
       { title: seo.title },
       { name: "description", content: seo.description },
