@@ -22,7 +22,7 @@ export function BlogCard({
   const resolvedBannerSrc = bannerPath
     ? new URL(bannerPath, API_BASE_URL).toString()
     : imageSrc;
-  const categoryLabel = blog.category.name || "BLOG";
+  const categoryLabel = blog.category?.name || "BLOG";
   if (variant === "compact") {
     return (
       <Link
