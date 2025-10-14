@@ -12,25 +12,22 @@ import {
 } from "~/components/ui/dialog";
 import { createMetaFunction, seoData } from "~/lib/meta";
 import {
-  fetchPartnersCollection,
-  fetchProjectsCollection,
-} from "~/lib/api.build";
+  fetchPartnersData,
+  fetchProjectsData,
+} from "~/lib/api.server";
 import type { PartnerType } from "~/types/partner";
 import { API_BASE_URL } from "~/lib/utils";
-import { inferLocaleFromUrl } from "~/lib/locale-utils";
 import type { Locale } from "~/i18n";
 
 export const meta = createMetaFunction(seoData.partners);
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const url = new URL(request.url);
-  const locale = inferLocaleFromUrl(url);
   const [{ partners }, { projects }] = await Promise.all([
-    fetchPartnersCollection({ locale }),
-    fetchProjectsCollection({ locale }),
+    fetchPartnersData(request),
+    fetchProjectsData(request),
   ]);
 
-  return { partners, projects, locale };
+  return { partners, projects };
 }
 
 export default function Partner() {

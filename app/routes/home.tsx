@@ -14,32 +14,28 @@ import {
   type LoaderFunctionArgs,
 } from "react-router";
 import {
-  fetchHomeContent,
-  fetchProjectsCollection,
-  fetchSolutionsCollection,
-  fetchTestimonialsCollection,
-} from "~/lib/api.build";
+  fetchHomeData,
+  fetchProjectsData,
+  fetchSolutionsData,
+  fetchTestimonialsData,
+} from "~/lib/api.server";
 import { createMetaFunction, seoData } from "~/lib/meta";
 import { API_BASE_URL } from "~/lib/utils";
 import { solutionsMenu } from "~/components/header";
-import { inferLocaleFromUrl } from "~/lib/locale-utils";
 import type { Locale } from "~/i18n";
 
 export const meta = createMetaFunction(seoData.home);
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const url = new URL(request.url);
-  const locale = inferLocaleFromUrl(url);
-
-  const [{ solutions }, { projects }, { testimonies }, { home }] =
+  const [{ solutions }, { projects }, { testimonies }, home] =
     await Promise.all([
-      fetchSolutionsCollection({ locale }),
-      fetchProjectsCollection({ locale }),
-      fetchTestimonialsCollection({ locale }),
-      fetchHomeContent({ locale }),
+      fetchSolutionsData(request),
+      fetchProjectsData(request),
+      fetchTestimonialsData(request),
+      fetchHomeData(request),
     ]);
 
-  return { solutions, projects, testimonies, home, locale };
+  return { solutions, projects, testimonies, home };
 }
 
 export default function Home() {

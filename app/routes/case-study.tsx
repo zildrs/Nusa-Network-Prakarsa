@@ -6,26 +6,23 @@ import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
 import { Dropdown } from "~/components/dropdown";
 import {
-  fetchIndustriesCollection,
-  fetchProjectsCollection,
-  fetchSolutionsCollection,
-} from "~/lib/api.build";
+  fetchIndustriesData,
+  fetchProjectsData,
+  fetchSolutionsData,
+} from "~/lib/api.server";
 import { createMetaFunction, seoData } from "~/lib/meta";
-import { inferLocaleFromUrl } from "~/lib/locale-utils";
 import type { Locale } from "~/i18n";
 
 export const meta = createMetaFunction(seoData["case-study"]);
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const url = new URL(request.url);
-  const locale = inferLocaleFromUrl(url);
   const [{ projects }, { solutions }, { industries }] = await Promise.all([
-    fetchProjectsCollection({ locale }),
-    fetchSolutionsCollection({ locale }),
-    fetchIndustriesCollection({ locale }),
+    fetchProjectsData(request),
+    fetchSolutionsData(request),
+    fetchIndustriesData(request),
   ]);
 
-  return { projects, solutions, industries, locale };
+  return { projects, solutions, industries };
 }
 
 export default function CaseStudy() {

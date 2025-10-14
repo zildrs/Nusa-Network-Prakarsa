@@ -3,12 +3,11 @@ import type { Route } from "./+types/blog-detail";
 import CTASection from "~/components/cta";
 import { solutionsMenu } from "~/components/header";
 import { BlogNavigation } from "~/components/blog";
-import { fetchBlogCategories, fetchBlogCollection } from "~/lib/api.build";
+import { fetchCategoriesData, fetchBlogBySlug } from "~/lib/api.server";
 import { formatBlogDate, getBlogSlug } from "~/utils/blog";
 import BlogContent from "~/components/blog/blog-content";
 import { API_BASE_URL, nameToSlug } from "~/lib/utils";
 import NotFoundPage from "./404";
-import { inferLocaleFromUrl } from "~/lib/locale-utils";
 import type { Locale } from "~/i18n";
 
 function ensureSlug(params: Route.LoaderArgs["params"]) {
@@ -23,23 +22,14 @@ export async function loader({
   request,
   params,
 }: Route.LoaderArgs & { params: { slug: string } }) {
-  const url = new URL(request.url);
-  const locale = inferLocaleFromUrl(url);
   const slug = ensureSlug(params);
 
-  const [{ blogs }, { categories }] = await Promise.all([
-    fetchBlogCollection({ locale }),
-    fetchBlogCategories({ locale }),
+  const [blog, { categories }] = await Promise.all([
+    fetchBlogBySlug(request, slug),
+    fetchCategoriesData(request),
   ]);
 
-  const blog =
-    blogs.find((item) => {
-      const candidate =
-        item.slug && item.slug.trim().length > 0 ? item.slug : String(item.id);
-      return nameToSlug(candidate) === slug;
-    }) ?? null;
-
-  return { blog, categories, locale, blogs };
+  return { blog, categories };
 }
 
 export const meta: MetaFunction<typeof loader> = (args) => {
@@ -57,14 +47,12 @@ export const meta: MetaFunction<typeof loader> = (args) => {
 };
 
 export default function BlogDetail() {
-  const { categories, blog, locale, blogs } = useLoaderData<typeof loader>();
-
-  const currentLocale = locale as Locale;
+  const { categories, blog } = useLoaderData<typeof loader>();
 
   if (!blog) return <NotFoundPage />;
   return (
     <main>
-      <BlogNavigation categories={categories} locale={currentLocale} />
+      <BlogNavigation categories={categories} />
 
       <div className="min-h-screen bg-white font-sans">
         <section className="bg-primary text-white py-12 px-4">
@@ -105,31 +93,8 @@ export default function BlogDetail() {
                 More <span className="font-semibold">Like This</span>
               </p>
               <div className="space-y-4">
-                {blogs &&
-                  blogs.slice(0, 3).map((data, i) => (
-                    <Link
-                      to={getBlogSlug(data, locale as Locale)}
-                      key={i}
-                      className="flex h-full items-center gap-4 p-2 rounded-xl border border-gray-200 hover:shadow-sm transition"
-                    >
-                      <img
-                        src={API_BASE_URL + data.banner[0].url}
-                        alt="thumbnail"
-                        className="rounded-lg h-full object-cover aspect-square w-[100px]"
-                      />
-                      <div
-                        className="flex flex-col justify-between"
-                        style={{ height: "-webkit-fill-available" }}
-                      >
-                        <p className="text-sm font-medium text-gray-800 line-clamp-3">
-                          {data.title}
-                        </p>
-                        <p className="text-xs text-gray-500">
-                          {data.category?.name}
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
+                {/* Related blogs section - would need to fetch related blogs separately */}
+                <p className="text-gray-500 text-sm">Related blogs would appear here</p>
               </div>
             </div>
 
@@ -141,7 +106,7 @@ export default function BlogDetail() {
                 {solutionsMenu.map((item) => (
                   <Link
                     key={item.title}
-                    to={`${currentLocale === "id" ? "/id/solusi" : "/solution"}/${item.slug}`}
+                    to={`/solution/${item.slug}`}
                     className="py-3 flex items-center gap-4"
                   >
                     <item.icon className="mr-2" size={20} />

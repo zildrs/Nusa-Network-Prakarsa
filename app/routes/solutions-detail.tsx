@@ -14,11 +14,10 @@ import {
 import { solutions } from "~/data/solutions";
 import type { Solution } from "~/data/solutions";
 import {
-  fetchProjectsCollection,
-  fetchSolutionsCollection,
-} from "~/lib/api.build";
+  fetchProjectsData,
+  fetchSolutionsData,
+} from "~/lib/api.server";
 import { createMetaFunction, seoData } from "~/lib/meta";
-import { inferLocaleFromUrl } from "~/lib/locale-utils";
 import type { Locale } from "~/i18n";
 
 type SolutionSlug = keyof typeof seoData;
@@ -55,15 +54,14 @@ export const meta: MetaFunction = (args) => {
 
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
-  const locale = inferLocaleFromUrl(url);
   const slugParam = url.pathname.split("/").pop();
   if (!slugParam) {
     throw new Response("Not Found", { status: 404 });
   }
 
   const [{ projects }, { solutions: cmsSolutions }] = await Promise.all([
-    fetchProjectsCollection({ locale }),
-    fetchSolutionsCollection({ locale }),
+    fetchProjectsData(request),
+    fetchSolutionsData(request),
   ]);
 
   const solutionKey = slugParam as Solution;
@@ -74,7 +72,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const solution = cmsSolutions.find((item) => item.slug === slugParam) ?? null;
 
-  return { ...staticSolution, slug: solutionKey, projects, solution, locale };
+  return { ...staticSolution, slug: solutionKey, projects, solution };
 }
 
 export default function SolutionDetail() {

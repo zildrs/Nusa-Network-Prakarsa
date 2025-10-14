@@ -2,18 +2,15 @@ import CTASection from "~/components/cta";
 import type { Route } from "./+types/certifications";
 import { useLoaderData, useOutletContext } from "react-router";
 import { createMetaFunction, seoData } from "~/lib/meta";
-import { fetchCertificationsCollection } from "~/lib/api.build";
+import { fetchCertificationsData } from "~/lib/api.server";
 import { API_BASE_URL } from "~/lib/utils";
-import { inferLocaleFromUrl } from "~/lib/locale-utils";
 import type { Locale } from "~/i18n";
 
 export const meta = createMetaFunction(seoData["certifications"]);
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const url = new URL(request.url);
-  const locale = inferLocaleFromUrl(url);
-  const { certifications } = await fetchCertificationsCollection({ locale });
-  return { certifications, locale };
+  const { certifications } = await fetchCertificationsData(request);
+  return { certifications };
 }
 
 export default function Certification() {
