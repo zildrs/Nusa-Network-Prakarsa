@@ -9,32 +9,27 @@ import {
 import { useLoaderData } from "react-router";
 import { createMetaFunction, seoData } from "~/lib/meta";
 import { nameToSlug } from "~/lib/utils";
-import { fetchBlogCategories, fetchBlogCollection } from "~/lib/api.build";
-import { inferLocaleFromUrl } from "~/lib/locale-utils";
+import { fetchCategoriesData, fetchBlogData } from "~/lib/api.server";
 import type { Locale } from "~/i18n";
 
 export const meta = createMetaFunction(seoData.blog);
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const url = new URL(request.url);
-  const locale = inferLocaleFromUrl(url);
-
   const [{ blogs, meta }, { categories }] = await Promise.all([
-    fetchBlogCollection({ locale }),
-    fetchBlogCategories({ locale }),
+    fetchBlogData(request),
+    fetchCategoriesData(request),
   ]);
 
-  return { blogs, categories, locale, meta };
+  return { blogs, categories, meta };
 }
 
 export default function Blog() {
-  const { blogs, categories, locale } = useLoaderData<typeof loader>();
-  const currentLocale = locale as Locale;
+  const { blogs, categories } = useLoaderData<typeof loader>();
 
   if (!blogs || blogs.length === 0) {
     return (
       <main>
-        <BlogNavigation categories={categories} locale={currentLocale} />
+        <BlogNavigation categories={categories} />
         <BlogEmptyState />
         <CTASection />
       </main>
@@ -56,19 +51,17 @@ export default function Blog() {
 
   return (
     <main>
-      <BlogNavigation categories={categories} locale={currentLocale} />
+      <BlogNavigation categories={categories} />
       <BlogHero
         featuredBlog={featuredBlog}
         relatedBlogs={relatedBlogs}
-        locale={currentLocale}
       />
       {categoryList.map((category) => (
         <BlogSection
           key={category.id}
           title={category.name.toUpperCase()}
           blogs={category.blogs || []}
-          seeAllLink={`${currentLocale === "id" ? "/id" : ""}/blog/${nameToSlug(category.name)}`}
-          locale={currentLocale}
+          seeAllLink={`/blog/${nameToSlug(category.name)}`}
         />
       ))}
       <CTASection />

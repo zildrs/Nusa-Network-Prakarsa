@@ -11,8 +11,7 @@ import {
 } from "~/components/ui/pagination";
 import { useLoaderData, useNavigate } from "react-router";
 import { slugToName } from "~/lib/utils";
-import { fetchBlogCategories, fetchBlogCollection } from "~/lib/api.build";
-import { inferLocaleFromUrl } from "~/lib/locale-utils";
+import { fetchCategoriesData, fetchBlogData } from "~/lib/api.server";
 import type { Locale } from "~/i18n";
 
 export function meta({}: Route.MetaArgs) {
@@ -30,29 +29,25 @@ export async function loader({
   params,
 }: Route.LoaderArgs & { params: { category: string } }) {
   const categoryName = slugToName(params.category);
-  const url = new URL(request.url);
-  const locale = inferLocaleFromUrl(url);
-  const page = Number(url.searchParams.get("page") ?? 1);
+  const page = Number(new URL(request.url).searchParams.get("page") ?? 1);
 
   const [{ blogs, meta }, { categories }] = await Promise.all([
-    fetchBlogCollection({ locale, categoryName, page }),
-    fetchBlogCategories({ locale }),
+    fetchBlogData(request, categoryName),
+    fetchCategoriesData(request),
   ]);
 
-  return { blogs, categories, locale, meta, categoryName };
+  return { blogs, categories, meta, categoryName };
 }
 
 export default function BlogCategory() {
-  const { blogs, categories, locale, meta, categoryName } =
+  const { blogs, categories, meta, categoryName } =
     useLoaderData<typeof loader>();
   const navigate = useNavigate();
-  
-  const currentLocale = locale as Locale;
 
   if (!blogs || blogs.length === 0) {
     return (
       <main>
-        <BlogNavigation categories={categories} locale={currentLocale} />
+        <BlogNavigation categories={categories} />
         <BlogEmptyState />
         <CTASection />
       </main>
@@ -61,7 +56,7 @@ export default function BlogCategory() {
 
   return (
     <main>
-      <BlogNavigation categories={categories} locale={currentLocale} />
+      <BlogNavigation categories={categories} />
       <section className={`py-10 max-w-7xl mx-auto px-4 lg:px-6`}>
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-semibold">
@@ -71,7 +66,7 @@ export default function BlogCategory() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {blogs.map((blog) => (
-            <BlogCard key={blog.id} blog={blog} locale={currentLocale} />
+            <BlogCard key={blog.id} blog={blog} />
           ))}
         </div>
 
@@ -84,7 +79,7 @@ export default function BlogCategory() {
                   onClick={(e) => {
                     e.preventDefault();
                     if (meta.pagination.page > 1)
-                      navigate(`${currentLocale === 'id' ? '/id' : ''}/blog/${categoryName.toLowerCase().replace(/\s+/g, '-')}?page=${meta.pagination.page - 1}`);
+                      navigate(`/blog/${categoryName.toLowerCase().replace(/\s+/g, '-')}?page=${meta.pagination.page - 1}`);
                   }}
                 />
               </PaginationItem>
@@ -99,7 +94,7 @@ export default function BlogCategory() {
                         isActive={pageNum === meta.pagination.page}
                         onClick={(e) => {
                           e.preventDefault();
-                          navigate(`${currentLocale === 'id' ? '/id' : ''}/blog/${categoryName.toLowerCase().replace(/\s+/g, '-')}?page=${pageNum}`);
+                          navigate(`/blog/${categoryName.toLowerCase().replace(/\s+/g, '-')}?page=${pageNum}`);
                         }}
                       >
                         {pageNum}
@@ -115,7 +110,7 @@ export default function BlogCategory() {
                   onClick={(e) => {
                     e.preventDefault();
                     if (meta.pagination.page < meta.pagination.pageCount)
-                      navigate(`${currentLocale === 'id' ? '/id' : ''}/blog/${categoryName.toLowerCase().replace(/\s+/g, '-')}?page=${meta.pagination.page + 1}`);
+                      navigate(`/blog/${categoryName.toLowerCase().replace(/\s+/g, '-')}?page=${meta.pagination.page + 1}`);
                   }}
                 />
               </PaginationItem>

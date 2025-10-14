@@ -3,11 +3,10 @@ import { useLoaderData, type MetaFunction } from "react-router";
 import { ArrowDown, ArrowRight, ArrowUp } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
-import { fetchProjectsCollection } from "~/lib/api.build";
+import { fetchProjectsData } from "~/lib/api.server";
 import { API_BASE_URL, nameToSlug } from "~/lib/utils";
 import BlogContent from "~/components/blog/blog-content";
 import NotFoundPage from "./404";
-import { inferLocaleFromUrl } from "~/lib/locale-utils";
 import type { Locale } from "~/i18n";
 
 function ensureSlug(params: { slug?: string } | undefined): string {
@@ -22,12 +21,8 @@ export async function loader({
   request,
   params,
 }: Route.LoaderArgs & { params: { slug: string } }) {
-  const url = new URL(request.url);
-  const locale = inferLocaleFromUrl(url);
   const slug = ensureSlug(params);
-  const [{ projects }] = await Promise.all([
-    fetchProjectsCollection({ locale }),
-  ]);
+  const { projects } = await fetchProjectsData(request);
 
   const project =
     projects.find((item) => {
@@ -36,7 +31,7 @@ export async function loader({
       return nameToSlug(candidate) === slug;
     }) ?? null;
 
-  return { project, locale, projects };
+  return { project, projects };
 }
 
 export const meta: MetaFunction<typeof loader> = (args) => {
@@ -54,7 +49,7 @@ export const meta: MetaFunction<typeof loader> = (args) => {
 };
 
 export default function CaseStudyDetail() {
-  const { project, locale, projects } = useLoaderData<typeof loader>();
+  const { project, projects } = useLoaderData<typeof loader>();
 
   if (!project) return <NotFoundPage />;
   return (
@@ -163,7 +158,7 @@ export default function CaseStudyDetail() {
               </p>
               <a
                 data-aos="fade-up"
-                href={locale === "en" ? "/contact" : "/id/hubungi-kami"}
+                href="/contact"
                 className="bg-primary w-fit hover:bg-primary text-white px-5 py-3 rounded-lg flex items-center gap-2 transition"
               >
                 Contact our experts <ArrowRight className="w-4 h-4" />
