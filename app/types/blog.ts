@@ -43,7 +43,7 @@ export type BlogPost = BackendBlogPost;
 
 export interface BlogData {
   blogs: BlogPost[];
-  locale: string;
+  locale: "en" | "id";
   meta?: BackendBlogResponseMeta;
 }
 

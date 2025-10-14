@@ -10,26 +10,25 @@ import { useLoaderData } from "react-router";
 import { createMetaFunction, seoData } from "~/lib/meta";
 import { nameToSlug } from "~/lib/utils";
 import { fetchCategoriesData, fetchBlogData } from "~/lib/api.server";
-import type { Locale } from "~/i18n";
 
 export const meta = createMetaFunction(seoData.blog);
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const [{ blogs, meta }, { categories }] = await Promise.all([
+  const [{ blogs, meta, locale }, { categories }] = await Promise.all([
     fetchBlogData(request),
     fetchCategoriesData(request),
   ]);
 
-  return { blogs, categories, meta };
+  return { blogs, categories, meta, locale };
 }
 
 export default function Blog() {
-  const { blogs, categories } = useLoaderData<typeof loader>();
+  const { blogs, categories, locale } = useLoaderData<typeof loader>();
 
   if (!blogs || blogs.length === 0) {
     return (
       <main>
-        <BlogNavigation categories={categories} />
+        <BlogNavigation categories={categories} locale={locale} />
         <BlogEmptyState />
         <CTASection />
       </main>
@@ -51,11 +50,8 @@ export default function Blog() {
 
   return (
     <main>
-      <BlogNavigation categories={categories} />
-      <BlogHero
-        featuredBlog={featuredBlog}
-        relatedBlogs={relatedBlogs}
-      />
+      <BlogNavigation categories={categories} locale={locale} />
+      <BlogHero featuredBlog={featuredBlog} relatedBlogs={relatedBlogs} />
       {categoryList.map((category) => (
         <BlogSection
           key={category.id}
