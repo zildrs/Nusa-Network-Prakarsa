@@ -5,13 +5,17 @@ let tlsBypassInitialized = false;
 async function ensureDevInsecureTLS() {
   if (tlsBypassInitialized) return;
   const shouldBypass = process.env.ALLOW_INSECURE_TLS === "1";
-  if (!shouldBypass) return;
+  if (!shouldBypass) {
+    console.log("[TLS] TLS bypass not enabled (ALLOW_INSECURE_TLS not set)");
+    return;
+  }
   try {
     const { setGlobalDispatcher, Agent } = await import("undici");
     setGlobalDispatcher(new Agent({ connect: { rejectUnauthorized: false } }));
     tlsBypassInitialized = true;
-    console.log("[TLS] Insecure TLS bypass enabled (ALLOW_INSECURE_TLS=1)");
-  } catch {
+    console.log("[TLS] ✅ Insecure TLS bypass enabled (ALLOW_INSECURE_TLS=1)");
+  } catch (err) {
+    console.error("[TLS] ❌ Failed to enable TLS bypass:", err);
     return;
   }
 }
