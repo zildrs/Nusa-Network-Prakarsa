@@ -1,5 +1,5 @@
 import { ArrowRight } from "@carbon/icons-react";
-import { useOutletContext } from "react-router";
+import { Link, useOutletContext } from "react-router";
 
 type CTAPropsType = {
   title?: string;
@@ -41,14 +41,15 @@ const CTASection = (props: CTAPropsType) => {
           </h2>
           <p data-aos="fade-right" className=" mt-4 max-w-md">{props.description || ""}</p>
         </div>
-        <a
+        <Link
           data-aos="fade-left"
-          href={props.link || locale === "en" ? "/contact" : "/id/hubungi-kami"}
+          to={props.link || locale === "en" ? "/contact" : "/id/hubungi-kami"}
+          prefetch="intent"
           className="mt-6 md:mt-0 inline-flex items-center px-6 py-3 bg-white text-gray-900 font-medium rounded-lg shadow"
         >
           {props.linkText || t("home.cta.button")}{" "}
           <ArrowRight className="ml-2 h-5 w-5" />
-        </a>
+        </Link>
       </div>
     </section>
   );

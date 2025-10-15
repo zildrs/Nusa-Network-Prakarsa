@@ -24,7 +24,9 @@ import type { TestimonyReponseType, TestimonyType } from "~/types/testimony";
 //   Solution,
 // } from "~/types/solutions";
 
-const API_BASE = "https://dash.nusanetwork.com/api/";
+const API_BASE = process.env.API_BASE_URL 
+  ? `${process.env.API_BASE_URL.replace(/\/$/, '')}/api/`
+  : "https://dash.nusanetwork.com/api/";
 
 /**
  * Fetch Blog data

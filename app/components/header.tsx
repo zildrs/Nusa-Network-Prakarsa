@@ -98,10 +98,11 @@ export default function Header({ locale, t }: HeaderProps) {
   return (
     <header className="border-b border-gray-200 bg-white text-gray-600">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 lg:py-4">
-        {/* Logo */}
+          {/* Logo */}
         <div className="flex gap-16">
           <Link
             to={currentLocale === "id" ? `/id` : "/"}
+            prefetch="intent"
             className="flex items-center gap-2"
           >
             <img src="/logo.png" alt="NPP" className="h-8" />
@@ -120,6 +121,7 @@ export default function Header({ locale, t }: HeaderProps) {
                       <Link
                         key={item.title}
                         to={getLocalizedUrl(`/solution/${item.slug}`)}
+                        prefetch="intent"
                         className="py-3 flex items-center gap-2 group hover:bg-gray-50 px-4"
                         onClick={() => setMobileOpen(false)}
                       >
@@ -140,7 +142,7 @@ export default function Header({ locale, t }: HeaderProps) {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <Link to={getLocalizedUrl("/about")}>{t("nav.about")}</Link>
+                    <Link to={getLocalizedUrl("/about")} prefetch="intent">{t("nav.about")}</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -148,7 +150,7 @@ export default function Header({ locale, t }: HeaderProps) {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <Link to={getLocalizedUrl("/case-study")}>
+                    <Link to={getLocalizedUrl("/case-study")} prefetch="intent">
                       {t("nav.caseStudy")}
                     </Link>
                   </NavigationMenuLink>
@@ -158,7 +160,7 @@ export default function Header({ locale, t }: HeaderProps) {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <Link to={getLocalizedUrl("/blog")}>
+                    <Link to={getLocalizedUrl("/blog")} prefetch="intent">
                       {t("nav.article")}
                     </Link>
                   </NavigationMenuLink>
@@ -211,12 +213,14 @@ export default function Header({ locale, t }: HeaderProps) {
           <LanguageSwitcher current={currentLocale} />
           <Link
             to="https://ticket.nusanetwork.com/helpdesk"
+            prefetch="intent"
             className="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-500"
           >
             {t("nav.support")}
           </Link>
           <Link
             to="/contact"
+            prefetch="intent"
             className="bg-primary text-white rounded-lg px-4 py-2 text-sm flex items-center gap-1"
           >
             {t("nav.contact")} <ArrowRight className="w-4 h-4 ml-1" />
@@ -257,6 +261,7 @@ export default function Header({ locale, t }: HeaderProps) {
                 <Link
                   key={item.title}
                   to={getLocalizedUrl(`/solution/${item.slug}`)}
+                  prefetch="intent"
                   className="py-3 flex items-center gap-2"
                   onClick={() => setMobileOpen(false)}
                 >
@@ -272,6 +277,7 @@ export default function Header({ locale, t }: HeaderProps) {
 
           <Link
             to={getLocalizedUrl("/about")}
+            prefetch="intent"
             className="block py-3 border-b font-medium border-gray-300"
             onClick={() => setMobileOpen(false)}
           >
@@ -279,6 +285,7 @@ export default function Header({ locale, t }: HeaderProps) {
           </Link>
           <Link
             to={getLocalizedUrl("/case-study")}
+            prefetch="intent"
             className="block py-3 border-b font-medium border-gray-300"
             onClick={() => setMobileOpen(false)}
           >
@@ -286,6 +293,7 @@ export default function Header({ locale, t }: HeaderProps) {
           </Link>
           <Link
             to={getLocalizedUrl("/blog")}
+            prefetch="intent"
             className="block py-3 border-b font-medium border-gray-300"
             onClick={() => setMobileOpen(false)}
           >
@@ -295,12 +303,14 @@ export default function Header({ locale, t }: HeaderProps) {
           <div className="mt-6 flex flex-col gap-2">
             <Link
               to="/contact"
+              prefetch="intent"
               className="bg-primary text-white rounded-lg px-4 py-3 flex justify-center items-center gap-1"
             >
               {t("nav.contact")} <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
             <Link
               to="https://ticket.nusanetwork.com/helpdesk"
+              prefetch="intent"
               className="border rounded-lg px-4 py-3 text-center border-gray-300"
             >
               {t("nav.support")}

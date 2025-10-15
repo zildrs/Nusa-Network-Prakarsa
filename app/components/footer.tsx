@@ -63,6 +63,7 @@ export default function Footer({ locale, t }: HeaderProps) {
                     to={getLocalizedUrl(
                       `/${locale === "id" ? "solusi" : "solution"}/security-infrastructure`
                     )}
+                    prefetch="intent"
                   >
                     {t("footer.solutions.items.securityInfrastructure")}
                   </Link>
@@ -72,6 +73,7 @@ export default function Footer({ locale, t }: HeaderProps) {
                     to={getLocalizedUrl(
                       `/${locale === "id" ? "solusi" : "solution"}/managed-services`
                     )}
+                    prefetch="intent"
                   >
                     {t("footer.solutions.items.managedServices")}
                   </Link>
@@ -81,6 +83,7 @@ export default function Footer({ locale, t }: HeaderProps) {
                     to={getLocalizedUrl(
                       `/${locale === "id" ? "solusi" : "solution"}/internet-of-things`
                     )}
+                    prefetch="intent"
                   >
                     {t("footer.solutions.items.iotSolution")}
                   </Link>
@@ -90,6 +93,7 @@ export default function Footer({ locale, t }: HeaderProps) {
                     to={getLocalizedUrl(
                       `/${locale === "id" ? "solusi" : "solution"}/data-center`
                     )}
+                    prefetch="intent"
                   >
                     {t("footer.solutions.items.dataCenter")}
                   </Link>
@@ -99,6 +103,7 @@ export default function Footer({ locale, t }: HeaderProps) {
                     to={getLocalizedUrl(
                       `/${locale === "id" ? "solusi" : "solution"}/network-infrastructure`
                     )}
+                    prefetch="intent"
                   >
                     {t("footer.solutions.items.networkInfrastructure")}
                   </Link>
@@ -124,6 +129,7 @@ export default function Footer({ locale, t }: HeaderProps) {
                     to={getLocalizedUrl(
                       locale === "id" ? "/tentang" : "/about"
                     )}
+                    prefetch="intent"
                   >
                     {t("footer.company.items.about")}
                   </Link>
@@ -133,6 +139,7 @@ export default function Footer({ locale, t }: HeaderProps) {
                     to={getLocalizedUrl(
                       locale === "id" ? "/studi-kasus" : "/case-study"
                     )}
+                    prefetch="intent"
                   >
                     {t("footer.company.items.caseStudy")}
                   </Link>
@@ -140,6 +147,7 @@ export default function Footer({ locale, t }: HeaderProps) {
                 <li>
                   <Link
                     to={getLocalizedUrl(locale === "id" ? "/blog" : "/blog")}
+                    prefetch="intent"
                   >
                     {t("footer.company.items.blog")}
                   </Link>
@@ -149,6 +157,7 @@ export default function Footer({ locale, t }: HeaderProps) {
                     to={getLocalizedUrl(
                       locale === "id" ? "/karir" : "/careers"
                     )}
+                    prefetch="intent"
                   >
                     {t("footer.company.items.careers")}
                   </Link>
@@ -158,6 +167,7 @@ export default function Footer({ locale, t }: HeaderProps) {
                     to={getLocalizedUrl(
                       locale === "id" ? "/partners" : "/partners"
                     )}
+                    prefetch="intent"
                   >
                     {t("footer.company.items.partners")}
                   </Link>
@@ -183,27 +193,28 @@ export default function Footer({ locale, t }: HeaderProps) {
                     to={getLocalizedUrl(
                       locale === "id" ? "/kebijakan-privasi" : "/policies"
                     )}
+                    prefetch="intent"
                   >
                     {t("footer.resources.items.privacy")}
                   </Link>
                 </li>
                 <li>
-                  <Link to={getLocalizedUrl("/sitemap")}>
+                  <Link to={getLocalizedUrl("/sitemap")} prefetch="intent">
                     {t("footer.resources.items.sitemap")}
                   </Link>
                 </li>
                 <li>
-                  <Link to={getLocalizedUrl("/certifications")}>
+                  <Link to={getLocalizedUrl("/certifications")} prefetch="intent">
                     {t("footer.resources.items.certifications")}
                   </Link>
                 </li>
                 <li>
-                  <Link to={getLocalizedUrl("/contact")}>
+                  <Link to={getLocalizedUrl("/contact")} prefetch="intent">
                     {t("footer.resources.items.contact")}
                   </Link>
                 </li>
                 <li>
-                  <Link to="https://ticket.nusanetwork.com/helpdesk">
+                  <Link to="https://ticket.nusanetwork.com/helpdesk" prefetch="intent">
                     {t("footer.resources.items.support")}
                   </Link>
                 </li>

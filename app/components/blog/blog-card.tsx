@@ -29,6 +29,7 @@ export function BlogCard({
         data-aos="fade-up"
         data-aos-delay={200}
         to={slug}
+        prefetch="intent"
         className={`flex p-2 gap-3 rounded-xl border border-gray-200 bg-white overflow-hidden hover:shadow-sm transition ${className}`}
       >
         <img
@@ -50,6 +51,7 @@ export function BlogCard({
         data-aos="fade-up"
         data-aos-delay={200}
         to={slug}
+        prefetch="intent"
         className={`block p-3 h-full rounded-2xl overflow-hidden border border-gray-200 bg-white transition hover:shadow-sm ${className}`}
       >
         <img
@@ -73,6 +75,7 @@ export function BlogCard({
       data-aos="fade-up"
       data-aos-delay={200}
       to={slug}
+      prefetch="intent"
       className={`rounded-2xl p-3 overflow-hidden border border-gray-200 bg-white transition hover:shadow-sm ${className}`}
     >
       <img

@@ -1,14 +1,21 @@
+import { apiCache } from "./cache.server";
+
 let tlsBypassInitialized = false;
 
 async function ensureDevInsecureTLS() {
   if (tlsBypassInitialized) return;
-  if (process.env.ALLOW_INSECURE_TLS !== "1") return;
+  const shouldBypass = process.env.ALLOW_INSECURE_TLS === "1";
+  if (!shouldBypass) {
+    console.log("[TLS] TLS bypass not enabled (ALLOW_INSECURE_TLS not set)");
+    return;
+  }
   try {
     const { setGlobalDispatcher, Agent } = await import("undici");
     setGlobalDispatcher(new Agent({ connect: { rejectUnauthorized: false } }));
     tlsBypassInitialized = true;
-  } catch {
-    // undici not available; keep strict TLS
+    console.log("[TLS] ✅ Insecure TLS bypass enabled (ALLOW_INSECURE_TLS=1)");
+  } catch (err) {
+    console.error("[TLS] ❌ Failed to enable TLS bypass:", err);
     return;
   }
 }
@@ -35,7 +42,7 @@ function handleApiError(err: unknown, serviceName: string) {
 }
 
 /**
- * Generic reusable API request
+ * Generic reusable API request with caching
  */
 export async function createApiRequest<T>(
   baseUrl: string,
@@ -55,6 +62,16 @@ export async function createApiRequest<T>(
     }
   }
 
+  const cacheKey = url.toString();
+  const cached = apiCache.get<T>(cacheKey);
+
+  if (cached !== null) {
+    console.log(`[CACHE HIT] ${opts.serviceName || "api"}: ${cacheKey}`);
+    return cached;
+  }
+
+  console.log(`[CACHE MISS] ${opts.serviceName || "api"}: ${cacheKey}`);
+
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS);
   try {
@@ -63,11 +80,23 @@ export async function createApiRequest<T>(
       signal: controller.signal,
     });
     clearTimeout(timeout);
-    if (!res.ok) return null;
-    return (await res.json()) as T;
+    
+    if (!res.ok) {
+      console.error(`[${opts.serviceName || "api"}] API returned ${res.status}: ${url}`);
+      return null;
+    }
+
+    const data = (await res.json()) as T;
+    const dataSize = JSON.stringify(data).length;
+    console.log(`[${opts.serviceName || "api"}] Fetched ${dataSize} bytes from ${url}`);
+    
+    apiCache.set(cacheKey, data);
+
+    return data;
   } catch (err) {
     clearTimeout(timeout);
     handleApiError(err, opts.serviceName || "api");
+    console.error(`[${opts.serviceName || "api"}] Fetch error for ${url}:`, err);
     return null;
   }
 }
