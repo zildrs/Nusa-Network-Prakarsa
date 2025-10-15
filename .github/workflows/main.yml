@@ -12,6 +12,8 @@ env:
   NODE_VERSION: '20'
   BUILD_DIR: build
   PM2_HOME: /home/manage/.pm2
+  # adjust if you ever move the env folder
+  ENV_SOURCE_DIR: /home/manage/env-nusa
 
 jobs:
   build-deploy:
@@ -35,13 +37,30 @@ jobs:
           mkdir -p "$APP_DIR"
           > "$APP_DIR/.gh-actions-write-test" && echo "write ok" || { echo "::error::Cannot write to $APP_DIR"; exit 1; }
 
-      - name: Sync to $APP_DIR (simple copy, keep .env)
+      - name: Sync to $APP_DIR (repo files)
         run: |
           set -euo pipefail
           shopt -s dotglob nullglob
           rm -rf "${APP_DIR:?}/"*
           cp -a ./* "$APP_DIR"/
-          echo "Copied to $APP_DIR"
+          echo "Copied repo to $APP_DIR"
+
+      - name: Provision environment files (.env, .env.local)
+        run: |
+          set -euo pipefail
+          SRC="${ENV_SOURCE_DIR}"
+          echo "Using ENV_SOURCE_DIR=$SRC"
+          for f in .env .env.local; do
+            if [ -f "$SRC/$f" ]; then
+              # copy and secure perms (rw-------)
+              cp -f "$SRC/$f" "$APP_DIR/$f"
+              chmod 600 "$APP_DIR/$f"
+              echo "✓ Copied $f to $APP_DIR"
+            else
+              echo "::warning file=$SRC/$f::$f not found at $SRC (skipping)"
+            fi
+          done
+          ls -l "$APP_DIR"/.env* || true
 
       - name: Install deps (include dev)
         working-directory: ${{ env.APP_DIR }}
