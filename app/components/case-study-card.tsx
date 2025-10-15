@@ -1,5 +1,5 @@
 import { ArrowRight } from "@carbon/icons-react";
-import { useOutletContext } from "react-router";
+import { Link, useOutletContext } from "react-router";
 import { API_BASE_URL, nameToSlug } from "~/lib/utils";
 import type { ProjectType } from "~/types/project";
 
@@ -27,8 +27,9 @@ const CaseStudyCard = ({ data }: { data: ProjectType }) => {
         className="w-full object-cover h-full"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 gap-2 flex flex-col justify-end items-start">
-        <a
-          href={slug}
+        <Link
+          to={slug}
+          prefetch="intent"
           className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0"
         >
           <img
@@ -41,7 +42,7 @@ const CaseStudyCard = ({ data }: { data: ProjectType }) => {
             <p className="text-white font-medium">Learn more</p>
             <ArrowRight className="h-4 w-4 text-white" />
           </div>
-        </a>
+        </Link>
       </div>
     </div>
   );

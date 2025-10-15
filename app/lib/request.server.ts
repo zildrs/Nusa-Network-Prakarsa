@@ -1,3 +1,5 @@
+import { apiCache } from "./cache.server";
+
 let tlsBypassInitialized = false;
 
 async function ensureDevInsecureTLS() {
@@ -8,7 +10,6 @@ async function ensureDevInsecureTLS() {
     setGlobalDispatcher(new Agent({ connect: { rejectUnauthorized: false } }));
     tlsBypassInitialized = true;
   } catch {
-    // undici not available; keep strict TLS
     return;
   }
 }
@@ -35,7 +36,7 @@ function handleApiError(err: unknown, serviceName: string) {
 }
 
 /**
- * Generic reusable API request
+ * Generic reusable API request with caching
  */
 export async function createApiRequest<T>(
   baseUrl: string,
@@ -55,6 +56,20 @@ export async function createApiRequest<T>(
     }
   }
 
+  const cacheKey = url.toString();
+  const cached = apiCache.get<T>(cacheKey);
+
+  if (cached !== null) {
+    if (process.env.NODE_ENV !== "production") {
+      console.log(`[CACHE HIT] ${opts.serviceName || "api"}: ${cacheKey}`);
+    }
+    return cached;
+  }
+
+  if (process.env.NODE_ENV !== "production") {
+    console.log(`[CACHE MISS] ${opts.serviceName || "api"}: ${cacheKey}`);
+  }
+
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS);
   try {
@@ -64,7 +79,11 @@ export async function createApiRequest<T>(
     });
     clearTimeout(timeout);
     if (!res.ok) return null;
-    return (await res.json()) as T;
+
+    const data = (await res.json()) as T;
+    apiCache.set(cacheKey, data);
+
+    return data;
   } catch (err) {
     clearTimeout(timeout);
     handleApiError(err, opts.serviceName || "api");
