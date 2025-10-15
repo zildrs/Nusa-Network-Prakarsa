@@ -51,7 +51,7 @@ jobs:
           if [ ! -f "$SRC" ]; then
             echo "::error file=$SRC::ecosystem.config.cjs not found"; exit 1;
           fi
-          cp -f "$SRC" "$APP_DIR/ecosystem.config.cjs"
+          cp "$SRC" "$APP_DIR/ecosystem.config.cjs"
           ls -l "$APP_DIR/ecosystem.config.cjs"
 
       - name: Install deps (include dev)
@@ -86,6 +86,6 @@ jobs:
           # stop old instance if any
           npx pm2 delete "${PM2_NAME}" || true
           # start using the ecosystem with env_staging
-          npx pm2 start ecosystem.config.cjs --only "${PM2_NAME}" --env staging
+          npx pm2 start ecosystem.config.cjs --env staging
           npx pm2 save
           npx pm2 status || true
