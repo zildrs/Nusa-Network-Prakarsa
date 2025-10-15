@@ -4,11 +4,13 @@ let tlsBypassInitialized = false;
 
 async function ensureDevInsecureTLS() {
   if (tlsBypassInitialized) return;
-  if (process.env.ALLOW_INSECURE_TLS !== "1") return;
+  const shouldBypass = process.env.ALLOW_INSECURE_TLS === "1";
+  if (!shouldBypass) return;
   try {
     const { setGlobalDispatcher, Agent } = await import("undici");
     setGlobalDispatcher(new Agent({ connect: { rejectUnauthorized: false } }));
     tlsBypassInitialized = true;
+    console.log("[TLS] Insecure TLS bypass enabled (ALLOW_INSECURE_TLS=1)");
   } catch {
     return;
   }
@@ -60,15 +62,11 @@ export async function createApiRequest<T>(
   const cached = apiCache.get<T>(cacheKey);
 
   if (cached !== null) {
-    if (process.env.NODE_ENV !== "production") {
-      console.log(`[CACHE HIT] ${opts.serviceName || "api"}: ${cacheKey}`);
-    }
+    console.log(`[CACHE HIT] ${opts.serviceName || "api"}: ${cacheKey}`);
     return cached;
   }
 
-  if (process.env.NODE_ENV !== "production") {
-    console.log(`[CACHE MISS] ${opts.serviceName || "api"}: ${cacheKey}`);
-  }
+  console.log(`[CACHE MISS] ${opts.serviceName || "api"}: ${cacheKey}`);
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS);
@@ -78,15 +76,23 @@ export async function createApiRequest<T>(
       signal: controller.signal,
     });
     clearTimeout(timeout);
-    if (!res.ok) return null;
+    
+    if (!res.ok) {
+      console.error(`[${opts.serviceName || "api"}] API returned ${res.status}: ${url}`);
+      return null;
+    }
 
     const data = (await res.json()) as T;
+    const dataSize = JSON.stringify(data).length;
+    console.log(`[${opts.serviceName || "api"}] Fetched ${dataSize} bytes from ${url}`);
+    
     apiCache.set(cacheKey, data);
 
     return data;
   } catch (err) {
     clearTimeout(timeout);
     handleApiError(err, opts.serviceName || "api");
+    console.error(`[${opts.serviceName || "api"}] Fetch error for ${url}:`, err);
     return null;
   }
 }

@@ -32,7 +32,9 @@ import type {
 } from "../types/career";
 import type { PartnerReponseType, PartnerType } from "../types/partner";
 
-const API_BASE = "https://dash.nusanetwork.com/api/";
+const API_BASE = process.env.API_BASE_URL 
+  ? `${process.env.API_BASE_URL.replace(/\/$/, '')}/api/`
+  : "https://dash.nusanetwork.com/api/";
 const DEFAULT_PAGE_SIZE = 50;
 
 type BlogCollectionArgs = {
