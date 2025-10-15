@@ -3,8 +3,6 @@ name: build-and-deploy-staging
 on:
   push:
     branches: [master]
-  repository_dispatch:
-    types: [strapi_publish]
 
 env:
   APP_DIR: /opt/nnp-web
