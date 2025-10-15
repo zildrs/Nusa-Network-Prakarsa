@@ -3,13 +3,14 @@ name: build-and-deploy-staging
 on:
   push:
     branches: [master]
-
+    
 env:
   APP_DIR: /opt/nnp-web
   PM2_NAME: nnp-web
   NODE_VERSION: '20'
   BUILD_DIR: build
   PM2_HOME: /home/manage/.pm2
+  # adjust if you ever move the env folder
   ENV_SOURCE_DIR: /home/manage/env-nusa
 
 jobs:
@@ -42,17 +43,30 @@ jobs:
           cp -a ./* "$APP_DIR"/
           echo "Copied repo to $APP_DIR"
 
-      # 🔁 New: bring in the PM2 ecosystem file from your env folder
-      - name: Provision PM2 ecosystem file
+      - name: Provision environment files (.env, .env.local, ecosystem.config.cjs)
         run: |
           set -euo pipefail
-          SRC="${ENV_SOURCE_DIR}/ecosystem.config.cjs"
-          echo "Using ecosystem: $SRC"
-          if [ ! -f "$SRC" ]; then
-            echo "::error file=$SRC::ecosystem.config.cjs not found"; exit 1;
+          SRC="${ENV_SOURCE_DIR}"
+          echo "Using ENV_SOURCE_DIR=$SRC"
+          # copy .env files if present
+          for f in .env .env.local; do
+            if [ -f "$SRC/$f" ]; then
+              cp -f "$SRC/$f" "$APP_DIR/$f"
+              chmod 600 "$APP_DIR/$f"
+              echo "✓ Copied $f to $APP_DIR"
+            else
+              echo "::warning file=$SRC/$f::$f not found at $SRC (skipping)"
+            fi
+          done
+          # copy pm2 ecosystem config
+          if [ -f "$SRC/ecosystem.config.cjs" ]; then
+            cp -f "$SRC/ecosystem.config.cjs" "$APP_DIR/ecosystem.config.cjs"
+            chmod 644 "$APP_DIR/ecosystem.config.cjs"
+            echo "✓ Copied ecosystem.config.cjs to $APP_DIR"
+          else
+            echo "::warning file=$SRC/ecosystem.config.cjs::ecosystem.config.cjs not found at $SRC (skipping)"
           fi
-          cp "$SRC" "$APP_DIR/ecosystem.config.cjs"
-          ls -l "$APP_DIR/ecosystem.config.cjs"
+          ls -l "$APP_DIR"/.env* "$APP_DIR"/ecosystem.config.cjs 2>/dev/null || true
 
       - name: Install deps (include dev)
         working-directory: ${{ env.APP_DIR }}
@@ -75,17 +89,26 @@ jobs:
             npm i -E pm2@latest
           fi
 
-      # 🔁 New: use ecosystem & env_staging (pm2 --env staging)
-      - name: Restart app with PM2 via ecosystem
+      - name: Restart app with PM2 via ecosystem (staging)
         working-directory: ${{ env.APP_DIR }}
         env:
           PM2_HOME: ${{ env.PM2_HOME }}
         run: |
+          set -euo pipefail
           echo "PM2_HOME=$PM2_HOME"
+          which pm2 || true
           npx pm2 -v || true
-          # stop old instance if any
+
+          # optional: stop/remove previous process
           npx pm2 delete "${PM2_NAME}" || true
-          # start using the ecosystem with env_staging
-          npx pm2 start ecosystem.config.cjs --env staging
+
+          if [ ! -f "ecosystem.config.cjs" ]; then
+            echo "::error::${APP_DIR}/ecosystem.config.cjs not found"
+            exit 1
+          fi
+
+          # Start only the target app from the ecosystem and use the 'staging' env block
+          npx pm2 start ecosystem.config.cjs --env staging --only "${PM2_NAME}" --update-env
+
           npx pm2 save
           npx pm2 status || true
