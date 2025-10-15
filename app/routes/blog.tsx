@@ -37,6 +37,7 @@ export default function Blog() {
 
   const featuredBlog = blogs[0];
   const relatedBlogs = blogs.slice(1, 4);
+  console.log(categories);
 
   const categoryList = categories.map((category) => {
     const categoryBlogs = blogs.filter(

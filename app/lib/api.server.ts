@@ -24,8 +24,8 @@ import type { TestimonyReponseType, TestimonyType } from "~/types/testimony";
 //   Solution,
 // } from "~/types/solutions";
 
-const API_BASE = process.env.API_BASE_URL 
-  ? `${process.env.API_BASE_URL.replace(/\/$/, '')}/api/`
+const API_BASE = process.env.API_BASE_URL
+  ? `${process.env.API_BASE_URL.replace(/\/$/, "")}/api/`
   : "https://dash.nusanetwork.com/api/";
 
 /**
@@ -37,7 +37,6 @@ export async function fetchBlogData(
 ): Promise<BlogData> {
   const locale = getRequestLocale(request);
   const url = new URL(request.url);
-
   const page = Number(url.searchParams.get("page") || 1);
   const pageSize = Number(
     url.searchParams.get("pageSize") || categoryName ? 6 : 25
@@ -48,6 +47,7 @@ export async function fetchBlogData(
     populate: "*",
     "pagination[page]": page,
     "pagination[pageSize]": pageSize,
+    limit : 100,
   };
 
   // ✅ Filter by category name (Strapi filter)
