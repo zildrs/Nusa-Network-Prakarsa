@@ -12,7 +12,6 @@ env:
   NODE_VERSION: '20'
   BUILD_DIR: build
   PM2_HOME: /home/manage/.pm2
-  # adjust if you ever move the env folder
   ENV_SOURCE_DIR: /home/manage/env-nusa
 
 jobs:
@@ -45,22 +44,17 @@ jobs:
           cp -a ./* "$APP_DIR"/
           echo "Copied repo to $APP_DIR"
 
-      - name: Provision environment files (.env, .env.local)
+      # 🔁 New: bring in the PM2 ecosystem file from your env folder
+      - name: Provision PM2 ecosystem file
         run: |
           set -euo pipefail
-          SRC="${ENV_SOURCE_DIR}"
-          echo "Using ENV_SOURCE_DIR=$SRC"
-          for f in .env .env.local; do
-            if [ -f "$SRC/$f" ]; then
-              # copy and secure perms (rw-------)
-              cp -f "$SRC/$f" "$APP_DIR/$f"
-              chmod 600 "$APP_DIR/$f"
-              echo "✓ Copied $f to $APP_DIR"
-            else
-              echo "::warning file=$SRC/$f::$f not found at $SRC (skipping)"
-            fi
-          done
-          ls -l "$APP_DIR"/.env* || true
+          SRC="${ENV_SOURCE_DIR}/ecosystem.config.cjs"
+          echo "Using ecosystem: $SRC"
+          if [ ! -f "$SRC" ]; then
+            echo "::error file=$SRC::ecosystem.config.cjs not found"; exit 1;
+          fi
+          cp -f "$SRC" "$APP_DIR/ecosystem.config.cjs"
+          ls -l "$APP_DIR/ecosystem.config.cjs"
 
       - name: Install deps (include dev)
         working-directory: ${{ env.APP_DIR }}
@@ -83,15 +77,17 @@ jobs:
             npm i -E pm2@latest
           fi
 
-      - name: Restart app with PM2 (local)
+      # 🔁 New: use ecosystem & env_staging (pm2 --env staging)
+      - name: Restart app with PM2 via ecosystem
         working-directory: ${{ env.APP_DIR }}
         env:
           PM2_HOME: ${{ env.PM2_HOME }}
         run: |
           echo "PM2_HOME=$PM2_HOME"
-          which pm2 || true
           npx pm2 -v || true
+          # stop old instance if any
           npx pm2 delete "${PM2_NAME}" || true
-          npx pm2 start "npm run start ./${BUILD_DIR}/server/index.js" --name "${PM2_NAME}" --update-env
+          # start using the ecosystem with env_staging
+          npx pm2 start ecosystem.config.cjs --only "${PM2_NAME}" --env staging
           npx pm2 save
           npx pm2 status || true
