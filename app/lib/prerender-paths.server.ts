@@ -29,10 +29,13 @@ export async function buildBlogPaths(): Promise<string[]> {
   collections.forEach(({ locale, blogs }) => {
     const prefix = locale === "en" ? "" : "/id";
     blogs.forEach((blog) => {
-      const rawSlug = blog?.slug && blog.slug.trim().length > 0 ? blog.slug : String(blog?.id ?? "");
+      const rawSlug =
+        blog?.slug && blog.slug.trim().length > 0
+          ? blog.slug
+          : String(blog?.id ?? "");
       const slug = nameToSlug(rawSlug);
       if (!slug) return;
-      paths.add(`${prefix}/blog/read/${slug}`);
+      paths.add(`${prefix}/blog/read/${slug}/${blog.documentId}`);
     });
   });
 
@@ -61,10 +64,15 @@ export async function buildCaseStudyPaths(): Promise<string[]> {
     paths.add(base);
 
     projects.forEach((project) => {
-      const rawSlug = project.slug && project.slug.trim().length > 0 ? project.slug : String(project.id);
+      const rawSlug =
+        project.slug && project.slug.trim().length > 0
+          ? project.slug
+          : String(project.id);
       const slug = nameToSlug(rawSlug);
       if (!slug) return;
-      paths.add(`${prefix}${locale === "en" ? "/case-study" : "/studi-kasus"}/${slug}`);
+      paths.add(
+        `${prefix}${locale === "en" ? "/case-study" : "/studi-kasus"}/${slug}`
+      );
     });
   }
 
