@@ -48,7 +48,7 @@ export async function createApiRequest<T>(
   baseUrl: string,
   endpoint: string,
   opts: {
-    query?: Record<string, string | number | undefined>;
+    query?: Record<string, string | number | object | undefined>;
     serviceName?: string;
     headers?: HeadersInit;
   } = {}
@@ -80,23 +80,30 @@ export async function createApiRequest<T>(
       signal: controller.signal,
     });
     clearTimeout(timeout);
-    
+
     if (!res.ok) {
-      console.error(`[${opts.serviceName || "api"}] API returned ${res.status}: ${url}`);
+      console.error(
+        `[${opts.serviceName || "api"}] API returned ${res.status}: ${url}`
+      );
       return null;
     }
 
     const data = (await res.json()) as T;
     const dataSize = JSON.stringify(data).length;
-    console.log(`[${opts.serviceName || "api"}] Fetched ${dataSize} bytes from ${url}`);
-    
+    console.log(
+      `[${opts.serviceName || "api"}] Fetched ${dataSize} bytes from ${url}`
+    );
+
     apiCache.set(cacheKey, data);
 
     return data;
   } catch (err) {
     clearTimeout(timeout);
     handleApiError(err, opts.serviceName || "api");
-    console.error(`[${opts.serviceName || "api"}] Fetch error for ${url}:`, err);
+    console.error(
+      `[${opts.serviceName || "api"}] Fetch error for ${url}:`,
+      err
+    );
     return null;
   }
 }

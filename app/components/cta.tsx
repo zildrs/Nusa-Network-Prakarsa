@@ -34,12 +34,17 @@ const CTASection = (props: CTAPropsType) => {
             "radial-gradient(circle, rgba(135,206,250,0.15), rgba(0,128,128,0.1))",
         }}
       ></div>
-      <div className="max-w-7xl relative mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
+      <div className="max-w-7xl relative mx-auto px-6 flex flex-col md:flex-row items-center justify-between z-20">
         <div>
-          <h2 data-aos="fade-right" className="text-[32px] lg:text-[36px] text-center lg:text-left font-semibold max-w-lg leading-snug">
+          <h2
+            data-aos="fade-right"
+            className="text-[32px] lg:text-[36px] text-center lg:text-left font-semibold max-w-lg leading-snug"
+          >
             {props.title || t("home.cta.title")}
           </h2>
-          <p data-aos="fade-right" className=" mt-4 max-w-md">{props.description || ""}</p>
+          <p data-aos="fade-right" className=" mt-4 max-w-md">
+            {props.description || ""}
+          </p>
         </div>
         <Link
           data-aos="fade-left"

@@ -79,7 +79,9 @@ export default function BlogCategory() {
                   onClick={(e) => {
                     e.preventDefault();
                     if (meta.pagination.page > 1)
-                      navigate(`/blog/${categoryName.toLowerCase().replace(/\s+/g, '-')}?page=${meta.pagination.page - 1}`);
+                      navigate(
+                        `/blog/${categoryName.toLowerCase().replace(/\s+/g, "-")}?page=${meta.pagination.page - 1}`
+                      );
                   }}
                 />
               </PaginationItem>
@@ -94,7 +96,9 @@ export default function BlogCategory() {
                         isActive={pageNum === meta.pagination.page}
                         onClick={(e) => {
                           e.preventDefault();
-                          navigate(`/blog/${categoryName.toLowerCase().replace(/\s+/g, '-')}?page=${pageNum}`);
+                          navigate(
+                            `/blog/${categoryName.toLowerCase().replace(/\s+/g, "-")}?page=${pageNum}`
+                          );
                         }}
                       >
                         {pageNum}
@@ -110,7 +114,9 @@ export default function BlogCategory() {
                   onClick={(e) => {
                     e.preventDefault();
                     if (meta.pagination.page < meta.pagination.pageCount)
-                      navigate(`/blog/${categoryName.toLowerCase().replace(/\s+/g, '-')}?page=${meta.pagination.page + 1}`);
+                      navigate(
+                        `/blog/${categoryName.toLowerCase().replace(/\s+/g, "-")}?page=${meta.pagination.page + 1}`
+                      );
                   }}
                 />
               </PaginationItem>

@@ -2,7 +2,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export const API_BASE_URL =
-  process.env.API_BASE_URL ?? "https://dash.nusanetwork.com";
+  import.meta.env.VITE_API_BASE_URL ?? "https://dash.nusanetwork.com";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
