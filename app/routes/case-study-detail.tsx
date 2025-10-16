@@ -58,7 +58,7 @@ export default function CaseStudyDetail() {
         {/* Header */}
         <div className="mb-10 grid gap-2">
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_2024_Perum_Peruri.svg/2560px-Logo_2024_Perum_Peruri.svg.png"
+            src={API_BASE_URL + project?.company_logo?.url}
             alt="Peruri Logo"
             className="h-8 lg:h-10 mb-4"
           />

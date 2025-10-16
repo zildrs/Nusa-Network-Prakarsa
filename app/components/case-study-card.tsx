@@ -25,16 +25,14 @@ const CaseStudyCard = ({ data }: { data: ProjectType }) => {
         <img
           src={`${API_BASE_URL}/${data.banner?.url || ""}`}
           alt={data.title}
-          className="w-full object-cover h-full"
+          className="w-full object-cover h-full "
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-4 gap-2 flex flex-col justify-end items-start">
-          <div
-            className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0"
-          >
+          <div className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0">
             <img
               src={`${API_BASE_URL}/${data.company_logo?.url || ""}`}
               alt={data.title}
-              className="h-8 object-contain mb-4"
+              className="h-8 object-contain mb-4 bg-white"
             />
             <p className="text-white font-medium text-xl">{data.title}</p>
             <div className="flex mt-4 items-center gap-2 opacity-0 group-hover:opacity-100 duration-500 transition-all">

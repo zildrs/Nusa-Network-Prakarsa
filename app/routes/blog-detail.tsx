@@ -25,11 +25,12 @@ function ensureSlug(params: Route.LoaderArgs["params"]) {
 export async function loader({
   request,
   params,
-}: Route.LoaderArgs & { params: { slug: string } }) {
+}: Route.LoaderArgs & { params: { slug: string; id: string } }) {
   const slug = ensureSlug(params);
+  const id = params.id;
 
   const [blog, { categories, locale }] = await Promise.all([
-    fetchBlogBySlug(request, slug),
+    fetchBlogBySlug(request, id),
     fetchCategoriesData(request),
   ]);
   const categoryName = slugToName(blog?.category?.name || "");

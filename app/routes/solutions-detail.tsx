@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Route } from "./+types/home";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -13,10 +13,7 @@ import {
 } from "react-router";
 import { solutions } from "~/data/solutions";
 import type { Solution } from "~/data/solutions";
-import {
-  fetchProjectsData,
-  fetchSolutionsData,
-} from "~/lib/api.server";
+import { fetchProjectsData, fetchSolutionsData } from "~/lib/api.server";
 import { createMetaFunction, seoData } from "~/lib/meta";
 import type { Locale } from "~/i18n";
 
@@ -77,9 +74,14 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export default function SolutionDetail() {
   const [Marquee, setMarquee] = useState<any>(null);
-
   const data = useLoaderData<typeof loader>();
   const { t } = useOutletContext<{ t: any; locale: Locale }>();
+
+  const filteredProjects = useMemo(() => {
+    return data.projects.filter(
+      (project) => project.solution.id === data.solution?.id
+    );
+  }, [data.projects, data.solution]);
 
   useEffect(() => {
     import("react-fast-marquee").then((mod) => {
@@ -327,7 +329,7 @@ export default function SolutionDetail() {
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {data.projects.slice(0, 3).map((c, idx) => (
+            {filteredProjects.slice(0, 3).map((c, idx) => (
               <div
                 key={idx}
                 data-aos="fade-up"

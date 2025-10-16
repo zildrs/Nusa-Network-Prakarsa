@@ -47,7 +47,7 @@ export async function fetchBlogData(
     populate: "*",
     "pagination[page]": page,
     "pagination[pageSize]": pageSize,
-    limit : 100,
+    limit: 100,
   };
 
   // ✅ Filter by category name (Strapi filter)
@@ -151,7 +151,7 @@ export async function fetchProjectsData(
     API_BASE,
     "projects",
     {
-      query: { locale, populate: "*" },
+      query: { locale, populate: "*", limit: 100 },
       serviceName: "projects",
     }
   );
@@ -237,13 +237,13 @@ export async function fetchDepartmentsData(
 
 export async function fetchBlogBySlug(
   request: Request,
-  slug: string
+  documentId: string
 ): Promise<BlogPost | null> {
   const locale = getRequestLocale(request);
   const json = await createApiRequest<BackendBlogResponse>(API_BASE, "blogs", {
     query: {
       locale,
-      "filters[slug][$eq]": slug, // ✅ sesuai format Strapi
+      "filters[documentId][$eq]": documentId, // ✅ sesuai format Strapi
       populate: "*", // opsional, kalau mau ambil relasi
     },
     serviceName: "blog-by-slug",
