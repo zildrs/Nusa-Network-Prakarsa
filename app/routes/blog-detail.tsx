@@ -3,7 +3,11 @@ import type { Route } from "./+types/blog-detail";
 import CTASection from "~/components/cta";
 import { solutionsMenu } from "~/components/header";
 import { BlogCard, BlogNavigation } from "~/components/blog";
-import { fetchCategoriesData, fetchBlogBySlug, fetchBlogData } from "~/lib/api.server";
+import {
+  fetchCategoriesData,
+  fetchBlogBySlug,
+  fetchBlogData,
+} from "~/lib/api.server";
 import { formatBlogDate, getBlogSlug } from "~/utils/blog";
 import BlogContent from "~/components/blog/blog-content";
 import { API_BASE_URL, nameToSlug, slugToName } from "~/lib/utils";
@@ -30,7 +34,7 @@ export async function loader({
   ]);
   const categoryName = slugToName(blog?.category?.name || "");
 
-  const { blogs : relatedBlogs } = await fetchBlogData(request, categoryName)
+  const { blogs: relatedBlogs } = await fetchBlogData(request, categoryName);
 
   return { blog, categories, relatedBlogs, locale };
 }
@@ -50,8 +54,8 @@ export const meta: MetaFunction<typeof loader> = (args) => {
 };
 
 export default function BlogDetail() {
-  const { categories, blog, relatedBlogs, locale } = useLoaderData<typeof loader>();
-  console.log(relatedBlogs, "relatedBlogs")
+  const { categories, blog, relatedBlogs, locale } =
+    useLoaderData<typeof loader>();
 
   if (!blog) return <NotFoundPage />;
   return (
@@ -97,14 +101,17 @@ export default function BlogDetail() {
                 More <span className="font-semibold">Like This</span>
               </p>
               <div className="flex flex-col gap-4 justify-between">
-                {relatedBlogs.filter((b) => b.id !== blog?.id).slice(0, 3).map((blog, i) => (
-                  <BlogCard
-                    key={blog.id}
-                    blog={blog}
-                    variant="compact"
-                    locale={locale}
-                  />
-                ))}
+                {relatedBlogs
+                  .filter((b) => b.id !== blog?.id)
+                  .slice(0, 3)
+                  .map((blog, i) => (
+                    <BlogCard
+                      key={blog.id}
+                      blog={blog}
+                      variant="compact"
+                      locale={locale}
+                    />
+                  ))}
               </div>
             </div>
 
