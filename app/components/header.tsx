@@ -167,44 +167,6 @@ export default function Header({ locale, t }: HeaderProps) {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-
-            {/* Solutions dropdown
-            <div className="relative">
-              <button
-                onClick={() => setSolutionsOpen(!solutionsOpen)}
-                className="flex items-center gap-1 font-medium text-gray-700"
-              >
-                Solutions <ChevronDown size={16} />
-              </button>
-              {solutionsOpen && (
-                <div className="absolute left-0 mt-2 w-72 rounded-lg border bg-white shadow-lg p-4 pl-6 z-50">
-                  {solutions.map((item) => (
-                    <Link
-                      key={item.title}
-                      to={`/solutions/${item.slug}`}
-                      className="py-3 flex items-center gap-2"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      <item.icon className="mr-2" size={20} />
-                      <div className="block">
-                        <p className="font-semibold">{item.title}</p>
-                        <p className="text-sm text-gray-500">{item.desc}</p>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <Link to="/about" className="font-medium text-gray-700">
-              About Us
-            </Link>
-            <Link to="/case-study" className="font-medium text-gray-700">
-              Case Study
-            </Link>
-            <Link to="/blog" className="font-medium text-gray-700">
-              Blog
-            </Link> */}
           </nav>
         </div>
 

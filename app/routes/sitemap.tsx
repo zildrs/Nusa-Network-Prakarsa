@@ -25,7 +25,7 @@ export default function About() {
             <ul className="space-y-2 text-gray-700">
               <li>
                 <a
-                  href="/solutions/security-infrastructure"
+                  href="/solution/security-infrastructure"
                   className="hover:underline"
                 >
                   Security Infrastructure
@@ -33,7 +33,7 @@ export default function About() {
               </li>
               <li>
                 <a
-                  href="/solutions/managed-services"
+                  href="/solution/managed-services"
                   className="hover:underline"
                 >
                   Managed Services
@@ -41,20 +41,20 @@ export default function About() {
               </li>
               <li>
                 <a
-                  href="/solutions/internet-of-things"
+                  href="/solution/internet-of-things"
                   className="hover:underline"
                 >
                   IoT Solution
                 </a>
               </li>
               <li>
-                <a href="/solutions/data-center" className="hover:underline">
+                <a href="/solution/data-center" className="hover:underline">
                   Data Center Infrastructure
                 </a>
               </li>
               <li>
                 <a
-                  href="/solutions/network-infrastructure"
+                  href="/solution/network-infrastructure"
                   className="hover:underline"
                 >
                   Network Infrastructure
