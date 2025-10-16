@@ -2,16 +2,31 @@ import { getRequestLocale } from "~/lib/locale-utils.server";
 import { createApiRequest } from "~/lib/request.server";
 import type { DataResponseType } from "~/types";
 import type { BackendBlogResponse, BlogData, BlogPost } from "~/types/blog";
+import type { DepartmentsReponseType, DepartmentType } from "~/types/career";
 import type { CategoriesReponseType, CategoryType } from "~/types/category";
-import type { ProjectsReponseType, ProjectType } from "~/types/project";
+import type {
+  CertificationsReponseType,
+  CertificationType,
+} from "~/types/certification";
+import type { HomeDataType } from "~/types/home";
+import type { PartnerReponseType, PartnerType } from "~/types/partner";
+import type {
+  IndustriesReponseType,
+  IndustryType,
+  ProjectsReponseType,
+  ProjectType,
+} from "~/types/project";
 import type { SolutionsReponseType, SolutionType } from "~/types/solution";
+import type { TestimonyReponseType, TestimonyType } from "~/types/testimony";
 // import type {
 //   BackendSolutionsResponse,
 //   SolutionsData,
 //   Solution,
 // } from "~/types/solutions";
 
-const API_BASE = "https://dash.nusanetwork.com/api/";
+const API_BASE = process.env.API_BASE_URL
+  ? `${process.env.API_BASE_URL.replace(/\/$/, "")}/api/`
+  : "https://dash.nusanetwork.com/api/";
 
 /**
  * Fetch Blog data
@@ -22,10 +37,9 @@ export async function fetchBlogData(
 ): Promise<BlogData> {
   const locale = getRequestLocale(request);
   const url = new URL(request.url);
-
   const page = Number(url.searchParams.get("page") || 1);
   const pageSize = Number(
-    url.searchParams.get("pageSize") || categoryName ? 6 : 25
+    url.searchParams.get("pageSize") || categoryName ? 6 : 100
   );
 
   const query: Record<string, any> = {
@@ -33,11 +47,12 @@ export async function fetchBlogData(
     populate: "*",
     "pagination[page]": page,
     "pagination[pageSize]": pageSize,
+    limit: 100,
   };
 
   // ✅ Filter by category name (Strapi filter)
   if (categoryName) {
-    query["filters[category][name][$eq]"] = categoryName;
+    query["filters[category][name][$containsi]"] = categoryName;
   }
 
   const json = await createApiRequest<BackendBlogResponse>(API_BASE, "blogs", {
@@ -81,6 +96,26 @@ export async function fetchSolutionsData(
   return { solutions, locale, meta: json?.meta };
 }
 
+export async function fetchIndustriesData(
+  request: Request
+): Promise<IndustriesReponseType> {
+  const locale = getRequestLocale(request);
+
+  const json = await createApiRequest<DataResponseType<IndustryType[]>>(
+    API_BASE,
+    "industries",
+    {
+      query: { locale, populate: "*" },
+      serviceName: "industries",
+    }
+  );
+
+  const industries: IndustryType[] = Array.isArray(json?.data)
+    ? json!.data
+    : [];
+  return { industries, locale, meta: json?.meta };
+}
+
 /**
  * Fetch categories data
  */
@@ -116,7 +151,7 @@ export async function fetchProjectsData(
     API_BASE,
     "projects",
     {
-      query: { locale, populate: "*" },
+      query: { locale, populate: "*", limit: 100 },
       serviceName: "projects",
     }
   );
@@ -125,19 +160,93 @@ export async function fetchProjectsData(
   return { projects, locale, meta: json?.meta };
 }
 
-export async function fetchBlogBySlug(
-  request: Request,
-  slug: string
-): Promise<BlogPost | null> {
+export async function fetchTestimonialsData(
+  request: Request
+): Promise<TestimonyReponseType> {
   const locale = getRequestLocale(request);
 
+  const json = await createApiRequest<DataResponseType<TestimonyType[]>>(
+    API_BASE,
+    "testimonies",
+    {
+      query: { locale, populate: "*" },
+      serviceName: "testimonies",
+    }
+  );
+
+  const testimonies: TestimonyType[] = Array.isArray(json?.data)
+    ? json!.data
+    : [];
+  return { testimonies, locale, meta: json?.meta };
+}
+
+export async function fetchCertificationsData(
+  request: Request
+): Promise<CertificationsReponseType> {
+  const locale = getRequestLocale(request);
+  const json = await createApiRequest<DataResponseType<CertificationType[]>>(
+    API_BASE,
+    "certificantions",
+    {
+      query: { locale, populate: "*" },
+      serviceName: "certifications",
+    }
+  );
+
+  const certifications: CertificationType[] = Array.isArray(json?.data)
+    ? json!.data
+    : [];
+  return { certifications, locale, meta: json?.meta };
+}
+
+export async function fetchPartnersData(
+  request: Request
+): Promise<PartnerReponseType> {
+  const locale = getRequestLocale(request);
+  const json = await createApiRequest<DataResponseType<PartnerType[]>>(
+    API_BASE,
+    "partners",
+    {
+      query: { locale, populate: "*" },
+      serviceName: "partners",
+    }
+  );
+
+  const partners: PartnerType[] = Array.isArray(json?.data) ? json!.data : [];
+  return { partners, locale, meta: json?.meta };
+}
+
+export async function fetchDepartmentsData(
+  request: Request
+): Promise<DepartmentsReponseType> {
+  const locale = getRequestLocale(request);
+  const json = await createApiRequest<DataResponseType<DepartmentType[]>>(
+    API_BASE,
+    "departments",
+    {
+      query: { locale, populate: "*" },
+      serviceName: "departments",
+    }
+  );
+
+  const departments: DepartmentType[] = Array.isArray(json?.data)
+    ? json!.data
+    : [];
+  return { departments, locale, meta: json?.meta };
+}
+
+export async function fetchBlogBySlug(
+  request: Request,
+  documentId: string
+): Promise<BlogPost | null> {
+  const locale = getRequestLocale(request);
   const json = await createApiRequest<BackendBlogResponse>(API_BASE, "blogs", {
     query: {
       locale,
-      "filters[slug][$eq]": slug, // ✅ sesuai format Strapi
+      "filters[documentId][$eq]": documentId, // ✅ sesuai format Strapi
       populate: "*", // opsional, kalau mau ambil relasi
     },
-    serviceName: "blog",
+    serviceName: "blog-by-slug",
   });
 
   const blog: BlogPost | null = json?.data?.length ? json.data[0] : null;
@@ -159,10 +268,57 @@ export async function fetchProjectBySlug(
         "filters[slug][$eq]": slug, // ✅ sesuai format Strapi
         populate: "*", // opsional, kalau mau ambil relasi
       },
-      serviceName: "projects",
+      serviceName: "project-by-slug",
+    }
+  );
+  const project: ProjectType | null = json?.data?.length ? json.data[0] : null;
+  return project;
+}
+
+export async function fetchSolutionBySlug(
+  request: Request,
+  slug: string
+): Promise<SolutionType | null> {
+  const locale = getRequestLocale(request);
+
+  const json = await createApiRequest<DataResponseType<SolutionType[]>>(
+    API_BASE,
+    "solutions",
+    {
+      query: {
+        locale,
+        "filters[slug][$eq]": slug, // ✅ sesuai format Strapi
+        populate: "*", // opsional, kalau mau ambil relasi
+      },
+      serviceName: "solution-by-slug",
     }
   );
 
-  const project: ProjectType | null = json?.data?.length ? json.data[0] : null;
-  return project;
+  const solution: SolutionType | null = Array.isArray(json?.data)
+    ? json!.data[0]
+    : null;
+  return solution;
+}
+
+export async function fetchHomeData(
+  request: Request
+): Promise<HomeDataType | null> {
+  const locale = getRequestLocale(request);
+
+  const json = await createApiRequest<DataResponseType<HomeDataType[]>>(
+    API_BASE,
+    "homes",
+    {
+      query: {
+        locale,
+        populate: "*", // opsional, kalau mau ambil relasi
+      },
+      serviceName: "home-data",
+    }
+  );
+
+  const home: HomeDataType | null = Array.isArray(json?.data)
+    ? json!.data[0]
+    : null;
+  return home;
 }

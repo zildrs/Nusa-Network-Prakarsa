@@ -28,10 +28,12 @@ export function BlogNavigation({
     >
       <div className="max-w-7xl mx-auto">
         <nav className="text-sm py-4 flex items-center gap-6 w-full overflow-scroll lg:overflow-hidden px-4 lg:px-6">
-          {categories.map((item) => (
+          {[{ id: 0, name: "Home", slug: "" }, ...categories].map((item, i) => (
             <Link
+              data-aos="fade-left"
+              data-aos-delay={150 * (i + 1)}
               key={item.id}
-              to={`${locale ? `/${locale}` : ''}/blog/${nameToSlug(item.name)}`}
+              to={`${locale ? `${locale === "id" ? "/id" : ""}` : ""}/blog/${item.name == "Home" ? "" : nameToSlug(item.name)}`}
               className="font-medium text-gray-800 whitespace-nowrap"
             >
               {item.name}

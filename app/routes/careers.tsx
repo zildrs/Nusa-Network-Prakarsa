@@ -1,95 +1,23 @@
 import type { Route } from "./+types/contact";
 
 import { ArrowRight } from "@carbon/icons-react";
-import { useOutletContext } from "react-router";
+import { useLoaderData, useOutletContext } from "react-router";
+import { fetchDepartmentsData } from "~/lib/api.server";
 import { createMetaFunction, seoData } from "~/lib/meta";
+import type { Locale } from "~/i18n";
 
 export const meta = createMetaFunction(seoData.careers);
 
-// create const for engineering, operations, and growth section with few open position
-const openRoles = {
-  engineering: [
-    {
-      title: "Software Engineer",
-      desc: "Design, develop, test, and maintain software applications in accordance with industry best practices.",
-      link: "https://www.linkedin.com/jobs/view/software-engineer-at-nusa-network-prakarsa-3293414344/",
-      location: "Jakarta",
-      type: "Full-time",
-      workType: "Remote",
-    },
-    {
-      title: "DevOps Engineer",
-      desc: "Design, develop, test, and maintain software applications in accordance with industry best practices.",
-      link: "https://www.linkedin.com/jobs/view/devops-engineer-at-nusa-network-prakarsa-3293414354/",
-      location: "Jakarta",
-      type: "Full-time",
-      workType: "Remote",
-    },
-    {
-      title: "Quality Assurance Engineer",
-      desc: "Design, develop, test, and maintain software applications in accordance with industry best practices.",
-      link: "https://www.linkedin.com/jobs/view/quality-assurance-engineer-at-nusa-network-prakarsa-3293414364/",
-      location: "Jakarta",
-      type: "Full-time",
-      workType: "Remote",
-    },
-  ],
-  operations: [
-    {
-      title: "Operations Coordinator",
-      desc: "Coordinate and support the day-to-day activities of the operations team.",
-      link: "https://www.linkedin.com/jobs/view/operations-coordinator-at-nusa-network-prakarsa-3293414374/",
-      location: "Jakarta",
-      type: "Full-time",
-      workType: "On-site",
-    },
-    {
-      title: "Customer Support Specialist",
-      desc: "Respond to customer inquiries and provide customer support related to our products and services.",
-      link: "https://www.linkedin.com/jobs/view/customer-support-specialist-at-nusa-network-prakarsa-3293414384/",
-      location: "Jakarta",
-      type: "Full-time",
-      workType: "On-site",
-    },
-    {
-      title: "Account Manager",
-      desc: "Manage customer relationships and develop new business opportunities.",
-      link: "https://www.linkedin.com/jobs/view/account-manager-at-nusa-network-prakarsa-3293414394/",
-      location: "Jakarta",
-      type: "Full-time",
-      workType: "On-site",
-    },
-  ],
-  growth: [
-    {
-      title: "Digital Marketing Specialist",
-      desc: "Develop and execute digital marketing campaigns to drive business growth.",
-      link: "https://www.linkedin.com/jobs/view/digital-marketing-specialist-at-nusa-network-prakarsa-3293414404/",
-      location: "Jakarta",
-      type: "Full-time",
-      workType: "Remote",
-    },
-    {
-      title: "Business Development Representative",
-      desc: "Identify and pursue new business opportunities to drive revenue growth.",
-      link: "https://www.linkedin.com/jobs/view/business-development-representative-at-nusa-network-prakarsa-3293414414/",
-      location: "Jakarta",
-      type: "Full-time",
-      workType: "On-site",
-    },
-    {
-      title: "Content Marketing Specialist",
-      desc: "Develop and execute content marketing campaigns to drive business growth.",
-      link: "https://www.linkedin.com/jobs/view/content-marketing-specialist-at-nusa-network-prakarsa-3293414424/",
-      location: "Jakarta",
-      type: "Full-time",
-      workType: "Remote",
-    },
-  ],
-};
+export async function loader({ request }: Route.LoaderArgs) {
+  const { departments } = await fetchDepartmentsData(request);
+
+  return { departments };
+}
 
 export default function Careers() {
-  const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
+  const { t } = useOutletContext<{ t: any; locale: Locale }>();
+
+  const { departments } = useLoaderData<typeof loader>();
   return (
     <main className="w-full">
       <div className="bg-white text-gray-900">
@@ -98,11 +26,11 @@ export default function Careers() {
           <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 items-center justify-between px-6 lg:px-12">
             {/* Text Section */}
             <div className="max-w-lg order-2 lg:order-1">
-              <p className="tracking-widest text-gray-800 uppercase">
+              <p data-aos="fade-up" className="tracking-widest text-gray-800 uppercase">
                 {t("career.open")}{" "}
                 <span className="font-semibold">{t("career.roles")}</span>
               </p>
-              <h2 className="mt-4 text-4xl lg:text-5xl font-medium lg:font-semibold leading-tight text-gray-900">
+              <h2 data-aos="fade-up" className="mt-4 text-4xl lg:text-5xl font-medium lg:font-semibold leading-tight text-gray-900">
                 {t("career.subtitle")}
               </h2>
             </div>
@@ -111,6 +39,7 @@ export default function Careers() {
             <div className="relative flex gap-6 order-1 lg:order-2">
               {/* Left Image */}
               <img
+                data-aos="fade-up"
                 src="/hero-career.png"
                 alt="hero-career"
                 className=" h-auto"
@@ -123,18 +52,19 @@ export default function Careers() {
 
         {/* Section 2 - Engineering Roles */}
         <section className="py-12">
-          {Object.values(openRoles).map((jobs, idx) => (
+          {departments.map((department, idx) => (
             <div className="max-w-7xl mx-auto px-6" key={idx}>
-              <h2 className="text-lg font-normal mb-8 uppercase">
-                {Object.keys(openRoles)[idx]}
+              <h2 data-aos="fade-up" className="text-lg font-normal mb-8 uppercase">
+                {department.name}
               </h2>
-              {jobs.map((job, jdx) => (
+              {department.careers?.map((job, jdx) => (
                 <div
                   key={jdx}
+                  data-aos="fade-up" data-aos-delay={200 * (jdx + 1)}
                   className="border border-gray-200 rounded-2xl p-6 flex flex-col md:flex-row md:items-center justify-between mb-6"
                 >
                   <div>
-                    <h3 className="text-xl font-medium mb-2">{job.title}</h3>
+                    <h3 className="text-xl font-medium mb-2">{job.position}</h3>
                     <div className="flex items-center gap-1">
                       <span className="text-gray-600 text-sm">
                         {job.location}
@@ -143,7 +73,7 @@ export default function Careers() {
                       <span className="text-gray-600 text-sm">{job.type}</span>
                       <span className="text-gray-300 text-lg mx-2">•</span>
                       <span className="text-gray-600 text-sm">
-                        {job.workType}
+                        {job.arrangement}
                       </span>
                     </div>
                   </div>

@@ -119,7 +119,8 @@
     "filters": {
       "industry": "Industry",
       "solution": "Solution",
-      "allIndustries": "All Industries"
+      "allIndustries": "All Industries",
+      "allSolutions": "All Solutions"
     },
     "cta": {
       "title": "We run all kinds of IT services that vow your success",
@@ -210,7 +211,8 @@
   "solutionsDetail": {
     "network-infrastructure": {
       "hero": {
-        "title": "NETWORK INFRASTRUCTURE SOLUTIONS",
+        "solution": "Solution",
+        "title": "NETWORK INFRASTRUCTURE",
         "subtitle": "Build a Smarter, Faster and Secure Network Infrastructure",
         "description": "Future-proof your operations with tailored network design, implementation, and management — delivered by experts you can trust",
         "cta": "Schedule a Free Consultation"
@@ -228,7 +230,8 @@
         "description": "Our expert team works with you to design, deploy, and manage end-to-end infrastructures tailored to your business needs — ensuring maximum uptime, optimal performance, and secure operations at every stage."
       },
       "services": {
-        "label": "OUR NETWORK INFRASTRUCTURE SERVICES",
+        "our": "Our",
+        "label": "NETWORK INFRASTRUCTURE SERVICES",
         "title": "Solutions That Fit Your Infrastructure Needs",
         "items": {
           "lanWanDesign": "LAN/WAN Design and Deployment",
@@ -256,7 +259,8 @@
     },
     "data-center": {
       "hero": {
-        "title": "DATA CENTER SOLUTIONS",
+        "solution": "Solution",
+        "title": "Data Center",
         "subtitle": "Modern, Secure, and Scalable Data Center Solutions",
         "description": "Empower your business with enterprise-grade data center solutions, 24/7 uptime, and expert support — all tailored to your needs",
         "cta": "Schedule Free Consultation"
@@ -274,7 +278,8 @@
         "description": "From secure colocation and cloud-ready hosting to disaster recovery and 24/7 monitoring, our solutions are tailored to ensure uptime, compliance, and total peace of mind. Backed by certified experts and advanced infrastructure, we help you stay online, connected, and future-ready."
       },
       "services": {
-        "label": "OUR DATA CENTER SERVICES",
+        "our": "Our",
+        "label": "DATA CENTER SERVICES",
         "title": "Solutions that fit your infrastructure needs",
         "items": {
           "colocationServices": "Colocation Services",
@@ -296,13 +301,13 @@
       },
       "cta": {
         "title": "Let's Build Your Resilient IT Backbone Today",
-        "description": "Talk to our experts today and discover how we can architect your next-gen infrastructure",
         "button": "Schedule Free Consultation"
       }
     },
     "managed-services": {
       "hero": {
-        "title": "MANAGED SERVICES SOLUTIONS",
+        "solution": "Solution",
+        "title": "Managed Services",
         "subtitle": "All-in-One IT Care for Your Business",
         "description": "Comprehensive IT solutions to keep your business ahead in the digital era",
         "cta": "Schedule Free Consultation"
@@ -320,7 +325,8 @@
         "description": "We take care of monitoring, optimization, security, cloud, and recovery. Keeping your IT smooth, safe, and cost-effective. So you can focus on what matters most: your business."
       },
       "services": {
-        "label": "OUR MANAGED SERVICES",
+        "our": "Our",
+        "label": "SERVICES",
         "title": "Solutions that fit your business needs",
         "items": {
           "itMonitoringMaintenance": "IT Monitoring & Maintenance",
@@ -348,7 +354,8 @@
     },
     "security-infrastructure": {
       "hero": {
-        "title": "SECURITY INFRASTRUCTURE SOLUTIONS",
+        "solution": "Solution",
+        "title": "SECURITY",
         "subtitle": "Comprehensive Security Solution for Your Digital Infrastructure",
         "description": "From endpoints to cloud, Nusa Network delivers comprehensive, enterprise-grade security solutions to protect your business in real time.",
         "cta": "Schedule a Free Consultation"
@@ -366,7 +373,8 @@
         "description": "Our solutions are designed to proactively defend your network, users, data, and infrastructure from evolving threats. From advanced firewalls and secure cloud access to real-time threat detection and compliance enforcement, we integrate security into every layer of your technology stack."
       },
       "services": {
-        "label": "OUR SECURITY INFRASTRUCTURE SERVICES",
+        "our": "Our",
+        "label": "SECURITY SOLUTIONS & SERVICES",
         "title": "Solutions that fit your infrastructure needs",
         "items": {
           "networkSecurity": "Network Security",
@@ -394,9 +402,10 @@
     },
     "internet-of-things": {
       "hero": {
-        "title": "INTERNET OF THINGS SOLUTIONS",
-        "subtitle": "Unlock the Power of IoT for Your Business",
-        "description": "From IoT device management and data analytics to security and network infrastructure, our team of experts is dedicated to helping you unlock the full potential of IoT for your business.",
+        "solution": "Solution",
+        "title": "IOT",
+        "subtitle": "Smart Environment Monitoring Tools",
+        "description": "NADA is a high-quality system solutions that provide a smarter, integrated, and user-friendly approach to environment monitoring",
         "cta": "Visit NADA Website"
       },
       "navigation": {
@@ -412,8 +421,9 @@
         "description": "NADA delivers intelligent system solutions designed to simplify and enhance the way we monitor and understand our environment. Whether for smart cities, industrial sites, or natural resource management, NADA empowers decision-makers with accurate, actionable data through a secure, user-friendly platform."
       },
       "services": {
-        "label": "OUR INTERNET OF THINGS SERVICES",
-        "title": "Services that help you unlock the power of IoT",
+        "our": "Our",
+        "label": " SERVICES",
+        "title": "NADA Solutions for Environment Monitoring",
         "items": {
           "waveMonitor": "Wave Monitor",
           "timeLapseCamera": "Time-lapse Camera",

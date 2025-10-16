@@ -1,49 +1,54 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { Route } from "./+types/case-study";
-import { Link, useLoaderData, useOutletContext } from "react-router";
+import { useLoaderData, useOutletContext } from "react-router";
 import { Light, Building } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
 import { Dropdown } from "~/components/dropdown";
-import { fetchProjectsData, fetchSolutionsData } from "~/lib/api.server";
+import {
+  fetchIndustriesData,
+  fetchProjectsData,
+  fetchSolutionsData,
+} from "~/lib/api.server";
 import { createMetaFunction, seoData } from "~/lib/meta";
+import type { Locale } from "~/i18n";
 
 export const meta = createMetaFunction(seoData["case-study"]);
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const [{ projects }, { solutions }] = await Promise.all([
+  const [{ projects }, { solutions }, { industries }] = await Promise.all([
     fetchProjectsData(request),
     fetchSolutionsData(request),
+    fetchIndustriesData(request),
   ]);
 
-  return { projects, solutions };
+  return { projects, solutions, industries };
 }
 
-export default function CaseStudy({ loaderData }: Route.ComponentProps) {
-  const { projects, solutions } = useLoaderData<typeof loader>();
-  const { t, locale } = useOutletContext<{ t: any; locale: "id" | "en" }>();
+export default function CaseStudy() {
+  const { projects, solutions, industries } = useLoaderData<typeof loader>();
+  const { t, locale } = useOutletContext<{ t: any; locale: Locale }>();
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedSolution, setSelectedSolution] = useState<string>("");
 
-  // const filteredData = projects.filter((item) => {
-  //   return (
-  //     (selectedIndustry === "" ||
-  //       item.solutions.some(
-  //         (solution) => solution.id.toString() === selectedIndustry
-  //       )) &&
-  //     (selectedSolution === "" ||
-  //       item.solutions.some(
-  //         (solution) => solution.id.toString() === selectedSolution
-  //       ))
-  //   );
-  // });
-
-  const filteredData = projects;
+  const filteredDataMemo = useMemo(
+    () =>
+      projects.filter((item) => {
+        return (
+          (selectedIndustry === "" ||
+            item.industry?.id?.toString() === selectedIndustry) &&
+          (selectedSolution === "" ||
+            item.solution?.id?.toString() === selectedSolution)
+        );
+      }),
+    [projects, selectedIndustry, selectedSolution]
+  );
 
   return (
     <main>
       <section className="bg-primary relative text-white pt-12 py-18 lg:py-12 lg:min-h-[350px] overflow-hidden">
         <img
+          data-aos="fade-left"
           src="/bg-solutions.png"
           alt="Background Solution"
           className="absolute top-0 right-0 opacity-70 max-w-lg"
@@ -65,7 +70,7 @@ export default function CaseStudy({ loaderData }: Route.ComponentProps) {
         ></div>
 
         <div className="max-w-7xl mx-auto my-auto h-full px-4 relative flex-col flex justify-center">
-          <p className="uppercase tracking-wide mb-6 z-20">
+          <p data-aos="fade-up" className="uppercase tracking-wide mb-6 z-20">
             <span className="font-semibold">
               {t("caseStudy.hero.label.case")}
             </span>{" "}
@@ -73,6 +78,7 @@ export default function CaseStudy({ loaderData }: Route.ComponentProps) {
           </p>
           <div className="flex justify-between items-center">
             <h2
+              data-aos="fade-up"
               className={`text-4xl lg:text-5xl lg:font-semibold leading-snug mb-10 ${locale === "id" ? "max-w-3xl" : "max-w-xl"}`}
             >
               {t("caseStudy.hero.title")}
@@ -91,10 +97,14 @@ export default function CaseStudy({ loaderData }: Route.ComponentProps) {
             className="text-sm !px-3"
             icon={<Building className="w-4 h-4 lg:w-5 lg:h-5 text-gray-500" />}
             items={[
-              { value: "", label: t("caseStudy.filters.allIndustries") },
-              { value: "Industry", label: "Industry" },
-              { value: "Logistics", label: "Logistics" },
-              { value: "Retail", label: "Retail" },
+              {
+                value: "",
+                label: t("caseStudy.filters.allIndustries"),
+              },
+              ...industries.map((industry) => ({
+                value: industry.id?.toString() ?? "",
+                label: industry.name,
+              })),
             ]}
           />
 
@@ -103,18 +113,38 @@ export default function CaseStudy({ loaderData }: Route.ComponentProps) {
             className="text-sm !px-3"
             onSelect={(value) => setSelectedSolution(value)}
             icon={<Light className="w-4 h-4 lg:w-5 lg:h-5 text-gray-500" />}
-            items={solutions.map((s) => ({
-              value: s.id.toString(),
-              label: s.name,
-            }))}
+            items={[
+              {
+                value: "",
+                label: t("caseStudy.filters.allSolutions"),
+              },
+              ...solutions.map((solution) => ({
+                value: solution.id?.toString() ?? "",
+                label: solution.name,
+              })),
+            ]}
           />
         </div>
 
         {/* Grid Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {filteredData.map((c, idx) => (
-            <CaseStudyCard key={idx} data={c} />
-          ))}
+          {filteredDataMemo.length > 0 ? (
+            filteredDataMemo.map((c, idx) => (
+              <div
+                data-aos="fade-up"
+                data-aos-delay={200 * (idx + 1)}
+                key={c.id}
+              >
+                <CaseStudyCard data={c} />
+              </div>
+            ))
+          ) : (
+            <div className="col-span-3 py-8 text-center">
+              <p>
+                {locale === "id" ? "Data tidak ditemukan" : "No data found"}
+              </p>
+            </div>
+          )}
         </div>
       </section>
       <CTASection

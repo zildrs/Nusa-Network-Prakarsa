@@ -1,42 +1,55 @@
-import { useState } from "react";
 import type { Route } from "./+types/case-study";
-import { useLoaderData } from "react-router";
-import { ArrowRight } from "@carbon/icons-react";
+import { useLoaderData, type MetaFunction } from "react-router";
+import { ArrowDown, ArrowRight, ArrowUp } from "@carbon/icons-react";
 import CTASection from "~/components/cta";
 import CaseStudyCard from "~/components/case-study-card";
-import {
-  fetchProjectBySlug,
-  fetchProjectsData,
-  fetchSolutionsData,
-} from "~/lib/api.server";
-import { APP_BASE_URL } from "~/lib/utils";
+import { fetchProjectsData } from "~/lib/api.server";
+import { API_BASE_URL, nameToSlug } from "~/lib/utils";
 import BlogContent from "~/components/blog/blog-content";
 import NotFoundPage from "./404";
+import type { Locale } from "~/i18n";
 
-export const meta = () => ({
-  title: "Case Study | Nusa Network",
-  description:
-    "Nusa Network is a leading provider of cloud computing services in Indonesia. Check out our case study to learn how we helped our clients in their digital transformation journey.",
-});
+function ensureSlug(params: { slug?: string } | undefined): string {
+  const slug = params?.slug;
+  if (!slug) {
+    throw new Response("Not Found", { status: 404 });
+  }
+  return slug;
+}
 
 export async function loader({
   request,
   params,
 }: Route.LoaderArgs & { params: { slug: string } }) {
-  const slug = params.slug;
-  const [project, { solutions, locale }, { projects }] = await Promise.all([
-    fetchProjectBySlug(request, slug),
-    fetchSolutionsData(request),
-    fetchProjectsData(request),
-  ]);
+  const slug = ensureSlug(params);
+  const { projects } = await fetchProjectsData(request);
 
-  return { project, solutions, locale, projects };
+  const project =
+    projects.find((item) => {
+      const candidate =
+        item.slug && item.slug.trim().length > 0 ? item.slug : String(item.id);
+      return nameToSlug(candidate) === slug;
+    }) ?? null;
+
+  return { project, projects };
 }
 
+export const meta: MetaFunction<typeof loader> = (args) => {
+  const { data } = args as { data: Awaited<ReturnType<typeof loader>> };
+  const { project } = data;
+  if (!project) return [{ title: "Not found" }];
+
+  return [
+    { title: `${project.title} | Nusa Network` },
+    { name: "description", content: project.title },
+    { property: "og:title", content: `${project.title} | Nusa Network` },
+    { property: "og:description", content: project.title },
+    { property: "og:image", content: project.banner.url },
+  ];
+};
+
 export default function CaseStudyDetail() {
-  const { project, solutions, locale, projects } =
-    useLoaderData<typeof loader>();
-  console.log(project, solutions);
+  const { project, projects } = useLoaderData<typeof loader>();
 
   if (!project) return <NotFoundPage />;
   return (
@@ -45,7 +58,7 @@ export default function CaseStudyDetail() {
         {/* Header */}
         <div className="mb-10 grid gap-2">
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_2024_Perum_Peruri.svg/2560px-Logo_2024_Perum_Peruri.svg.png"
+            src={API_BASE_URL + project?.company_logo?.url}
             alt="Peruri Logo"
             className="h-8 lg:h-10 mb-4"
           />
@@ -57,7 +70,7 @@ export default function CaseStudyDetail() {
         {/* Image */}
         <div className="rounded-lg lg:rounded-xl overflow-hidden mb-12">
           <img
-            src={APP_BASE_URL + project?.banner?.url}
+            src={API_BASE_URL + project?.banner?.url}
             alt="Project Banner"
             className="w-full object-cover"
           />
@@ -77,31 +90,75 @@ export default function CaseStudyDetail() {
           >
             {/* Metric 1 */}
             <div className="mb-6">
-              <p className="text-2xl lg:text-3xl font-semibold lg:font-medium flex items-center gap-2">
-                50% <span className="text-red-500 text-xl">↓</span>
+              <p
+                data-aos="fade-down"
+                className="text-2xl lg:text-3xl font-semibold lg:font-medium flex items-center gap-2"
+              >
+                {project?.result_percentage1 || "0"}%{" "}
+                <span
+                  data-aos="fade-down"
+                  className={
+                    project.result_type1 === "DECREASE"
+                      ? "text-red-500"
+                      : "text-green-500"
+                  }
+                >
+                  {project.result_type1 === "DECREASE" ? (
+                    <ArrowDown className="h-auto w-6" />
+                  ) : (
+                    <ArrowUp className="h-auto w-6" />
+                  )}
+                </span>
               </p>
-              <p className="mt-2 text-gray-400 text-sm lg:text-base">
-                Reduction in network latency
+              <p
+                data-aos="fade-down"
+                className="mt-2 text-gray-400 text-sm lg:text-base"
+              >
+                {project?.result_description1 || ""}
               </p>
             </div>
 
             {/* Metric 2 */}
             <div className="mb-6">
-              <p className="text-2xl lg:text-3xl font-semibold lg:font-medium flex items-center gap-2">
-                30% <span className="text-green-500 text-xl">↑</span>
+              <p
+                data-aos="fade-down"
+                className="text-2xl lg:text-3xl font-semibold lg:font-medium flex items-center gap-2"
+              >
+                {project?.result_percentage2 || "0"}%{" "}
+                <span
+                  data-aos="fade-down"
+                  className={
+                    project.result_type2 === "DECREASE"
+                      ? "text-red-500"
+                      : "text-green-500"
+                  }
+                >
+                  {project.result_type2 === "DECREASE" ? (
+                    <ArrowDown className="h-auto w-6" />
+                  ) : (
+                    <ArrowUp className="h-auto w-6" />
+                  )}
+                </span>
               </p>
-              <p className="mt-2 text-gray-400 text-sm lg:text-base">
-                Improvement in application performance
+              <p
+                data-aos="fade-down"
+                className="mt-2 text-gray-400 text-sm lg:text-base"
+              >
+                {project?.result_description2 || ""}
               </p>
             </div>
 
             {/* CTA */}
             <div>
-              <p className="text-base lg:text-xl font-semibold lg:font-medium mb-6">
+              <p
+                data-aos="fade-up"
+                className="text-base lg:text-xl font-semibold lg:font-medium mb-6"
+              >
                 Ready to solve your challenges?
               </p>
               <a
-                href={locale === "en" ? "/contact" : "/id/hubungi-kami"}
+                data-aos="fade-up"
+                href="/contact"
                 className="bg-primary w-fit hover:bg-primary text-white px-5 py-3 rounded-lg flex items-center gap-2 transition"
               >
                 Contact our experts <ArrowRight className="w-4 h-4" />
@@ -113,16 +170,28 @@ export default function CaseStudyDetail() {
       <div className="grid gap-4">
         <section className="bg-gray-50 py-12 lg:order-1 order-2">
           <div className="max-w-7xl mx-auto px-4">
-            <p className="uppercase text-sm tracking-wide text-gray-900 mb-2">
+            <p
+              data-aos="fade-up"
+              className="uppercase text-sm tracking-wide text-gray-900 mb-2"
+            >
               <span className="font-semibold">Case</span> Study
             </p>
-            <h2 className="text-3xl lg:text-4xl font-semibold mb-8 max-w-md">
+            <h2
+              data-aos="fade-up"
+              className="text-3xl lg:text-4xl font-semibold mb-8 max-w-md"
+            >
               Customer Success with Nusa Network Prakarsa
             </h2>
 
             <div className="grid md:grid-cols-3 gap-6">
               {projects.map((c, idx) => (
-                <CaseStudyCard key={idx} data={c} />
+                <div
+                  data-aos="fade-up"
+                  data-aos-delay={100 * (idx + 1)}
+                  key={idx}
+                >
+                  <CaseStudyCard data={c} />
+                </div>
               ))}
             </div>
           </div>

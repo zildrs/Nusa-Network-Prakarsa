@@ -9,13 +9,17 @@ import {
 import { useLoaderData } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
 import { getRequestLocale } from "./lib/locale-utils.server";
+import { Toaster } from "~/components/ui/sonner";
 import { createT } from "./i18n";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import "aos/dist/aos.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import { createOrganizationSchema } from "./lib/seo";
+import { useEffect } from "react";
+import AOS from "aos";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -40,6 +44,20 @@ export function Layout() {
   const { locale } = useLoaderData<typeof loader>();
   const t = createT(locale);
 
+  useEffect(() => {
+    AOS.init({
+      duration: 600,
+      easing: "ease-out",
+      once: true,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = locale;
+    }
+  }, [locale]);
+
   return (
     <html lang={locale}>
       <head>
@@ -63,6 +81,7 @@ export function Layout() {
         {/* Hanya pakai Outlet, jangan gabung dengan children */}
         <Outlet context={{ t, locale }} />
         <Footer locale={locale} t={t} />
+        <Toaster position="top-right" richColors />
         <ScrollRestoration />
         <Scripts />
       </body>

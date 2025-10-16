@@ -15,7 +15,7 @@ export default function Contact() {
       <div className="grid grid-cols-1 lg:grid-cols-4 lg:gap-8 gap-y-10">
         {/* Sidebar */}
         <aside className="col-span-1 relative w-full">
-          <div className="border rounded-xl p-4 h-fit">
+          <div data-aos="fade-up" className="border rounded-xl p-4 h-fit">
             <nav className="space-y-4">
               <a
                 href="#privacy"

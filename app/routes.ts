@@ -23,8 +23,8 @@ export default [
   route("id/blog/:category", "routes/blog-category.tsx", {
     id: "blog-category-id",
   }),
-  route("blog/read/:slug", "routes/blog-detail.tsx"),
-  route("id/blog/read/:slug", "routes/blog-detail.tsx", {
+  route("blog/read/:slug/:id", "routes/blog-detail.tsx"),
+  route("id/blog/read/:slug/:id", "routes/blog-detail.tsx", {
     id: "blog-detail-id",
   }),
 
@@ -65,7 +65,4 @@ export default [
   }),
 
   route("*", "routes/404.tsx"),
-
-  // resource route
-  route("resources/set-locale", "routes/resources.set-locale.tsx"),
 ] satisfies RouteConfig;

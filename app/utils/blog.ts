@@ -2,8 +2,9 @@ import { nameToSlug } from "~/lib/utils";
 import type { BlogPost } from "~/types/blog";
 
 export function getBlogSlug(blog: BlogPost, locale?: "id" | "en"): string {
-  const baseSlug =
-    `/blog/read/${nameToSlug(blog.slug || "")}` || `/blog/read/${blog.id}`;
+  const rawSlug = blog.slug && blog.slug.trim().length > 0 ? blog.slug : String(blog.id);
+  const slugSegment = nameToSlug(rawSlug);
+  const baseSlug = `/blog/read/${slugSegment}/${blog.documentId}`;
   return locale === "id" ? `/${locale}${baseSlug}` : baseSlug;
 }
 

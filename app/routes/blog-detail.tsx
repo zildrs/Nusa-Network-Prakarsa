@@ -2,38 +2,42 @@ import { Link, useLoaderData, type MetaFunction } from "react-router";
 import type { Route } from "./+types/blog-detail";
 import CTASection from "~/components/cta";
 import { solutionsMenu } from "~/components/header";
-import { BlogNavigation } from "~/components/blog";
-import { fetchBlogBySlug, fetchCategoriesData } from "~/lib/api.server";
-import { formatBlogDate } from "~/utils/blog";
+import { BlogCard, BlogNavigation } from "~/components/blog";
+import {
+  fetchCategoriesData,
+  fetchBlogBySlug,
+  fetchBlogData,
+} from "~/lib/api.server";
+import { formatBlogDate, getBlogSlug } from "~/utils/blog";
 import BlogContent from "~/components/blog/blog-content";
-import { APP_BASE_URL } from "~/lib/utils";
+import { API_BASE_URL, nameToSlug, slugToName } from "~/lib/utils";
 import NotFoundPage from "./404";
+import type { Locale } from "~/i18n";
+
+function ensureSlug(params: Route.LoaderArgs["params"]) {
+  const slug = params?.slug;
+  if (!slug) {
+    throw new Response("Not Found", { status: 404 });
+  }
+  return slug;
+}
 
 export async function loader({
   request,
   params,
-}: Route.LoaderArgs & { params: { slug: string; locale?: string } }) {
-  // Extract locale from URL params
-  const urlLocale = params.locale as "id" | "en" | undefined;
+}: Route.LoaderArgs & { params: { slug: string; id: string } }) {
+  const slug = ensureSlug(params);
+  const id = params.id;
 
-  // If no locale in URL, check localStorage/cookies for user preference
-  if (!urlLocale) {
-    const slug = params.slug;
-    const [blog, { categories, locale }] = await Promise.all([
-      fetchBlogBySlug(request, slug),
-      fetchCategoriesData(request),
-    ]);
-
-    return { blog, categories, locale, urlLocale: locale };
-  }
-
-  const slug = params.slug;
   const [blog, { categories, locale }] = await Promise.all([
-    fetchBlogBySlug(request, slug),
+    fetchBlogBySlug(request, id),
     fetchCategoriesData(request),
   ]);
+  const categoryName = slugToName(blog?.category?.name || "");
 
-  return { blog, categories, locale, urlLocale };
+  const { blogs: relatedBlogs } = await fetchBlogData(request, categoryName);
+
+  return { blog, categories, relatedBlogs, locale };
 }
 
 export const meta: MetaFunction<typeof loader> = (args) => {
@@ -51,16 +55,13 @@ export const meta: MetaFunction<typeof loader> = (args) => {
 };
 
 export default function BlogDetail() {
-  const { categories, blog, urlLocale, locale } =
+  const { categories, blog, relatedBlogs, locale } =
     useLoaderData<typeof loader>();
-
-  // Use urlLocale for UI/display purposes, fallback to API locale
-  const currentLocale = urlLocale || locale;
 
   if (!blog) return <NotFoundPage />;
   return (
     <main>
-      <BlogNavigation categories={categories} locale={currentLocale} />
+      <BlogNavigation categories={categories} />
 
       <div className="min-h-screen bg-white font-sans">
         <section className="bg-primary text-white py-12 px-4">
@@ -82,7 +83,7 @@ export default function BlogDetail() {
 
             <div className="flex justify-end">
               <img
-                src={`${APP_BASE_URL}/${blog?.banner[0].url}`}
+                src={`${API_BASE_URL}/${blog?.banner[0].url}`}
                 alt={blog?.title}
                 className="rounded-xl w-full aspect-[5/3] lg:aspect-[6/3] object-cover "
               />
@@ -100,29 +101,18 @@ export default function BlogDetail() {
               <p className="uppercase tracking-wide mb-4 z-20">
                 More <span className="font-semibold">Like This</span>
               </p>
-              <div className="space-y-4">
-                {[1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="flex h-full items-center gap-4 p-2 rounded-xl border border-gray-200 hover:shadow-sm transition"
-                  >
-                    <img
-                      src="https://placehold.co/100"
-                      alt="thumbnail"
-                      className="rounded-lg h-full object-cover aspect-square"
+              <div className="flex flex-col gap-4 justify-between">
+                {relatedBlogs
+                  .filter((b) => b.id !== blog?.id)
+                  .slice(0, 3)
+                  .map((blog, i) => (
+                    <BlogCard
+                      key={blog.id}
+                      blog={blog}
+                      variant="compact"
+                      locale={locale}
                     />
-                    <div
-                      className="flex flex-col justify-between"
-                      style={{ height: "-webkit-fill-available" }}
-                    >
-                      <p className="text-sm font-medium text-gray-800 line-clamp-3">
-                        Transforming Peruri Businesses with SD-WAN Technologymax
-                        3 lines
-                      </p>
-                      <p className="text-xs text-gray-500">Technology</p>
-                    </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
 
@@ -134,7 +124,7 @@ export default function BlogDetail() {
                 {solutionsMenu.map((item) => (
                   <Link
                     key={item.title}
-                    to={`${currentLocale === "id" ? "/id" : ""}/solutions/${item.title.toLowerCase().replace(/\s+/g, "-")}`}
+                    to={`/solution/${item.slug}`}
                     className="py-3 flex items-center gap-4"
                   >
                     <item.icon className="mr-2" size={20} />
