@@ -28,7 +28,6 @@ export async function loader({
   request,
   params,
 }: Route.LoaderArgs & { params: { category: string } }) {
-  console.log(params.category);
   const categoryName = slugToName(params.category);
   const page = Number(new URL(request.url).searchParams.get("page") ?? 1);
 

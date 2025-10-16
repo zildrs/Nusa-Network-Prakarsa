@@ -36,7 +36,7 @@ export default function Partner() {
   const [selected, setSelected] = useState<PartnerType | null>(null);
 
   return (
-    <div className="relative min-h-screen bg-white border-b border-gray-200">
+    <div className="relative min-h-[80vh] bg-white border-b border-gray-200">
       {/* Section Title */}
       <img
         src="/bg-solutions.png"
