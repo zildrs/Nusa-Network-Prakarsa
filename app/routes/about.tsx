@@ -34,12 +34,12 @@ export default function About() {
   ];
 
   const aboutImg = [
-    "/about/about-1.jpg",
-    "/about/about-2.jpg",
-    "/about/about-3.jpg",
-    "/about/about-1.jpg",
-    "/about/about-2.jpg",
-    "/about/about-3.jpg",
+    "/about/about-1.png",
+    "/about/about-2.png",
+    "/about/about-3.png",
+    "/about/about-1.png",
+    "/about/about-2.png",
+    "/about/about-3.png",
   ];
 
   const values = [

@@ -257,14 +257,13 @@ export default function Home() {
           >
             {solutionsMenu.map((s, idx) => (
               <SwiperSlide key={idx}>
-                <div className="rounded-xl overflow-hidden relative group z-50 bg-gradient-to-t from-black/50 to-transparent">
+                <a href={`/solution/${s.slug}`} className="rounded-xl overflow-hidden relative group z-50 bg-gradient-to-t from-black/50 to-transparent">
                   <img
                     src={s.img}
                     alt={s.title}
-                    className="w-full aspect-[3/5]  lg:aspect-[3/4] object-cover group-hover:blur-xs transition-all duration-500"
+                    className="w-full aspect-[3/5] rounded-xl  lg:aspect-[3/4] object-cover group-hover:blur-xs transition-all duration-500"
                   />
-                  <a
-                    href={`/solutions/${s.slug}`}
+                  <div
                     className="absolute cursor-pointer bottom-8 left-0 right-0 translate-y-8 transition-all duration-500 ease-out group-hover:translate-y-0"
                   >
                     <div className="p-4 mb-8 absolute bottom-0 w-full">
@@ -276,8 +275,8 @@ export default function Home() {
                       <p className="text-white font-medium">Learn more</p>
                       <ArrowRight className="h-4 w-4 text-white" />
                     </div>
-                  </a>
-                </div>
+                  </div>
+                </a>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -352,7 +351,7 @@ export default function Home() {
                   <img
                     src={API_BASE_URL + t.company_logo.url}
                     alt="Company Logo"
-                    className="ml-auto h-10"
+                    className="ml-auto h-10 max-w-20 object-contain"
                   />
                 </div>
               </div>

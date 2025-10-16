@@ -2,11 +2,11 @@ import { Link, useLoaderData, type MetaFunction } from "react-router";
 import type { Route } from "./+types/blog-detail";
 import CTASection from "~/components/cta";
 import { solutionsMenu } from "~/components/header";
-import { BlogNavigation } from "~/components/blog";
-import { fetchCategoriesData, fetchBlogBySlug } from "~/lib/api.server";
+import { BlogCard, BlogNavigation } from "~/components/blog";
+import { fetchCategoriesData, fetchBlogBySlug, fetchBlogData } from "~/lib/api.server";
 import { formatBlogDate, getBlogSlug } from "~/utils/blog";
 import BlogContent from "~/components/blog/blog-content";
-import { API_BASE_URL, nameToSlug } from "~/lib/utils";
+import { API_BASE_URL, nameToSlug, slugToName } from "~/lib/utils";
 import NotFoundPage from "./404";
 import type { Locale } from "~/i18n";
 
@@ -24,12 +24,15 @@ export async function loader({
 }: Route.LoaderArgs & { params: { slug: string } }) {
   const slug = ensureSlug(params);
 
-  const [blog, { categories }] = await Promise.all([
+  const [blog, { categories, locale }] = await Promise.all([
     fetchBlogBySlug(request, slug),
     fetchCategoriesData(request),
   ]);
+  const categoryName = slugToName(blog?.category?.name || "");
 
-  return { blog, categories };
+  const { blogs : relatedBlogs } = await fetchBlogData(request, categoryName)
+
+  return { blog, categories, relatedBlogs, locale };
 }
 
 export const meta: MetaFunction<typeof loader> = (args) => {
@@ -47,7 +50,8 @@ export const meta: MetaFunction<typeof loader> = (args) => {
 };
 
 export default function BlogDetail() {
-  const { categories, blog } = useLoaderData<typeof loader>();
+  const { categories, blog, relatedBlogs, locale } = useLoaderData<typeof loader>();
+  console.log(relatedBlogs, "relatedBlogs")
 
   if (!blog) return <NotFoundPage />;
   return (
@@ -92,9 +96,15 @@ export default function BlogDetail() {
               <p className="uppercase tracking-wide mb-4 z-20">
                 More <span className="font-semibold">Like This</span>
               </p>
-              <div className="space-y-4">
-                {/* Related blogs section - would need to fetch related blogs separately */}
-                <p className="text-gray-500 text-sm">Related blogs would appear here</p>
+              <div className="flex flex-col gap-4 justify-between">
+                {relatedBlogs.filter((b) => b.id !== blog?.id).slice(0, 3).map((blog, i) => (
+                  <BlogCard
+                    key={blog.id}
+                    blog={blog}
+                    variant="compact"
+                    locale={locale}
+                  />
+                ))}
               </div>
             </div>
 
