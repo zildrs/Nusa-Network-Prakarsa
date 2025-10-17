@@ -41,11 +41,13 @@ jobs:
           mkdir -p "$APP_DIR"
           > "$APP_DIR/.gh-actions-write-test" && echo "write ok" || { echo "::error::Cannot write to $APP_DIR"; exit 1; }
 
-      - name: Sync repo to $APP_DIR (no mtime/dirtime preserve)
+      - name: Sync repo to $APP_DIR (no chown/chgrp, no mtimes)
         run: |
           set -euo pipefail
           mkdir -p "${APP_DIR}"
-          rsync -a --delete --no-times --omit-dir-times \
+          rsync -r --links --delete \
+            --no-times --omit-dir-times \
+            --no-owner --no-group --no-perms \
             --exclude '.git' \
             ./ "${APP_DIR}/"
           echo "Copied repo to $APP_DIR"
@@ -58,13 +60,17 @@ jobs:
           echo "Syncing from $SRC -> $DEST"
           mkdir -p "$DEST"
           if [ -d "$SRC" ]; then
-            rsync -a --no-times --omit-dir-times "$SRC"/ "$DEST"/
+            rsync -r --links \
+              --no-times --omit-dir-times \
+              --no-owner --no-group --no-perms \
+              "$SRC"/ "$DEST"/
             find "$DEST" -maxdepth 1 -type f -name ".env*" -exec chmod 600 {} +
             echo "✓ Copied env bundle."
           else
             echo "::warning file=$SRC::ENV_SOURCE_DIR not found; skipping env copy"
           fi
           ls -la "$DEST"
+
 
       - name: Install deps (include dev)
         working-directory: ${{ env.APP_DIR }}
