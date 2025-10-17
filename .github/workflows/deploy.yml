@@ -1,8 +1,8 @@
-name: build-and-deploy-staging
+name: build-and-deploy
 
 on:
   push:
-    branches: [Prod]
+    branches: [prod]
 
 env:
   APP_DIR: /opt/nnp-web
