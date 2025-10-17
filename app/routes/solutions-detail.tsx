@@ -301,7 +301,7 @@ export default function SolutionDetail() {
                   data-aos="fade-up"
                   data-aos-delay={(i + 1) * 200}
                   style={{ backgroundImage: "url('/bg-card-2.png')" }}
-                  className="bg-white max-h-[250px] h-full flex flex-col justify-between aspect-auto lg:aspect-[6/3] text-gray-800 p-6 rounded-xl"
+                  className="bg-white max-h-[250px] h-[208px] flex flex-col justify-between aspect-auto lg:aspect-[6/3] text-gray-800 p-6 rounded-xl"
                 >
                   <div className="text-3xl mb-4">
                     <Icon size={32} />
