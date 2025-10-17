@@ -10,7 +10,6 @@ env:
   NODE_VERSION: '20'
   BUILD_DIR: build
   PM2_HOME: /home/dsn/.pm2
-  # adjust if you ever move the env folder
   ENV_SOURCE_DIR: /home/dsn/env-nusa
 
 jobs:
@@ -20,6 +19,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Ensure rsync present
+        run: |
+          if ! command -v rsync >/dev/null 2>&1; then
+            sudo apt-get update -y
+            sudo apt-get install -y rsync
+          fi
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -34,43 +40,30 @@ jobs:
           ls -ld /opt /opt/nnp-web || true
           mkdir -p "$APP_DIR"
           > "$APP_DIR/.gh-actions-write-test" && echo "write ok" || { echo "::error::Cannot write to $APP_DIR"; exit 1; }
-      - name: Sync to $APP_DIR (repo files)
+
+      - name: Sync repo to $APP_DIR (no mtime/dirtime preserve)
         run: |
           set -euo pipefail
-          shopt -s dotglob nullglob
-          rm -rf "${APP_DIR:?}/"*
-          cp -a ./* "$APP_DIR"/
+          mkdir -p "${APP_DIR}"
+          rsync -a --delete --no-times --omit-dir-times \
+            --exclude '.git' \
+            ./ "${APP_DIR}/"
           echo "Copied repo to $APP_DIR"
-      # - name: Provision environment files (.env, .env.local)
-      #   run: |
-      #     set -euo pipefail
-      #     SRC="${ENV_SOURCE_DIR}"
-      #     echo "Using ENV_SOURCE_DIR=$SRC"
-      #     for f in .env .env.local; do
-      #       if [ -f "$SRC/$f" ]; then
-      #         # copy and secure perms (rw-------)
-      #         cp -f "$SRC/$f" "$APP_DIR/$f"
-      #         chmod 600 "$APP_DIR/$f"
-      #         echo "✓ Copied $f to $APP_DIR"
-      #       else
-      #         echo "::warning file=$SRC/$f::$f not found at $SRC (skipping)"
-      #       fi
-      #     done
-      #     ls -l "$APP_DIR"/.env* || true
-      - name: Sync env bundle to $APP_DIR
+
+      - name: Sync env bundle to $APP_DIR (dotfiles included)
         run: |
           set -euo pipefail
           SRC="${ENV_SOURCE_DIR:-/home/dsn/env-nusa}"
           DEST="${APP_DIR:-/opt/nnp-web}"
           echo "Syncing from $SRC -> $DEST"
           mkdir -p "$DEST"
-          # copy EVERYTHING incl. dotfiles (.env, .env.local, ecosystem.config.cjs, etc.)
-          cp -af "$SRC"/. "$DEST"/
-      
-          # lock down .env files if present
-          find "$DEST" -maxdepth 1 -type f -name ".env*" -exec chmod 600 {} +
-      
-          echo "✓ Copied:"
+          if [ -d "$SRC" ]; then
+            rsync -a --no-times --omit-dir-times "$SRC"/ "$DEST"/
+            find "$DEST" -maxdepth 1 -type f -name ".env*" -exec chmod 600 {} +
+            echo "✓ Copied env bundle."
+          else
+            echo "::warning file=$SRC::ENV_SOURCE_DIR not found; skipping env copy"
+          fi
           ls -la "$DEST"
 
       - name: Install deps (include dev)
@@ -87,12 +80,17 @@ jobs:
         working-directory: ${{ env.APP_DIR }}
         run: npm prune --omit=dev
 
-      - name: Ensure pm2 (local, no jq needed)
+      - name: Ensure pm2 (local)
         working-directory: ${{ env.APP_DIR }}
         run: |
           if [ ! -d "node_modules/pm2" ]; then
             npm i -E pm2@latest
           fi
+
+      - name: Ensure PM2_HOME exists
+        run: |
+          mkdir -p "${PM2_HOME}"
+
       - name: Restart app with PM2 (local)
         working-directory: ${{ env.APP_DIR }}
         env:
