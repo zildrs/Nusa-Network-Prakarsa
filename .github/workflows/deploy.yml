@@ -9,9 +9,9 @@ env:
   PM2_NAME: nnp-web
   NODE_VERSION: '20'
   BUILD_DIR: build
-  PM2_HOME: /home/manage/.pm2
+  PM2_HOME: /home/dsn/.pm2
   # adjust if you ever move the env folder
-  ENV_SOURCE_DIR: /home/manage/env-nusa
+  ENV_SOURCE_DIR: /home/dsn/env-nusa
 
 jobs:
   build-deploy:
@@ -60,7 +60,7 @@ jobs:
       - name: Sync env bundle to $APP_DIR
         run: |
           set -euo pipefail
-          SRC="${ENV_SOURCE_DIR:-/home/manage/env-nusa}"
+          SRC="${ENV_SOURCE_DIR:-/home/dsn/env-nusa}"
           DEST="${APP_DIR:-/opt/nnp-web}"
           echo "Syncing from $SRC -> $DEST"
           mkdir -p "$DEST"
