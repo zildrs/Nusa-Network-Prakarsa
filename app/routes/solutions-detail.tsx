@@ -217,9 +217,9 @@ export default function SolutionDetail() {
       </section>
 
       <section id="whatWeDo" className="relative">
-        <div className="container max-w-7xl px-6 py-18 lg:py-12 mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="flex flex-col justify-center">
+        <div className="py-18 lg:py-12 mx-auto ">
+          <div className="grid grid-cols-1 lg:grid-cols-2  mx-auto gap-8 max-w-7xl">
+            <div className="flex flex-col justify-center px-6 max-w-3xl mr-0 min-h-[300px] lg:min-h-[450px]">
               <p data-aos="fade-up" className="text-sm ">
                 <span className="font-semibold">
                   {t(`solutionsDetail.${data.slug}.whatWeDo.label`)}
@@ -235,17 +235,23 @@ export default function SolutionDetail() {
                 {t(`solutionsDetail.${data.slug}.whatWeDo.description`)}
               </p>
             </div>
-            <div
-              data-aos="fade-left"
-              className="min-h-[450px] lg:overflow-visible overflow-hidden"
-            >
-              <img
-                src={data.what_we_do_img}
-                alt="what we do"
-                className="absolute min-h-[350px] sm:max-h-[250px] right-0 top-1/2 transform lg:-translate-y-1/2 lg:w-[40vw] w-[95vw] object-cover rounded-l-xl"
-              />
-            </div>
           </div>
+        </div>
+
+        <img
+          src={data.what_we_do_img}
+          alt="what we do"
+          className="absolute hidden lg:block min-h-[470px] sm:max-h-[250px] right-0 lg:top-1/2 transform lg:-translate-y-1/2 lg:w-[40vw] w-[95vw] object-cover rounded-l-xl"
+        />
+        <div
+          data-aos="fade-left"
+          className="min-h-[470px] lg:hidden block lg:overflow-visible overflow-hidden"
+        >
+          <img
+            src={data.what_we_do_img}
+            alt="what we do"
+            className="absolute min-h-[350px] sm:max-h-[250px] right-0 lg:top-1/2 transform lg:-translate-y-1/2 lg:w-[40vw] w-[95vw] object-cover rounded-l-xl"
+          />
         </div>
       </section>
 
@@ -295,15 +301,12 @@ export default function SolutionDetail() {
                   data-aos="fade-up"
                   data-aos-delay={(i + 1) * 200}
                   style={{ backgroundImage: "url('/bg-card-2.png')" }}
-                  className="bg-white max-h-[250px] h-full flex flex-col justify-between aspect-[6/3] text-gray-800 p-6 rounded-xl"
+                  className="bg-white max-h-[250px] h-[208px] flex flex-col justify-between aspect-auto lg:aspect-[6/3] text-gray-800 p-6 rounded-xl"
                 >
                   <div className="text-3xl mb-4">
                     <Icon size={32} />
                   </div>
                   <h3 className="font-semibold lg:text-xl">{service.title}</h3>
-                  <p className="text-gray-400 block lg:hidden">
-                    {service.description}
-                  </p>
                 </div>
               );
             })}
