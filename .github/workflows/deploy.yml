@@ -1,14 +1,17 @@
-name: build-and-deploy
+name: build-and-deploy-staging
+
 on:
   push:
-    branches: [prod]
+    branches: [Prod]
 
 env:
   APP_DIR: /opt/nnp-web
   PM2_NAME: nnp-web
   NODE_VERSION: '20'
-  BUILD_DIR: build                  # change if your server output differs
-  PM2_HOME: /home/dsn/.pm2          # ensure PM2 state is writable by 'dsn'
+  BUILD_DIR: build
+  PM2_HOME: /home/manage/.pm2
+  # adjust if you ever move the env folder
+  ENV_SOURCE_DIR: /home/manage/env-nusa
 
 jobs:
   build-deploy:
@@ -28,21 +31,47 @@ jobs:
         run: |
           echo "USER: $(whoami)"
           id
-          echo "--- DIR perms ---"
           ls -ld /opt /opt/nnp-web || true
-          echo "--- TOUCH test ---"
           mkdir -p "$APP_DIR"
           > "$APP_DIR/.gh-actions-write-test" && echo "write ok" || { echo "::error::Cannot write to $APP_DIR"; exit 1; }
-
-      - name: Sync to $APP_DIR (simple copy, keep .env)
+      - name: Sync to $APP_DIR (repo files)
         run: |
           set -euo pipefail
           shopt -s dotglob nullglob
-          # remove everything except dotfiles (.env, etc.) to keep local secrets
           rm -rf "${APP_DIR:?}/"*
-          # copy workspace files (this **won't** include workspace dotfiles by design)
           cp -a ./* "$APP_DIR"/
-          echo "Copied to $APP_DIR"
+          echo "Copied repo to $APP_DIR"
+      # - name: Provision environment files (.env, .env.local)
+      #   run: |
+      #     set -euo pipefail
+      #     SRC="${ENV_SOURCE_DIR}"
+      #     echo "Using ENV_SOURCE_DIR=$SRC"
+      #     for f in .env .env.local; do
+      #       if [ -f "$SRC/$f" ]; then
+      #         # copy and secure perms (rw-------)
+      #         cp -f "$SRC/$f" "$APP_DIR/$f"
+      #         chmod 600 "$APP_DIR/$f"
+      #         echo "✓ Copied $f to $APP_DIR"
+      #       else
+      #         echo "::warning file=$SRC/$f::$f not found at $SRC (skipping)"
+      #       fi
+      #     done
+      #     ls -l "$APP_DIR"/.env* || true
+      - name: Sync env bundle to $APP_DIR
+        run: |
+          set -euo pipefail
+          SRC="${ENV_SOURCE_DIR:-/home/manage/env-nusa}"
+          DEST="${APP_DIR:-/opt/nnp-web}"
+          echo "Syncing from $SRC -> $DEST"
+          mkdir -p "$DEST"
+          # copy EVERYTHING incl. dotfiles (.env, .env.local, ecosystem.config.cjs, etc.)
+          cp -af "$SRC"/. "$DEST"/
+      
+          # lock down .env files if present
+          find "$DEST" -maxdepth 1 -type f -name ".env*" -exec chmod 600 {} +
+      
+          echo "✓ Copied:"
+          ls -la "$DEST"
 
       - name: Install deps (include dev)
         working-directory: ${{ env.APP_DIR }}
@@ -64,7 +93,6 @@ jobs:
           if [ ! -d "node_modules/pm2" ]; then
             npm i -E pm2@latest
           fi
-
       - name: Restart app with PM2 (local)
         working-directory: ${{ env.APP_DIR }}
         env:
@@ -74,6 +102,6 @@ jobs:
           which pm2 || true
           npx pm2 -v || true
           npx pm2 delete "${PM2_NAME}" || true
-          npx pm2 start "./${BUILD_DIR}/server/index.js" --name "${PM2_NAME}" --update-env
+          npx pm2 start ecosystem.config.cjs --only "${PM2_NAME}" --env staging --update-env
           npx pm2 save
           npx pm2 status || true
