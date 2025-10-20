@@ -278,7 +278,7 @@ export const solutions: Record<Solution, SolutionData> = {
       "From IoT device management and data analytics to security and network infrastructure, our team of experts is dedicated to helping you unlock the full potential of IoT for your business.",
     hero_img: "/iot.png",
     hero_cta: "Visit NADA Website",
-    hero_cta_link: "https://www.nada.org/",
+    hero_cta_link: "https://nada-iot.com/",
     what_we_do_title:
       "Smarter, Integrated Solutions for Real-Time Ecosystem Observation",
     what_we_do_subtitle:
