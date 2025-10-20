@@ -54,12 +54,27 @@ export default function Contact() {
               {t("privacyPolicy.privacyPolicy.lastUpdated")}
             </p>
 
-            <div className="space-y-6 text-gray-500 leading-relaxed">
-              <p>{t("privacyPolicy.privacyPolicy.content")}</p>
+            <div className="space-y-8 text-gray-500 leading-relaxed">
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  {t("privacyPolicy.privacyPolicy.sections.section1.title")}
+                </h3>
+                <p>{t("privacyPolicy.privacyPolicy.sections.section1.content")}</p>
+              </div>
 
-              <p>{t("privacyPolicy.privacyPolicy.content")}</p>
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  {t("privacyPolicy.privacyPolicy.sections.section2.title")}
+                </h3>
+                <p>{t("privacyPolicy.privacyPolicy.sections.section2.content")}</p>
+              </div>
 
-              <p>{t("privacyPolicy.privacyPolicy.content")}</p>
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  {t("privacyPolicy.privacyPolicy.sections.section3.title")}
+                </h3>
+                <p>{t("privacyPolicy.privacyPolicy.sections.section3.content")}</p>
+              </div>
             </div>
           </section>
 
@@ -72,11 +87,27 @@ export default function Contact() {
               {t("privacyPolicy.generalTerms.lastUpdated")}
             </p>
 
-            <div className="space-y-6 text-gray-500 leading-relaxed">
-              <p>{t("privacyPolicy.generalTerms.content")}</p>
+            <div className="space-y-8 text-gray-500 leading-relaxed">
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  {t("privacyPolicy.generalTerms.sections.section1.title")}
+                </h3>
+                <p>{t("privacyPolicy.generalTerms.sections.section1.content")}</p>
+              </div>
 
-              <p>{t("privacyPolicy.generalTerms.content")}</p>
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  {t("privacyPolicy.generalTerms.sections.section2.title")}
+                </h3>
+                <p>{t("privacyPolicy.generalTerms.sections.section2.content")}</p>
+              </div>
 
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  {t("privacyPolicy.generalTerms.sections.section3.title")}
+                </h3>
+                <p>{t("privacyPolicy.generalTerms.sections.section3.content")}</p>
+              </div>
             </div>
           </section>
         </main>
