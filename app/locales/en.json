@@ -204,10 +204,10 @@
         }
       }
     },
-   "generalTerms": {
+    "generalTerms": {
       "title": "General Terms",
-      "lastUpdated": "Last updated: 2025-10-20",
-      "sections": {
+      "lastUpdated": "Last updated: September 22, 2023",
+       "sections": {
         "section1": {
           "title": "Information We Collect",
           "content": "We collect information that you provide directly (for example, when you contact us) and information collected automatically (such as analytics and cookies). This information helps us operate and improve our services."
@@ -221,6 +221,7 @@
           "content": "You may have rights to access, correct, or delete your personal data subject to applicable law. To exercise your rights or ask questions, contact privacy@usanetwork.com."
         }
       }
+    }
   },
   "achievement": {
     "title": "Achievement",
