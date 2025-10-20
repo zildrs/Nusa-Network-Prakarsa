@@ -1,4 +1,186 @@
 {
+  "nav": {
+    "solution": "Solution",
+    "about": "About Us",
+    "caseStudy": "Case Study",
+    "article": "Article",
+    "support": "Support",
+    "contact": "Contact Us",
+    "careers": "Careers",
+    "partners": "Partners",
+    "resources": "Resources",
+    "privacy": "Privacy & Terms",
+    "certification": "Certifications",
+    "sitemap": "Sitemap"
+  },
+  "home": {
+    "hero": {
+      "title": "Trusted System Integrator Company in Indonesia",
+      "subtitle": "Highly Tailored IT Design, Management & Support Services.",
+      "trustedBy": "TRUSTED BY COMPANIES ALL OVER THE WORLD"
+    },
+    "consultant": {
+      "heading": "As Your IT Consultant, We Help You Grow Your Business Exponentially",
+      "description1": "With more than a decade of experience as a trusted system integrator in Indonesia, PT Nusa Network Prakarsa has consistently demonstrated its commitment to delivering advanced technology solutions that accelerate business growth and digital transformation.",
+      "description2": "We deliver relevant solutions for businesses worldwide. A strong drive for innovation to optimize your IT resources has become part of our DNA."
+    },
+    "stats": {
+      "projectsAccomplished": "Projects Accomplished",
+      "clientsSuccess": "Clients Success",
+      "technologyPartners": "Technology Partners",
+      "amazingAwards": "Amazing Awards"
+    },
+    "solutions": {
+      "our": "Our",
+      "solutions": "Solutions",
+      "title": "Our Solutions",
+      "subtitle": "End-to-End IT Solutions for your Business Growth",
+      "button": "View All Solutions"
+    },
+    "caseStudy": {
+      "case": "Case",
+      "study": "Study",
+      "title": "Customer Success with Nusa Network Prakarsa",
+      "cta": "Read Case Studies"
+    },
+    "testimonials": {
+      "our": "Our",
+      "clients": "Clients Story",
+      "title": "What our clients say about their journey with us",
+      "subtitle": "Hear from our clients about their experience with Nusa Network Prakarsa"
+    },
+    "technologyPartners": {
+      "technology": "TECHNOLOGY",
+      "partners": "PARTNERS",
+      "heading": "Leading Solutions with World-Class Partners",
+      "cta": "Learn More"
+    },
+    "cta": {
+      "title": "We run all kinds of IT services that vow your success",
+      "button": "Contact our Expert"
+    }
+  },
+  "about": {
+    "label": {
+      "about": "About",
+      "us": "Us"
+    },
+    "hero": {
+      "title": "About Nusa Network Prakarsa",
+      "subtitle": "Where Vision meets Execution",
+      "tagline": "We help you to grow your business exponentially",
+      "description": "With over a decade of experience as a trusted system integrator in Indonesia, PT Nusa Network Prakarsa is dedicated to delivering advanced technology solutions that drive business growth and transformation.\n\nWe deliver relevant solutions to businesses around the globe. Strong innovation to leverage your IT resource is built in our vein.​"
+    },
+    "stats": {
+      "projectsAccomplished": "Projects Accomplished",
+      "clientsSuccess": "Clients Success",
+      "technologyPartners": "Technology Partners",
+      "amazingAwards": "Amazing Awards Accomplished"
+    },
+    "values": {
+      "our": "OUR",
+      "values": "VALUES",
+      "title": "OUR VALUES",
+      "subtitle": "What We Believes"
+    },
+    "vision": {
+      "title": "VISION",
+      "description": "Nusa Network Prakarsa is a trusted Digital Transformation Solutions Partner who is responsible for managing and developing the life cycle of our customers' technology."
+    },
+    "mission": {
+      "title": "MISSION",
+      "description": "Provide exceptional service, demonstrate high commitment to quality and integrity, develop mutually beneficial relationships with our stakeholders, encourage feedback, and foster a customer-oriented culture",
+      "principles": {
+        "n": "Nusa is Customer Oriented Company - Customer Satisfaction is Utmost Goal",
+        "u": "Unity, Integrity & Professional Team",
+        "s": "Strive for Excellence",
+        "a": "A Law Abiding Company and Community Contributor"
+      }
+    },
+    "achievement": {
+      "our": "OUR",
+      "achievement": "ACHIEVEMENT",
+      "title": "OUR Achievement",
+      "subtitle": "Leading Solutions with World-Class Achievement"
+    },
+    "services": {
+      "title": "We run all kinds of IT services that vow your success",
+      "cta": "Contact our Expert"
+    }
+  },
+  "caseStudy": {
+    "hero": {
+      "label": {
+        "case": "Case",
+        "study": "Study"
+      },
+      "title": "Customer Success with Nusa Network Prakarsa"
+    },
+    "filters": {
+      "industry": "Industry",
+      "solution": "Solution",
+      "allIndustries": "All Industries",
+      "allSolutions": "All Solutions"
+    },
+    "cta": {
+      "title": "We run all kinds of IT services that vow your success",
+      "button": "Talk to our expert"
+    }
+  },
+  "partners": {
+    "hero": {
+      "title": "Technology Partners",
+      "description": "We partner with top global tech brands to deliver secure, scalable solutions and services tailored to your business needs."
+    },
+    "modal": {
+      "solutions": "Solutions",
+      "related": "Related",
+      "solutionsList": {
+        "networkInfrastructure": "Network Infrastructure",
+        "dataInfrastructure": "Data Infrastructure",
+        "securitySolutions": "Security Solutions",
+        "managedServices": "Managed Services"
+      }
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Contact Us",
+      "description": "Let's talk about how Nusa Network Prakarsa can deliver the right solutions for your unique IT needs."
+    },
+    "form": {
+      "name": "Name",
+      "email": "Your Business Mail",
+      "message": "Message",
+      "namePlaceholder": "Your Name",
+      "emailPlaceholder": "example@usanetwork.com",
+      "messagePlaceholder": "We're ready to help, just let us know what you need.",
+      "submitButton": "Submit Message"
+    },
+    "channels": {
+      "title": "Contact us via any our available channels",
+      "sales": {
+        "title": "Email to our Sales",
+        "description": "Tell your needs with our sales",
+        "button": "Contact our Sales"
+      },
+      "support": {
+        "title": "Email to Nusa Support",
+        "description": "Let Nusa solve your issues.",
+        "button": "Contact Support"
+      },
+      "location": {
+        "title": "Our Location",
+        "description": "Visit our main Office",
+        "button": "Visit our Location"
+      },
+      "phone": {
+        "title": "Call Us",
+        "description": "We're available 24/7",
+        "number": "+62 21 5435 3007"
+      }
+    }
+  },
   "privacyPolicy": {
     "navigation": {
       "privacyPolicy": "Privacy Policy",
@@ -6,38 +188,297 @@
     },
     "privacyPolicy": {
       "title": "Privacy Policy",
-      "lastUpdated": "Last updated: 2025-10-20",
-      "sections": {
-        "section1": {
-          "title": "Information We Collect",
-          "content": "We collect information that you provide directly (for example, when you contact us) and information collected automatically (such as analytics and cookies). This information helps us operate and improve our services."
-        },
-        "section2": {
-          "title": "How We Use Your Information",
-          "content": "We use your information to provide, maintain, and improve our services, to communicate with you, and to comply with legal obligations. We do not sell your personal data."
-        },
-        "section3": {
-          "title": "Your Rights & Contact",
-          "content": "You may have rights to access, correct, or delete your personal data subject to applicable law. To exercise your rights or ask questions, contact privacy@usanetwork.com."
-        }
-      }
+      "lastUpdated": "Last updated: September 22, 2023",
+      "content": "This Privacy Policy describes Our policies and procedures on the collection, use, and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You. We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the Privacy Policy Generator."
     },
     "generalTerms": {
       "title": "General Terms",
-      "lastUpdated": "Last updated: 2025-10-20",
-      "sections": {
-        "section1": {
-          "title": "Acceptable Use",
-          "content": "You agree not to use our services for unlawful activities or to infringe others' rights. We may suspend or terminate access for violations."
-        },
-        "section2": {
-          "title": "Disclaimers and Liability",
-          "content": "All content is provided 'as is'. To the extent permitted by law, we disclaim certain warranties and limit our liability as described in these terms."
-        },
-        "section3": {
-          "title": "Governing Law",
-          "content": "These terms are governed by the laws that apply to our business. For specific legal questions, consult a lawyer or contact legal@usanetwork.com."
+      "lastUpdated": "Last updated: September 22, 2023",
+      "content": "This Privacy Policy describes Our policies and procedures on the collection, use, and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You. We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the Privacy Policy Generator."
+    }
+  },
+  "achievement": {
+    "title": "Achievement",
+    "subtitle": "Nusa Achievement"
+  },
+  "career": {
+    "open": "Open",
+    "roles": "Roles",
+    "title": "Open Roles",
+    "subtitle": "Join a team that blends innovation with solid solutions.",
+    "apply": "Apply Now"
+  },
+  "solutionsDetail": {
+    "network-infrastructure": {
+      "hero": {
+        "solution": "Solution",
+        "title": "NETWORK INFRASTRUCTURE",
+        "subtitle": "Build a Smarter, Faster and Secure Network Infrastructure",
+        "description": "Future-proof your operations with tailored network design, implementation, and management — delivered by experts you can trust",
+        "cta": "Schedule a Free Consultation"
+      },
+      "navigation": {
+        "whatWeDo": "What we do",
+        "ourServices": "Our services",
+        "caseStudy": "Case study",
+        "ourPartners": "Our partners",
+        "consultFree": "Consult free with us"
+      },
+      "whatWeDo": {
+        "label": "WHAT WE DO",
+        "title": "Build a Future-Ready Network Today",
+        "description": "Our expert team works with you to design, deploy, and manage end-to-end infrastructures tailored to your business needs — ensuring maximum uptime, optimal performance, and secure operations at every stage."
+      },
+      "services": {
+        "our": "Our",
+        "label": "NETWORK INFRASTRUCTURE SERVICES",
+        "title": "Solutions That Fit Your Infrastructure Needs",
+        "items": {
+          "lanWanDesign": "LAN/WAN Design and Deployment",
+          "sdWanSolutions": "SD-WAN Solutions",
+          "wirelessNetwork": "Wireless Network Solutions",
+          "networkSecurity": "Network Security Integration",
+          "dataCenterNetworking": "Data Center Networking",
+          "cloudHybridConnectivity": "Cloud & Hybrid Connectivity"
         }
+      },
+      "caseStudy": {
+        "label": "CASE STUDY",
+        "title": "Customer Success with Nusa Network Prakarsa"
+      },
+      "technologyPartners": {
+        "label": "TECHNOLOGY PARTNERS",
+        "title": "Leading Solutions with World-Class Partners",
+        "cta": "Learn More about our Technology Partners"
+      },
+      "cta": {
+        "title": "Ready to Upgrade Your Network?",
+        "description": "Talk to our network engineers today and discover how we can architect your next-gen infrastructure",
+        "button": "Schedule a Free Consultation"
+      }
+    },
+    "data-center": {
+      "hero": {
+        "solution": "Solution",
+        "title": "Data Center",
+        "subtitle": "Modern, Secure, and Scalable Data Center Solutions",
+        "description": "Empower your business with enterprise-grade data center solutions, 24/7 uptime, and expert support — all tailored to your needs",
+        "cta": "Schedule Free Consultation"
+      },
+      "navigation": {
+        "whatWeDo": "What we do",
+        "ourServices": "Our services",
+        "caseStudy": "Case study",
+        "ourPartners": "Our partners",
+        "consultFree": "Consult free with us"
+      },
+      "whatWeDo": {
+        "label": "WHAT WE DO",
+        "title": "Reliable. Scalable. Always On.",
+        "description": "From secure colocation and cloud-ready hosting to disaster recovery and 24/7 monitoring, our solutions are tailored to ensure uptime, compliance, and total peace of mind. Backed by certified experts and advanced infrastructure, we help you stay online, connected, and future-ready."
+      },
+      "services": {
+        "our": "Our",
+        "label": "DATA CENTER SERVICES",
+        "title": "Solutions that fit your infrastructure needs",
+        "items": {
+          "colocationServices": "Colocation Services",
+          "privateCloudVirtualization": "Private Cloud & Virtualization",
+          "disasterRecovery": "Disaster Recovery",
+          "dataBackupStorage": "Data Backup & Storage Solutions",
+          "networkRedundancyLoadBalancing": "Network Redundancy & Load Balancing",
+          "managedServerHosting": "Managed Server Hosting"
+        }
+      },
+      "caseStudy": {
+        "label": "CASE STUDY",
+        "title": "Customer Success with Nusa Network Prakarsa"
+      },
+      "technologyPartners": {
+        "label": "TECHNOLOGY PARTNERS",
+        "title": "Leading Solutions with World-Class Partners",
+        "cta": "Learn More about our Technology Partners"
+      },
+      "cta": {
+        "title": "Let's Build Your Resilient IT Backbone Today",
+        "button": "Schedule Free Consultation"
+      }
+    },
+    "managed-services": {
+      "hero": {
+        "solution": "Solution",
+        "title": "Managed Services",
+        "subtitle": "All-in-One IT Care for Your Business",
+        "description": "Comprehensive IT solutions to keep your business ahead in the digital era",
+        "cta": "Schedule Free Consultation"
+      },
+      "navigation": {
+        "whatWeDo": "What we do",
+        "ourServices": "Our services",
+        "caseStudy": "Case study",
+        "ourPartners": "Our partners",
+        "consultFree": "Consult free with us"
+      },
+      "whatWeDo": {
+        "label": "WHAT WE DO",
+        "title": "IT Solutions, Managed for You",
+        "description": "We take care of monitoring, optimization, security, cloud, and recovery. Keeping your IT smooth, safe, and cost-effective. So you can focus on what matters most: your business."
+      },
+      "services": {
+        "our": "Our",
+        "label": "SERVICES",
+        "title": "Solutions that fit your business needs",
+        "items": {
+          "itMonitoringMaintenance": "IT Monitoring & Maintenance",
+          "networkOperationCenter": "Network Operation Center",
+          "securityOperationCenter": "Security Operation Center",
+          "itHelpdesk": "IT Helpdesk",
+          "vapt": "VAPT",
+          "engineerOnSite": "Engineer On Site"
+        }
+      },
+      "caseStudy": {
+        "label": "CASE STUDY",
+        "title": "Customer Success with Nusa Network Prakarsa"
+      },
+      "technologyPartners": {
+        "label": "TECHNOLOGY PARTNERS",
+        "title": "Leading Solutions with World-Class Partners",
+        "cta": "Learn More about our Technology Partners"
+      },
+      "cta": {
+        "title": "IT Solutions, Managed for You",
+        "description": "Focus on growing your business while we take care of monitoring, securing, and optimizing your IT.",
+        "button": "Schedule Free Consultation"
+      }
+    },
+    "security-infrastructure": {
+      "hero": {
+        "solution": "Solution",
+        "title": "SECURITY",
+        "subtitle": "Comprehensive Security Solution for Your Digital Infrastructure",
+        "description": "From endpoints to cloud, Nusa Network delivers comprehensive, enterprise-grade security solutions to protect your business in real time.",
+        "cta": "Schedule a Free Consultation"
+      },
+      "navigation": {
+        "whatWeDo": "What we do",
+        "ourServices": "Our services",
+        "caseStudy": "Case study",
+        "ourPartners": "Our partners",
+        "consultFree": "Consult free with us"
+      },
+      "whatWeDo": {
+        "label": "WHAT WE DO",
+        "title": "Protecting Every Layer of Your IT Infrastructure with Expert Precision",
+        "description": "Our solutions are designed to proactively defend your network, users, data, and infrastructure from evolving threats. From advanced firewalls and secure cloud access to real-time threat detection and compliance enforcement, we integrate security into every layer of your technology stack."
+      },
+      "services": {
+        "our": "Our",
+        "label": "SECURITY SOLUTIONS & SERVICES",
+        "title": "Solutions that fit your infrastructure needs",
+        "items": {
+          "networkSecurity": "Network Security",
+          "endpointProtection": "Endpoint Protection",
+          "emailWebSecurity": "Email & Web Security",
+          "cloudSecurity": "Cloud Security",
+          "securityOperations": "Security Operations",
+          "complianceAudit": "Compliance & Audit"
+        }
+      },
+      "caseStudy": {
+        "label": "CASE STUDY",
+        "title": "Customer Success with Nusa Network Prakarsa"
+      },
+      "technologyPartners": {
+        "label": "TECHNOLOGY PARTNERS",
+        "title": "Leading Solutions with World-Class Partners",
+        "cta": "Learn More about our Technology Partners"
+      },
+      "cta": {
+        "title": "Ready to Secure Your Business?",
+        "description": "Get a free security assessment or consultation from our certified engineers today.",
+        "button": "Schedule Free Consultation"
+      }
+    },
+    "internet-of-things": {
+      "hero": {
+        "solution": "Solution",
+        "title": "IOT",
+        "subtitle": "Smart Environment Monitoring Tools",
+        "description": "NADA is a high-quality system solutions that provide a smarter, integrated, and user-friendly approach to environment monitoring",
+        "cta": "Visit NADA Website"
+      },
+      "navigation": {
+        "whatWeDo": "What we do",
+        "ourServices": "Our services",
+        "caseStudy": "Case study",
+        "ourPartners": "Our partners",
+        "consultFree": "Consult free with us"
+      },
+      "whatWeDo": {
+        "label": "WHAT WE DO",
+        "title": "Smarter, Integrated Solutions for Real-Time Ecosystem Observation",
+        "description": "NADA delivers intelligent system solutions designed to simplify and enhance the way we monitor and understand our environment. Whether for smart cities, industrial sites, or natural resource management, NADA empowers decision-makers with accurate, actionable data through a secure, user-friendly platform."
+      },
+      "services": {
+        "our": "Our",
+        "label": " SERVICES",
+        "title": "NADA Solutions for Environment Monitoring",
+        "items": {
+          "waveMonitor": "Wave Monitor",
+          "timeLapseCamera": "Time-lapse Camera",
+          "waterQualityMonitor": "Water Quality Monitor",
+          "currentsMonitor": "Currents Monitor",
+          "weatherMonitor": "Weather Monitor",
+          "waterLevelMonitor": "Water Level Monitor"
+        }
+      },
+      "caseStudy": {
+        "label": "CASE STUDY",
+        "title": "Customer Success with Nusa Network Prakarsa"
+      },
+      "technologyPartners": {
+        "label": "TECHNOLOGY PARTNERS",
+        "title": "Leading Solutions with World-Class Partners",
+        "cta": "Learn More about our Technology Partners"
+      },
+      "cta": {
+        "title": "Make Better Environmental Decisions",
+        "description": "NADA empowers you to make informed decisions through smarter, connected monitoring systems. Start transforming your ecosystem today.",
+        "button": "Schedule Free Consultation"
+      }
+    }
+  },
+  "footer": {
+    "address": "Jalan Kamal Raya Outer Ring Road, Mutiara Taman Palem A17 / 29 - 30, Kelurahan Cengkareng Timur, Kecamatan Cengkareng, Jakarta Barat, 11730",
+    "solutions": {
+      "title": "Solutions",
+      "items": {
+        "securityInfrastructure": "Security Infrastructure",
+        "managedServices": "Managed Services",
+        "iotSolution": "IoT Solution",
+        "dataCenter": "Data Center Infrastructure",
+        "networkInfrastructure": "Network Infrastructure"
+      }
+    },
+    "company": {
+      "title": "Company",
+      "items": {
+        "about": "About Us",
+        "caseStudy": "Case Study",
+        "blog": "Blog",
+        "careers": "Careers",
+        "partners": "Partners"
+      }
+    },
+    "resources": {
+      "title": "Resources",
+      "items": {
+        "privacy": "Privacy & Terms",
+        "sitemap": "Sitemap",
+        "certifications": "Certifications",
+        "contact": "Contact Us",
+        "support": "Support"
       }
     }
   }
