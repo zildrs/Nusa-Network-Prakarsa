@@ -4,6 +4,7 @@ import { BlogNavigation, BlogEmptyState, BlogCard } from "~/components/blog";
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -72,7 +73,8 @@ export default function BlogCategory() {
 
         {meta && meta.pagination && meta.pagination.pageCount > 1 && (
           <Pagination className="mt-8">
-            <PaginationContent>
+            <PaginationContent className="flex flex-wrap justify-center gap-1 sm:gap-2">
+              {/* Previous button */}
               <PaginationItem>
                 <PaginationPrevious
                   href={`?page=${meta.pagination.page - 1}`}
@@ -86,28 +88,52 @@ export default function BlogCategory() {
                 />
               </PaginationItem>
 
+              {/* Simplified Page Numbers */}
               {Array.from({ length: meta.pagination.pageCount }).map(
                 (_, idx) => {
                   const pageNum = idx + 1;
-                  return (
-                    <PaginationItem key={pageNum}>
-                      <PaginationLink
-                        href={`?page=${pageNum}`}
-                        isActive={pageNum === meta.pagination.page}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          navigate(
-                            `/blog/${categoryName.toLowerCase().replace(/\s+/g, "-")}?page=${pageNum}`
-                          );
-                        }}
-                      >
-                        {pageNum}
-                      </PaginationLink>
-                    </PaginationItem>
-                  );
+                  const current = meta.pagination.page;
+                  const last = meta.pagination.pageCount;
+
+                  // tampilkan hanya: 1, last, current ±1
+                  if (
+                    pageNum === 1 ||
+                    pageNum === last ||
+                    Math.abs(pageNum - current) <= 1
+                  ) {
+                    return (
+                      <PaginationItem key={pageNum}>
+                        <PaginationLink
+                          href={`?page=${pageNum}`}
+                          isActive={pageNum === current}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigate(
+                              `/blog/${categoryName.toLowerCase().replace(/\s+/g, "-")}?page=${pageNum}`
+                            );
+                          }}
+                        >
+                          {pageNum}
+                        </PaginationLink>
+                      </PaginationItem>
+                    );
+                  }
+
+                  // tampilkan ... di antara
+                  if (
+                    pageNum === current - 2 ||
+                    pageNum === current + 2 ||
+                    (current <= 3 && pageNum === 4) ||
+                    (current >= last - 2 && pageNum === last - 3)
+                  ) {
+                    return <PaginationEllipsis key={pageNum} />;
+                  }
+
+                  return null;
                 }
               )}
 
+              {/* Next button */}
               <PaginationItem>
                 <PaginationNext
                   href={`?page=${meta.pagination.page + 1}`}
