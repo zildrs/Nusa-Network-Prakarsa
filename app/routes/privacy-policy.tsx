@@ -77,7 +77,6 @@ export default function Contact() {
 
               <p>{t("privacyPolicy.generalTerms.content")}</p>
 
-              <p>{t("privacyPolicy.generalTerms.content")}</p>
             </div>
           </section>
         </main>
