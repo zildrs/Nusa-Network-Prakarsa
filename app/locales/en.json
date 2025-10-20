@@ -186,10 +186,23 @@
       "privacyPolicy": "Privacy Policy",
       "generalTerms": "General Terms"
     },
-    "privacyPolicy": {
+   "privacyPolicy": {
       "title": "Privacy Policy",
-      "lastUpdated": "Last updated: September 22, 2023",
-      "content": "This Privacy Policy describes Our policies and procedures on the collection, use, and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You. We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the Privacy Policy Generator."
+      "lastUpdated": "Last updated: 2025-10-20",
+      "sections": {
+        "section1": {
+          "title": "Information We Collect",
+          "content": "We collect information that you provide directly (for example, when you contact us) and information collected automatically (such as analytics and cookies). This information helps us operate and improve our services."
+        },
+        "section2": {
+          "title": "How We Use Your Information",
+          "content": "We use your information to provide, maintain, and improve our services, to communicate with you, and to comply with legal obligations. We do not sell your personal data."
+        },
+        "section3": {
+          "title": "Your Rights & Contact",
+          "content": "You may have rights to access, correct, or delete your personal data subject to applicable law. To exercise your rights or ask questions, contact privacy@usanetwork.com."
+        }
+      }
     },
     "generalTerms": {
       "title": "General Terms",
