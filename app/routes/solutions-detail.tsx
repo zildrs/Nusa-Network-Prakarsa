@@ -156,6 +156,8 @@ export default function SolutionDetail() {
           <div data-aos="fade-left" className="mt-8">
             <a
               href={data.hero_cta_link}
+              target={data.hero_cta_link?.startsWith("http") ? "_blank" : undefined}
+              rel={data.hero_cta_link?.startsWith("http") ? "noopener noreferrer" : undefined}
               className="w-fit bg-white flex items-center text-blue-950 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-100 transition"
             >
               {t(`solutionsDetail.${data.slug}.hero.cta`)}{" "}
