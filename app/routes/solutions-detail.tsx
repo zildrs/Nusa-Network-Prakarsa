@@ -365,7 +365,7 @@ export default function SolutionDetail() {
         <a
           data-aos="fade-up"
           data-aos-delay="200"
-          href="/partners"
+          href="/contact"
           className="my-8 hidden lg:inline-flex items-center font-medium"
         >
           {t(`solutionsDetail.${data.slug}..cta`)}{" "}
@@ -373,7 +373,7 @@ export default function SolutionDetail() {
         </a>
         <a
           data-aos="fade-up"
-          href="/partners"
+          href="/contact"
           className="my-8 flex items-center font-medium lg:hidden"
         >
           {t(`solutionsDetail.${data.slug}.technologyPartners.cta`)}{" "}
