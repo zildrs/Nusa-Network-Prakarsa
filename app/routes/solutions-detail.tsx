@@ -368,7 +368,7 @@ export default function SolutionDetail() {
           href="/contact"
           className="my-8 hidden lg:inline-flex items-center font-medium"
         >
-          {t(`solutionsDetail.${data.slug}..cta`)}{" "}
+          {t(`solutionsDetail.${data.slug}.technologyPartners.cta`)}{" "}
           <ArrowRight className="ml-2 h-5 w-5" />
         </a>
         <a
