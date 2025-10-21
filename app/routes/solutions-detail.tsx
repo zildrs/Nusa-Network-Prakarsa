@@ -365,15 +365,15 @@ export default function SolutionDetail() {
         <a
           data-aos="fade-up"
           data-aos-delay="200"
-          href="/contact"
+          href="/partners"
           className="my-8 hidden lg:inline-flex items-center font-medium"
         >
-          {t(`solutionsDetail.${data.slug}.technologyPartners.cta`)}{" "}
+          {t(`solutionsDetail.${data.slug}..cta`)}{" "}
           <ArrowRight className="ml-2 h-5 w-5" />
         </a>
         <a
           data-aos="fade-up"
-          href="/contact"
+          href="/partners"
           className="my-8 flex items-center font-medium lg:hidden"
         >
           {t(`solutionsDetail.${data.slug}.technologyPartners.cta`)}{" "}
