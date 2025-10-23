@@ -88,14 +88,16 @@ export default function Contact() {
             </p>
 
             <div className="space-y-8 text-gray-500 leading-relaxed">
-              {Object.keys(t("privacyPolicy.generalTerms.sections")).map((key) => (
-                <div key={key}>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {t(`privacyPolicy.generalTerms.sections.${key}.title`)}
-                  </h3>
-                  <p>{t(`privacyPolicy.generalTerms.sections.${key}.content`)}</p>
-                </div>
-              ))}
+              {t("privacyPolicy.generalTerms.sections", { returnObjects: true }).map(
+                (section, index) => (
+                  <div key={index}>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      {section.title}
+                    </h3>
+                    <p>{section.content}</p>
+                  </div>
+                )
+              )}
             </div>
           </section>
         </main>
