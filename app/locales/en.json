@@ -205,60 +205,10 @@
       }
     },
     "generalTerms": {
-  "title": "General Terms",
-  "lastUpdated": "Last updated: October 2025",
-  "sections": {
-    "section1": {
-      "title": "Definitions",
-      "content": "Key terms used in this agreement include: Contract (binding agreement between the Parties), Purchase Order (PO) (request for goods or services), Quotation (official written offer), Price (total payable amount), NNP Account Number (unique bank account of PT Nusa Network Prakarsa), Invoice, Guarantee, Confidential Information, Directly (physical submission), Electronically (digital submission), Fictitious Purchase Order (fraudulent order), and Force Majeure (uncontrollable events such as natural disasters or war)."
-    },
-    "section2": {
-      "title": "Term",
-      "content": "NNP will review and sign Purchase Orders (PO) received directly or electronically according to the Quotation. Once a PO is submitted, it cannot be canceled or changed unilaterally. Unilateral cancellation by the Customer incurs a 30% penalty. NNP reserves the right to reject any PO it cannot fulfill."
-    },
-    "section3": {
-      "title": "Time Period",
-      "content": "These General Terms remain valid and in effect continuously until all obligations of both Parties have been fulfilled, unless otherwise stated in the Purchase Order (PO) or Contract."
-    },
-    "section4": {
-      "title": "Price, Billing, and Payment Terms",
-      "content": "All prices include applicable taxes unless otherwise stated. Customers must pay NNP within 7 working days unless specified otherwise. Payments must follow the terms in the Quotation or PO, and invoices are issued accordingly. Late payments incur a 2% monthly penalty. NNP may take legal action or withhold goods/services if payment is overdue."
-    },
-    "section5": {
-      "title": "Taxes",
-      "content": "All duties, fees, and taxes arising from the Quotation or Purchase Order (PO) are the responsibility of each Party according to Indonesian tax laws."
-    },
-    "section6": {
-      "title": "Representatives",
-      "content": "NNP and the Customer shall each appoint authorized representatives to act on their behalf for any Quotation or Purchase Order (PO). These representatives may be replaced at any time at the discretion of their respective Parties."
-    },
-    "section7": {
-      "title": "Customer Obligations",
-      "content": "The Customer agrees to complete the NNP Customer Application Form before or after submitting a Quotation or Purchase Order (PO) and provide all required supporting documents, including legal entity or personal identification."
-    },
-    "section8": {
-      "title": "Confidentiality",
-      "content": "All information provided by the Customer to NNP (written or electronic) shall be treated as confidential and used solely for order execution. The Customer may request NNP to return or destroy such information at any time unless otherwise agreed. Confidential Information does not include public or lawfully obtained data."
-    },
-    "section9": {
-      "title": "Force Majeure",
-      "content": "Neither Party shall be liable for failure or delay in performance due to Force Majeure events such as war, riots, terrorism, natural disasters, epidemics, or strikes. The affected Party must notify the other within 24 hours verbally and within 48 hours in writing. If the Force Majeure continues for over 30 days, both Parties will meet to decide whether to terminate or continue the agreement."
-    },
-    "section10": {
-      "title": "Term and Termination",
-      "content": "If either Party enters liquidation, bankruptcy, or administrative proceedings, the other Party may immediately terminate the agreement by written notice."
-    },
-    "section11": {
-      "title": "Notices",
-      "content": "All communications related to Quotations or Purchase Orders (PO) may be made by letter or email. Letters are considered received within 7 calendar days of sending, while emails are considered received upon transmission with a valid delivery confirmation."
-    },
-    "section12": {
-      "title": "Governing Law and Dispute Settlement",
-      "content": "These General Terms are governed by the laws of the Republic of Indonesia. Any disputes shall first be resolved amicably within 30 calendar days. If unresolved, disputes may be submitted to the West Jakarta District Court or the Indonesian National Arbitration Board (BANI) in Jakarta."
+      "title": "General Terms",
+      "lastUpdated": "Last updated: September 22, 2023",
+      "content": "This Privacy Policy describes Our policies and procedures on the collection, use, and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You. We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the Privacy Policy Generator."
     }
-  }
-}
-
   },
   "achievement": {
     "title": "Achievement",
