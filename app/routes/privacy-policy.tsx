@@ -83,31 +83,19 @@ export default function Contact() {
             <h1 className="text-3xl font-medium text-gray-900 mb-2">
               {t("privacyPolicy.generalTerms.title")}
             </h1>
-            <p className=" text-gray-700 mb-6">
+            <p className="text-gray-700 mb-6">
               {t("privacyPolicy.generalTerms.lastUpdated")}
             </p>
 
             <div className="space-y-8 text-gray-500 leading-relaxed">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {t("privacyPolicy.generalTerms.sections.section1.title")}
-                </h3>
-                <p>{t("privacyPolicy.generalTerms.sections.section1.content")}</p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {t("privacyPolicy.generalTerms.sections.section2.title")}
-                </h3>
-                <p>{t("privacyPolicy.generalTerms.sections.section2.content")}</p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {t("privacyPolicy.generalTerms.sections.section3.title")}
-                </h3>
-                <p>{t("privacyPolicy.generalTerms.sections.section3.content")}</p>
-              </div>
+              {Object.keys(t("privacyPolicy.generalTerms.sections")).map((key) => (
+                <div key={key}>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    {t(`privacyPolicy.generalTerms.sections.${key}.title`)}
+                  </h3>
+                  <p>{t(`privacyPolicy.generalTerms.sections.${key}.content`)}</p>
+                </div>
+              ))}
             </div>
           </section>
         </main>
