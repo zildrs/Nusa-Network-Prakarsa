@@ -1,3 +1,5 @@
+import React from "react";
+
 import { cn } from "~/lib/utils";
 import type { Route } from "./+types/contact";
 import { useState } from "react";
@@ -10,6 +12,17 @@ export default function Contact() {
   const { t } = useOutletContext<{ t: any; locale: "id" | "en" }>();
   const [activeTab, setActiveTab] = useState("privacy");
 
+  function renderNewlines(text: string) {
+    if (typeof text !== 'string') return text;
+    
+    return text.split('\n').map((line, index) => (
+      <React.Fragment key={index}>
+        {line}
+        {}
+        {index < text.split('\n').length - 1 && <br />} 
+      </React.Fragment>
+    ));
+  }
   return (
     <main className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
       <div className="grid grid-cols-1 lg:grid-cols-4 lg:gap-8 gap-y-10">
@@ -55,11 +68,8 @@ export default function Contact() {
             </p>
 
             <div className="space-y-6 text-gray-500 leading-relaxed">
-              <p>{t("privacyPolicy.privacyPolicy.content")}</p>
-
-              <p>{t("privacyPolicy.privacyPolicy.content")}</p>
-
-              <p>{t("privacyPolicy.privacyPolicy.content")}</p>
+            <p>{renderNewlines(t("privacyPolicy.privacyPolicy.content"))}</p>
+            <p>{renderNewlines(t("privacyPolicy.privacyPolicy.contenttwo"))}</p>
             </div>
           </section>
 
@@ -73,11 +83,11 @@ export default function Contact() {
             </p>
 
             <div className="space-y-6 text-gray-500 leading-relaxed">
-              <p>{t("privacyPolicy.generalTerms.content")}</p>
+               <p>{renderNewlines(t("privacyPolicy.generalTerms.content"))}</p>
 
-              <p>{t("privacyPolicy.generalTerms.content")}</p>
+              <p>{renderNewlines(t("privacyPolicy.generalTerms.content"))}</p>
 
-              <p>{t("privacyPolicy.generalTerms.content")}</p>
+              <p>{renderNewlines(t("privacyPolicy.generalTerms.content"))}</p>
             </div>
           </section>
         </main>
