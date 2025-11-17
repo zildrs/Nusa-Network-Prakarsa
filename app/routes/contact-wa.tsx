@@ -8,7 +8,8 @@ export const meta = createMetaFunction(seoData.contact);
 export default function Contact() {
 
   useEffect(() => {
-    window.open(WHATSAPP_URL, '_blank');
+    // window.open(WHATSAPP_URL, '_blank');
+    window.location.replace(WHATSAPP_URL);
 
   }, []);
 
