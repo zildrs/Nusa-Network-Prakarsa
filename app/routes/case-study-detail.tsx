@@ -158,7 +158,7 @@ export default function CaseStudyDetail() {
               </p>
               <a
                 data-aos="fade-up"
-                href="/contact"
+                href="/contact-wa"
                 className="bg-primary w-fit hover:bg-primary text-white px-5 py-3 rounded-lg flex items-center gap-2 transition"
               >
                 Contact our experts <ArrowRight className="w-4 h-4" />

@@ -48,7 +48,7 @@ const CTASection = (props: CTAPropsType) => {
         </div>
         <Link
           data-aos="fade-left"
-          to={props.link || locale === "en" ? "/contact" : "/id/hubungi-kami"}
+          to={props.link || locale === "en" ? "/contact-wa" : "/id/hubungi-kami"}
           prefetch="intent"
           className="mt-6 md:mt-0 inline-flex items-center px-6 py-3 bg-white text-gray-900 font-medium rounded-lg shadow"
         >

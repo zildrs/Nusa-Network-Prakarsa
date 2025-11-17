@@ -49,7 +49,7 @@ export const solutions: Record<Solution, SolutionData> = {
       "Empower your business with enterprise-grade data center solutions, 24/7 uptime, and expert support — all tailored to your needs",
     hero_img: "/data-center.jpg",
     hero_cta: "Schedule Free Consultation",
-    hero_cta_link: "/",
+    hero_cta_link: "/contact-wa",
     what_we_do_title: "Reliable. Scalable. Always On.",
     what_we_do_subtitle:
       "From secure colocation and cloud-ready hosting to disaster recovery and 24/7 monitoring, our solutions are tailored to ensure uptime, compliance, and total peace of mind. Backed by certified experts and advanced infrastructure, we help you stay online, connected, and future-ready.",
@@ -105,7 +105,7 @@ export const solutions: Record<Solution, SolutionData> = {
       "Comprehensive IT solutions to keep your business ahead in the digital era",
     hero_img: "/hero.png",
     hero_cta: "Schedule Free Consultation",
-    hero_cta_link: "/contact",
+    hero_cta_link: "/contact-wa",
     what_we_do_title: "IT Solutions, Managed for You",
     what_we_do_subtitle:
       "We take care of monitoring, optimization, security, cloud, and recovery. Keeping your IT smooth, safe, and cost-effective. So you can focus on what matters most: your business.",
@@ -153,7 +153,7 @@ export const solutions: Record<Solution, SolutionData> = {
     cta_subtitle:
       "Focus on growing your business while we take care of monitoring, securing, and optimizing your IT.",
     cta_text: "Schedule Free Consultation",
-    cta_link: "/contact",
+    cta_link: "/contact-wa",
   },
   ["security-infrastructure"]: {
     title: "Security",
@@ -221,7 +221,7 @@ export const solutions: Record<Solution, SolutionData> = {
       "Future-proof your operations with tailored network design, implementation, and management — delivered by experts you can trust.",
     hero_img: "/network-infrastructure.jpg",
     hero_cta: "Schedule Free Consultation",
-    hero_cta_link: "/contact",
+    hero_cta_link: "/contact-wa",
     what_we_do_title: "Build a Future-Ready Network Today",
     what_we_do_subtitle:
       "Our expert team works with you to design, deploy, and manage end-to-end infrastructures tailored to your business needs — ensuring maximum uptime, optimal performance, and secure operations at every stage. ",

@@ -181,7 +181,7 @@ export default function Header({ locale, t }: HeaderProps) {
             {t("nav.support")}
           </Link>
           <Link
-            to="/contact"
+            to="/contact-wa"
             prefetch="intent"
             className="bg-primary text-white rounded-lg px-4 py-2 text-sm flex items-center gap-1"
           >

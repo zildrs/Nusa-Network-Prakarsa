@@ -208,7 +208,7 @@ export default function SolutionDetail() {
             <a
               data-aos="fade-left"
               data-aos-delay="500"
-              href="/contact"
+              href="/contact-wa"
               className="bg-primary inline-flex items-center text-white px-4 py-2 rounded-lg hover:bg-[#19376D] transition"
             >
               {t(`solutionsDetail.${data.slug}.navigation.consultFree`)}{" "}
