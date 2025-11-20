@@ -84,7 +84,7 @@ export function Layout() {
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
 
-              gtag('config', 'G-5N920H5NN9'); // Ganti ID ini jika perlu
+              gtag('config', 'G-5N920H5NN9');
             `,
           }}
         />
