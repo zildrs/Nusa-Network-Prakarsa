@@ -75,6 +75,19 @@ export function Layout() {
             __html: JSON.stringify(createOrganizationSchema()),
           }}
         />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-5N920H5NN9"></script>
+        
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-5N920H5NN9'); // Ganti ID ini jika perlu
+            `,
+          }}
+        />
       </head>
       <body>
         <Header locale={locale} t={t} />
