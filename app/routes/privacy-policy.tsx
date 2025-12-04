@@ -84,10 +84,7 @@ export default function Contact() {
 
             <div className="space-y-6 text-gray-500 leading-relaxed">
                <p>{renderNewlines(t("privacyPolicy.generalTerms.content"))}</p>
-
-              <p>{renderNewlines(t("privacyPolicy.generalTerms.content"))}</p>
-
-              <p>{renderNewlines(t("privacyPolicy.generalTerms.content"))}</p>
+              <p>{renderNewlines(t("privacyPolicy.generalTerms.contenttwo"))}</p>
             </div>
           </section>
         </main>
