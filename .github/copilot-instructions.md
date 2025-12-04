@@ -63,7 +63,8 @@ npm run typecheck    # Type-check with TypeScript
 - UI components in `app/components/ui/` wrap Radix UI primitives
 
 ### Routes
-- Define routes in `app/routes.ts`
+- Configure routes in `app/routes.ts` using `index()` and `route()` helpers
+- Routes are exported as an array satisfying `RouteConfig`
 - Route modules export `meta`, `loader`, `action`, and default component
 - Use React Router data APIs (loaders/actions)
 - Server-side rendering is enabled by default
