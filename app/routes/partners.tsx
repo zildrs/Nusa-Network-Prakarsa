@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import type { Route } from "./+types/partners";
 import { useLoaderData, useOutletContext } from "react-router";
 import {
@@ -53,8 +53,20 @@ export default function Partner() {
   );
 
   const handleImageError = (imageId: string) => {
-    setBrokenImages(prev => new Set(prev).add(imageId));
+    setBrokenImages(prev => {
+      const newSet = new Set(prev);
+      newSet.add(imageId);
+      return newSet;
+    });
   };
+
+  // Memoize related projects to avoid recalculating on every render
+  const relatedProjects = useMemo(() => {
+    if (!selected?.solutions) return [];
+    return projects
+      .filter((p) => selected.solutions?.some((s) => s.id === p.solution?.id))
+      .slice(0, 2);
+  }, [selected, projects]);
 
   return (
     <div className="relative min-h-[80vh] bg-white border-b border-gray-200">
@@ -166,26 +178,20 @@ export default function Partner() {
                   {t("partners.modal.related")}
                 </h3>
 
-                {(() => {
-                  const relatedProjects = projects.filter((p) =>
-                    selected?.solutions?.some((s) => s.id === p.solution?.id)
-                  ).slice(0, 2);
-
-                  return relatedProjects.length > 0 ? (
-                    relatedProjects.map((p) => (
-                      <div key={p.documentId || p.id} className="mb-2">
-                        <a
-                          href={`${locale === "id" ? "/id/studi-kasus" : "/case-study"}/${p.slug}`}
-                          className="text-blue-600 underline hover:text-blue-800 line-clamp-3 block"
-                        >
-                          • {p.title}
-                        </a>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-gray-500">{t("partners.modal.noRelated") || "No related projects available"}</p>
-                  );
-                })()}
+                {relatedProjects.length > 0 ? (
+                  relatedProjects.map((p) => (
+                    <div key={p.documentId || p.id} className="mb-2">
+                      <a
+                        href={`${locale === "id" ? "/id/studi-kasus" : "/case-study"}/${p.slug}`}
+                        className="text-blue-600 underline hover:text-blue-800 line-clamp-3 block"
+                      >
+                        • {p.title}
+                      </a>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-gray-500">{t("partners.modal.noRelated") || "No related projects available"}</p>
+                )}
               </div>
             </div>
           </DialogContent>
