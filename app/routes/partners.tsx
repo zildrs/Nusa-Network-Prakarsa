@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import type { Route } from "./+types/partners";
 import { useLoaderData, useOutletContext } from "react-router";
 import {
@@ -7,8 +7,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  // DialogTrigger,
-  DialogClose,
 } from "~/components/ui/dialog";
 import { createMetaFunction, seoData } from "~/lib/meta";
 import {
@@ -22,18 +20,36 @@ import type { Locale } from "~/i18n";
 export const meta = createMetaFunction(seoData.partners);
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const [{ partners }, { projects }] = await Promise.all([
-    fetchPartnersData(request),
-    fetchProjectsData(request),
-  ]);
+  try {
+    const [{ partners }, { projects }] = await Promise.all([
+      fetchPartnersData(request),
+      fetchProjectsData(request),
+    ]);
 
-  return { partners, projects };
+    return { 
+      partners: partners || [], 
+      projects: projects || [], 
+      error: null 
+    };
+  } catch (error) {
+    console.error("Error loading partners data:", error);
+    return { 
+      partners: [], 
+      projects: [], 
+      error: "Failed to load partners data" 
+    };
+  }
 }
 
 export default function Partner() {
   const { t, locale } = useOutletContext<{ t: any; locale: Locale }>();
-  const { partners, projects } = useLoaderData<typeof loader>();
+  const { partners, projects, error } = useLoaderData<typeof loader>();
   const [selected, setSelected] = useState<PartnerType | null>(null);
+
+  // Filter out partners without logos to prevent rendering errors
+  const validPartners = partners.filter(
+    (p) => p.company_logo && p.company_logo.url
+  );
 
   return (
     <div className="relative min-h-[80vh] bg-white border-b border-gray-200">
@@ -56,22 +72,44 @@ export default function Partner() {
       </div>
 
       {/* Partners Grid */}
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-10 items-center justify-center">
-        {partners.map((p, i) => (
-          <button
-            key={i}
-            onClick={() => setSelected(p)}
-            data-aos="fade-up"
-            data-aos-delay={100 * (i + 1)}
-            className="flex justify-center grayscale min-h-[150px] items-center hover:grayscale-0 transition hover:scale-105 hover:cursor-pointer"
-          >
-            <img
-              src={API_BASE_URL + p.company_logo.url}
-              alt={p.name}
-              className="h-12 object-contain"
-            />
-          </button>
-        ))}
+      <div className="max-w-7xl mx-auto px-6 pb-16">
+        {error && (
+          <div className="text-center py-12">
+            <p className="text-red-600 text-lg">{error}</p>
+            <p className="text-gray-500 mt-2">Please try again later.</p>
+          </div>
+        )}
+        
+        {!error && validPartners.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-600 text-lg">
+              {t("partners.empty") || "No partners available at the moment."}
+            </p>
+          </div>
+        )}
+        
+        {!error && validPartners.length > 0 && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-10 items-center justify-center">
+            {validPartners.map((p, i) => (
+              <button
+                key={p.documentId || p.id}
+                onClick={() => setSelected(p)}
+                data-aos="fade-up"
+                data-aos-delay={100 * (i + 1)}
+                className="flex justify-center grayscale min-h-[150px] items-center hover:grayscale-0 transition hover:scale-105 hover:cursor-pointer"
+              >
+                <img
+                  src={API_BASE_URL + p.company_logo.url}
+                  alt={p.name}
+                  className="h-12 object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="relative px-4">
@@ -81,11 +119,14 @@ export default function Partner() {
             <div className="grid grid-cols-1 md:grid-cols-2">
               {/* Left side */}
               <div className=" py-12 px-8">
-                {selected?.company_logo.url && (
+                {selected?.company_logo?.url && (
                   <img
                     src={API_BASE_URL + selected.company_logo.url}
                     alt={selected.name}
                     className="h-10 mb-4"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
                   />
                 )}
                 <DialogHeader>
@@ -104,9 +145,13 @@ export default function Partner() {
                   {t("partners.modal.solutions")}
                 </h3>
                 <ul className="list-disc list-inside text-gray-500 space-y-1">
-                  {selected?.solutions?.map((s, i) => (
-                    <li key={i}>{s.name}</li>
-                  ))}
+                  {selected?.solutions && selected.solutions.length > 0 ? (
+                    selected.solutions.map((s) => (
+                      <li key={s.documentId || s.id}>{s.name}</li>
+                    ))
+                  ) : (
+                    <li className="list-none">{t("partners.modal.noSolutions") || "No solutions available"}</li>
+                  )}
                 </ul>
 
                 <h3 className="font-semibold mt-4 mb-2">
@@ -118,19 +163,22 @@ export default function Partner() {
                     selected?.solutions?.some((s) => s.id === p.solution?.id)
                   )
                   .slice(0, 2)
-                  .map((p, i) => (
-                    <div key={i} className="flex">
-                      <ul className="list-disc list-inside text-gray-500 space-y-1">
-                        <li></li>
-                      </ul>
+                  .map((p) => (
+                    <div key={p.documentId || p.id} className="mb-2">
                       <a
                         href={`${locale === "id" ? "/id/studi-kasus" : "/case-study"}/${p.slug}`}
-                        className="text-blue-600 underline hover:text-blue-800 line-clamp-3 "
+                        className="text-blue-600 underline hover:text-blue-800 line-clamp-3 block"
                       >
-                        {p.title}
+                        • {p.title}
                       </a>
                     </div>
                   ))}
+                
+                {projects.filter((p) =>
+                    selected?.solutions?.some((s) => s.id === p.solution?.id)
+                  ).length === 0 && (
+                    <p className="text-gray-500">{t("partners.modal.noRelated") || "No related projects available"}</p>
+                  )}
               </div>
             </div>
           </DialogContent>
