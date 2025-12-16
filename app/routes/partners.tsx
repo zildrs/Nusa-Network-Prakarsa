@@ -49,7 +49,7 @@ export default function Partner() {
 
   // Filter out partners without logos to prevent rendering errors
   const validPartners = partners.filter(
-    (p) => p.company_logo && p.company_logo.url
+    (p) => p.company_logo?.url
   );
 
   const handleImageError = (imageId: string) => {
@@ -109,7 +109,7 @@ export default function Partner() {
                 >
                   {!isImageBroken && (
                     <img
-                      src={API_BASE_URL + p.company_logo.url}
+                      src={API_BASE_URL + p.company_logo?.url}
                       alt={p.name}
                       className="h-12 object-contain"
                       onError={() => handleImageError(imageId)}
@@ -131,7 +131,7 @@ export default function Partner() {
               <div className=" py-12 px-8">
                 {selected?.company_logo?.url && !brokenImages.has(`selected-${selected.documentId || selected.id}`) && (
                   <img
-                    src={API_BASE_URL + selected.company_logo.url}
+                    src={API_BASE_URL + selected.company_logo?.url}
                     alt={selected.name}
                     className="h-10 mb-4"
                     onError={() => handleImageError(`selected-${selected.documentId || selected.id}`)}
