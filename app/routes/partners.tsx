@@ -45,11 +45,16 @@ export default function Partner() {
   const { t, locale } = useOutletContext<{ t: any; locale: Locale }>();
   const { partners, projects, error } = useLoaderData<typeof loader>();
   const [selected, setSelected] = useState<PartnerType | null>(null);
+  const [brokenImages, setBrokenImages] = useState<Set<string>>(new Set());
 
   // Filter out partners without logos to prevent rendering errors
   const validPartners = partners.filter(
     (p) => p.company_logo && p.company_logo.url
   );
+
+  const handleImageError = (imageId: string) => {
+    setBrokenImages(prev => new Set(prev).add(imageId));
+  };
 
   return (
     <div className="relative min-h-[80vh] bg-white border-b border-gray-200">
@@ -90,24 +95,29 @@ export default function Partner() {
         
         {!error && validPartners.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-10 items-center justify-center">
-            {validPartners.map((p, i) => (
-              <button
-                key={p.documentId || p.id}
-                onClick={() => setSelected(p)}
-                data-aos="fade-up"
-                data-aos-delay={100 * (i + 1)}
-                className="flex justify-center grayscale min-h-[150px] items-center hover:grayscale-0 transition hover:scale-105 hover:cursor-pointer"
-              >
-                <img
-                  src={API_BASE_URL + p.company_logo.url}
-                  alt={p.name}
-                  className="h-12 object-contain"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-              </button>
-            ))}
+            {validPartners.map((p, i) => {
+              const imageId = `partner-${p.documentId || p.id}`;
+              const isImageBroken = brokenImages.has(imageId);
+              
+              return (
+                <button
+                  key={p.documentId || p.id}
+                  onClick={() => setSelected(p)}
+                  data-aos="fade-up"
+                  data-aos-delay={100 * (i + 1)}
+                  className="flex justify-center grayscale min-h-[150px] items-center hover:grayscale-0 transition hover:scale-105 hover:cursor-pointer"
+                >
+                  {!isImageBroken && (
+                    <img
+                      src={API_BASE_URL + p.company_logo.url}
+                      alt={p.name}
+                      className="h-12 object-contain"
+                      onError={() => handleImageError(imageId)}
+                    />
+                  )}
+                </button>
+              );
+            })}
           </div>
         )}
       </div>
@@ -119,14 +129,12 @@ export default function Partner() {
             <div className="grid grid-cols-1 md:grid-cols-2">
               {/* Left side */}
               <div className=" py-12 px-8">
-                {selected?.company_logo?.url && (
+                {selected?.company_logo?.url && !brokenImages.has(`selected-${selected.documentId || selected.id}`) && (
                   <img
                     src={API_BASE_URL + selected.company_logo.url}
                     alt={selected.name}
                     className="h-10 mb-4"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                    }}
+                    onError={() => handleImageError(`selected-${selected.documentId || selected.id}`)}
                   />
                 )}
                 <DialogHeader>
@@ -158,27 +166,26 @@ export default function Partner() {
                   {t("partners.modal.related")}
                 </h3>
 
-                {projects
-                  .filter((p) =>
+                {(() => {
+                  const relatedProjects = projects.filter((p) =>
                     selected?.solutions?.some((s) => s.id === p.solution?.id)
-                  )
-                  .slice(0, 2)
-                  .map((p) => (
-                    <div key={p.documentId || p.id} className="mb-2">
-                      <a
-                        href={`${locale === "id" ? "/id/studi-kasus" : "/case-study"}/${p.slug}`}
-                        className="text-blue-600 underline hover:text-blue-800 line-clamp-3 block"
-                      >
-                        • {p.title}
-                      </a>
-                    </div>
-                  ))}
-                
-                {projects.filter((p) =>
-                    selected?.solutions?.some((s) => s.id === p.solution?.id)
-                  ).length === 0 && (
+                  ).slice(0, 2);
+
+                  return relatedProjects.length > 0 ? (
+                    relatedProjects.map((p) => (
+                      <div key={p.documentId || p.id} className="mb-2">
+                        <a
+                          href={`${locale === "id" ? "/id/studi-kasus" : "/case-study"}/${p.slug}`}
+                          className="text-blue-600 underline hover:text-blue-800 line-clamp-3 block"
+                        >
+                          • {p.title}
+                        </a>
+                      </div>
+                    ))
+                  ) : (
                     <p className="text-gray-500">{t("partners.modal.noRelated") || "No related projects available"}</p>
-                  )}
+                  );
+                })()}
               </div>
             </div>
           </DialogContent>
