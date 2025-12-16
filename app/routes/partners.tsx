@@ -47,9 +47,14 @@ export default function Partner() {
   const [selected, setSelected] = useState<PartnerType | null>(null);
   const [brokenImages, setBrokenImages] = useState<Set<string>>(new Set());
 
+  // Helper function to generate unique image IDs
+  const getImageId = (prefix: string, partner: PartnerType) => 
+    `${prefix}-${partner.documentId || partner.id}`;
+
   // Filter out partners without logos to prevent rendering errors
-  const validPartners = partners.filter(
-    (p) => p.company_logo?.url
+  const validPartners = useMemo(
+    () => partners.filter((p) => p.company_logo?.url),
+    [partners]
   );
 
   const handleImageError = (imageId: string) => {
@@ -108,7 +113,7 @@ export default function Partner() {
         {!error && validPartners.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-10 items-center justify-center">
             {validPartners.map((p, i) => {
-              const imageId = `partner-${p.documentId || p.id}`;
+              const imageId = getImageId('partner', p);
               const isImageBroken = brokenImages.has(imageId);
               
               return (
@@ -141,14 +146,17 @@ export default function Partner() {
             <div className="grid grid-cols-1 md:grid-cols-2">
               {/* Left side */}
               <div className=" py-12 px-8">
-                {selected?.company_logo?.url && !brokenImages.has(`selected-${selected.documentId || selected.id}`) && (
-                  <img
-                    src={API_BASE_URL + selected.company_logo?.url}
-                    alt={selected.name}
-                    className="h-10 mb-4"
-                    onError={() => handleImageError(`selected-${selected.documentId || selected.id}`)}
-                  />
-                )}
+                {selected && (() => {
+                  const imageId = getImageId('selected', selected);
+                  return selected.company_logo?.url && !brokenImages.has(imageId) && (
+                    <img
+                      src={API_BASE_URL + selected.company_logo?.url}
+                      alt={selected.name}
+                      className="h-10 mb-4"
+                      onError={() => handleImageError(imageId)}
+                    />
+                  );
+                })()}
                 <DialogHeader>
                   <DialogTitle className="text-2xl font-semibold text-left">
                     {selected?.name}
