@@ -54,6 +54,10 @@ export default [
   route("sitemap", "routes/sitemap.tsx"),
   route("id/sitemap", "routes/sitemap.tsx", { id: "sitemap-id" }),
 
+  // SEO routes
+  route("sitemap.xml", "routes/sitemap[.]xml.tsx"),
+  route("robots.txt", "routes/robots[.]txt.tsx"),
+
   // Solutions (auto-generate EN & ID)
   // routes.ts
   // Solutions (universal handler)
