@@ -163,7 +163,7 @@ export const solutions: Record<Solution, SolutionData> = {
       "From endpoints to cloud, Nusa Network delivers comprehensive, enterprise-grade security solutions to protect your business in real time.",
     hero_img: "/security-infrastructure.png",
     hero_cta: "Schedule a Free Consultation",
-    hero_cta_link: "/contact",
+    hero_cta_link: "/contact-wa",
     what_we_do_title:
       "Protecting Every Layer of Your IT Infrastructure with Expert Precision",
     what_we_do_subtitle:
