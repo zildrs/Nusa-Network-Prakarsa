@@ -53,6 +53,7 @@ export default [
   }),
 
   // Sitemap
+  route("sitemap.xml", "routes/sitemap[.]xml.tsx"),
   route("sitemap", "routes/sitemap.tsx"),
   route("id/sitemap", "routes/sitemap.tsx", { id: "sitemap-id" }),
 
