@@ -264,7 +264,7 @@ export default function Header({ locale, t }: HeaderProps) {
 
           <div className="mt-6 flex flex-col gap-2">
             <Link
-              to="/contact"
+              to="/contact-wa"
               prefetch="intent"
               className="bg-primary text-white rounded-lg px-4 py-3 flex justify-center items-center gap-1"
             >
