@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Link } from "react-router";
+
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -39,6 +41,19 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(false);
+
+useEffect(() => {
+  const checkMobile = () => {
+    setIsMobile(window.innerWidth < 1024);
+  };
+  
+  checkMobile(); // Cek saat pertama render
+  window.addEventListener('resize', checkMobile);
+  
+  return () => window.removeEventListener('resize', checkMobile);
+}, []);
+
   const swiperRef = useRef<SwiperRef | null>(null);
   const [Marquee, setMarquee] = useState<any>(null);
   const { t } = useOutletContext<{ t: any; locale: Locale }>();
@@ -107,6 +122,18 @@ export default function Home() {
             </p>
           </div>
         </div>
+        {isMobile && (
+  <div className="flex justify-center my-6"> {/* Div pembungkus untuk centering */}
+    <Link
+      to="/contact-wa"
+      prefetch="intent"
+      className="bg-primary text-white rounded-full px-8 py-3 inline-flex justify-center items-center gap-1 w-auto min-w-[200px] max-w-[250px]"
+      style={{ width: 'auto' }} /* Pastikan tidak full width */
+    >
+      {t("nav.contact")} <ArrowRight className="w-4 h-4" />
+    </Link>
+  </div>
+)}
         <img
           src="/hero.png"
           className="w-full aspect-[3/3] lg:aspect-[8/3] object-cover"
