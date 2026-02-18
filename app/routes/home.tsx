@@ -123,17 +123,16 @@ useEffect(() => {
           </div>
         </div>
         {isMobile && (
-  <div className="flex justify-center my-6"> {/* Div pembungkus untuk centering */}
-    <Link
-      to="/contact-wa"
-      prefetch="intent"
-      className="bg-primary text-white rounded-full px-8 py-3 inline-flex justify-center items-center gap-1 w-auto min-w-[200px] max-w-[250px]"
-      style={{ width: 'auto' }} /* Pastikan tidak full width */
-    >
-      {t("nav.contact")} <ArrowRight className="w-4 h-4" />
-    </Link>
-  </div>
-)}
+          <div className="px-4 w-full mb-6"> {/* Tambah mb-6 untuk jarak ke gambar di bawah */}
+            <Link
+              to="/contact-wa"
+              prefetch="intent"
+              className="bg-primary text-white rounded-lg px-4 py-4 flex justify-center items-center gap-1 w-full"
+            >
+              {t("nav.contact")} <ArrowRight className="w-4 h-4 ml-1" />
+            </Link>
+          </div>
+        )}
         <img
           src="/hero.png"
           className="w-full aspect-[3/3] lg:aspect-[8/3] object-cover"
