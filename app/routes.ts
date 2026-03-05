@@ -10,7 +10,9 @@ export default [
 
   // Contact
   route("contact", "routes/contact.tsx"),
-  route("id/hubungi-kami", "routes/contact.tsx", { id: "hubungi-kami" }),
+  route("contact-wa", "routes/contact-wa.tsx"),
+  
+  route("id/hubungi-kami", "routes/contact-wa.tsx", { id: "hubungi-kami" }),
 
   // Careers
   route("careers", "routes/careers.tsx"),
