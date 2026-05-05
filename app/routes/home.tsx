@@ -94,6 +94,87 @@ useEffect(() => {
     "/logos/telkom.png",
   ];
 
+  type Partner2 = {
+    src: string;
+    alt: string;
+    href?: string;
+    rel?: string;
+    target?: string;
+  };
+  
+  const partners2: Partner2[] = [
+    {
+      src: "/partner2/aruba.png",
+      alt: "Aruba",
+      href: "/partner2/aruba.png",
+      rel: "",
+      target: "",
+    },
+    {
+      src: "/partner2/cambium.png",
+      alt: "Cambium",
+      href: "/partner2/cambium.png",
+      rel: "",
+      target: "",
+    },
+    {
+      src: "/partner2/cisco.png",
+      alt: "Cisco",
+      href: "https://dash.nusanetwork.com/uploads/Cisco_149c2bb6e3.png",
+      rel: "",
+      target: "",
+    },
+    {
+      src: "/partner2/dell.png",
+      alt: "Dell",
+      href: "/partner2/dell.png",
+      rel: "",
+      target: "",
+    },
+    {
+      src: "/partner2/f5.png",
+      alt: "F5",
+      href: "/partner2/f5.png",
+      rel: "",
+      target: "",
+    },
+    {
+      src: "/partner2/fasoo.png",
+      alt: "Fasoo",
+      href: "/partner2/fasoo.png",
+      rel: "",
+      target: "",
+    },
+    {
+      src: "/partner2/fortinet.png",
+      alt: "Fortinet",
+      href: "https://dash.nusanetwork.com/uploads/fortinet_48b6209356.png",
+      rel: "",
+      target: "",
+    },
+    {
+      src: "/partner2/huawei.png",
+      alt: "Huawei",
+      href: "https://dash.nusanetwork.com/uploads/Logo_Huawei_dd9b01adfa.png",
+      rel: "",
+      target: "",
+    },
+    {
+      src: "/partner2/juniper.png",
+      alt: "Juniper",
+      href: "/partner2/juniper.png",
+      rel: "",
+      target: "",
+    },
+    {
+      src: "/partner2/peplink.png",
+      alt: "Peplink",
+      href: "https://dash.nusanetwork.com/uploads/Peplink_e23b7b2976.png",
+      rel: "nofollow",
+      target: "_blank",
+    },
+  ];
+
   return (
     <main>
       <section className="bg-white">
@@ -422,13 +503,19 @@ useEffect(() => {
             gradientWidth={50}
             spacing={16}
           >
-            {partners.map((src, index) => (
-              <img
+            {partners2.map((partner2, index) => (
+              <a
                 key={index}
-                src={src}
-                alt="Partner"
-                className="h-12 w-auto px-8"
-              />
+                href={partner2.href}
+                target={partner2.target}
+                rel={partner2.rel}
+              >
+                <img
+                  src={partner2.src}
+                  alt={partner2.alt}
+                  className="h-12 w-auto px-8"
+                />
+              </a>
             ))}
           </Marquee>
         )}
