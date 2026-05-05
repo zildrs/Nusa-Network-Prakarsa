@@ -167,9 +167,9 @@ useEffect(() => {
       target: "",
     },
     {
-      src: "/partner2/peplink.png",
+      src: "https://dash.nusanetwork.com/uploads/Peplink_e23b7b2976.png",
       alt: "Peplink",
-      href: "https://dash.nusanetwork.com/uploads/Peplink_e23b7b2976.png",
+      href: "https://www.peplink.com/",
       rel: "nofollow",
       target: "_blank",
     },
