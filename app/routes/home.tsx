@@ -215,7 +215,7 @@ useEffect(() => {
           </div>
         )}
         <img
-          src="/hero.png"
+          src="/hero.webp"
           className="w-full aspect-[3/3] lg:aspect-[8/3] object-cover"
           alt="Server Room"
         />

@@ -38,7 +38,7 @@ export const solutionsMenu = [
     slug: "managed-services",
     desc: "Preventive & Corrective Maintenance",
     icon: LoadBalancerNetwork,
-    img: "/hero.png",
+    img: "/hero.webp",
   },
   {
     title: "Network Infrastructure",

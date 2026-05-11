@@ -103,7 +103,7 @@ export const solutions: Record<Solution, SolutionData> = {
     hero_title: "All-in-One IT Care for Your Business",
     hero_subtitle:
       "Comprehensive IT solutions to keep your business ahead in the digital era",
-    hero_img: "/hero.png",
+    hero_img: "/hero.webp",
     hero_cta: "Schedule Free Consultation",
     hero_cta_link: "/contact-wa",
     what_we_do_title: "IT Solutions, Managed for You",
