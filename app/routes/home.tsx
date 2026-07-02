@@ -355,7 +355,7 @@ useEffect(() => {
             slidesPerView={1.2}
             breakpoints={{
               768: { slidesPerView: 2.5 },
-              1024: { slidesPerView: 3.5, pagination: false },
+              1024: { slidesPerView: 3.5 },
             }}
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
