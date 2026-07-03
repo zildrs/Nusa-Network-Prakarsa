@@ -1,5 +1,10 @@
+import { data } from "react-router";
 import { solutionsMenu } from "~/components/header";
 import type { Route } from "./+types/contact";
+
+export function loader() {
+  return data(null, { status: 404 });
+}
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -10,8 +15,8 @@ export function meta({}: Route.MetaArgs) {
       content:
         "Page not found. Please contact us if you need further assistance.",
     },
-    { property: "og:image", content: "https://nusanetwork.com/logo.png" },
-    { property: "og:url", content: "https://nusanetwork.com/404" },
+    { property: "og:image", content: "https://www.nusanetwork.com/logo.png" },
+    { property: "og:url", content: "https://www.nusanetwork.com/404" },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: "404 - Not Found | Nusa Network" },

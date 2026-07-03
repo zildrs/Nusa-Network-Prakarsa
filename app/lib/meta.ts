@@ -1,10 +1,6 @@
 // seo-utils.ts
 import type { MetaFunction } from "react-router";
-import {
-  createBreadcrumbSchema,
-  createOrganizationSchema,
-  createServiceSchema,
-} from "./seo";
+import { createOrganizationSchema } from "./seo";
 
 export interface SEOData {
   title: string;
@@ -31,7 +27,7 @@ export function getCanonicalUrl(
     originFallback ??
     (typeof window !== "undefined"
       ? window.location.origin
-      : "https://nusanetwork.com");
+      : "https://www.nusanetwork.com");
 
   if (typeof source === "string") {
     const u = new URL(source, origin);
@@ -67,7 +63,7 @@ export function gethrefLangUrls(
     originFallback ??
     (typeof window !== "undefined"
       ? window.location.origin
-      : "https://nusanetwork.com");
+      : "https://www.nusanetwork.com");
 
   if (typeof source === "string") {
     const u = new URL(source, origin);
@@ -113,7 +109,7 @@ export function createMetaFunction(seoData: LocalizedSEO): MetaFunction {
       typeof window !== "undefined"
         ? window.location.origin
         : (import.meta.env.VITE_APP_BASE_URL ??
-          "https://staging.nusanetwork.com");
+          "https://www.nusanetwork.com");
 
     // make URL object for parsing query
     let urlObj: URL;
@@ -178,28 +174,6 @@ export function createMetaFunction(seoData: LocalizedSEO): MetaFunction {
       tags.push({ rel: "canonical", href: seo.canonical });
     }
 
-    tags.push({
-      tagName: "script",
-      type: "application/ld+json",
-      children: JSON.stringify(
-        createBreadcrumbSchema([
-          { name: "Home", url: "https://nusanetwork.com/" },
-          { name: "About", url: "https://nusanetwork.com/about" },
-          { name: "Blog", url: "https://nusanetwork.com/blog" },
-          { name: "Case Study", url: "https://nusanetwork.com/case-study" },
-          { name: "Solutions", url: "https://nusanetwork.com/solutions" },
-          { name: "Partners", url: "https://nusanetwork.com/partners" },
-          {
-            name: "Certifications",
-            url: "https://nusanetwork.com/certifications",
-          },
-          { name: "Contact", url: "https://nusanetwork.com/contact" },
-          { name: "Careers", url: "https://nusanetwork.com/careers" },
-          { name: "Sitemap", url: "https://nusanetwork.com/sitemap" },
-        ])
-      ),
-    });
-
     return tags;
   };
 
@@ -211,72 +185,72 @@ export const seoData = {
     en: {
       title: "Nusa Network Prakarsa | System Integrator Company",
       description:
-        "Nusa Network is a trusted System Integrator in Indonesia providing end to end IT solutions covering network infrastructure cybersecurity and data center services",
+        "Nusa Network is a system integrator company in Indonesia providing network infrastructure, cybersecurity, and data center solutions",
     },
     id: {
       title: "Nusa Network Prakarsa | Perusahaan System Integrator",
       description:
-        "Nusa Network adalah system integrator terpercaya di Indonesia yang menyediakan solusi IT menyeluruh mulai dari infrastruktur jaringan, keamanan siber, hingga layanan data center",
+        "Nusa Network merupakan perusahaan system integrator di Indonesia yang menghadirkan solusi network infstructure, data center infrastructure, dan security infrastructure",
     },
   },
   "security-infrastructure": {
     en: {
       title: "Security Infrastructure | Nusa Network Prakarsa",
       description:
-        "Nusa Network provides reliable Security Infrastructure solutions to protect businesses with advanced network systems, cybersecurity, and data center integration",
+        "Nusa Network provides Security Infrastructure solutions to enhance network and business data security",
     },
     id: {
       title: "Security Infrastructure | Nusa Network Prakarsa",
       description:
-        "Nusa Network menyediakan solusi Security Infrastructure yang andal untuk melindungi bisnis melalui sistem jaringan canggih, keamanan siber, dan integrasi data center.",
+        "Nusa Network menyediakan solusi Security Infrastructure untuk meningkatkan keamanan jaringan dan data bisnis",
     },
   },
   "managed-services": {
     en: {
       title: "Managed Services | Nusa Network Prakarsa",
       description:
-        "Nusa Network Managed Services ensures smooth IT operations with cost efficient solutions covering network infrastructure, security, and data center",
+        "Nusa Network Prakarsa provides flexible Managed Services solutions to support your business IT infrastructure needs",
     },
     id: {
       title: "Managed Services | Nusa Network Prakarsa",
       description:
-        "Nusa Network Managed Services membantu menjaga kelancaran operasional IT dengan solusi hemat biaya yang mencakup network infrastructure, security, and data center",
+        "Nusa Network Prakarsa menyediakan solusi Managed Services yang fleksibel untuk mendukung kebutuhan infrastruktur IT bisnis",
     },
   },
   "internet-of-things": {
     en: {
       title: "IoT Solution | Nusa Network Prakarsa",
       description:
-        "Nusa Network IoT Solution introduces Nada a powerful tool for ecosystem monitoring providing real time data visualization and smart system integration",
+        "Nusa Network offers NADA, an IoT-based Early Warning System that enhances security and enables rapid response",
     },
     id: {
       title: "IoT Solution | Nusa Network Prakarsa",
       description:
-        "Nusa Network IoT Solution memperkenalkan Nada, sebuah alat canggih untuk pemantauan ekosistem yang menyediakan visualisasi data real time dan integrasi sistem pintar",
+        "Nusa Network menghadirkan NADA, solusi IoT berbasis Early Warning System untuk meningkatkan keamanan dan respons cepat",
     },
   },
   "data-center": {
     en: {
       title: "Data Center Infrastructure | Nusa Network Prakarsa",
       description:
-        "Nusa Network provides reliable Data Center Infrastructure solutions to support secure, scalable, and efficient IT operations for modern businesses",
+        "Nusa Network provides reliable, secure, and scalable Data Center Infrastructure solutions to support your business.",
     },
     id: {
       title: "Data Center Infrastructure | Nusa Network Prakarsa",
       description:
-        "Nusa Network menyediakan solusi Data Center Infrastructure yang andal untuk mendukung operasional IT yang aman, skalabel, dan efisien untuk bisnis Anda",
+        "Nusa Network menyediakan solusi Data Center Infrastructure yang andal, aman, dan skalabel untuk kebutuhan bisnis",
     },
   },
   "network-infrastructure": {
     en: {
       title: "Network Infrastructure | Nusa Network Prakarsa",
       description:
-        "Nusa Network provides secure and scalable Network Infrastructure solutions to ensure reliable connectivity and support business digital transformation",
+        "Nusa Network provides secure and reliable Network Infrastructure solutions to support your business's digital needs",
     },
     id: {
       title: "Network Infrastructure | Nusa Network Prakarsa",
       description:
-        "Nusa Network menawarkan solusi Network Infrastructure yang aman dan skalabel untuk menjamin konektivitas andal serta menunjang kebutuhan digitalisasi perusahaan",
+        "Nusa Network menyediakan solusi Network Infrastructure yang aman dan andal untuk kebutuhan digital bisnis",
     },
   },
   about: {

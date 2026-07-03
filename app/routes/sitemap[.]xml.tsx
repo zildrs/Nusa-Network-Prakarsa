@@ -1,7 +1,7 @@
 import type { LoaderFunctionArgs } from "react-router";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const baseUrl = "https://nusanetwork.com";
+  const baseUrl = "https://www.nusanetwork.com";
   const currentDate = new Date().toISOString().split("T")[0];
 
   // Static routes with their priorities and change frequencies

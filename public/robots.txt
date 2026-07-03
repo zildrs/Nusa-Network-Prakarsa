@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nusanetwork.com/sitemap.xml
+Sitemap: https://www.nusanetwork.com/sitemap.xml

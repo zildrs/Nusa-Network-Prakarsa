@@ -5,19 +5,24 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
+  useMatches,
 } from "react-router";
 import { useLoaderData } from "react-router";
 import type { LoaderFunctionArgs } from "react-router";
 import { getRequestLocale } from "./lib/locale-utils.server";
 import { Toaster } from "~/components/ui/sonner";
 import { createT } from "./i18n";
+import {
+  buildBreadcrumbSchema,
+  extractDynamicBreadcrumbLabel,
+} from "./lib/breadcrumb";
 
 import type { Route } from "./+types/root";
 import "./app.css";
 import "aos/dist/aos.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
-import { createOrganizationSchema } from "./lib/seo";
 import { useEffect } from "react";
 import AOS from "aos";
 
@@ -44,6 +49,18 @@ export function Layout() {
   const { locale } = useLoaderData<typeof loader>();
   const t = createT(locale);
 
+  const location = useLocation();
+  const matches = useMatches();
+  const dynamicLabel = extractDynamicBreadcrumbLabel(
+    matches[matches.length - 1]?.loaderData as any
+  );
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    location.pathname,
+    locale,
+    t,
+    dynamicLabel
+  );
+
   useEffect(() => {
     AOS.init({
       duration: 600,
@@ -69,12 +86,12 @@ export function Layout() {
         />
         <Meta />
         <Links />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(createOrganizationSchema()),
-          }}
-        />
+        {breadcrumbSchema && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+          />
+        )}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-5N920H5NN9"></script>
         
         <script

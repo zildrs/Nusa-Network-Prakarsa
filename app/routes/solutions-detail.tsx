@@ -15,18 +15,12 @@ import { solutions } from "~/data/solutions";
 import type { Solution } from "~/data/solutions";
 import { fetchProjectsData, fetchSolutionsData } from "~/lib/api.server";
 import { createMetaFunction, seoData } from "~/lib/meta";
+import { createSolutionServiceSchema } from "~/lib/seo";
 import type { Locale } from "~/i18n";
 
 type SolutionSlug = keyof typeof seoData;
 export const meta: MetaFunction = (args) => {
   const { location, params } = args;
-  const origin =
-    typeof window !== "undefined"
-      ? window.location.origin
-      : "https://nusanetwork.com";
-
-  const url = new URL(location.pathname + location.search, origin);
-  const searchParams = new URLSearchParams(url.search);
 
   // ambil slug dari params
   const rawSlug = params.slug as SolutionSlug | undefined;
@@ -35,8 +29,9 @@ export const meta: MetaFunction = (args) => {
   const slug: SolutionSlug | null =
     rawSlug && rawSlug in seoData ? (rawSlug as SolutionSlug) : null;
 
-  // ambil locale dari query param
-  const locale = searchParams.get("locale") === "en" ? "en" : "id";
+  // ambil locale dari prefix path (/id/...), konsisten dengan halaman lain
+  const firstSegment = location.pathname.split("/")[1];
+  const locale = firstSegment === "id" ? "id" : "en";
 
   const seo =
     (slug && seoData[slug]?.[locale]) ??
@@ -75,7 +70,8 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function SolutionDetail() {
   const [Marquee, setMarquee] = useState<any>(null);
   const data = useLoaderData<typeof loader>();
-  const { t } = useOutletContext<{ t: any; locale: Locale }>();
+  const { t, locale } = useOutletContext<{ t: any; locale: Locale }>();
+  const serviceSchema = createSolutionServiceSchema(data.slug, locale);
 
   const filteredProjects = useMemo(() => {
     return data.projects.filter(
@@ -195,6 +191,12 @@ export default function SolutionDetail() {
 
   return (
     <main className="relative">
+      {serviceSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        />
+      )}
       <section className="relative bg-primary text-white min-h-screen lg:min-h-screen">
         <div className="absolute inset-0">
           <div

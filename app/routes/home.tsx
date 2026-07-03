@@ -22,6 +22,7 @@ import {
   fetchTestimonialsData,
 } from "~/lib/api.server";
 import { createMetaFunction, seoData } from "~/lib/meta";
+import { createOrganizationSchema } from "~/lib/seo";
 import { API_BASE_URL } from "~/lib/utils";
 import { solutionsMenu } from "~/components/header";
 import type { Locale } from "~/i18n";
@@ -177,6 +178,12 @@ useEffect(() => {
 
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(createOrganizationSchema()),
+        }}
+      />
       <section className="bg-white">
         {/* Hero Text + Image */}
         <div
